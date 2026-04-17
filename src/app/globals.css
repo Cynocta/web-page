@@ -1,0 +1,664 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffdf8;
+  --foreground: #12231f;
+  --parallax-grid-x: 0px;
+  --parallax-grid-y: 0px;
+  --parallax-grid-rot: 0deg;
+  --parallax-flow-x: 0px;
+  --parallax-flow-y: 0px;
+  --parallax-flow-rot: 0deg;
+  --parallax-tech-x: 0px;
+  --parallax-tech-y: 0px;
+  --parallax-tech-rot: 0deg;
+  --parallax-circuit-x: 0px;
+  --parallax-circuit-y: 0px;
+  --parallax-circuit-rot: 0deg;
+  --parallax-scan-y: 0px;
+  --parallax-scan-opacity: 0.2;
+  --parallax-hud-1-x: 0px;
+  --parallax-hud-1-y: 0px;
+  --parallax-hud-1-rot: 0deg;
+  --parallax-hud-2-x: 0px;
+  --parallax-hud-2-y: 0px;
+  --parallax-hud-2-rot: 0deg;
+  --parallax-noise-opacity: 0.16;
+  --parallax-y-1: 0px;
+  --parallax-y-2: 0px;
+  --parallax-y-3: 0px;
+  --parallax-y-4: 0px;
+  --parallax-x-1: 0px;
+  --parallax-x-2: 0px;
+  --parallax-x-3: 0px;
+  --parallax-x-4: 0px;
+  --parallax-rot-1: 0deg;
+  --parallax-rot-2: 0deg;
+  --parallax-rot-3: 0deg;
+  --parallax-rot-4: 0deg;
+  --parallax-pointer-x: 0px;
+  --parallax-pointer-y: 0px;
+  --parallax-sweep-x: 0px;
+  --parallax-sweep-y: 0px;
+  --parallax-sweep-rot: 0deg;
+  --parallax-rings-x: 0px;
+  --parallax-rings-y: 0px;
+  --parallax-rings-rot: 0deg;
+  --parallax-rings-scale: 1;
+  --parallax-beam-1-x: 0px;
+  --parallax-beam-1-y: 0px;
+  --parallax-beam-1-rot: 0deg;
+  --parallax-beam-2-x: 0px;
+  --parallax-beam-2-y: 0px;
+  --parallax-beam-2-rot: 0deg;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading), "Trebuchet MS", sans-serif;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.28);
+  color: #0a1b18;
+}
+
+.global-parallax-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  background:
+    radial-gradient(1520px 920px at -12% -18%, rgba(34, 211, 238, 0.32), transparent 72%),
+    radial-gradient(1360px 820px at 114% -20%, rgba(16, 185, 129, 0.3), transparent 70%),
+    radial-gradient(1080px 620px at 50% 114%, rgba(15, 23, 42, 0.28), transparent 74%),
+    linear-gradient(156deg, #f3fbff 0%, #daf2f2 30%, #e2f1ff 58%, #f0e9db 100%);
+}
+
+.parallax-grid {
+  position: absolute;
+  inset: -14%;
+  background-image:
+    linear-gradient(to right, rgba(18, 35, 31, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 35, 31, 0.11) 1px, transparent 1px);
+  background-size: 52px 52px;
+  opacity: 0.34;
+  transform:
+    translate3d(var(--parallax-grid-x), var(--parallax-grid-y), 0) rotate(var(--parallax-grid-rot)) scale(1.04);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.parallax-flow {
+  position: absolute;
+  inset: -36%;
+  background:
+    repeating-linear-gradient(122deg,
+      transparent 0 48px,
+      rgba(56, 189, 248, 0.22) 48px 50px,
+      transparent 50px 108px,
+      rgba(16, 185, 129, 0.24) 108px 110px,
+      transparent 110px 164px);
+  opacity: 0.54;
+  mix-blend-mode: overlay;
+  transform:
+    translate3d(var(--parallax-flow-x), var(--parallax-flow-y), 0) rotate(var(--parallax-flow-rot)) scale(1.14);
+  transform-origin: center;
+  animation: flow-drift 18s linear infinite;
+  will-change: transform, opacity;
+}
+
+.parallax-tech-mesh {
+  position: absolute;
+  inset: -30%;
+  background:
+    repeating-linear-gradient(120deg, rgba(12, 42, 68, 0.15) 0 2px, transparent 2px 54px),
+    repeating-linear-gradient(60deg, rgba(16, 185, 129, 0.14) 0 1px, transparent 1px 64px);
+  opacity: 0.58;
+  mix-blend-mode: overlay;
+  transform:
+    translate3d(var(--parallax-tech-x), var(--parallax-tech-y), 0) rotate(var(--parallax-tech-rot)) scale(1.08);
+  transform-origin: center;
+  animation: tech-mesh-breathe 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.parallax-circuit {
+  position: absolute;
+  inset: -22%;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(14, 165, 233, 0.34) 0 1px, transparent 1px 76px),
+    repeating-linear-gradient(0deg, rgba(14, 165, 233, 0.3) 0 1px, transparent 1px 58px),
+    radial-gradient(circle at 15% 28%, rgba(16, 185, 129, 0.58) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 64%, rgba(56, 189, 248, 0.52) 0 2px, transparent 3px),
+    radial-gradient(circle at 43% 84%, rgba(45, 212, 191, 0.44) 0 2px, transparent 3px);
+  background-size: 260px 260px, 220px 220px, 300px 300px, 280px 280px, 320px 320px;
+  opacity: 0.52;
+  mix-blend-mode: screen;
+  transform:
+    translate3d(var(--parallax-circuit-x), var(--parallax-circuit-y), 0) rotate(var(--parallax-circuit-rot)) scale(1.06);
+  transform-origin: center;
+  animation: circuit-pulse 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.parallax-scanlines {
+  position: absolute;
+  inset: -18%;
+  background-image: repeating-linear-gradient(to bottom,
+      rgba(4, 14, 22, 0.26) 0 1px,
+      transparent 1px 5px);
+  opacity: var(--parallax-scan-opacity);
+  mix-blend-mode: soft-light;
+  transform: translate3d(0, var(--parallax-scan-y), 0);
+  animation: scanline-flicker 1.7s steps(2) infinite;
+  will-change: transform, opacity;
+}
+
+.parallax-rings {
+  position: absolute;
+  inset: -30%;
+  background:
+    repeating-radial-gradient(circle at 50% 44%,
+      rgba(15, 23, 42, 0.08) 0 1px,
+      transparent 1px 58px),
+    repeating-radial-gradient(circle at 50% 44%,
+      rgba(16, 185, 129, 0.05) 0 2px,
+      transparent 2px 128px);
+  opacity: 0.36;
+  mix-blend-mode: multiply;
+  transform:
+    translate3d(var(--parallax-rings-x), var(--parallax-rings-y), 0) rotate(var(--parallax-rings-rot)) scale(var(--parallax-rings-scale));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.parallax-hud {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at center, transparent 43%, rgba(56, 189, 248, 0.35) 43.4% 43.9%, transparent 44.2%),
+    radial-gradient(circle at center, transparent 56%, rgba(16, 185, 129, 0.32) 56.4% 56.9%, transparent 57.2%),
+    conic-gradient(from 34deg at 50% 50%,
+      rgba(56, 189, 248, 0.45) 0deg 20deg,
+      transparent 20deg 66deg,
+      rgba(34, 211, 238, 0.36) 66deg 82deg,
+      transparent 82deg 145deg,
+      rgba(16, 185, 129, 0.4) 145deg 162deg,
+      transparent 162deg 360deg);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.36));
+  will-change: transform, opacity;
+}
+
+.parallax-hud-1 {
+  width: 44rem;
+  left: -12rem;
+  top: -10rem;
+  transform: translate3d(var(--parallax-hud-1-x), var(--parallax-hud-1-y), 0) rotate(var(--parallax-hud-1-rot));
+  animation: hud-spin-1 24s linear infinite;
+}
+
+.parallax-hud-2 {
+  width: 33rem;
+  right: -8rem;
+  bottom: -10rem;
+  transform: translate3d(var(--parallax-hud-2-x), var(--parallax-hud-2-y), 0) rotate(var(--parallax-hud-2-rot));
+  animation: hud-spin-2 22s linear infinite;
+}
+
+.parallax-layer {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(82px);
+  opacity: 0.68;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+.parallax-layer-1 {
+  width: 32rem;
+  height: 32rem;
+  left: -9rem;
+  top: -3rem;
+  background: rgba(45, 212, 191, 0.68);
+  transform: translate3d(var(--parallax-x-1), var(--parallax-y-1), 0) rotate(var(--parallax-rot-1)) scale(1.08);
+}
+
+.parallax-layer-2 {
+  width: 34rem;
+  height: 34rem;
+  right: -10rem;
+  top: 8rem;
+  background: rgba(251, 191, 36, 0.58);
+  transform: translate3d(var(--parallax-x-2), var(--parallax-y-2), 0) rotate(var(--parallax-rot-2)) scale(1.05);
+}
+
+.parallax-layer-3 {
+  width: 30rem;
+  height: 30rem;
+  left: 28%;
+  top: 45%;
+  background: rgba(16, 185, 129, 0.48);
+  transform: translate3d(var(--parallax-x-3), var(--parallax-y-3), 0) rotate(var(--parallax-rot-3)) scale(1.12);
+}
+
+.parallax-layer-4 {
+  width: 26rem;
+  height: 26rem;
+  right: 14%;
+  bottom: -7rem;
+  background: rgba(20, 184, 166, 0.4);
+  transform: translate3d(var(--parallax-x-4), var(--parallax-y-4), 0) rotate(var(--parallax-rot-4)) scale(1.03);
+}
+
+.parallax-stars {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.76) 0 1px, transparent 1.2px),
+    radial-gradient(circle, rgba(18, 35, 31, 0.24) 0 1.2px, transparent 1.4px),
+    radial-gradient(circle, rgba(16, 185, 129, 0.26) 0 0.9px, transparent 1.1px);
+  background-size: 180px 180px, 240px 240px, 300px 300px;
+  background-position: 30px 40px, 160px 120px, 90px 170px;
+  opacity: 0.34;
+  transform: translate3d(var(--parallax-pointer-x), var(--parallax-pointer-y), 0);
+  animation: stars-pulse 7s ease-in-out infinite;
+}
+
+.parallax-noise {
+  position: absolute;
+  inset: -22%;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(4, 26, 37, 0.3) 0.8px, transparent 0.9px),
+    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.35) 0.7px, transparent 0.8px);
+  background-size: 3px 3px, 5px 5px;
+  opacity: calc(var(--parallax-noise-opacity) + 0.08);
+  mix-blend-mode: soft-light;
+  transform: translate3d(var(--parallax-pointer-x), var(--parallax-pointer-y), 0);
+  animation: noise-shift 1.6s steps(3) infinite;
+}
+
+.parallax-beam {
+  position: absolute;
+  top: -45%;
+  bottom: -45%;
+  width: 36rem;
+  opacity: 0.86;
+  filter: blur(24px);
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+
+.parallax-beam-1 {
+  left: 18%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(56, 189, 248, 0.02) 20%,
+      rgba(56, 189, 248, 0.24) 42%,
+      rgba(125, 211, 252, 0.5) 50%,
+      rgba(34, 211, 238, 0.24) 58%,
+      transparent 100%);
+  transform: translate3d(var(--parallax-beam-1-x), var(--parallax-beam-1-y), 0) rotate(var(--parallax-beam-1-rot));
+  animation: beam-scan-1 11s ease-in-out infinite;
+}
+
+.parallax-beam-2 {
+  right: 12%;
+  width: 30rem;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(16, 185, 129, 0.02) 18%,
+      rgba(16, 185, 129, 0.22) 40%,
+      rgba(45, 212, 191, 0.44) 50%,
+      rgba(6, 182, 212, 0.22) 62%,
+      transparent 100%);
+  transform: translate3d(var(--parallax-beam-2-x), var(--parallax-beam-2-y), 0) rotate(var(--parallax-beam-2-rot));
+  animation: beam-scan-2 13s ease-in-out infinite;
+}
+
+.parallax-sweep {
+  position: absolute;
+  inset: -34%;
+  background: conic-gradient(from 170deg at 50% 42%,
+      transparent 0deg,
+      rgba(20, 184, 166, 0.2) 64deg,
+      rgba(14, 165, 233, 0.14) 118deg,
+      transparent 186deg,
+      transparent 360deg);
+  opacity: 0.74;
+  filter: blur(88px);
+  mix-blend-mode: screen;
+  transform: translate3d(var(--parallax-sweep-x), var(--parallax-sweep-y), 0) rotate(var(--parallax-sweep-rot));
+  transform-origin: center;
+  animation: sweep-breathe 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.parallax-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 70% at 50% 40%, transparent 60%, rgba(10, 27, 24, 0.12) 100%),
+    linear-gradient(to bottom, rgba(255, 253, 248, 0.18), rgba(255, 253, 248, 0.42));
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@media (max-width: 767px) {
+  .parallax-grid {
+    background-size: 34px 34px;
+    opacity: 0.22;
+  }
+
+  .parallax-flow {
+    opacity: 0.35;
+  }
+
+  .parallax-tech-mesh {
+    opacity: 0.4;
+  }
+
+  .parallax-circuit {
+    opacity: 0.32;
+    background-size: 180px 180px, 160px 160px, 220px 220px, 210px 210px, 240px 240px;
+  }
+
+  .parallax-scanlines {
+    opacity: 0.18;
+  }
+
+  .parallax-rings {
+    opacity: 0.24;
+  }
+
+  .parallax-hud {
+    opacity: 0.42;
+  }
+
+  .parallax-hud-1 {
+    width: 18rem;
+    left: -6rem;
+    top: -3rem;
+  }
+
+  .parallax-hud-2 {
+    width: 14rem;
+    right: -4rem;
+    bottom: 4rem;
+  }
+
+  .parallax-layer {
+    filter: blur(56px);
+    opacity: 0.48;
+  }
+
+  .parallax-layer-1 {
+    width: 16rem;
+    height: 16rem;
+    left: -4rem;
+    top: 0;
+  }
+
+  .parallax-layer-2 {
+    width: 17rem;
+    height: 17rem;
+    right: -5rem;
+    top: 14rem;
+  }
+
+  .parallax-layer-3 {
+    width: 14rem;
+    height: 14rem;
+    left: 16%;
+    top: 56%;
+  }
+
+  .parallax-layer-4 {
+    width: 12rem;
+    height: 12rem;
+    right: -3rem;
+    bottom: 9rem;
+  }
+
+  .parallax-stars {
+    opacity: 0.2;
+    background-size: 130px 130px, 190px 190px, 240px 240px;
+  }
+
+  .parallax-noise {
+    opacity: 0.18;
+  }
+
+  .parallax-beam {
+    width: 14rem;
+    filter: blur(22px);
+    opacity: 0.56;
+  }
+
+  .parallax-beam-2 {
+    width: 12rem;
+  }
+
+  .parallax-sweep {
+    opacity: 0.54;
+    filter: blur(64px);
+  }
+
+  .parallax-vignette {
+    background:
+      radial-gradient(80% 75% at 50% 45%, transparent 62%, rgba(10, 27, 24, 0.1) 100%),
+      linear-gradient(to bottom, rgba(255, 253, 248, 0.24), rgba(255, 253, 248, 0.56));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .parallax-grid,
+  .parallax-flow,
+  .parallax-tech-mesh,
+  .parallax-circuit,
+  .parallax-scanlines,
+  .parallax-rings,
+  .parallax-hud,
+  .parallax-layer,
+  .parallax-stars,
+  .parallax-noise,
+  .parallax-beam,
+  .parallax-sweep,
+  .pulse-ring {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes flow-drift {
+
+  0% {
+    opacity: 0.42;
+  }
+
+  50% {
+    opacity: 0.64;
+  }
+
+  100% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes tech-mesh-breathe {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes circuit-pulse {
+
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  50% {
+    opacity: 0.42;
+  }
+}
+
+@keyframes scanline-flicker {
+
+  0%,
+  100% {
+    opacity: calc(var(--parallax-scan-opacity) - 0.04);
+  }
+
+  50% {
+    opacity: calc(var(--parallax-scan-opacity) + 0.06);
+  }
+}
+
+@keyframes hud-spin-1 {
+
+  0% {
+    opacity: 0.54;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.54;
+  }
+}
+
+@keyframes hud-spin-2 {
+
+  0% {
+    opacity: 0.44;
+  }
+
+  50% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0.44;
+  }
+}
+
+@keyframes stars-pulse {
+
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+
+  50% {
+    opacity: 0.26;
+  }
+}
+
+@keyframes noise-shift {
+
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  50% {
+    background-position: 1px -1px, -1px 2px;
+  }
+
+  100% {
+    background-position: -1px 1px, 1px -2px;
+  }
+}
+
+@keyframes beam-scan-1 {
+
+  0%,
+  100% {
+    opacity: 0.36;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes beam-scan-2 {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes sweep-breathe {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.64;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+
+  80% {
+    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
