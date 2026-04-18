@@ -1,0 +1,26 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Lazo derecho (tenue) -->
+  <circle cx="188" cy="60" r="42" stroke="#00FFA3" stroke-width="2.5" fill="none" opacity="0.45"/>
+
+  <!-- Lazo izquierdo (brillante) -->
+  <circle cx="104" cy="60" r="42" stroke="#00FFA3" stroke-width="2.5" fill="none"/>
+
+  <!-- Nodo izquierdo -->
+  <circle cx="62" cy="60" r="5" fill="#00FFA3"/>
+
+  <!-- Nodo central (cruce) -->
+  <circle cx="146" cy="60" r="7" fill="#0E1410" stroke="#00FFA3" stroke-width="2.5"/>
+  <circle cx="146" cy="60" r="2.5" fill="#00FFA3"/>
+
+  <!-- Nodo derecho (tenue) -->
+  <circle cx="230" cy="60" r="5" fill="#00FFA3" opacity="0.45"/>
+
+  <!-- Flecha de dirección en lazo izquierdo (arriba) -->
+  <polyline points="118,22 122,18 126,22" stroke="#00FFA3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Wordmark -->
+  <text x="258" y="54" font-family="'DM Mono', 'Courier New', monospace" font-size="18" font-weight="400" letter-spacing="4" fill="#F2F5F3">CYN<tspan fill="#00FFA3">O</tspan>CTA</text>
+  <text x="259" y="72" font-family="'Instrument Sans', system-ui, sans-serif" font-size="10" fill="#6B7A72" letter-spacing="0.5">connect · automate · scale</text>
+
+</svg>

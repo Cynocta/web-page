@@ -1,0 +1,39 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="80" x2="1120" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B2B44"/>
+      <stop offset="1" stop-color="#0E3A2C"/>
+    </linearGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#6CDFFF"/>
+      <stop offset="1" stop-color="#3EE2AE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="760" rx="36" fill="#071522"/>
+  <rect x="70" y="70" width="1060" height="620" rx="28" fill="url(#bg)" stroke="#2B5A71"/>
+
+  <rect x="120" y="124" width="300" height="72" rx="16" fill="#0E2540"/>
+  <rect x="440" y="124" width="220" height="72" rx="16" fill="#0E2540"/>
+  <rect x="680" y="124" width="180" height="72" rx="16" fill="#0E2540"/>
+  <rect x="880" y="124" width="200" height="72" rx="16" fill="#0E2540"/>
+
+  <rect x="120" y="236" width="460" height="220" rx="20" fill="#0B314A" stroke="#326D85"/>
+  <rect x="150" y="272" width="170" height="18" rx="9" fill="#A8E9FF" fill-opacity="0.7"/>
+  <rect x="150" y="306" width="380" height="14" rx="7" fill="#9CC4D8" fill-opacity="0.52"/>
+  <rect x="150" y="334" width="330" height="14" rx="7" fill="#9CC4D8" fill-opacity="0.44"/>
+  <rect x="150" y="362" width="290" height="14" rx="7" fill="#9CC4D8" fill-opacity="0.35"/>
+
+  <rect x="620" y="236" width="460" height="220" rx="20" fill="#0C2B3D" stroke="#2F6178"/>
+  <rect x="658" y="274" width="112" height="144" rx="18" fill="#194D65"/>
+  <rect x="786" y="244" width="112" height="174" rx="18" fill="#1F6A63"/>
+  <rect x="914" y="296" width="128" height="122" rx="18" fill="#305A80"/>
+
+  <rect x="120" y="486" width="960" height="160" rx="20" fill="#0A2333" stroke="#2A5B72"/>
+  <circle cx="210" cy="566" r="38" fill="url(#tile)" fill-opacity="0.9"/>
+  <rect x="264" y="540" width="260" height="16" rx="8" fill="#94D7EE" fill-opacity="0.6"/>
+  <rect x="264" y="568" width="180" height="12" rx="6" fill="#94D7EE" fill-opacity="0.45"/>
+  <circle cx="628" cy="566" r="38" fill="url(#tile)" fill-opacity="0.75"/>
+  <rect x="682" y="540" width="260" height="16" rx="8" fill="#94D7EE" fill-opacity="0.6"/>
+  <rect x="682" y="568" width="180" height="12" rx="6" fill="#94D7EE" fill-opacity="0.45"/>
+</svg>

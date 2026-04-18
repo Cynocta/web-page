@@ -1,24 +1,29 @@
 import type { Metadata } from "next";
-import { Manrope, Space_Grotesk } from "next/font/google";
-import GlobalParallaxBackground from "./components/global-parallax-background";
+import { Cormorant_Garamond, DM_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
-const bodyFont = Manrope({
+const bodyFont = Instrument_Sans({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
 });
 
-const headingFont = Space_Grotesk({
+const headingFont = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["300", "400", "600"],
+});
+
+const monoFont = DM_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "StartApp | Automatizacion y soluciones tecnologicas para negocios",
+  title: "Cynocta | Automatizacion y web inteligente para negocios",
   description:
-    "Automatizaciones, paginas web y soluciones tecnologicas interactivas para negocios y empresas que quieren crecer.",
+    "Automatizaciones, paginas web y sistemas comerciales visuales para negocios y empresas que quieren crecer.",
 };
 
 export default function RootLayout({
@@ -29,10 +34,9 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${bodyFont.variable} ${headingFont.variable} h-full antialiased`}
+      className={`${bodyFont.variable} ${headingFont.variable} ${monoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
-        <GlobalParallaxBackground />
         <div className="relative z-10">{children}</div>
       </body>
     </html>

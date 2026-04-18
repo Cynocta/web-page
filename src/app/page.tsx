@@ -1,861 +1,530 @@
 "use client";
 
-import { AnimatePresence, motion, type Variants, useReducedMotion } from "framer-motion";
-import {
-  ArrowRight,
-  Bot,
-  ChartNoAxesCombined,
-  Check,
-  ChevronDown,
-  Clock3,
-  DatabaseZap,
-  Globe,
-  Menu,
-  MessageCircle,
-  Rocket,
-  Sparkles,
-  UserRoundX,
-  Workflow,
-  X,
-} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 const whatsappNumber = "1234567890";
 
 const navItems = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Proceso", href: "#proceso" },
-  { label: "Planes", href: "#planes" },
-  { label: "FAQ", href: "#faq" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Proceso", href: "#proceso" },
+    { label: "Planes", href: "#planes" },
 ];
+
+type ServiceKind = "web" | "chat" | "ops" | "kpi";
 
 const painPoints = [
-  {
-    title: "Clientes que preguntan y desaparecen",
-    description:
-      "Recibes interes, pero entre respuesta tardia y poco seguimiento, la oportunidad se enfria.",
-    icon: UserRoundX,
-  },
-  {
-    title: "Demasiado tiempo en tareas repetidas",
-    description:
-      "El equipo se atasca en responder lo mismo, agendar manualmente o copiar datos entre apps.",
-    icon: Clock3,
-  },
-  {
-    title: "Informacion dispersa",
-    description:
-      "Contactos, leads y clientes viven en distintos lugares y cuesta saber que funciona de verdad.",
-    icon: DatabaseZap,
-  },
+    {
+        num: "01",
+        title: "Clientes que se enfrian",
+        description:
+            "Recibes interes pero la respuesta tarda horas. Para cuando contestas, el cliente ya eligio a otro.",
+    },
+    {
+        num: "02",
+        title: "Equipo atrapado en lo repetitivo",
+        description:
+            "Agendar manualmente, copiar datos entre apps y responder lo mismo frena tu crecimiento.",
+    },
+    {
+        num: "03",
+        title: "Sin visibilidad para decidir",
+        description:
+            "Contactos en distintos lugares, sin saber que canal funciona ni que mensajes convierten.",
+    },
 ];
 
-const services = [
-  {
-    title: "Landing pages que convierten",
-    description:
-      "Paginas web claras y rapidas para captar leads, con enfoque comercial real para negocios que quieren escalar.",
-    points: [
-      "Mensajes comerciales directos",
-      "Diseño responsive con alto impacto",
-      "CTA optimizado para WhatsApp",
-    ],
-    icon: Globe,
-  },
-  {
-    title: "Automatizacion de conversaciones",
-    description:
-      "Flujos para WhatsApp y canales de contacto que filtran, responden y derivan automaticamente.",
-    points: [
-      "Respuestas instantaneas",
-      "Calificacion de prospectos",
-      "Seguimiento sin friccion",
-    ],
-    icon: Bot,
-  },
-  {
-    title: "Operacion sin caos",
-    description:
-      "Conectamos tus procesos para que el negocio trabaje con orden y datos utiles.",
-    points: [
-      "Centralizacion de contactos",
-      "Alertas y recordatorios automaticos",
-      "Integraciones ligeras a medida",
-    ],
-    icon: Workflow,
-  },
-  {
-    title: "Reportes para decidir mejor",
-    description:
-      "Visualiza indicadores clave para saber que canal vende mas y donde optimizar.",
-    points: [
-      "Panel de conversion",
-      "Embudo simple por etapas",
-      "Metrica accionable para crecimiento",
-    ],
-    icon: ChartNoAxesCombined,
-  },
-];
+const services: Array<{
+    title: string;
+    description: string;
+    tags: string[];
+    kind: ServiceKind;
+}> = [
+        {
+            title: "Web que convierte",
+            description:
+                "Landing pages y sitios con estructura comercial real, disenados para generar leads y cerrar.",
+            tags: ["Diseno", "Copy", "Conversion"],
+            kind: "web",
+        },
+        {
+            title: "Automatizacion de conversaciones",
+            description:
+                "Flujos para WhatsApp y otros canales que filtran prospectos, responden rapido y derivan automaticamente.",
+            tags: ["WhatsApp", "Calificacion", "Seguimiento"],
+            kind: "chat",
+        },
+        {
+            title: "Operacion centralizada",
+            description:
+                "Conectamos herramientas y procesos para que todo funcione en un sistema coherente y accionable.",
+            tags: ["CRM", "Integracion", "Flujos"],
+            kind: "ops",
+        },
+        {
+            title: "Reportes accionables",
+            description:
+                "Panel de conversion, embudo por etapas y metricas para optimizar donde mas impacta.",
+            tags: ["Dashboard", "Embudo", "KPIs"],
+            kind: "kpi",
+        },
+    ];
 
 const processSteps = [
-  {
-    title: "Diagnostico express",
-    detail:
-      "Detectamos cuellos de botella en captacion, respuesta y seguimiento en una sesion corta.",
-  },
-  {
-    title: "Propuesta por etapas",
-    detail:
-      "Definimos un plan realista con entregables rapidos para que veas resultados desde el inicio.",
-  },
-  {
-    title: "Implementacion guiada",
-    detail:
-      "Construimos la pagina, automatizaciones e integraciones con foco en simplicidad operativa.",
-  },
-  {
-    title: "Optimizacion continua",
-    detail:
-      "Medimos conversion y ajustamos mensajes, flujos y ofertas para escalar tus ventas.",
-  },
+    {
+        num: "01",
+        title: "Diagnostico",
+        description:
+            "Detectamos cuellos de botella en captacion, respuesta y seguimiento en una sesion express.",
+    },
+    {
+        num: "02",
+        title: "Propuesta por etapas",
+        description:
+            "Plan realista con entregables rapidos para que veas resultados desde el inicio.",
+    },
+    {
+        num: "03",
+        title: "Implementacion guiada",
+        description:
+            "Construimos web, automatizaciones e integraciones con foco en simplicidad operativa.",
+    },
+    {
+        num: "04",
+        title: "Optimizacion continua",
+        description:
+            "Medimos conversion y ajustamos mensajes, flujos y ofertas para escalar resultados.",
+    },
 ];
 
 const plans = [
-  {
-    name: "Lanzamiento Digital",
-    tagline: "Para empezar rapido",
-    description:
-      "Ideal si necesitas presencia profesional y generar conversaciones en WhatsApp.",
-    features: [
-      "Landing page completa",
-      "Formulario y CTA por WhatsApp",
-      "Copy comercial base",
-      "Entrega optimizada para movil",
-    ],
-    highlighted: false,
-    whatsappText: "Hola, me interesa el plan Lanzamiento Digital",
-  },
-  {
-    name: "Automatizacion Comercial",
-    tagline: "El plan mas solicitado",
-    description:
-      "Transforma consultas en oportunidades con respuestas, filtros y seguimiento automatico.",
-    features: [
-      "Todo lo del plan anterior",
-      "Flujos de respuesta automatica",
-      "Segmentacion de prospectos",
-      "Recordatorios inteligentes",
-      "Puesta en marcha completa",
-    ],
-    highlighted: true,
-    whatsappText: "Hola, me interesa el plan Automatizacion Comercial",
-  },
-  {
-    name: "Sistema de Crecimiento",
-    tagline: "Escala con control",
-    description:
-      "Ordena tu operacion comercial con datos, seguimiento y reportes faciles de usar.",
-    features: [
-      "Base de clientes centralizada",
-      "Pipeline de ventas visual",
-      "Reportes de conversion",
-      "Automatizaciones avanzadas",
-    ],
-    highlighted: false,
-    whatsappText: "Hola, me interesa el plan Sistema de Crecimiento",
-  },
-];
-
-const caseStudies = [
-  {
-    company: "Clinica Dental Local",
-    summary:
-      "Pasaron de responder manualmente a agendar citas con un flujo automatico conectado a WhatsApp.",
-    stats: [
-      { label: "Mas citas cerradas", value: "+43%" },
-      { label: "Tiempo ahorrado por dia", value: "3h" },
-      { label: "Tiempo de primera respuesta", value: "<2 min" },
-    ],
-  },
-  {
-    company: "Taller Automotriz",
-    summary:
-      "Implementamos landing, filtros y seguimiento. Hoy priorizan clientes listos para comprar.",
-    stats: [
-      { label: "Leads calificados", value: "+58%" },
-      { label: "No-shows", value: "-35%" },
-      { label: "Recompras en 60 dias", value: "+21%" },
-    ],
-  },
-  {
-    company: "Escuela de Idiomas",
-    summary:
-      "Automatizamos respuestas por programa y nivel. El equipo se enfoca en vender, no en repetir mensajes.",
-    stats: [
-      { label: "Conversion de contacto", value: "+37%" },
-      { label: "Mensajes manuales", value: "-68%" },
-      { label: "Prospectos bien segmentados", value: "92%" },
-    ],
-  },
-];
-
-const faqs = [
-  {
-    question: "No tengo nombre definitivo para mi marca, puedo iniciar igual?",
-    answer:
-      "Si. Podemos trabajar con una identidad temporal y dejar estructura lista para cambiar nombre, dominio y estilo sin rehacer todo.",
-  },
-  {
-    question: "Esto sirve si mi negocio es pequeno y no tengo equipo tecnico?",
-    answer:
-      "Justo para eso esta pensado. Priorizamos herramientas simples, automatizaciones mantenibles y una implementacion guiada paso a paso.",
-  },
-  {
-    question: "Cuanto tarda tener algo funcionando?",
-    answer:
-      "Depende del alcance, pero normalmente puedes tener una primera version funcional en pocos dias con mejoras iterativas.",
-  },
-  {
-    question: "Puedo usar solo una parte del servicio?",
-    answer:
-      "Claro. Puedes contratar solo pagina web, solo automatizacion o un plan completo segun tu etapa de negocio.",
-  },
-];
-
-const fadeUpDefault: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
-
-const staggerDefault: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.1,
+    {
+        tier: "Entrada",
+        title: "Lanzamiento Digital",
+        badge: null,
+        featured: false,
+        features: [
+            { label: "Landing page completa", active: true },
+            { label: "Formulario + CTA WhatsApp", active: true },
+            { label: "Copy comercial optimizado", active: true },
+            { label: "Responsive y rapida", active: true },
+            { label: "Automatizaciones", active: false },
+            { label: "CRM y reportes", active: false },
+        ],
+        whatsappText: "Hola, me interesa el plan Lanzamiento Digital",
     },
-  },
-};
-
-const fadeUpReduced: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.2 },
-  },
-};
-
-const staggerReduced: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0,
+    {
+        tier: "Crecimiento",
+        title: "Automatizacion Comercial",
+        badge: "Mas solicitado",
+        featured: true,
+        features: [
+            { label: "Todo el plan anterior", active: true },
+            { label: "Flujos automaticos WhatsApp", active: true },
+            { label: "Calificacion de prospectos", active: true },
+            { label: "Recordatorios inteligentes", active: true },
+            { label: "Puesta en marcha completa", active: true },
+            { label: "CRM avanzado", active: false },
+        ],
+        whatsappText: "Hola, me interesa el plan Automatizacion Comercial",
     },
-  },
-};
+    {
+        tier: "Escala",
+        title: "Sistema de Crecimiento",
+        badge: null,
+        featured: false,
+        features: [
+            { label: "Todo lo anterior", active: true },
+            { label: "CRM centralizado", active: true },
+            { label: "Pipeline visual de ventas", active: true },
+            { label: "Reportes de conversion", active: true },
+            { label: "Automatizaciones avanzadas", active: true },
+            { label: "Soporte prioritario", active: true },
+        ],
+        whatsappText: "Hola, me interesa el plan Sistema de Crecimiento",
+    },
+];
+
+const results = [
+    {
+        context: "Clinica dental local",
+        metric: "+43%",
+        metricLabel: "mas citas cerradas en 30 dias",
+        summary:
+            "Pasaron de agendar manualmente a un flujo automatico en WhatsApp con confirmaciones y recordatorios.",
+    },
+    {
+        context: "Taller automotriz",
+        metric: "3h",
+        metricLabel: "ahorradas por dia en tareas manuales",
+        summary:
+            "Centralizaron leads, presupuestos y seguimiento en un sistema simple que todo el equipo usa.",
+    },
+    {
+        context: "Escuela de idiomas online",
+        metric: "<2min",
+        metricLabel: "tiempo de primera respuesta",
+        summary:
+            "Su conversion de consulta a inscripcion subio al automatizar la primera respuesta.",
+    },
+];
+
+const heroStats = [
+    { prefix: "<", value: "2min", label: "Primera respuesta" },
+    { prefix: "+", value: "43%", label: "Tasa de cierre" },
+    { prefix: "-", value: "60%", label: "Tareas manuales" },
+];
 
 const buildWhatsappLink = (text: string) =>
-  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+function LogoMark() {
+    return (
+        <svg
+            className="cyn-logo-mark"
+            viewBox="0 0 34 34"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
+            <rect x="1" y="1" width="32" height="32" rx="7" stroke="currentColor" strokeWidth="1" />
+            <circle cx="17" cy="17" r="5" stroke="currentColor" strokeWidth="1.2" />
+            <line x1="17" y1="6" x2="17" y2="12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <line x1="17" y1="22" x2="17" y2="28" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <line x1="6" y1="17" x2="12" y2="17" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <line x1="22" y1="17" x2="28" y2="17" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <circle cx="17" cy="6" r="1.5" fill="currentColor" />
+            <circle cx="28" cy="17" r="1.5" fill="currentColor" />
+            <circle cx="17" cy="28" r="1.5" fill="currentColor" />
+            <circle cx="6" cy="17" r="1.5" fill="currentColor" />
+        </svg>
+    );
+}
+
+function ServiceIcon({ kind }: { kind: ServiceKind }) {
+    if (kind === "web") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="14" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+        );
+    }
+
+    if (kind === "chat") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+        );
+    }
+
+    if (kind === "ops") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.07 4.93a10 10 0 0 0-14.14 0M21 12a9 9 0 0 1-9 9M3 12a9 9 0 0 1 9-9" />
+            </svg>
+        );
+    }
+
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+    );
+}
 
 export default function Home() {
-  const shouldReduceMotion = useReducedMotion();
-  const [activeCase, setActiveCase] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-  const fadeUp = shouldReduceMotion ? fadeUpReduced : fadeUpDefault;
-  const stagger = shouldReduceMotion ? staggerReduced : staggerDefault;
+    const closeMenu = () => setMobileOpen(false);
 
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
-  return (
-    <div className="relative">
-      <header className="sticky top-0 z-40 border-b border-black/5 bg-[#fffdf8]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8 xl:px-10">
-          <Link href="#inicio" className="group flex min-w-0 items-center gap-2 sm:gap-3">
-            <span className="rounded-xl bg-emerald-500/15 p-2 text-emerald-700">
-              <Rocket className="h-5 w-5" />
-            </span>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold tracking-wide text-slate-900">
-                Tu StartApp
-              </p>
-              <p className="hidden text-xs text-slate-500 sm:block">nombre en construccion</p>
-            </div>
-          </Link>
-
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-1 py-2 transition-colors hover:text-emerald-700"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a
-              href={buildWhatsappLink("Hola, quiero una propuesta para mi negocio")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 sm:px-4 sm:text-sm"
-            >
-              <span className="sm:hidden">WhatsApp</span>
-              <span className="hidden sm:inline">Agenda por WhatsApp</span>
-              <ArrowRight className="h-4 w-4" />
-            </a>
-
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen((open) => !open)}
-              aria-label="Abrir menu de navegacion"
-              aria-expanded={isMobileMenuOpen}
-              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 md:hidden"
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-        </div>
-
-        <AnimatePresence initial={false}>
-          {isMobileMenuOpen && (
-            <motion.nav
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden border-t border-black/5 bg-[#fffdf8] md:hidden"
-            >
-              <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 sm:px-6 lg:px-8 xl:px-10">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={closeMobileMenu}
-                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 active:scale-[0.99]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-
-                <a
-                  href={buildWhatsappLink("Hola, quiero una propuesta para mi negocio")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobileMenu}
-                  className="mt-2 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-bold text-emerald-950"
-                >
-                  Hablar por WhatsApp
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </header>
-
-      <main>
-        <section
-          id="inicio"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 sm:pb-12 md:pt-14 md:pb-14 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={stagger}
-            className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-14"
-          >
-            <motion.div variants={fadeUp}>
-              <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-700/15 bg-white/75 px-4 py-2 text-xs font-medium text-emerald-800 sm:text-sm">
-                <Sparkles className="h-4 w-4" />
-                Soluciones tecnologicas para negocios en crecimiento
-              </span>
-
-              <h1 className="text-3xl leading-tight text-slate-900 sm:text-4xl md:text-5xl xl:text-6xl">
-                Convierte tu negocio en una maquina de ventas con
-                <span className="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">
-                  {" "}
-                  automatizacion y web inteligente
-                </span>
-              </h1>
-
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-                Diseñamos paginas web, automatizaciones y sistemas simples para que
-                tu empresa responda mas rapido, venda mejor y opere sin caos.
-              </p>
-
-              <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4">
-                <a
-                  href={buildWhatsappLink(
-                    "Hola, quiero automatizar mi negocio y ver opciones"
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-base font-bold text-emerald-950 shadow-[0_10px_30px_-10px_rgba(16,185,129,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-400 sm:w-auto"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  Hablar ahora
-                </a>
-
-                <Link
-                  href="#servicios"
-                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white/80 px-6 py-3 text-base font-semibold text-slate-800 transition-colors hover:border-slate-900 sm:w-auto"
-                >
-                  Ver servicios
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2 text-xs text-slate-600 sm:mt-8 sm:gap-3 sm:text-sm">
-                <span className="rounded-full bg-white/80 px-3 py-1">Sin tecnicismos</span>
-                <span className="rounded-full bg-white/80 px-3 py-1">Implementacion guiada</span>
-                <span className="rounded-full bg-white/80 px-3 py-1">Enfoque en resultados</span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              variants={fadeUp}
-              className="relative rounded-3xl border border-slate-900/10 bg-white/70 p-4 shadow-xl backdrop-blur-xl sm:p-6 md:ml-auto md:w-full md:max-w-[34rem]"
-            >
-              <div className="mb-5 flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4">
-                <div>
-                  <p className="text-sm text-slate-500">Estado del negocio</p>
-                  <p className="text-lg font-bold text-slate-900">Modo crecimiento</p>
-                </div>
-                <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  Activo
-                </span>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  { label: "Primera respuesta", value: "< 2 min" },
-                  { label: "Leads organizados", value: "100%" },
-                  { label: "Tareas manuales", value: "-60%" },
-                  { label: "Visibilidad comercial", value: "Total" },
-                ].map((item) => (
-                  <motion.div
-                    key={item.label}
-                    whileHover={{ y: -6 }}
-                    transition={{ duration: 0.25 }}
-                    className="rounded-2xl border border-slate-200 bg-white p-4"
-                  >
-                    <p className="text-xs uppercase tracking-wide text-slate-500">
-                      {item.label}
-                    </p>
-                    <p className="mt-2 text-2xl font-bold text-slate-900">{item.value}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        <section
-          id="problemas"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
-            variants={stagger}
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700"
-            >
-              Lo que estamos resolviendo
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="mt-3 max-w-3xl text-2xl text-slate-900 sm:text-3xl md:text-4xl"
-            >
-              Los bloqueos mas comunes en los negocios no son de ventas, son de proceso
-            </motion.h2>
-
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {painPoints.map((problem) => {
-                const Icon = problem.icon;
-                return (
-                  <motion.article
-                    key={problem.title}
-                    variants={fadeUp}
-                    whileHover={{ y: -8 }}
-                    className="rounded-3xl border border-red-200/60 bg-white/85 p-5 shadow-[0_18px_40px_-35px_rgba(15,23,42,0.95)] sm:p-6"
-                  >
-                    <span className="inline-flex rounded-2xl bg-red-50 p-3 text-red-600">
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    <h3 className="mt-5 text-xl font-bold text-slate-900">{problem.title}</h3>
-                    <p className="mt-3 text-slate-600">{problem.description}</p>
-                  </motion.article>
-                );
-              })}
-            </div>
-          </motion.div>
-        </section>
-
-        <section
-          id="servicios"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700"
-            >
-              Servicios
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="mt-3 max-w-3xl text-2xl text-slate-900 sm:text-3xl md:text-4xl"
-            >
-              Construimos soluciones digitales que generan mas clientes y menos friccion
-            </motion.h2>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {services.map((service) => {
-                const Icon = service.icon;
-                return (
-                  <motion.article
-                    key={service.title}
-                    variants={fadeUp}
-                    whileHover={{ y: -10, scale: 1.01 }}
-                    className="group relative overflow-hidden rounded-3xl border border-slate-900/10 bg-white p-5 shadow-[0_20px_45px_-35px_rgba(2,6,23,0.85)] sm:p-7"
-                  >
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br from-emerald-200 to-cyan-100 opacity-75 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-                    <div className="relative">
-                      <span className="inline-flex rounded-2xl bg-slate-900 p-3 text-white">
-                        <Icon className="h-5 w-5" />
-                      </span>
-                      <h3 className="mt-4 text-xl font-bold text-slate-900 sm:text-2xl">{service.title}</h3>
-                      <p className="mt-3 text-slate-600">{service.description}</p>
-
-                      <ul className="mt-5 space-y-2">
-                        {service.points.map((point) => (
-                          <li key={point} className="flex items-center gap-2 text-slate-700">
-                            <Check className="h-4 w-4 text-emerald-600" />
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.article>
-                );
-              })}
-            </div>
-          </motion.div>
-        </section>
-
-        <section
-          id="proceso"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="rounded-[2rem] border border-slate-900/10 bg-gradient-to-br from-slate-950 to-slate-800 p-6 text-white sm:p-8 md:p-12"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300"
-            >
-              Metodo de trabajo
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="mt-3 text-2xl sm:text-3xl md:text-4xl">
-              Proceso claro, rapido y sin complicaciones
-            </motion.h2>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {processSteps.map((step, index) => (
-                <motion.article
-                  key={step.title}
-                  variants={fadeUp}
-                  whileHover={{ y: -6 }}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur sm:p-6"
-                >
-                  <p className="text-sm font-semibold text-emerald-300">Paso {index + 1}</p>
-                  <h3 className="mt-2 text-xl font-bold sm:text-2xl">{step.title}</h3>
-                  <p className="mt-3 text-slate-300">{step.detail}</p>
-                </motion.article>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        <section
-          id="planes"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700"
-            >
-              Planes
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="mt-3 text-2xl text-slate-900 sm:text-3xl md:text-4xl"
-            >
-              Elige el nivel de transformacion para tu negocio
-            </motion.h2>
-
-            <div className="mt-8 grid gap-6 lg:grid-cols-3">
-              {plans.map((plan) => (
-                <motion.article
-                  key={plan.name}
-                  variants={fadeUp}
-                  whileHover={{ y: -8 }}
-                  className={`rounded-3xl border p-5 shadow-[0_20px_45px_-34px_rgba(2,6,23,0.85)] sm:p-7 ${plan.highlighted
-                    ? "border-emerald-500 bg-slate-900/90 text-white backdrop-blur-xl"
-                    : "border-slate-900/10 bg-white text-slate-900"
-                    }`}
-                >
-                  <p
-                    className={`text-sm font-semibold uppercase tracking-[0.16em] ${plan.highlighted ? "text-emerald-300" : "text-slate-500"
-                      }`}
-                  >
-                    {plan.tagline}
-                  </p>
-                  <h3 className="mt-2 text-xl font-bold sm:text-2xl">{plan.name}</h3>
-                  <p
-                    className={`mt-3 ${plan.highlighted ? "text-slate-200" : "text-slate-600"
-                      }`}
-                  >
-                    {plan.description}
-                  </p>
-
-                  <ul className="mt-6 space-y-2">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <Check
-                          className={`h-4 w-4 ${plan.highlighted ? "text-emerald-300" : "text-emerald-600"
-                            }`}
-                        />
-                        <span className={plan.highlighted ? "text-slate-100" : "text-slate-700"}>
-                          {feature}
+    return (
+        <div className="cyn-page">
+            <header className="cyn-nav-wrap">
+                <nav className="cyn-nav">
+                    <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
+                        <LogoMark />
+                        <span className="cyn-logo-text">
+                            Cyn<span>o</span>cta
                         </span>
-                      </li>
-                    ))}
-                  </ul>
+                    </Link>
 
-                  <a
-                    href={buildWhatsappLink(plan.whatsappText)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`mt-7 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold transition-colors ${plan.highlighted
-                      ? "bg-emerald-400 text-emerald-950 hover:bg-emerald-300"
-                      : "bg-slate-900 text-white hover:bg-slate-700"
-                      }`}
-                  >
-                    Elegir plan
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                </motion.article>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        <section
-          id="casos"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="rounded-[2rem] border border-emerald-900/10 bg-white p-5 shadow-[0_20px_45px_-35px_rgba(2,6,23,0.65)] sm:p-7 md:p-10"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700"
-            >
-              Casos de referencia
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="mt-3 text-2xl text-slate-900 sm:text-3xl md:text-4xl"
-            >
-              Resultados reales en negocios parecidos al tuyo
-            </motion.h2>
-
-            <div className="mt-7 flex gap-3 overflow-x-auto pb-2 sm:flex-wrap">
-              {caseStudies.map((study, index) => (
-                <button
-                  key={study.company}
-                  type="button"
-                  onClick={() => setActiveCase(index)}
-                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${activeCase === index
-                    ? "bg-slate-900 text-white"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                    }`}
-                >
-                  {study.company}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-8 rounded-3xl border border-slate-200 bg-slate-50/75 p-4 sm:p-6">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={caseStudies[activeCase].company}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h3 className="text-xl font-bold text-slate-900 sm:text-2xl">
-                    {caseStudies[activeCase].company}
-                  </h3>
-                  <p className="mt-3 text-slate-600">{caseStudies[activeCase].summary}</p>
-
-                  <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                    {caseStudies[activeCase].stats.map((stat) => (
-                      <div key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-4">
-                        <p className="text-2xl font-bold text-emerald-700">{stat.value}</p>
-                        <p className="mt-1 text-sm text-slate-600">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </section>
-
-        <section
-          id="faq"
-          className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-12 lg:px-8 xl:px-10"
-        >
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="mx-auto max-w-4xl"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-amber-700"
-            >
-              Preguntas frecuentes
-            </motion.p>
-            <motion.h2
-              variants={fadeUp}
-              className="mx-auto mt-3 max-w-2xl text-center text-2xl text-slate-900 sm:text-3xl md:text-4xl"
-            >
-              Todo pensado para que avances sin trabas tecnicas
-            </motion.h2>
-
-            <div className="mt-10 space-y-4">
-              {faqs.map((faq, index) => {
-                const isOpen = openFaq === index;
-                return (
-                  <motion.article
-                    key={faq.question}
-                    variants={fadeUp}
-                    className="rounded-2xl border border-slate-200 bg-white"
-                  >
                     <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : index)}
-                      className="flex min-h-11 w-full items-center justify-between gap-3 px-5 py-4 text-left"
+                        type="button"
+                        aria-label="Abrir menu"
+                        aria-expanded={mobileOpen}
+                        className="cyn-menu-btn"
+                        onClick={() => setMobileOpen((prev) => !prev)}
                     >
-                      <span className="font-semibold text-slate-900">{faq.question}</span>
-                      <ChevronDown
-                        className={`h-5 w-5 text-slate-500 transition-transform ${isOpen ? "rotate-180" : "rotate-0"
-                          }`}
-                      />
+                        {mobileOpen ? "Cerrar" : "Menu"}
                     </button>
 
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                          className="overflow-hidden"
+                    <ul className="cyn-nav-links">
+                        {navItems.map((item) => (
+                            <li key={item.href}>
+                                <Link href={item.href}>{item.label}</Link>
+                            </li>
+                        ))}
+                        <li>
+                            <a
+                                href={buildWhatsappLink("Hola, quiero agendar una llamada con Cynocta")}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cyn-nav-cta"
+                            >
+                                Agendar llamada
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                {mobileOpen && (
+                    <div className="cyn-mobile-menu">
+                        {navItems.map((item) => (
+                            <Link key={item.href} href={item.href} onClick={closeMenu}>
+                                {item.label}
+                            </Link>
+                        ))}
+                        <a
+                            href={buildWhatsappLink("Hola, quiero agendar una llamada con Cynocta")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={closeMenu}
                         >
-                          <p className="px-5 pb-5 text-slate-600">{faq.answer}</p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.article>
-                );
-              })}
-            </div>
-          </motion.div>
-        </section>
+                            Agendar llamada
+                        </a>
+                    </div>
+                )}
+            </header>
 
-        <section className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 sm:pb-24 sm:pt-10 lg:px-8 xl:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-[2rem] border border-emerald-900/20 bg-gradient-to-r from-emerald-500 to-cyan-500 p-6 text-white sm:p-10 md:p-14"
-          >
-            <div className="absolute -right-12 -top-14 h-44 w-44 rounded-full bg-white/20 blur-3xl" />
-            <div className="absolute -bottom-20 left-8 h-44 w-44 rounded-full bg-emerald-900/25 blur-3xl" />
+            <main>
+                <section className="cyn-hero" id="inicio">
+                    <div className="cyn-hero-grid" />
+                    <div className="cyn-hero-glow" />
 
-            <h2 className="relative z-10 max-w-2xl text-2xl sm:text-3xl md:text-5xl">
-              Si tu negocio ya crecio, tus procesos tambien deben hacerlo
-            </h2>
-            <p className="relative z-10 mt-4 max-w-2xl text-emerald-50">
-              Agenda una llamada breve y te muestro como llevar tu captacion,
-              seguimiento y conversion a un sistema escalable.
-            </p>
+                    <div className="cyn-hero-content">
+                        <p className="cyn-eyebrow">Automatizacion empresarial de precision</p>
+                        <h1>
+                            Tu negocio opera.
+                            <br />
+                            <em>Nosotros lo hacemos</em>
+                            <br />
+                            escalar.
+                        </h1>
+                        <p className="cyn-hero-sub">
+                            Disenamos sistemas digitales, web, automatizaciones y flujos inteligentes
+                            para que tu empresa capture mas, responda mejor y crezca sin friccion.
+                        </p>
 
-            <a
-              href={buildWhatsappLink("Hola, quiero una auditoria de automatizacion")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative z-10 mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-slate-950 px-6 py-3 font-semibold text-white transition-colors hover:bg-slate-800"
-            >
-              Quiero mi diagnostico
-              <ArrowRight className="h-5 w-5" />
-            </a>
-          </motion.div>
-        </section>
-      </main>
+                        <div className="cyn-hero-actions">
+                            <a
+                                href={buildWhatsappLink("Hola, quiero un diagnostico gratuito")}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="cyn-btn-primary"
+                            >
+                                Diagnostico gratuito
+                            </a>
+                            <Link href="#servicios" className="cyn-btn-ghost">
+                                Ver que hacemos
+                            </Link>
+                        </div>
 
-      <footer className="border-t border-slate-900/10 bg-white/70 px-4 py-7 text-center text-sm text-slate-500 sm:px-6 sm:py-8 lg:px-8 xl:px-10">
-        <p>© 2026 Tu StartApp. Soluciones tecnologicas para negocios en crecimiento.</p>
-      </footer>
+                        <div className="cyn-hero-stats">
+                            {heroStats.map((stat) => (
+                                <div key={stat.label}>
+                                    <p className="cyn-stat-val">
+                                        <span>{stat.prefix}</span>
+                                        {stat.value}
+                                    </p>
+                                    <p className="cyn-stat-label">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-      <a
-        href={buildWhatsappLink("Hola, me interesa automatizar mi negocio")}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="pulse-ring fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-50 inline-flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform hover:scale-105 sm:right-6 sm:h-14 sm:w-14"
-        aria-label="Contactar por WhatsApp"
-      >
-        <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" />
-      </a>
-    </div>
-  );
+                <section className="cyn-pain-section" id="problemas">
+                    <div className="cyn-pain-inner">
+                        <div>
+                            <p className="cyn-section-tag">El problema real</p>
+                            <h2 className="cyn-section-title">
+                                Los bloqueos no son de ventas.
+                                <br />
+                                Son de proceso.
+                            </h2>
+                            <p className="cyn-section-sub">
+                                La mayoria de los negocios pierde clientes no porque su producto falle,
+                                sino porque su operacion responde tarde, dispersa y sin datos.
+                            </p>
+                        </div>
+
+                        <div className="cyn-pain-cards">
+                            {painPoints.map((item) => (
+                                <article key={item.title} className="cyn-pain-card">
+                                    <p className="cyn-pain-num">{item.num}</p>
+                                    <h3>{item.title}</h3>
+                                    <p>{item.description}</p>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <section className="cyn-section" id="servicios">
+                    <p className="cyn-section-tag">Soluciones</p>
+                    <h2 className="cyn-section-title">
+                        Construimos el sistema
+                        <br />
+                        digital que tu negocio necesita.
+                    </h2>
+
+                    <div className="cyn-services-grid">
+                        {services.map((service) => (
+                            <article key={service.title} className="cyn-service-card">
+                                <div className="cyn-service-icon">
+                                    <ServiceIcon kind={service.kind} />
+                                </div>
+                                <h3>{service.title}</h3>
+                                <p>{service.description}</p>
+                                <div>
+                                    {service.tags.map((tag) => (
+                                        <span key={tag} className="cyn-service-tag">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="cyn-process-section" id="proceso">
+                    <div className="cyn-process-inner">
+                        <p className="cyn-section-tag">Metodologia</p>
+                        <h2 className="cyn-section-title">
+                            Cuatro pasos.
+                            <br />
+                            Resultados desde la primera semana.
+                        </h2>
+
+                        <div className="cyn-process-steps">
+                            {processSteps.map((step) => (
+                                <article key={step.num} className="cyn-step">
+                                    <div className="cyn-step-num">{step.num}</div>
+                                    <h3>{step.title}</h3>
+                                    <p>{step.description}</p>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <section className="cyn-section" id="planes">
+                    <p className="cyn-section-tag">Planes</p>
+                    <h2 className="cyn-section-title">
+                        Elige tu nivel
+                        <br />
+                        de transformacion.
+                    </h2>
+                    <p className="cyn-section-sub">Sin contratos largos. Implementacion en dias, no meses.</p>
+
+                    <div className="cyn-plans-grid">
+                        {plans.map((plan) => (
+                            <article
+                                key={plan.title}
+                                className={`cyn-plan-card${plan.featured ? " featured" : ""}`}
+                            >
+                                {plan.badge && <p className="cyn-plan-badge">{plan.badge}</p>}
+                                <p className="cyn-plan-name">{plan.tier}</p>
+                                <h3 className="cyn-plan-title">{plan.title}</h3>
+                                <div className="cyn-plan-divider" />
+
+                                <div>
+                                    {plan.features.map((feature) => (
+                                        <p
+                                            key={feature.label}
+                                            className={`cyn-plan-feature${feature.active ? " active" : ""}`}
+                                        >
+                                            {feature.label}
+                                        </p>
+                                    ))}
+                                </div>
+
+                                <a
+                                    href={buildWhatsappLink(plan.whatsappText)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="cyn-plan-cta"
+                                >
+                                    Comenzar
+                                </a>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="cyn-results-section" id="resultados">
+                    <div className="cyn-results-inner">
+                        <p className="cyn-section-tag">Resultados reales</p>
+                        <h2 className="cyn-section-title">Lo que dicen los numeros.</h2>
+
+                        <div className="cyn-results-grid">
+                            {results.map((result) => (
+                                <article key={result.context} className="cyn-result-card">
+                                    <p className="cyn-result-context">{result.context}</p>
+                                    <div className="cyn-result-metric">
+                                        <p className="cyn-result-num">{result.metric}</p>
+                                        <p className="cyn-result-desc">{result.metricLabel}</p>
+                                    </div>
+                                    <p className="cyn-result-summary">{result.summary}</p>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <section className="cyn-cta-section" id="contacto">
+                    <p className="cyn-cta-tag">Siguiente paso</p>
+                    <h2>
+                        Si tu negocio ya crecio,
+                        <br />
+                        tu sistema <em>tambien debe hacerlo.</em>
+                    </h2>
+                    <p>
+                        Agenda una sesion breve y te mostramos exactamente como llevar tu
+                        captacion, seguimiento y conversion a un sistema escalable.
+                    </p>
+                    <a
+                        href={buildWhatsappLink("Hola, quiero mi diagnostico gratuito")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cyn-btn-primary"
+                    >
+                        Quiero mi diagnostico gratuito
+                    </a>
+                </section>
+            </main>
+
+            <footer className="cyn-footer">
+                <p className="cyn-footer-copy">© 2026 Cynocta - Automatizacion de precision</p>
+                <div className="cyn-footer-links">
+                    <Link href="#servicios">Servicios</Link>
+                    <Link href="#proceso">Proceso</Link>
+                    <Link href="#planes">Planes</Link>
+                    <a
+                        href={buildWhatsappLink("Hola, quiero contactar a Cynocta")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Contacto
+                    </a>
+                </div>
+            </footer>
+        </div>
+    );
 }
