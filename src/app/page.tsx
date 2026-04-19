@@ -4,6 +4,19 @@ import Link from "next/link";
 import { useState } from "react";
 
 const whatsappNumber = "1234567890";
+const fallbackSiteUrl = "https://cynocta.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const siteUrl = (() => {
+    if (!rawSiteUrl) {
+        return fallbackSiteUrl;
+    }
+
+    try {
+        return new URL(rawSiteUrl).origin;
+    } catch {
+        return fallbackSiteUrl;
+    }
+})();
 
 const navItems = [
     { label: "Servicios", href: "#servicios" },
@@ -242,8 +255,30 @@ export default function Home() {
 
     const closeMenu = () => setMobileOpen(false);
 
+    const professionalServiceJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: "Cynocta",
+        url: siteUrl,
+        image: `${siteUrl}/opengraph-image`,
+        description:
+            "Cynocta implementa automatizacion comercial, desarrollo web y procesos digitales para negocios en crecimiento.",
+        serviceType: [
+            "Automatizacion comercial",
+            "Desarrollo web para negocios",
+            "Integracion de procesos digitales",
+            "Optimizacion de conversion",
+        ],
+        areaServed: "Latinoamerica",
+    };
+
     return (
         <div className="cyn-page">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceJsonLd) }}
+            />
+
             <header className="cyn-nav-wrap">
                 <nav className="cyn-nav">
                     <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
@@ -309,7 +344,7 @@ export default function Home() {
                     <div className="cyn-hero-content">
                         <p className="cyn-eyebrow">Automatizacion empresarial de precision</p>
                         <h1>
-                            Tu negocio opera.
+                            Cynocta: tu negocio opera.
                             <br />
                             <em>Nosotros lo hacemos</em>
                             <br />
