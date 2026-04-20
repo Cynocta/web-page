@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Mono, Instrument_Sans } from "next/font/google";
+import { DM_Mono, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const siteName = "Cynocta";
@@ -20,16 +20,22 @@ const siteUrl = (() => {
 })();
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
-const bodyFont = Instrument_Sans({
+const bodyFont = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-const headingFont = Cormorant_Garamond({
+const headingFont = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const brandFont = Space_Grotesk({
+  variable: "--font-brand",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 const monoFont = DM_Mono({
@@ -60,6 +66,13 @@ export const metadata: Metadata = {
   publisher: siteName,
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/cynocta-reference-favicon.png?v=ref-1", type: "image/png" },
+    ],
+    shortcut: ["/cynocta-reference-favicon.png?v=ref-1"],
+    apple: "/cynocta-reference-favicon.png?v=ref-1",
   },
   openGraph: {
     type: "website",
@@ -113,7 +126,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: siteName,
     url: siteUrl,
-    logo: `${siteUrl}/cynocta-logo-primary.svg`,
+    logo: `${siteUrl}/cynocta-logo-main.svg`,
     description: siteDescription,
   };
 
@@ -129,7 +142,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${bodyFont.variable} ${headingFont.variable} ${monoFont.variable} h-full antialiased`}
+      className={`${bodyFont.variable} ${headingFont.variable} ${brandFont.variable} ${monoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground">
         <script

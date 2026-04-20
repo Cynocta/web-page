@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -191,29 +192,6 @@ const heroStats = [
 const buildWhatsappLink = (text: string) =>
     `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 
-function LogoMark() {
-    return (
-        <svg
-            className="cyn-logo-mark"
-            viewBox="0 0 34 34"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-        >
-            <rect x="1" y="1" width="32" height="32" rx="7" stroke="currentColor" strokeWidth="1" />
-            <circle cx="17" cy="17" r="5" stroke="currentColor" strokeWidth="1.2" />
-            <line x1="17" y1="6" x2="17" y2="12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            <line x1="17" y1="22" x2="17" y2="28" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            <line x1="6" y1="17" x2="12" y2="17" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            <line x1="22" y1="17" x2="28" y2="17" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-            <circle cx="17" cy="6" r="1.5" fill="currentColor" />
-            <circle cx="28" cy="17" r="1.5" fill="currentColor" />
-            <circle cx="17" cy="28" r="1.5" fill="currentColor" />
-            <circle cx="6" cy="17" r="1.5" fill="currentColor" />
-        </svg>
-    );
-}
-
 function ServiceIcon({ kind }: { kind: ServiceKind }) {
     if (kind === "web") {
         return (
@@ -282,10 +260,8 @@ export default function Home() {
             <header className="cyn-nav-wrap">
                 <nav className="cyn-nav">
                     <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
-                        <LogoMark />
-                        <span className="cyn-logo-text">
-                            Cyn<span>o</span>cta
-                        </span>
+                        <Image src="/cynocta-logo-main.svg" alt="Logo de Cynocta" className="cyn-logo-mark" width={447} height={369} priority />
+                        <span className="cyn-logo-text">C Y N O C T A</span>
                     </Link>
 
                     <button
@@ -342,43 +318,60 @@ export default function Home() {
                     <div className="cyn-hero-glow" />
 
                     <div className="cyn-hero-content">
-                        <p className="cyn-eyebrow">Automatizacion empresarial de precision</p>
-                        <h1>
-                            Cynocta: tu negocio opera.
-                            <br />
-                            <em>Nosotros lo hacemos</em>
-                            <br />
-                            escalar.
-                        </h1>
-                        <p className="cyn-hero-sub">
-                            Disenamos sistemas digitales, web, automatizaciones y flujos inteligentes
-                            para que tu empresa capture mas, responda mejor y crezca sin friccion.
-                        </p>
+                        <div className="cyn-hero-layout">
+                            <div className="cyn-hero-copy">
+                                <p className="cyn-eyebrow">Automatizacion empresarial de precision</p>
+                                <h1>
+                                    Cynocta: tu negocio opera.
+                                    <br />
+                                    <em>Nosotros lo hacemos</em>
+                                    <br />
+                                    escalar.
+                                </h1>
+                                <p className="cyn-hero-sub">
+                                    Disenamos sistemas digitales, web, automatizaciones y flujos inteligentes
+                                    para que tu empresa capture mas, responda mejor y crezca sin friccion.
+                                </p>
 
-                        <div className="cyn-hero-actions">
-                            <a
-                                href={buildWhatsappLink("Hola, quiero un diagnostico gratuito")}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="cyn-btn-primary"
-                            >
-                                Diagnostico gratuito
-                            </a>
-                            <Link href="#servicios" className="cyn-btn-ghost">
-                                Ver que hacemos
-                            </Link>
-                        </div>
-
-                        <div className="cyn-hero-stats">
-                            {heroStats.map((stat) => (
-                                <div key={stat.label}>
-                                    <p className="cyn-stat-val">
-                                        <span>{stat.prefix}</span>
-                                        {stat.value}
-                                    </p>
-                                    <p className="cyn-stat-label">{stat.label}</p>
+                                <div className="cyn-hero-actions">
+                                    <a
+                                        href={buildWhatsappLink("Hola, quiero un diagnostico gratuito")}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="cyn-btn-primary"
+                                    >
+                                        Diagnostico gratuito
+                                    </a>
+                                    <Link href="#servicios" className="cyn-btn-ghost">
+                                        Ver que hacemos
+                                    </Link>
                                 </div>
-                            ))}
+
+                                <div className="cyn-hero-stats">
+                                    {heroStats.map((stat) => (
+                                        <div key={stat.label}>
+                                            <p className="cyn-stat-val">
+                                                <span>{stat.prefix}</span>
+                                                {stat.value}
+                                            </p>
+                                            <p className="cyn-stat-label">{stat.label}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="cyn-hero-brand" aria-label="Logo de Cynocta">
+                                <div className="cyn-hero-logo-card">
+                                    <Image
+                                        src="/cynocta-reference-card.svg"
+                                        alt="Referencia visual del logo Cynocta"
+                                        className="cyn-hero-reference-image"
+                                        width={604}
+                                        height={584}
+                                        priority
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -546,7 +539,7 @@ export default function Home() {
             </main>
 
             <footer className="cyn-footer">
-                <p className="cyn-footer-copy">© 2026 Cynocta - Automatizacion de precision</p>
+                <p className="cyn-footer-copy">(c) 2026 Cynocta - Automatizacion de precision</p>
                 <div className="cyn-footer-links">
                     <Link href="#servicios">Servicios</Link>
                     <Link href="#proceso">Proceso</Link>
