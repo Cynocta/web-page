@@ -1191,13 +1191,14 @@ h4 {
     }
 
     .cyn-hero-copy {
-        padding-right: 40vw;
+        padding-right: 0;
     }
 
     .cyn-hero-brand {
-        top: 41%;
-        right: -72px;
-        width: clamp(180px, 54vw, 260px);
+        top: 50%;
+        transform: translateY(-50%);
+        right: -80px;
+        width: clamp(280px, 70vw, 380px);
     }
 
     .cyn-hero-reference-image {
