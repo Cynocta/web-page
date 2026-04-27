@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const whatsappNumber = "1234567890";
+const contactPhone = "+57 305 2580874";
+const whatsappNumber = "573052580874";
+const instagramUrl = "https://www.instagram.com/cynocta_ai/?utm_source=ig_web_button_share_sheet";
+const contactEmail = "cynoctaadmin@gmail.com";
 const fallbackSiteUrl = "https://cynocta.com";
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const siteUrl = (() => {
@@ -228,6 +231,39 @@ function ServiceIcon({ kind }: { kind: ServiceKind }) {
     );
 }
 
+function WhatsAppIcon() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+            />
+        </svg>
+    );
+}
+
+function InstagramIcon() {
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4.2" />
+            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+        </svg>
+    );
+}
+
+function MailIcon() {
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m4 7 8 6 8-6" />
+        </svg>
+    );
+}
+
 export default function Home() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -239,6 +275,9 @@ export default function Home() {
         name: "Cynocta",
         url: siteUrl,
         image: `${siteUrl}/opengraph-image`,
+        telephone: contactPhone,
+        email: contactEmail,
+        sameAs: [instagramUrl],
         description:
             "Cynocta implementa automatizacion comercial, desarrollo web y procesos digitales para negocios en crecimiento.",
         serviceType: [
@@ -376,33 +415,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                <section className="cyn-pain-section" id="problemas">
-                    <div className="cyn-pain-inner">
-                        <div>
-                            <p className="cyn-section-tag">El problema real</p>
-                            <h2 className="cyn-section-title">
-                                Los bloqueos no son de ventas.
-                                <br />
-                                Son de proceso.
-                            </h2>
-                            <p className="cyn-section-sub">
-                                La mayoria de los negocios pierde clientes no porque su producto falle,
-                                sino porque su operacion responde tarde, dispersa y sin datos.
-                            </p>
-                        </div>
-
-                        <div className="cyn-pain-cards">
-                            {painPoints.map((item) => (
-                                <article key={item.title} className="cyn-pain-card">
-                                    <p className="cyn-pain-num">{item.num}</p>
-                                    <h3>{item.title}</h3>
-                                    <p>{item.description}</p>
-                                </article>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
                 <section className="cyn-section" id="servicios">
                     <p className="cyn-section-tag">Soluciones</p>
                     <h2 className="cyn-section-title">
@@ -523,18 +535,36 @@ export default function Home() {
                         <br />
                         tu sistema <em>tambien debe hacerlo.</em>
                     </h2>
-                    <p>
-                        Agenda una sesion breve y te mostramos exactamente como llevar tu
-                        captacion, seguimiento y conversion a un sistema escalable.
-                    </p>
-                    <a
-                        href={buildWhatsappLink("Hola, quiero mi diagnostico gratuito")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="cyn-btn-primary"
-                    >
-                        Quiero mi diagnostico gratuito
-                    </a>
+                    <div className="cyn-contact-icons" aria-label="Canales de contacto">
+                        <a
+                            href={buildWhatsappLink("Hola, quiero mi diagnostico gratuito")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cyn-contact-icon-btn"
+                            aria-label="Abrir WhatsApp de Cynocta"
+                            title="WhatsApp"
+                        >
+                            <WhatsAppIcon />
+                        </a>
+                        <a
+                            href={instagramUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cyn-contact-icon-btn"
+                            aria-label="Abrir Instagram de Cynocta"
+                            title="Instagram"
+                        >
+                            <InstagramIcon />
+                        </a>
+                        <a
+                            href={`mailto:${contactEmail}`}
+                            className="cyn-contact-icon-btn"
+                            aria-label="Enviar correo a Cynocta"
+                            title="Correo"
+                        >
+                            <MailIcon />
+                        </a>
+                    </div>
                 </section>
             </main>
 
@@ -549,8 +579,13 @@ export default function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Contacto
+                        WhatsApp
                     </a>
+                    <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+                        Instagram
+                    </a>
+                    <a href={`mailto:${contactEmail}`}>Correo</a>
+                    <a href={`tel:${contactPhone.replace(/\s+/g, "")}`}>Llamar</a>
                 </div>
             </footer>
         </div>

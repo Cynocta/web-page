@@ -5,6 +5,9 @@ import "./globals.css";
 const siteName = "Cynocta";
 const siteDescription =
   "Cynocta ayuda a negocios y empresas a crecer con automatizacion comercial, paginas web de alto rendimiento y sistemas digitales orientados a conversion.";
+const contactPhone = "+57 305 2580874";
+const contactEmail = "cynoctaadmin@gmail.com";
+const instagramUrl = "https://www.instagram.com/cynocta_ai/?utm_source=ig_web_button_share_sheet";
 const fallbackSiteUrl = "https://cynocta.com";
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const siteUrl = (() => {
@@ -128,6 +131,18 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/cynocta-logo-main.svg`,
     description: siteDescription,
+    telephone: contactPhone,
+    email: contactEmail,
+    sameAs: [instagramUrl],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        telephone: contactPhone,
+        email: contactEmail,
+        availableLanguage: ["es"],
+      },
+    ],
   };
 
   const websiteJsonLd = {

@@ -978,6 +978,64 @@ h4 {
     margin-bottom: 2.5rem;
 }
 
+.cyn-contact-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 2rem;
+}
+
+.cyn-contact-icon-btn {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(25, 245, 156, 0.18);
+    background: rgba(7, 8, 9, 0.72);
+    color: var(--cyn-accent);
+    box-shadow: 0 0 0 1px rgba(25, 245, 156, 0.06) inset;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cyn-contact-icon-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(25, 245, 156, 0.45);
+    background: rgba(25, 245, 156, 0.08);
+    box-shadow: 0 10px 24px rgba(25, 245, 156, 0.12);
+}
+
+.cyn-contact-icon-btn svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.85;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cyn-contact-icon-btn svg path,
+.cyn-contact-icon-btn svg polyline,
+.cyn-contact-icon-btn svg rect,
+.cyn-contact-icon-btn svg circle {
+    fill: none;
+}
+
+.cyn-contact-icon-btn[title="WhatsApp"] {
+    color: #20f59d;
+}
+
+.cyn-contact-icon-btn[title="Instagram"] {
+    color: #e6e6e6;
+}
+
+.cyn-contact-icon-btn[title="Correo"] {
+    color: var(--cyn-cyan);
+}
+
 .cyn-footer {
     max-width: 100%;
     border-top: 1px solid var(--cyn-border-2);
@@ -1172,13 +1230,13 @@ h4 {
     .cyn-process-section,
     .cyn-results-section,
     .cyn-cta-section {
-        padding-top: 64px;
-        padding-bottom: 64px;
+        padding-top: 48px;
+        padding-bottom: 48px;
     }
 
     .cyn-hero {
         min-height: auto;
-        padding-top: 100px;
+        padding-top: 88px;
     }
 
     .cyn-logo-text {
@@ -1187,7 +1245,7 @@ h4 {
     }
 
     .cyn-hero-layout {
-        min-height: clamp(320px, 52vh, 460px);
+        min-height: auto;
     }
 
     .cyn-hero-copy {
@@ -1195,18 +1253,21 @@ h4 {
     }
 
     .cyn-hero-brand {
-        top: 50%;
-        transform: translateY(-50%);
-        right: -80px;
-        width: clamp(280px, 70vw, 380px);
+        display: none;
     }
 
     .cyn-hero-reference-image {
         opacity: 0.2;
     }
 
+    .cyn-hero h1 {
+        font-size: clamp(2.5rem, 12vw, 3.4rem);
+        margin-bottom: 1.4rem;
+    }
+
     .cyn-hero-sub {
         font-size: 15px;
+        margin-bottom: 2rem;
     }
 
     .cyn-hero-actions {
@@ -1223,10 +1284,149 @@ h4 {
     .cyn-hero-stats {
         flex-direction: column;
         gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.4rem;
     }
 
-    .cyn-services-grid {
+    .cyn-pain-cards,
+    .cyn-services-grid,
+    .cyn-results-grid {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        padding-bottom: 10px;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .cyn-pain-cards,
+    .cyn-services-grid,
+    .cyn-results-grid,
+    .cyn-process-steps,
+    .cyn-plans-grid {
+        -ms-overflow-style: none;
+    }
+
+    .cyn-pain-cards::-webkit-scrollbar,
+    .cyn-services-grid::-webkit-scrollbar,
+    .cyn-results-grid::-webkit-scrollbar,
+    .cyn-process-steps::-webkit-scrollbar,
+    .cyn-plans-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cyn-pain-cards::-webkit-scrollbar,
+    .cyn-services-grid::-webkit-scrollbar,
+    .cyn-results-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .cyn-pain-cards::-webkit-scrollbar-track,
+    .cyn-services-grid::-webkit-scrollbar-track,
+    .cyn-results-grid::-webkit-scrollbar-track {
+        background: rgba(25, 245, 156, 0.08);
+        border-radius: 10px;
+    }
+
+    .cyn-pain-cards::-webkit-scrollbar-thumb,
+    .cyn-services-grid::-webkit-scrollbar-thumb,
+    .cyn-results-grid::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.3);
+        border-radius: 10px;
+    }
+
+    .cyn-pain-cards::-webkit-scrollbar-thumb:hover,
+    .cyn-services-grid::-webkit-scrollbar-thumb:hover,
+    .cyn-results-grid::-webkit-scrollbar-thumb:hover {
+        background: rgba(25, 245, 156, 0.5);
+    }
+
+    .cyn-pain-card,
+    .cyn-service-card,
+    .cyn-result-card {
+        min-width: min(82vw, 340px);
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        flex-shrink: 0;
+        padding: 22px 18px;
+    }
+
+    .cyn-services-grid,
+    .cyn-results-grid {
+        margin-top: 2rem;
+    }
+
+    .cyn-pain-card h3,
+    .cyn-service-card h3,
+    .cyn-result-context {
+        font-size: 16px;
+    }
+
+    .cyn-service-card p,
+    .cyn-result-summary,
+    .cyn-pain-card p {
+        font-size: 14px;
+    }
+
+    .cyn-pain-inner {
+        gap: 1.5rem;
+    }
+
+    .cyn-process-steps {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        padding-bottom: 10px;
         margin-top: 2.2rem;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .cyn-process-steps::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .cyn-process-steps::-webkit-scrollbar-track {
+        background: rgba(25, 245, 156, 0.08);
+        border-radius: 10px;
+    }
+
+    .cyn-process-steps::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.3);
+        border-radius: 10px;
+    }
+
+    .cyn-step {
+        min-width: min(72vw, 280px);
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 0;
+        text-align: left;
+    }
+
+    .cyn-step-num {
+        margin: 0 0 1rem;
+    }
+
+    .cyn-process-steps::after {
+        display: none;
     }
 
     .cyn-plans-grid {
@@ -1235,8 +1435,13 @@ h4 {
         gap: 16px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
+        scroll-padding-inline: 50%;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        align-items: stretch;
         padding-bottom: 8px;
         margin-right: calc(-1 * var(--cyn-shell-x));
         margin-left: calc(-1 * var(--cyn-shell-x));
@@ -1265,14 +1470,8 @@ h4 {
     .cyn-plan-card {
         min-width: min(280px, 85vw);
         flex-shrink: 0;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
         scroll-snap-stop: always;
-    }
-
-    .cyn-service-card,
-    .cyn-plan-card,
-    .cyn-result-card {
-        padding: 28px 22px;
     }
 
     .cyn-section-tag::after {
@@ -1282,6 +1481,21 @@ h4 {
     .cyn-footer-links {
         flex-wrap: wrap;
         gap: 0.9rem 1.2rem;
+    }
+
+    .cyn-contact-icons {
+        gap: 12px;
+        margin-top: 1.6rem;
+    }
+
+    .cyn-contact-icon-btn {
+        width: 56px;
+        height: 56px;
+    }
+
+    .cyn-contact-icon-btn svg {
+        width: 26px;
+        height: 26px;
     }
 }
 
