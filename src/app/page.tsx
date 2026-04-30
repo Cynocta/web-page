@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const contactPhone = "+57 305 2580874";
 const whatsappNumber = "573052580874";
@@ -266,8 +266,20 @@ function MailIcon() {
 
 export default function Home() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const plansGridRef = useRef<HTMLDivElement>(null);
 
     const closeMenu = () => setMobileOpen(false);
+
+    useEffect(() => {
+        if (plansGridRef.current && typeof window !== 'undefined' && window.innerWidth <= 1024) {
+            setTimeout(() => {
+                const featuredCard = plansGridRef.current?.querySelector('.cyn-plan-card-expandable.featured') as HTMLElement;
+                if (featuredCard) {
+                    featuredCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }, 200);
+        }
+    }, []);
 
     const professionalServiceJsonLd = {
         "@context": "https://schema.org",
@@ -473,38 +485,96 @@ export default function Home() {
                     </h2>
                     <p className="cyn-section-sub">Sin contratos largos. Implementacion en dias, no meses.</p>
 
-                    <div className="cyn-plans-grid">
-                        {plans.map((plan) => (
-                            <article
-                                key={plan.title}
-                                className={`cyn-plan-card${plan.featured ? " featured" : ""}`}
-                            >
-                                {plan.badge && <p className="cyn-plan-badge">{plan.badge}</p>}
-                                <p className="cyn-plan-name">{plan.tier}</p>
-                                <h3 className="cyn-plan-title">{plan.title}</h3>
+                    <div className="cyn-plans-grid" ref={plansGridRef}>
+                        <article className="cyn-plan-card-expandable">
+                            <div className="cyn-plan-header">
+                                <p className="cyn-plan-name">Plan 1</p>
+                                <h3 className="cyn-plan-title">Presencia Profesional</h3>
+                                <p className="cyn-plan-subtitle">Para negocios que aún no tienen presencia digital</p>
+                            </div>
+
+                            <div className="cyn-plan-price-compact">
+                                <p className="cyn-plan-price-label">Pago único desde</p>
+                                <p className="cyn-plan-price">$990.000</p>
+                                <p className="cyn-plan-timeframe">Entrega en 2 semanas</p>
+                            </div>
+
+                            <div className="cyn-plan-content">
                                 <div className="cyn-plan-divider" />
-
-                                <div>
-                                    {plan.features.map((feature) => (
-                                        <p
-                                            key={feature.label}
-                                            className={`cyn-plan-feature${feature.active ? " active" : ""}`}
-                                        >
-                                            {feature.label}
-                                        </p>
-                                    ))}
+                                <div className="cyn-plan-features">
+                                    <p className="cyn-plan-feature active">Web profesional lista para vender</p>
+                                    <p className="cyn-plan-feature active">Dominio + hosting 1 año incluido</p>
+                                    <p className="cyn-plan-feature active">Formulario conectado a WhatsApp</p>
+                                    <p className="cyn-plan-feature active">Google Maps + SEO básico</p>
                                 </div>
+                                <div className="cyn-plan-guarantee">
+                                    <p className="cyn-plan-guarantee-title">Nuestro compromiso</p>
+                                    <p className="cyn-plan-guarantee-text">Tu web lista y funcionando en 2 semanas. Si tienes algún ajuste, lo resolvemos rápidamente.</p>
+                                </div>
+                                <a href={buildWhatsappLink("Quiero saber más sobre el plan Presencia Profesional")} target="_blank" rel="noopener noreferrer" className="cyn-plan-cta">Cotizar</a>
+                            </div>
+                        </article>
 
-                                <a
-                                    href={buildWhatsappLink(plan.whatsappText)}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="cyn-plan-cta"
-                                >
-                                    Comenzar
-                                </a>
-                            </article>
-                        ))}
+                        <article className="cyn-plan-card-expandable featured">
+                            <div style={{ background: "var(--cyn-accent)", color: "#000", padding: "0.4rem 0.8rem", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 600, display: "inline-block", marginBottom: "0.5rem" }}>Mas solicitado</div>
+                            <div className="cyn-plan-header">
+                                <p className="cyn-plan-name">Plan 2</p>
+                                <h3 className="cyn-plan-title">Ventas Automáticas</h3>
+                                <p className="cyn-plan-subtitle">Para negocios que pierden ventas por no responder a tiempo</p>
+                            </div>
+
+                            <div className="cyn-plan-price-compact">
+                                <div><p className="cyn-plan-price-label">Setup único desde</p><p className="cyn-plan-price">$1.490.000</p></div>
+                                <div><p className="cyn-plan-price-label">Suscripción mensual desde</p><p className="cyn-plan-price">$197.000</p></div>
+                            </div>
+
+                            <div className="cyn-plan-content">
+                                <div className="cyn-plan-divider" />
+                                <div className="cyn-plan-features">
+                                    <p className="cyn-plan-feature active">Todo el plan 1 incluido</p>
+                                    <p className="cyn-plan-feature active">Bot WhatsApp que atiende 24/7</p>
+                                    <p className="cyn-plan-feature active">Respuestas automáticas personalizadas</p>
+                                    <p className="cyn-plan-feature active">VPS dedicado — estabilidad garantizada</p>
+                                    <p className="cyn-plan-feature active">Soporte directo por WhatsApp</p>
+                                    <p className="cyn-plan-feature active">1 ajuste mensual al bot incluido</p>
+                                </div>
+                                <div className="cyn-plan-guarantee">
+                                    <p className="cyn-plan-guarantee-title">Nuestro compromiso</p>
+                                    <p className="cyn-plan-guarantee-text">Tu bot responde clientes en menos de 3 minutos, todos los días. Y si necesitas algo, nosotros respondemos en menos de 3 horas por WhatsApp.</p>
+                                </div>
+                                <a href={buildWhatsappLink("Quiero saber más sobre el plan Ventas Automáticas")} target="_blank" rel="noopener noreferrer" className="cyn-plan-cta">Cotizar</a>
+                            </div>
+                        </article>
+
+                        <article className="cyn-plan-card-expandable">
+                            <div className="cyn-plan-header">
+                                <p className="cyn-plan-name">Plan 3</p>
+                                <h3 className="cyn-plan-title">Escala Inteligente</h3>
+                                <p className="cyn-plan-subtitle">Para escalar ventas con procesos, datos y seguimiento</p>
+                            </div>
+
+                            <div className="cyn-plan-price-compact">
+                                <div><p className="cyn-plan-price-label">Setup único desde</p><p className="cyn-plan-price">$3.200.000</p></div>
+                                <div><p className="cyn-plan-price-label">Suscripción mensual desde</p><p className="cyn-plan-price">$397.000</p></div>
+                            </div>
+
+                            <div className="cyn-plan-content">
+                                <div className="cyn-plan-divider" />
+                                <div className="cyn-plan-features">
+                                    <p className="cyn-plan-feature active">Todo el plan 2 incluido</p>
+                                    <p className="cyn-plan-feature active">CRM para seguimiento de clientes</p>
+                                    <p className="cyn-plan-feature active">Reporte mensual de conversión</p>
+                                    <p className="cyn-plan-feature active">Automatizaciones avanzadas</p>
+                                    <p className="cyn-plan-feature active">Llamada estratégica mensual 1:1</p>
+                                    <p className="cyn-plan-feature active">VPS premium + backups automáticos</p>
+                                </div>
+                                <div className="cyn-plan-guarantee">
+                                    <p className="cyn-plan-guarantee-title">Nuestro compromiso</p>
+                                    <p className="cyn-plan-guarantee-text">Cada mes te mostramos en números cómo tu sistema está trayendo más clientes. No solo entregamos tecnología — hacemos seguimiento a tus resultados.</p>
+                                </div>
+                                <a href={buildWhatsappLink("Quiero saber más sobre el plan Escala Inteligente")} target="_blank" rel="noopener noreferrer" className="cyn-plan-cta">Cotizar</a>
+                            </div>
+                        </article>
                     </div>
                 </section>
 

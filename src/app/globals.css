@@ -822,6 +822,187 @@ h4 {
     opacity: 0.88;
 }
 
+/* Expandable plan cards */
+.cyn-plan-card-expandable {
+    position: relative;
+    background: linear-gradient(135deg, rgba(72, 237, 184, 0.02) 0%, var(--cyn-surface) 100%);
+    border: 1px solid rgba(72, 237, 184, 0.1);
+    border-radius: 10px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+    cursor: pointer;
+}
+
+.cyn-plan-card-expandable::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px at 50% -50%, rgba(121, 226, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.cyn-plan-card-expandable:hover {
+    border-color: rgba(72, 237, 184, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(72, 237, 184, 0.12);
+    z-index: 10;
+    overflow: visible;
+}
+
+.cyn-plan-card-expandable:hover::before {
+    opacity: 1;
+}
+
+.cyn-plan-card-expandable.featured {
+    border-color: rgba(72, 237, 184, 0.3);
+    background: linear-gradient(160deg, rgba(72, 237, 184, 0.08) 0%, var(--cyn-surface) 50%);
+    box-shadow: 0 8px 24px rgba(72, 237, 184, 0.1);
+}
+
+.cyn-plan-header {
+    margin-bottom: 1.5rem;
+}
+
+.cyn-plan-title {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.cyn-plan-subtitle {
+    font-size: 0.9rem;
+    color: var(--cyn-muted);
+    margin: 0;
+}
+
+.cyn-plan-price-compact {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.cyn-plan-price-compact>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.cyn-plan-price-compact>div:last-child {
+    margin-bottom: 0;
+}
+
+.cyn-plan-price-label {
+    font-size: 0.8rem;
+    color: var(--cyn-muted-2);
+    margin: 0;
+}
+
+.cyn-plan-price {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cyn-plan-timeframe {
+    font-size: 0.9rem;
+    color: var(--cyn-muted);
+    margin: 0;
+}
+
+.cyn-plan-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cyn-plan-card-expandable:hover .cyn-plan-content {
+    max-height: 1000px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cyn-plan-features {
+    margin-bottom: 1.5rem;
+}
+
+.cyn-plan-guarantee {
+    background: rgba(25, 245, 156, 0.08);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.cyn-plan-guarantee-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--cyn-accent);
+    margin-bottom: 0.5rem;
+}
+
+.cyn-plan-guarantee-text {
+    font-size: 0.9rem;
+    color: var(--cyn-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Mobile: carousel layout */
+@media (max-width: 1024px) {
+    .cyn-plans-grid {
+        display: flex;
+        gap: 16px;
+        scroll-snap-type: x mandatory;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        width: 100vw;
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .cyn-plans-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .cyn-plans-grid::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+    }
+
+    .cyn-plans-grid::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.3);
+        border-radius: 3px;
+    }
+
+    .cyn-plans-grid::-webkit-scrollbar-thumb:hover {
+        background: rgba(25, 245, 156, 0.5);
+    }
+
+    .cyn-plan-card-expandable {
+        flex: 0 0 calc(90vw - 2 * var(--cyn-shell-x));
+        min-width: calc(90vw - 2 * var(--cyn-shell-x));
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .cyn-plan-card-expandable.featured {
+        flex: 0 0 calc(90vw - 2 * var(--cyn-shell-x));
+        min-width: calc(90vw - 2 * var(--cyn-shell-x));
+    }
+}
+
 .cyn-results-section {
     max-width: 100%;
     background: var(--cyn-surface);
