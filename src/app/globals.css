@@ -440,6 +440,14 @@ h4 {
     line-height: 1.7;
 }
 
+.cyn-plan-note {
+    max-width: 620px;
+    margin-top: 0.75rem;
+    color: var(--cyn-muted-2);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 .cyn-pain-section {
     max-width: 100%;
     background: var(--cyn-surface);
@@ -687,7 +695,7 @@ h4 {
     margin-top: 3.5rem;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
+    gap: 24px;
     align-items: start;
 }
 
@@ -825,16 +833,48 @@ h4 {
 /* Expandable plan cards */
 .cyn-plan-card-expandable {
     position: relative;
-    background: linear-gradient(135deg, rgba(72, 237, 184, 0.02) 0%, var(--cyn-surface) 100%);
-    border: 1px solid rgba(72, 237, 184, 0.1);
-    border-radius: 10px;
-    padding: 32px;
+    background: linear-gradient(180deg, rgba(72, 237, 184, 0.03) 0%, var(--cyn-surface) 100%);
+    border: 1px solid rgba(72, 237, 184, 0.12);
+    border-radius: 14px;
+    padding: 34px 30px 30px;
     transition: all 0.3s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-height: 280px;
+    min-height: 540px;
+    height: 540px;
     cursor: pointer;
+}
+
+.cyn-plan-card-wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-self: stretch;
+}
+
+.cyn-plan-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+}
+
+.cyn-plan-badge-inline {
+    align-self: flex-start;
+    display: inline-flex;
+    background: var(--cyn-accent);
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(25, 245, 156, 0.22);
 }
 
 .cyn-plan-card-expandable::before {
@@ -848,10 +888,11 @@ h4 {
 }
 
 .cyn-plan-card-expandable:hover {
-    border-color: rgba(72, 237, 184, 0.25);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(72, 237, 184, 0.12);
+    border-color: rgba(72, 237, 184, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(72, 237, 184, 0.16);
     z-index: 10;
+    height: auto;
     overflow: visible;
 }
 
@@ -860,17 +901,17 @@ h4 {
 }
 
 .cyn-plan-card-expandable.featured {
-    border-color: rgba(72, 237, 184, 0.3);
-    background: linear-gradient(160deg, rgba(72, 237, 184, 0.08) 0%, var(--cyn-surface) 50%);
-    box-shadow: 0 8px 24px rgba(72, 237, 184, 0.1);
+    border-color: rgba(72, 237, 184, 0.4);
+    background: linear-gradient(180deg, rgba(72, 237, 184, 0.14) 0%, var(--cyn-surface) 48%);
+    box-shadow: 0 12px 32px rgba(72, 237, 156, 0.18);
 }
 
 .cyn-plan-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .cyn-plan-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
@@ -883,19 +924,20 @@ h4 {
 }
 
 .cyn-plan-price-compact {
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
+    margin-bottom: 0.95rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
 }
 
 .cyn-plan-price-compact>div {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 0.75rem;
-}
-
-.cyn-plan-price-compact>div:last-child {
-    margin-bottom: 0;
+    gap: 0.15rem;
+    padding: 12px 14px;
+    border: 1px solid rgba(72, 237, 184, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.015);
 }
 
 .cyn-plan-price-label {
@@ -916,16 +958,40 @@ h4 {
     margin: 0;
 }
 
+.cyn-plan-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.cyn-plan-preview-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(72, 237, 184, 0.12);
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--cyn-muted);
+    font-size: 0.76rem;
+    line-height: 1;
+}
+
 .cyn-plan-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    padding-top: 1rem;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
     opacity: 0;
     pointer-events: none;
 }
 
 .cyn-plan-card-expandable:hover .cyn-plan-content {
-    max-height: 1000px;
+    max-height: 700px;
     opacity: 1;
     pointer-events: auto;
 }
@@ -934,9 +1000,37 @@ h4 {
     margin-bottom: 1.5rem;
 }
 
+.cyn-plan-feature {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--cyn-muted);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.cyn-plan-feature::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 1px solid var(--cyn-accent);
+}
+
+.cyn-plan-feature.active {
+    color: var(--cyn-white);
+}
+
+.cyn-plan-feature.active::before {
+    background: var(--cyn-accent);
+    border-color: var(--cyn-accent);
+}
+
 .cyn-plan-guarantee {
     background: rgba(25, 245, 156, 0.08);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -960,16 +1054,74 @@ h4 {
 @media (max-width: 1024px) {
     .cyn-plans-grid {
         display: flex;
+        grid-template-columns: unset;
         gap: 16px;
-        scroll-snap-type: x mandatory;
         overflow-x: auto;
-        padding-bottom: 1rem;
-        -webkit-overflow-scrolling: touch;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 50%;
         scroll-behavior: smooth;
-        width: 100vw;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding-bottom: 8px;
+        margin-right: calc(-1 * var(--cyn-shell-x));
         margin-left: calc(-1 * var(--cyn-shell-x));
         padding-left: var(--cyn-shell-x);
         padding-right: var(--cyn-shell-x);
+    }
+
+    .cyn-plan-card-wrapper {
+        flex: 0 0 auto;
+        width: min(82vw, 360px);
+    }
+
+    .cyn-plan-card-expandable {
+        width: 100%;
+        min-height: 0;
+        height: auto;
+        padding: 28px 22px 22px;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .cyn-plan-card-expandable:hover {
+        transform: none;
+    }
+
+    .cyn-plan-content {
+        max-height: none;
+        opacity: 1;
+        padding-top: 0;
+        pointer-events: auto;
+    }
+
+    .cyn-plan-card-expandable.featured {
+        transform: none;
+    }
+
+    .cyn-plan-card-expandable:hover {
+        box-shadow: none;
+        z-index: auto;
+    }
+
+    .cyn-plan-header-top {
+        margin-bottom: 0.6rem;
+    }
+
+    .cyn-plan-badge-inline {
+        padding: 6px 12px;
+        font-size: 0.62rem;
+    }
+
+    .cyn-plan-price-compact {
+        grid-template-columns: 1fr;
+    }
+
+    .cyn-plan-preview {
+        margin-bottom: 0.9rem;
     }
 
     .cyn-plans-grid::-webkit-scrollbar {
@@ -977,29 +1129,64 @@ h4 {
     }
 
     .cyn-plans-grid::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 3px;
+        background: rgba(25, 245, 156, 0.08);
+        border-radius: 10px;
     }
 
     .cyn-plans-grid::-webkit-scrollbar-thumb {
         background: rgba(25, 245, 156, 0.3);
-        border-radius: 3px;
+        border-radius: 10px;
     }
+}
 
-    .cyn-plans-grid::-webkit-scrollbar-thumb:hover {
-        background: rgba(25, 245, 156, 0.5);
+@media (max-width: 720px) {
+    .cyn-plans-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .cyn-plan-card-expandable {
-        flex: 0 0 calc(90vw - 2 * var(--cyn-shell-x));
-        min-width: calc(90vw - 2 * var(--cyn-shell-x));
-        scroll-snap-align: center;
-        scroll-snap-stop: always;
+        padding: 24px 18px 18px;
+    }
+
+    .cyn-plan-content {
+        max-height: none;
+    }
+
+    .cyn-plan-preview {
+        gap: 6px;
+    }
+
+    .cyn-plan-preview-chip {
+        min-height: 28px;
+        padding: 0 9px;
+        font-size: 0.72rem;
     }
 
     .cyn-plan-card-expandable.featured {
-        flex: 0 0 calc(90vw - 2 * var(--cyn-shell-x));
-        min-width: calc(90vw - 2 * var(--cyn-shell-x));
+        transform: none;
+    }
+
+    .cyn-plan-badge-inline {
+        padding: 6px 10px;
+        font-size: 0.6rem;
+    }
+
+    .cyn-plan-header-top {
+        align-items: flex-start;
+    }
+
+    .cyn-plan-title {
+        font-size: 22px;
+    }
+
+    .cyn-plan-price {
+        font-size: 1.55rem;
+    }
+
+    .cyn-section-sub,
+    .cyn-plan-note {
+        max-width: 100%;
     }
 }
 
