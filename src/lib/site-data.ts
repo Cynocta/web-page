@@ -198,11 +198,11 @@ export const results: Result[] = [
             "Pasaron de agendar manualmente a un flujo automatico en WhatsApp con confirmaciones y recordatorios.",
     },
     {
-        context: "Taller automotriz",
-        metric: "3h",
-        metricLabel: "ahorradas por dia en tareas manuales",
+        context: "Agencia inmobiliaria",
+        metric: "2x",
+        metricLabel: "mas visitas agendadas en 21 dias",
         summary:
-            "Centralizaron leads, presupuestos y seguimiento en un sistema simple que todo el equipo usa.",
+            "Automatizaron el primer contacto y el prefiltrado de prospectos para agendar visitas sin friccion.",
     },
     {
         context: "Escuela de idiomas online",
@@ -214,9 +214,9 @@ export const results: Result[] = [
 ];
 
 export const heroStats = [
-    { prefix: "<", value: "2min", label: "Primera respuesta" },
-    { prefix: "+", value: "43%", label: "Tasa de cierre" },
-    { prefix: "-", value: "60%", label: "Tareas manuales" },
+    { prefix: "+", value: "50", label: "Negocios automatizados" },
+    { prefix: "<", value: "5s", label: "Primera respuesta" },
+    { prefix: "+", value: "30%", label: "Aumento en conversiones" },
 ];
 
 export const buildWhatsappLink = (text: string) =>

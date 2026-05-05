@@ -12,15 +12,9 @@ export default function manifest(): MetadataRoute.Manifest {
         theme_color: "#080c0a",
         icons: [
             {
-                src: "/cynocta-app-icon.svg",
-                sizes: "512x512",
-                type: "image/svg+xml",
-                purpose: "maskable",
-            },
-            {
-                src: "/favicon.ico",
+                src: "/logo.svg",
                 sizes: "any",
-                type: "image/x-icon",
+                type: "image/svg+xml",
             },
         ],
     };

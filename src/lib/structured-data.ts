@@ -13,7 +13,7 @@ export function organizationJsonLd() {
         "@type": "Organization",
         name: siteName,
         url: siteUrl,
-        logo: `${siteUrl}/cynocta-logo-main.svg`,
+        logo: `${siteUrl}/logo.svg`,
         description: siteDescription,
         telephone: contactPhone,
         email: contactEmail,

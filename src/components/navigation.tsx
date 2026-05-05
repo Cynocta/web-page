@@ -15,11 +15,11 @@ export default function Navigation() {
             <nav className="cyn-nav">
                 <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
                     <Image
-                        src="/cynocta-logo-main.svg"
+                        src="/logo.svg"
                         alt="Logo de Cynocta"
                         className="cyn-logo-mark"
-                        width={447}
-                        height={369}
+                        width={1254}
+                        height={1254}
                         priority
                     />
                     <span className="cyn-logo-text">C Y N O C T A</span>

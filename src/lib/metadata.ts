@@ -27,8 +27,8 @@ export const metadata: Metadata = {
         canonical: "/",
     },
     icons: {
-        icon: [{ url: "/cynocta-reference-favicon.png?v=ref-1", type: "image/png" }],
-        shortcut: ["/cynocta-reference-favicon.png?v=ref-1"],
+        icon: [{ url: "/logo.svg", type: "image/svg+xml", sizes: "any" }],
+        shortcut: ["/logo.svg"],
         apple: "/cynocta-reference-favicon.png?v=ref-1",
     },
     openGraph: {
