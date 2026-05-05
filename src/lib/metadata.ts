@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     icons: {
         icon: [{ url: "/logo.svg", type: "image/svg+xml", sizes: "any" }],
         shortcut: ["/logo.svg"],
-        apple: "/cynocta-reference-favicon.png?v=ref-1",
+        apple: "/logo.svg",
     },
     openGraph: {
         type: "website",
