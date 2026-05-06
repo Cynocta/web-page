@@ -1,23 +1,28 @@
+"use client";
+
 import { MailIcon, InstagramIcon, WhatsAppIcon } from "@/components/icons";
+import { useI18n } from "@/components/i18n-provider";
 import { buildWhatsappLink, contactEmail, instagramUrl } from "@/lib/site-data";
 
 export default function ContactCtaSection() {
+    const { copy } = useI18n();
+
     return (
         <section className="cyn-cta-section" id="contacto">
-            <p className="cyn-cta-tag">Siguiente paso</p>
+            <p className="cyn-cta-tag">{copy.contact.tag}</p>
             <h2>
-                Si tu negocio ya crecio,
+                {copy.contact.title}
                 <br />
-                tu sistema <em>tambien debe hacerlo.</em>
+                <em>{copy.contact.titleEmphasis}</em>
             </h2>
-            <div className="cyn-contact-icons" aria-label="Canales de contacto">
+            <div className="cyn-contact-icons" aria-label={copy.contact.iconsLabel}>
                 <a
-                    href={buildWhatsappLink("Hola, quiero mi diagnostico gratuito")}
+                    href={buildWhatsappLink(copy.contact.whatsappText)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cyn-contact-icon-btn"
-                    aria-label="Abrir WhatsApp de Cynocta"
-                    title="WhatsApp"
+                    aria-label={copy.contact.labels.whatsapp}
+                    title={copy.contact.labels.whatsappTitle}
                 >
                     <WhatsAppIcon />
                 </a>
@@ -26,16 +31,16 @@ export default function ContactCtaSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cyn-contact-icon-btn"
-                    aria-label="Abrir Instagram de Cynocta"
-                    title="Instagram"
+                    aria-label={copy.contact.labels.instagram}
+                    title={copy.contact.labels.instagramTitle}
                 >
                     <InstagramIcon />
                 </a>
                 <a
                     href={`mailto:${contactEmail}`}
                     className="cyn-contact-icon-btn"
-                    aria-label="Enviar correo a Cynocta"
-                    title="Correo"
+                    aria-label={copy.contact.labels.email}
+                    title={copy.contact.labels.emailTitle}
                 >
                     <MailIcon />
                 </a>

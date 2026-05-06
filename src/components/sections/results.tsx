@@ -1,14 +1,18 @@
-import { results } from "@/lib/site-data";
+"use client";
+
+import { useI18n } from "@/components/i18n-provider";
 
 export default function ResultsSection() {
+    const { copy } = useI18n();
+
     return (
         <section className="cyn-results-section" id="resultados">
             <div className="cyn-results-inner">
-                <p className="cyn-section-tag">Resultados reales</p>
-                <h2 className="cyn-section-title">Lo que dicen los numeros.</h2>
+                <p className="cyn-section-tag">{copy.results.tag}</p>
+                <h2 className="cyn-section-title">{copy.results.title}</h2>
 
                 <div className="cyn-results-grid">
-                    {results.map((result) => (
+                    {copy.results.items.map((result) => (
                         <article key={result.context} className="cyn-result-card">
                             <p className="cyn-result-context">{result.context}</p>
                             <div className="cyn-result-metric">

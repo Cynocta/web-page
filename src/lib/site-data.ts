@@ -105,6 +105,7 @@ export type Plan = {
     uniquePayment: string | null;
     delivery: string | null;
     monthlySubscription: string | null;
+    disclaimer?: string | null;
     badge: string | null;
     featured: boolean;
     features: Array<{ label: string; active: boolean }>;
@@ -121,6 +122,7 @@ export const plans: Plan[] = [
         uniquePayment: "$990.000",
         delivery: "Entrega en 2 semanas",
         monthlySubscription: null,
+        disclaimer: null,
         badge: null,
         featured: false,
         features: [
@@ -143,6 +145,7 @@ export const plans: Plan[] = [
         uniquePayment: "$1.490.000",
         delivery: null,
         monthlySubscription: "$197.000",
+        disclaimer: "No incluye costos de WhatsApp API oficial (aprox $200.000 - $300.000 COP/mes)",
         badge: "MAS SOLICITADO",
         featured: true,
         features: [
@@ -165,6 +168,7 @@ export const plans: Plan[] = [
         uniquePayment: "$3.200.000",
         delivery: null,
         monthlySubscription: "$397.000",
+        disclaimer: "No incluye costos de WhatsApp API oficial (aprox $200.000 - $300.000 COP/mes)",
         badge: null,
         featured: false,
         features: [

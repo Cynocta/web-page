@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { buildWhatsappLink, heroStats } from "@/lib/site-data";
+import { useI18n } from "@/components/i18n-provider";
+import { buildWhatsappLink } from "@/lib/site-data";
 
 export default function HeroSection() {
+    const { copy } = useI18n();
+
     return (
         <section className="cyn-hero" id="inicio">
             <div className="cyn-hero-grid" />
@@ -10,33 +15,34 @@ export default function HeroSection() {
             <div className="cyn-hero-content">
                 <div className="cyn-hero-layout">
                     <div className="cyn-hero-copy">
-                        <p className="cyn-eyebrow">Automatizacion con IA para empresas en crecimiento</p>
+                        <p className="cyn-eyebrow">{copy.hero.eyebrow}</p>
                         <h1>
-                            <em>Automatiza</em> tu negocio y
+                            <em>{copy.hero.title.line1Em}</em>
+                            {copy.hero.title.line1Text}
                             <br />
-                            deja de perder <em>clientes</em>.
+                            {copy.hero.title.line2Text}
+                            <em>{copy.hero.title.line2Em}</em>.
                         </h1>
                         <p className="cyn-hero-sub">
-                            Implementamos automatizaciones, IA y sistemas web que capturan clientes,
-                            responden 24/7 y escalan tu operacion sin esfuerzo.
+                            {copy.hero.subtitle}
                         </p>
 
                         <div className="cyn-hero-actions">
                             <a
-                                href={buildWhatsappLink("Hola, quiero agendar un diagnostico gratis")}
+                                href={buildWhatsappLink(copy.hero.primaryCtaWhatsappText)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="cyn-btn-primary"
                             >
-                                Agendar diagnostico gratis
+                                {copy.hero.primaryCta}
                             </a>
                             <Link href="#resultados" className="cyn-btn-ghost">
-                                Ver casos reales
+                                {copy.hero.secondaryCta}
                             </Link>
                         </div>
 
-                        <div className="cyn-hero-stats" aria-label="Beneficios clave">
-                            {heroStats.map((stat) => (
+                        <div className="cyn-hero-stats" aria-label={copy.hero.aria.stats}>
+                            {copy.hero.stats.map((stat) => (
                                 <div key={stat.label}>
                                     <p className="cyn-stat-val">
                                         <span>{stat.prefix}</span>
@@ -48,35 +54,35 @@ export default function HeroSection() {
                         </div>
                     </div>
 
-                    <aside className="cyn-hero-visual" aria-label="Demostracion de automatizacion">
+                    <aside className="cyn-hero-visual" aria-label={copy.hero.aria.visual}>
                         <div className="cyn-hero-visual-orbit" aria-hidden="true" />
                         <div className="cyn-hero-visual-shell">
                             <div className="cyn-hero-visual-header">
                                 <div>
-                                    <p className="cyn-hero-visual-kicker">Sistema activo</p>
-                                    <h2>Dashboard de ventas con IA</h2>
+                                    <p className="cyn-hero-visual-kicker">{copy.hero.visual.kicker}</p>
+                                    <h2>{copy.hero.visual.title}</h2>
                                 </div>
-                                <span className="cyn-hero-visual-pill">+32% este mes</span>
+                                <span className="cyn-hero-visual-pill">{copy.hero.visual.pill}</span>
                             </div>
 
                             <div className="cyn-hero-visual-grid">
                                 <article className="cyn-hero-visual-panel cyn-hero-visual-panel-main">
                                     <div className="cyn-hero-visual-panel-top">
-                                        <span>Embudo en vivo</span>
-                                        <span>Actualizado 12 min</span>
+                                        <span>{copy.hero.visual.liveFunnel}</span>
+                                        <span>{copy.hero.visual.updated}</span>
                                     </div>
 
                                     <div className="cyn-hero-visual-metrics">
                                         <div>
-                                            <span>Consultas</span>
+                                            <span>{copy.hero.visual.inquiries}</span>
                                             <strong>128</strong>
                                         </div>
                                         <div>
-                                            <span>Respuestas</span>
+                                            <span>{copy.hero.visual.replies}</span>
                                             <strong>94%</strong>
                                         </div>
                                         <div>
-                                            <span>Citas</span>
+                                            <span>{copy.hero.visual.appointments}</span>
                                             <strong>36</strong>
                                         </div>
                                     </div>
@@ -92,27 +98,26 @@ export default function HeroSection() {
                                 </article>
 
                                 <article className="cyn-hero-visual-panel cyn-hero-visual-panel-chat">
-                                    <p className="cyn-hero-visual-panel-title">Chatbot 24/7</p>
+                                    <p className="cyn-hero-visual-panel-title">{copy.hero.visual.chatTitle}</p>
                                     <div className="cyn-hero-chat-stack">
                                         <div className="cyn-hero-chat-message is-user">
-                                            Necesito responder mas rapido a mis consultas.
+                                            {copy.hero.visual.chatUser}
                                         </div>
                                         <div className="cyn-hero-chat-message is-bot">
-                                            Listo. Te muestro el flujo y agendo una llamada.
+                                            {copy.hero.visual.chatBot}
                                         </div>
                                     </div>
                                     <div className="cyn-hero-response">
-                                        <span>Respuesta promedio</span>
+                                        <span>{copy.hero.visual.responseLabel}</span>
                                         <strong>&lt;5s</strong>
                                     </div>
                                 </article>
                             </div>
 
-                            <div className="cyn-hero-visual-flow" aria-label="Flujo de automatizacion">
-                                <span>Ads</span>
-                                <span>IA</span>
-                                <span>Agenda</span>
-                                <span>Venta</span>
+                            <div className="cyn-hero-visual-flow" aria-label={copy.hero.aria.flow}>
+                                {copy.hero.visual.flow.map((label) => (
+                                    <span key={label}>{label}</span>
+                                ))}
                             </div>
                         </div>
                     </aside>

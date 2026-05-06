@@ -1,18 +1,23 @@
+"use client";
+
 import { ServiceIcon } from "@/components/icons";
-import { services } from "@/lib/site-data";
+import { useI18n } from "@/components/i18n-provider";
 
 export default function ServicesSection() {
+    const { copy } = useI18n();
+    const [titleLine1, titleLine2] = copy.services.title.split("\n");
+
     return (
         <section className="cyn-section" id="servicios">
-            <p className="cyn-section-tag">Soluciones</p>
+            <p className="cyn-section-tag">{copy.services.tag}</p>
             <h2 className="cyn-section-title">
-                Construimos el sistema
+                {titleLine1}
                 <br />
-                digital que tu negocio necesita.
+                {titleLine2}
             </h2>
 
             <div className="cyn-services-grid">
-                {services.map((service) => (
+                {copy.services.items.map((service) => (
                     <article key={service.title} className="cyn-service-card">
                         <div className="cyn-service-icon">
                             <ServiceIcon kind={service.kind} />

@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
-import { buildWhatsappLink, plans } from "@/lib/site-data";
+import CurrencyToggle from "@/components/currency-toggle";
+import { useI18n } from "@/components/i18n-provider";
+import { formatCurrency } from "@/lib/content";
+import { buildWhatsappLink } from "@/lib/site-data";
 
 export default function PlansSection() {
     const plansGridRef = useRef<HTMLDivElement>(null);
+    const { copy, currency } = useI18n();
+    const [titleLine1, titleLine2] = copy.plans.title.split("\n");
 
     useLayoutEffect(() => {
         if (!plansGridRef.current || typeof window === "undefined" || window.innerWidth > 1024) {
@@ -36,17 +41,25 @@ export default function PlansSection() {
 
     return (
         <section className="cyn-section" id="planes">
-            <p className="cyn-section-tag">Planes</p>
-            <h2 className="cyn-section-title">
-                Elige tu nivel
-                <br />
-                de transformacion.
-            </h2>
-            <p className="cyn-section-sub">Sin contratos largos. Implementacion en dias, no meses.</p>
-            <p className="cyn-plan-note">Compara opciones de entrada, automatizacion y escala sin perder claridad.</p>
+            <div className="cyn-plans-header">
+                <div>
+                    <p className="cyn-section-tag">{copy.plans.tag}</p>
+                    <h2 className="cyn-section-title">
+                        {titleLine1}
+                        <br />
+                        {titleLine2}
+                    </h2>
+                    <p className="cyn-section-sub">{copy.plans.subtitle}</p>
+                    <p className="cyn-plan-note">{copy.plans.note}</p>
+                </div>
+                <div className="cyn-plans-currency">
+                    <span className="cyn-plans-currency-label">{copy.plans.currencyLabel}</span>
+                    <CurrencyToggle className="cyn-toggle--compact" />
+                </div>
+            </div>
 
             <div ref={plansGridRef} className="cyn-plans-grid">
-                {plans.map((plan, i) => (
+                {copy.plans.items.map((plan, i) => (
                     <div key={i} className="cyn-plan-card-wrapper">
                         <article className={`cyn-plan-card-expandable ${plan.featured ? "featured" : ""}`}>
                             <div className="cyn-plan-header">
@@ -61,27 +74,33 @@ export default function PlansSection() {
                             </div>
 
                             <div className="cyn-plan-price-compact">
-                                {plan.uniquePayment && (
+                                {plan.uniquePaymentCOP !== null && (
                                     <div>
-                                        <p className="cyn-plan-price-label">{plan.featured ? "Setup único desde" : "Pago único desde"}</p>
-                                        <p className="cyn-plan-price">{plan.uniquePayment}</p>
+                                        <p className="cyn-plan-price-label">
+                                            {plan.featured ? copy.plans.labels.setupUnique : copy.plans.labels.oneTime}
+                                        </p>
+                                        <p className="cyn-plan-price">
+                                            {formatCurrency(plan.uniquePaymentCOP, currency)}
+                                        </p>
                                     </div>
                                 )}
                                 {plan.delivery && (
                                     <div>
-                                        <p className="cyn-plan-price-label">Entrega</p>
+                                        <p className="cyn-plan-price-label">{copy.plans.labels.delivery}</p>
                                         <p className="cyn-plan-timeframe">{plan.delivery}</p>
                                     </div>
                                 )}
-                                {plan.monthlySubscription && plan.monthlySubscription.trim() && (
+                                {plan.monthlySubscriptionCOP !== null && (
                                     <div>
-                                        <p className="cyn-plan-price-label">Suscripción mensual desde</p>
-                                        <p className="cyn-plan-price">{plan.monthlySubscription}</p>
+                                        <p className="cyn-plan-price-label">{copy.plans.labels.monthly}</p>
+                                        <p className="cyn-plan-price">
+                                            {formatCurrency(plan.monthlySubscriptionCOP, currency)}
+                                        </p>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="cyn-plan-preview" aria-label="Resumen del plan">
+                            <div className="cyn-plan-preview" aria-label={copy.plans.previewLabel}>
                                 {plan.features
                                     .filter((feature) => feature.active)
                                     .slice(0, 3)
@@ -113,8 +132,11 @@ export default function PlansSection() {
                                     className="cyn-plan-cta"
                                     target="_blank"
                                 >
-                                    Cotizar
+                                    {copy.plans.cta}
                                 </Link>
+                                {plan.disclaimer && (
+                                    <p className="cyn-plan-disclaimer">{plan.disclaimer}</p>
+                                )}
                             </div>
                         </article>
                     </div>
