@@ -1,0 +1,112 @@
+.section {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(80px, 12vw, 140px) var(--cyn-shell-x);
+    padding-bottom: clamp(60px, 8vw, 100px);
+    background: linear-gradient(to bottom, transparent 0%, var(--cyn-black) 90%);
+}
+
+.aurora {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 60vw;
+    height: 40vh;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(25, 245, 156, 0.08) 0%,
+        rgba(121, 226, 255, 0.04) 40%,
+        transparent 70%
+    );
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: breathe 8s ease-in-out infinite alternate;
+}
+
+.inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tag {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+.tag::before,
+.tag::after {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: var(--cyn-accent);
+    opacity: 0.5;
+}
+
+.heading {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.08;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    background: linear-gradient(180deg, var(--cyn-white) 30%, var(--cyn-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.heading em {
+    font-style: italic;
+    -webkit-text-fill-color: var(--cyn-accent);
+    filter: drop-shadow(0 0 18px rgba(25, 245, 156, 0.2));
+}
+
+.sub {
+    color: var(--cyn-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.scrollHint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.scrollLine {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(25, 245, 156, 0.3), transparent);
+    animation: scrollPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 0.8; transform: scaleY(1); }
+}
+
+@media (max-width: 640px) {
+    .section {
+        padding-top: 60px;
+        padding-bottom: 48px;
+    }
+}

@@ -2,6 +2,7 @@
 
 import { ServiceIcon } from "@/components/icons";
 import { useI18n } from "@/components/i18n-provider";
+import s from "./services.module.css";
 
 export default function ServicesSection() {
     const { copy } = useI18n();
@@ -16,17 +17,17 @@ export default function ServicesSection() {
                 {titleLine2}
             </h2>
 
-            <div className="cyn-services-grid">
+            <div className={s.grid}>
                 {copy.services.items.map((service) => (
-                    <article key={service.title} className="cyn-service-card">
-                        <div className="cyn-service-icon">
+                    <article key={service.title} className={s.card}>
+                        <div className={s.icon}>
                             <ServiceIcon kind={service.kind} />
                         </div>
                         <h3>{service.title}</h3>
                         <p>{service.description}</p>
                         <div>
                             {service.tags.map((tag) => (
-                                <span key={tag} className="cyn-service-tag">
+                                <span key={tag} className={s.tag}>
                                     {tag}
                                 </span>
                             ))}

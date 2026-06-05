@@ -1,43 +1,45 @@
+import s from "@/components/legal.module.css";
+
 export default function TerminosPage() {
     return (
-        <div className="cyn-legal-page">
-            <header className="cyn-legal-hero">
-                <p className="cyn-legal-kicker">Cynocta</p>
-                <h1 className="cyn-legal-title">Terminos y condiciones de uso</h1>
-                <p className="cyn-legal-subtitle">Documento legal vinculante</p>
+        <div className={s.legalPage}>
+            <header className={s.hero}>
+                <p className={s.kicker}>Cynocta</p>
+                <h1 className={s.title}>Terminos y condiciones de uso</h1>
+                <p className={s.subtitle}>Documento legal vinculante</p>
             </header>
 
-            <div className="cyn-legal-shell">
-                <div className="cyn-legal-meta">
-                    <div className="cyn-legal-meta-card">
-                        <span className="cyn-legal-meta-label">Ultima actualizacion</span>
-                        <strong className="cyn-legal-meta-value">Mayo 2025</strong>
+            <div className={s.shell}>
+                <div className={s.meta}>
+                    <div className={s.metaCard}>
+                        <span className={s.metaLabel}>Ultima actualizacion</span>
+                        <strong className={s.metaValue}>Mayo 2025</strong>
                     </div>
-                    <div className="cyn-legal-meta-card">
-                        <span className="cyn-legal-meta-label">Version</span>
-                        <strong className="cyn-legal-meta-value">1.0</strong>
+                    <div className={s.metaCard}>
+                        <span className={s.metaLabel}>Version</span>
+                        <strong className={s.metaValue}>1.0</strong>
                     </div>
-                    <div className="cyn-legal-meta-card">
-                        <span className="cyn-legal-meta-label">Jurisdiccion</span>
-                        <strong className="cyn-legal-meta-value">Colombia</strong>
+                    <div className={s.metaCard}>
+                        <span className={s.metaLabel}>Jurisdiccion</span>
+                        <strong className={s.metaValue}>Colombia</strong>
                     </div>
                 </div>
 
-                <div className="cyn-legal-callout">
+                <div className={s.callout}>
                     Al acceder, registrarse o utilizar cualquier servicio ofrecido por Cynocta, usted declara haber
                     leido, comprendido y aceptado en su totalidad los presentes Terminos y Condiciones. Este
                     documento constituye un contrato legalmente vinculante entre usted y Cynocta. Si no esta de
                     acuerdo con alguna de estas disposiciones, debera abstenerse de utilizar nuestros servicios.
                 </div>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>1. Definiciones</h2>
                     <p>
                         Para los efectos de estos Terminos y Condiciones, los siguientes terminos tendran el
                         significado que a continuacion se establece:
                     </p>
-                    <dl className="cyn-legal-definition-grid">
-                        <div className="cyn-legal-definition">
+                    <dl className={s.definitionGrid}>
+                        <div className={s.definition}>
                             <dt>Cynocta</dt>
                             <dd>
                                 Empresa proveedora de soluciones tecnologicas de automatizacion, desarrollo web,
@@ -45,7 +47,7 @@ export default function TerminosPage() {
                                 Republica de Colombia.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Cliente</dt>
                             <dd>
                                 Persona natural o juridica, mayor de edad o con capacidad legal suficiente, que
@@ -53,7 +55,7 @@ export default function TerminosPage() {
                                 Condiciones.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Servicios</dt>
                             <dd>
                                 El conjunto de soluciones tecnologicas ofrecidas por Cynocta, que incluyen, sin
@@ -61,28 +63,28 @@ export default function TerminosPage() {
                                 integraciones con plataformas externas y aplicaciones de inteligencia artificial.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Plataforma</dt>
                             <dd>
                                 El conjunto de herramientas, interfaces, sistemas y aplicaciones a traves de los
                                 cuales se prestan los Servicios, incluyendo el sitio web https://www.cynocta.com.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Usuario Final</dt>
                             <dd>
                                 Persona que interactua con los sistemas automatizados o chatbots implementados por
                                 Cynocta en nombre del Cliente.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Contenido</dt>
                             <dd>
                                 Toda informacion, datos, textos, imagenes, videos, archivos y materiales que el
                                 Cliente cargue, transmita o gestione a traves de los Servicios.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>API de WhatsApp</dt>
                             <dd>
                                 Interfaz de programacion de aplicaciones de WhatsApp Business gestionada por Meta
@@ -90,7 +92,7 @@ export default function TerminosPage() {
                                 mensajeria WhatsApp.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Datos Personales</dt>
                             <dd>
                                 Cualquier informacion vinculada o que pueda asociarse a una persona natural
@@ -98,7 +100,7 @@ export default function TerminosPage() {
                                 complementarias.
                             </dd>
                         </div>
-                        <div className="cyn-legal-definition">
+                        <div className={s.definition}>
                             <dt>Terceros Proveedores</dt>
                             <dd>
                                 Empresas externas a Cynocta cuyos servicios, infraestructuras o plataformas se
@@ -109,7 +111,7 @@ export default function TerminosPage() {
                     </dl>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>2. Descripcion del servicio</h2>
                     <p>
                         Cynocta es una empresa de tecnologia especializada en el diseno, desarrollo e
@@ -155,14 +157,14 @@ export default function TerminosPage() {
                         <li>Automatizacion de clasificacion, analisis y respuesta a consultas mediante IA.</li>
                         <li>Integracion de IA en procesos de ventas, soporte tecnico y gestion de pedidos.</li>
                     </ul>
-                    <div className="cyn-legal-note">
+                    <div className={s.note}>
                         Importante: Los Servicios de Cynocta son herramientas tecnologicas de apoyo. Cynocta no
                         garantiza resultados comerciales especificos derivados del uso de sus Servicios, ni asegura
                         el logro de metas de ventas, conversion o crecimiento.
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>3. Condiciones de uso del servicio</h2>
                     <h3>3.1. Requisitos del Cliente</h3>
                     <p>Para acceder y utilizar los Servicios de Cynocta, el Cliente debera:</p>
@@ -207,14 +209,14 @@ export default function TerminosPage() {
                         <li>Uso de los Servicios para actividades de competencia desleal contra Cynocta o sus clientes.</li>
                         <li>Acceso no autorizado a sistemas, cuentas o datos de otros Clientes.</li>
                     </ul>
-                    <div className="cyn-legal-note">
+                    <div className={s.note}>
                         El incumplimiento de cualquiera de las obligaciones establecidas en esta seccion faculta
                         a Cynocta para suspender o terminar el acceso a los Servicios de manera inmediata, sin
                         perjuicio de las acciones legales que correspondan.
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>4. Responsabilidad sobre WhatsApp y servicios de terceros</h2>
                     <h3>4.1. Independencia de Cynocta respecto a Meta</h3>
                     <p>
@@ -249,20 +251,20 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>5. Costos, facturacion y pagos</h2>
                     <h3>5.1. Estructura de Precios</h3>
                     <p>
                         Los Servicios de Cynocta se estructuran generalmente bajo alguno o varios de los
                         siguientes esquemas de facturacion:
                     </p>
-                    <div className="cyn-legal-table">
-                        <div className="cyn-legal-table-row">
+                    <div className={s.table}>
+                        <div className={s.tableRow}>
                             <strong>Tipo</strong>
                             <strong>Descripcion</strong>
                             <strong>Condicion</strong>
                         </div>
-                        <div className="cyn-legal-table-row">
+                        <div className={s.tableRow}>
                             <strong>Pago unico (Setup)</strong>
                             <span>
                                 Cubre la configuracion inicial, desarrollo y puesta en marcha del proyecto. Incluye
@@ -270,7 +272,7 @@ export default function TerminosPage() {
                             </span>
                             <span>Pagadero antes del inicio del proyecto</span>
                         </div>
-                        <div className="cyn-legal-table-row">
+                        <div className={s.tableRow}>
                             <strong>Suscripcion mensual</strong>
                             <span>
                                 Cubre el mantenimiento continuo, soporte tecnico, actualizaciones menores y
@@ -278,7 +280,7 @@ export default function TerminosPage() {
                             </span>
                             <span>Pagadero el primer dia habil de cada mes</span>
                         </div>
-                        <div className="cyn-legal-table-row">
+                        <div className={s.tableRow}>
                             <strong>Desarrollo adicional</strong>
                             <span>
                                 Funcionalidades, modulos o integraciones no contemplados en el alcance inicial
@@ -286,7 +288,7 @@ export default function TerminosPage() {
                             </span>
                             <span>Cotizado y facturado por separado</span>
                         </div>
-                        <div className="cyn-legal-table-row">
+                        <div className={s.tableRow}>
                             <strong>Soporte extendido</strong>
                             <span>Atencion prioritaria fuera del horario habitual o por fuera del SLA estandar.</span>
                             <span>Tarifas adicionales aplicables segun contrato</span>
@@ -324,7 +326,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>6. Propiedad intelectual</h2>
                     <h3>6.1. Titularidad de Cynocta</h3>
                     <p>
@@ -370,7 +372,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>7. Inteligencia artificial y automatizacion</h2>
                     <h3>7.1. Naturaleza de las Soluciones de IA</h3>
                     <p>
@@ -397,14 +399,14 @@ export default function TerminosPage() {
                         <li>Notificar a Cynocta cuando identifique fallos sistematicos en el comportamiento del sistema para su correccion.</li>
                         <li>Verificar que la informacion suministrada a los sistemas de IA para entrenamiento o contexto sea veraz, actualizada y de su legitima titularidad.</li>
                     </ul>
-                    <div className="cyn-legal-note">
+                    <div className={s.note}>
                         Cynocta no garantiza la exactitud, completitud ni idoneidad de las respuestas generadas
                         automaticamente por los sistemas de inteligencia artificial. El uso de estas tecnologias
                         es bajo la entera responsabilidad del Cliente.
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>8. Disponibilidad y niveles de servicio (SLA)</h2>
                     <h3>8.1. Objetivo de Disponibilidad</h3>
                     <p>
@@ -438,7 +440,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>9. Privacidad y proteccion de datos personales</h2>
                     <h3>9.1. Marco Legal Aplicable</h3>
                     <p>
@@ -472,7 +474,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>10. Limitacion de responsabilidad</h2>
                     <h3>10.1. Alcance de la Responsabilidad de Cynocta</h3>
                     <p>En la maxima medida permitida por la legislacion colombiana aplicable, Cynocta no sera responsable por:</p>
@@ -502,7 +504,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>11. Vigencia y terminacion del contrato</h2>
                     <h3>11.1. Vigencia</h3>
                     <p>
@@ -538,7 +540,7 @@ export default function TerminosPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>12. Modificaciones a los Terminos y Condiciones</h2>
                     <p>
                         Cynocta se reserva el derecho de modificar, actualizar o revisar los presentes Terminos y
@@ -552,13 +554,13 @@ export default function TerminosPage() {
                         con las modificaciones debera notificarlo por escrito a Cynocta y podra dar por terminado el
                         contrato conforme a lo dispuesto en la seccion 11.
                     </p>
-                    <div className="cyn-legal-note">
+                    <div className={s.note}>
                         Recomendamos al Cliente revisar periodicamente los Terminos y Condiciones publicados en
                         nuestro sitio web para mantenerse informado sobre posibles actualizaciones.
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>13. Fuerza mayor y caso fortuito</h2>
                     <p>
                         Cynocta no sera responsable por el incumplimiento o retraso en la prestacion de los
@@ -574,7 +576,7 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>14. Ley aplicable y resolucion de conflictos</h2>
                     <h3>14.1. Ley Aplicable</h3>
                     <p>
@@ -595,7 +597,7 @@ export default function TerminosPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>15. Disposiciones generales</h2>
                     <h3>15.1. Integralidad del Acuerdo</h3>
                     <p>
@@ -625,14 +627,14 @@ export default function TerminosPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>16. Informacion de contacto</h2>
                     <p>
                         Para consultas sobre estos Terminos y Condiciones, soporte tecnico, reportes de incidencias
                         o cualquier otra comunicacion relacionada con los Servicios de Cynocta, puede contactarnos
                         a traves de los siguientes canales:
                     </p>
-                    <div className="cyn-legal-contact">
+                    <div className={s.contact}>
                         <div>
                             <span>Sitio web</span>
                             <p>https://www.cynocta.com</p>
@@ -656,9 +658,9 @@ export default function TerminosPage() {
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>17. Aceptacion de Terminos y Condiciones</h2>
-                    <div className="cyn-legal-accept">
+                    <div className={s.accept}>
                         <p>
                             Al acceder, registrarse o utilizar los Servicios de Cynocta, el Cliente declara
                             expresamente que ha leido, comprendido y acepta en su totalidad los presentes Terminos y
@@ -668,8 +670,8 @@ export default function TerminosPage() {
                     </div>
                 </section>
 
-                <p className="cyn-legal-signoff">— Cynocta | Automatizacion y Desarrollo Digital —</p>
-                <p className="cyn-legal-site">www.cynocta.com</p>
+                <p className={s.signoff}>— Cynocta | Automatizacion y Desarrollo Digital —</p>
+                <p className={s.site}>www.cynocta.com</p>
             </div>
         </div>
     );

@@ -1,0 +1,131 @@
+.footer {
+    max-width: 100%;
+    border-top: 1px solid var(--cyn-border-2);
+    padding: 36px 4rem 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+}
+
+.brand {
+    flex-shrink: 0;
+}
+
+.brand :global(.cyn-logo-mark) {
+    width: 34px;
+}
+
+.brand :global(.cyn-logo-text) {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+}
+
+.copy {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.nav,
+.legal {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav a,
+.legal a {
+    color: var(--cyn-muted-2);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+    transition: color 0.2s;
+}
+
+.nav a:hover,
+.legal a:hover {
+    color: var(--cyn-accent);
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: var(--cyn-border-2);
+}
+
+.bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.legal {
+    justify-content: flex-end;
+}
+
+.legalBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 9, 0.55);
+    color: var(--cyn-muted-2) !important;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.legalBtn:hover {
+    border-color: rgba(25, 245, 156, 0.35);
+    color: var(--cyn-white);
+    background: rgba(25, 245, 156, 0.08);
+}
+
+.legal :global(.cyn-toggle) {
+    border-radius: 10px;
+    background: rgba(7, 8, 9, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 1080px) {
+    .footer {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .footer {
+        align-items: flex-start;
+    }
+
+    .bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .legal {
+        justify-content: center;
+    }
+}

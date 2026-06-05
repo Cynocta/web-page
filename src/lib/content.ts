@@ -111,6 +111,8 @@ export type Content = {
         };
         currencyLabel: string;
         previewLabel: string;
+        detailsShow: string;
+        detailsHide: string;
         items: Plan[];
     };
     results: {
@@ -291,6 +293,8 @@ export const content: Record<Locale, Content> = {
             },
             currencyLabel: "Divisa",
             previewLabel: "Resumen del plan",
+            detailsShow: "Ver detalles",
+            detailsHide: "Ocultar detalles",
             items: [
                 {
                     plan: "PLAN 1",
@@ -554,6 +558,8 @@ export const content: Record<Locale, Content> = {
             },
             currencyLabel: "Currency",
             previewLabel: "Plan summary",
+            detailsShow: "View details",
+            detailsHide: "Hide details",
             items: [
                 {
                     plan: "PLAN 1",

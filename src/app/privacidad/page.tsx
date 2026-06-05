@@ -1,23 +1,25 @@
+import s from "@/components/legal.module.css";
+
 export default function PrivacidadPage() {
     return (
-        <div className="cyn-legal-page">
-            <header className="cyn-legal-hero">
-                <p className="cyn-legal-kicker">Cynocta</p>
-                <h1 className="cyn-legal-title">Politica de privacidad</h1>
-                <p className="cyn-legal-subtitle">Ultima actualizacion: Mayo 2026</p>
+        <div className={s.legalPage}>
+            <header className={s.hero}>
+                <p className={s.kicker}>Cynocta</p>
+                <h1 className={s.title}>Politica de privacidad</h1>
+                <p className={s.subtitle}>Ultima actualizacion: Mayo 2026</p>
             </header>
 
-            <div className="cyn-legal-shell">
-                <section className="cyn-legal-section">
+            <div className={s.shell}>
+                <section className={s.legalSection}>
                     <p>
                         Cynocta protege la informacion personal conforme a la Ley 1581 de 2012 y demas normas
                         aplicables en Colombia.
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>1. Responsable del tratamiento</h2>
-                    <div className="cyn-legal-contact">
+                    <div className={s.contact}>
                         <div>
                             <span>Cynocta</span>
                             <p>https://www.cynocta.com</p>
@@ -33,7 +35,7 @@ export default function PrivacidadPage() {
                     </div>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>2. Principios de tratamiento</h2>
                     <ul>
                         <li>Legalidad</li>
@@ -45,7 +47,7 @@ export default function PrivacidadPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>3. Datos recopilados</h2>
                     <h3>Datos directos</h3>
                     <ul>
@@ -66,7 +68,7 @@ export default function PrivacidadPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>4. Finalidad</h2>
                     <ul>
                         <li>Prestar servicios</li>
@@ -77,7 +79,7 @@ export default function PrivacidadPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>5. Tratamiento de datos de terceros</h2>
                     <p>Cuando el cliente usa nuestros sistemas:</p>
                     <ul>
@@ -87,7 +89,7 @@ export default function PrivacidadPage() {
                     <p>El cliente garantiza que tiene autorizacion para usar dichos datos.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>6. Uso de tecnologias y terceros</h2>
                     <p>
                         Se utilizan servicios como WhatsApp (Meta), servidores cloud y APIs. Los datos pueden
@@ -95,7 +97,7 @@ export default function PrivacidadPage() {
                     </p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>7. Inteligencia artificial</h2>
                     <p>Los datos pueden ser procesados por IA para:</p>
                     <ul>
@@ -105,7 +107,7 @@ export default function PrivacidadPage() {
                     <p>No se toman decisiones automatizadas con efectos legales.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>8. Derechos del titular</h2>
                     <p>El usuario puede:</p>
                     <ul>
@@ -117,7 +119,7 @@ export default function PrivacidadPage() {
                     <p>Solicitudes a: cynoctaadmin@gmail.com</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>9. Seguridad</h2>
                     <ul>
                         <li>Control de acceso</li>
@@ -127,7 +129,7 @@ export default function PrivacidadPage() {
                     <p>No garantizamos seguridad absoluta.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>10. Conservacion</h2>
                     <p>Los datos se almacenan mientras:</p>
                     <ul>
@@ -136,7 +138,7 @@ export default function PrivacidadPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>11. Cookies</h2>
                     <p>Se usan cookies para:</p>
                     <ul>
@@ -146,12 +148,12 @@ export default function PrivacidadPage() {
                     <p>El usuario puede desactivarlas.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>12. Menores de edad</h2>
                     <p>No recolectamos datos de menores intencionalmente.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>13. Transferencias</h2>
                     <p>Los datos pueden compartirse con:</p>
                     <ul>
@@ -160,19 +162,19 @@ export default function PrivacidadPage() {
                     </ul>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>14. Modificaciones</h2>
                     <p>La politica puede cambiar en cualquier momento.</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>15. Contacto</h2>
                     <p>cynoctaadmin@gmail.com</p>
                     <p>+57 305 2580874</p>
                     <p>https://www.cynocta.com</p>
                 </section>
 
-                <section className="cyn-legal-section">
+                <section className={s.legalSection}>
                     <h2>16. Aceptacion</h2>
                     <p>El uso del servicio implica aceptacion de esta politica.</p>
                 </section>

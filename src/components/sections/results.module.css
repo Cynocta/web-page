@@ -1,0 +1,157 @@
+.section {
+    max-width: 100%;
+    background: var(--cyn-surface);
+    border-top: 1px solid var(--cyn-border-2);
+    border-bottom: 1px solid var(--cyn-border-2);
+    padding: var(--cyn-section-space) 0;
+}
+
+.inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--cyn-shell-x);
+}
+
+.grid {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: linear-gradient(135deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 100%);
+    border: 1px solid rgba(25, 245, 156, 0.1);
+    border-radius: 10px;
+    padding: 36px 32px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyn-accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(25, 245, 156, 0.2);
+    box-shadow: 0 8px 20px rgba(25, 245, 156, 0.08);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.context {
+    color: var(--cyn-muted);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.metric {
+    margin-bottom: 1.2rem;
+}
+
+.num {
+    color: var(--cyn-accent);
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 300;
+}
+
+.desc {
+    color: var(--cyn-muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.summary {
+    color: var(--cyn-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 1080px) {
+    .inner {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .section {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .grid {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        padding-bottom: 10px;
+        margin-top: 2rem;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .grid::-webkit-scrollbar-track {
+        background: rgba(25, 245, 156, 0.08);
+        border-radius: 10px;
+    }
+
+    .grid::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.3);
+        border-radius: 10px;
+    }
+
+    .grid::-webkit-scrollbar-thumb:hover {
+        background: rgba(25, 245, 156, 0.5);
+    }
+
+    .card {
+        min-width: min(82vw, 340px);
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        flex-shrink: 0;
+        padding: 22px 18px;
+    }
+
+    .context {
+        font-size: 16px;
+    }
+
+    .summary {
+        font-size: 14px;
+    }
+}

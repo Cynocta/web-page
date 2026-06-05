@@ -6,6 +6,7 @@ import { useState } from "react";
 import LanguageToggle from "@/components/language-toggle";
 import { useI18n } from "@/components/i18n-provider";
 import { buildWhatsappLink } from "@/lib/site-data";
+import s from "./navigation.module.css";
 
 export default function Navigation() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -14,8 +15,8 @@ export default function Navigation() {
     const closeMenu = () => setMobileOpen(false);
 
     return (
-        <header className="cyn-nav-wrap">
-            <nav className="cyn-nav">
+        <header className={s.navWrap}>
+            <nav className={s.nav}>
                 <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
                     <Image
                         src="/logo.svg"
@@ -28,20 +29,20 @@ export default function Navigation() {
                     <span className="cyn-logo-text">C Y N O C T A</span>
                 </Link>
 
-                <div className="cyn-nav-actions">
+                <div className={s.navActions}>
                     <LanguageToggle className="cyn-nav-toggle-mobile" />
                     <button
                         type="button"
                         aria-label={copy.navMenuAriaLabel}
                         aria-expanded={mobileOpen}
-                        className="cyn-menu-btn"
+                        className={s.menuBtn}
                         onClick={() => setMobileOpen((prev) => !prev)}
                     >
                         {mobileOpen ? copy.navCloseLabel : copy.navMenuLabel}
                     </button>
                 </div>
 
-                <ul className="cyn-nav-links">
+                <ul className={s.navLinks}>
                     {copy.navItems.map((item) => (
                         <li key={item.href}>
                             <Link href={item.href}>{item.label}</Link>
@@ -52,7 +53,7 @@ export default function Navigation() {
                             href={buildWhatsappLink(copy.navCtaWhatsappText)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="cyn-nav-cta"
+                            className={s.navCta}
                         >
                             {copy.navCta}
                         </a>
@@ -64,7 +65,7 @@ export default function Navigation() {
             </nav>
 
             {mobileOpen && (
-                <div className="cyn-mobile-menu">
+                <div className={s.mobileMenu}>
                     {copy.navItems.map((item) => (
                         <Link key={item.href} href={item.href} onClick={closeMenu}>
                             {item.label}

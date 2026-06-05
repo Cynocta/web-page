@@ -1,0 +1,136 @@
+.section {
+    max-width: 100%;
+    background: var(--cyn-surface);
+    border-top: 1px solid var(--cyn-border-2);
+    padding: var(--cyn-section-space) 0;
+}
+
+.inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--cyn-shell-x);
+}
+
+.steps {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    position: relative;
+}
+
+.steps::after {
+    content: "";
+    position: absolute;
+    left: 14%;
+    right: 14%;
+    top: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyn-accent), transparent);
+    opacity: 0.3;
+}
+
+.step {
+    padding: 0 1.4rem;
+    text-align: center;
+}
+
+.stepNum {
+    position: relative;
+    z-index: 1;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-black);
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.step p {
+    color: var(--cyn-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+@media (max-width: 1080px) {
+    .inner {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem 1rem;
+    }
+
+    .steps::after {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .section {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .steps {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        padding-bottom: 10px;
+        margin-top: 2.2rem;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .steps::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .steps::-webkit-scrollbar-track {
+        background: rgba(25, 245, 156, 0.08);
+        border-radius: 10px;
+    }
+
+    .steps::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.3);
+        border-radius: 10px;
+    }
+
+    .steps::after {
+        display: none;
+    }
+
+    .step {
+        min-width: min(72vw, 280px);
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 0;
+        text-align: left;
+    }
+
+    .stepNum {
+        margin: 0 0 1rem;
+    }
+}

@@ -1,0 +1,587 @@
+/* ══════════════════════════════════════════════════
+   Plans Section — Elegant Tech Pricing Cards
+   ══════════════════════════════════════════════════ */
+
+/* ── Section ── */
+.sectionOuter {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(900px 500px at 70% 20%, rgba(25, 245, 156, 0.07) 0%, transparent 60%),
+        radial-gradient(600px 400px at 20% 80%, rgba(56, 255, 176, 0.05) 0%, transparent 55%),
+        radial-gradient(400px 300px at 50% 50%, rgba(121, 226, 255, 0.03) 0%, transparent 50%);
+}
+
+.sectionContent {
+    position: relative;
+    z-index: 1;
+}
+
+.plansHeader {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.planNote {
+    max-width: 620px;
+    margin-top: 0.75rem;
+    color: var(--cyn-muted-2);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.plansCurrency {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.plansCurrencyLabel {
+    color: var(--cyn-muted-2);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+/* ── Grid ── */
+.plansGrid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.cardWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+/* ── Card ── */
+.card {
+    position: relative;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: linear-gradient(
+        165deg,
+        rgba(25, 245, 156, 0.04) 0%,
+        rgba(14, 15, 17, 0.72) 35%,
+        rgba(10, 11, 13, 0.58) 100%
+    );
+    border: 1px solid rgba(25, 245, 156, 0.12);
+    border-radius: 20px;
+    padding: 28px 26px 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition:
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.30), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(25, 245, 156, 0.26);
+    transform: translateY(-4px);
+    box-shadow:
+        0 20px 48px rgba(0, 0, 0, 0.36),
+        0 0 40px rgba(25, 245, 156, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+/* ── Featured ── */
+.card.featured {
+    border-color: rgba(25, 245, 156, 0.32);
+    background: linear-gradient(
+        165deg,
+        rgba(25, 245, 156, 0.10) 0%,
+        rgba(14, 15, 17, 0.78) 40%,
+        rgba(10, 11, 13, 0.62) 100%
+    );
+    box-shadow:
+        0 16px 48px rgba(25, 245, 156, 0.12),
+        0 0 0 1px rgba(25, 245, 156, 0.10),
+        inset 0 1px 0 rgba(25, 245, 156, 0.06);
+    z-index: 2;
+}
+
+.card.featured::after {
+    opacity: 1;
+    background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.50), transparent);
+}
+
+.card.featured:hover {
+    border-color: rgba(25, 245, 156, 0.45);
+    box-shadow:
+        0 24px 56px rgba(25, 245, 156, 0.16),
+        0 0 60px rgba(25, 245, 156, 0.06),
+        inset 0 1px 0 rgba(25, 245, 156, 0.10);
+}
+
+/* ── Header ── */
+.header {
+    margin-bottom: 1.25rem;
+}
+
+.headerTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.planName {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.badge {
+    display: inline-flex;
+    background: var(--cyn-accent);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(25, 245, 156, 0.30);
+}
+
+.planTitle {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+}
+
+.planSub {
+    font-size: 13px;
+    color: var(--cyn-muted);
+    line-height: 1.5;
+}
+
+/* ── Pricing ── */
+.pricing {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.priceBlock {
+    margin-bottom: 4px;
+}
+
+.priceBlock:last-of-type {
+    margin-bottom: 0;
+}
+
+.priceValue {
+    font-size: 2.25rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0;
+    color: var(--cyn-white);
+    text-shadow:
+        0 0 8px rgba(25, 245, 156, 0.35),
+        0 0 24px rgba(25, 245, 156, 0.15);
+}
+
+.pricePeriod {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    opacity: 0.5;
+}
+
+.priceTag {
+    font-size: 10px;
+    color: var(--cyn-muted-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.delivery {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--cyn-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.delivery::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+/* ── Feature chips (always visible) ── */
+.highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0.9rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(25, 245, 156, 0.06);
+    border: 1px solid rgba(25, 245, 156, 0.10);
+    color: var(--cyn-white);
+    font-size: 11px;
+    line-height: 1;
+}
+
+.chip svg {
+    color: var(--cyn-accent);
+    flex-shrink: 0;
+}
+
+.chipMore {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: rgba(25, 245, 156, 0.08);
+    color: var(--cyn-accent);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* ── Toggle ── */
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 0;
+    margin-bottom: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--cyn-accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.toggle:hover {
+    opacity: 0.75;
+}
+
+.chevron {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
+
+/* ── Collapsible details ── */
+.details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.details[data-open="true"] {
+    grid-template-rows: 1fr;
+}
+
+.detailsInner {
+    overflow: hidden;
+}
+
+/* ── Divider ── */
+.divider {
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(25, 245, 156, 0.18) 30%,
+        rgba(121, 226, 255, 0.18) 60%,
+        transparent
+    );
+    margin-bottom: 1rem;
+}
+
+/* ── Feature list ── */
+.featureList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 7px;
+    margin-bottom: 1rem;
+}
+
+.feat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--cyn-muted-2);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.featDot {
+    flex-shrink: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyn-muted-2);
+    opacity: 0.3;
+}
+
+.featActive {
+    color: var(--cyn-white);
+}
+
+.featActive .featDot {
+    background: var(--cyn-accent);
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(25, 245, 156, 0.4);
+}
+
+/* ── Guarantee ── */
+.guarantee {
+    background: rgba(25, 245, 156, 0.04);
+    border: 1px solid rgba(25, 245, 156, 0.08);
+    border-radius: 10px;
+    padding: 0.65rem 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.guaranteeLabel {
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--cyn-accent);
+    margin-bottom: 0.2rem;
+}
+
+.guaranteeText {
+    font-size: 12px;
+    color: var(--cyn-muted);
+    margin: 0;
+    line-height: 1.45;
+}
+
+/* ── CTA ── */
+.cta {
+    display: block;
+    text-align: center;
+    margin-top: auto;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid rgba(25, 245, 156, 0.20);
+    color: var(--cyn-accent);
+    background: rgba(25, 245, 156, 0.04);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+        border-color 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.cta:hover {
+    border-color: rgba(25, 245, 156, 0.45);
+    color: var(--cyn-white);
+    background: rgba(25, 245, 156, 0.08);
+    box-shadow: 0 8px 24px rgba(25, 245, 156, 0.12);
+}
+
+.card.featured .cta {
+    background: var(--cyn-accent);
+    border-color: var(--cyn-accent);
+    color: var(--cyn-black);
+    font-weight: 700;
+    box-shadow: 0 8px 28px rgba(25, 245, 156, 0.28);
+}
+
+.card.featured .cta:hover {
+    background: var(--cyn-accent-glow);
+    border-color: var(--cyn-accent-glow);
+    box-shadow: 0 12px 36px rgba(25, 245, 156, 0.38);
+}
+
+.disclaimer {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 1.35;
+    text-align: center;
+    color: var(--cyn-muted-2);
+    opacity: 0.65;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card::after,
+    .cta,
+    .details,
+    .chevron {
+        transition: none;
+    }
+    .card:hover {
+        transform: none;
+    }
+}
+
+/* ── Tablet / mobile: carousel ── */
+@media (max-width: 1024px) {
+    .plansGrid {
+        display: flex;
+        grid-template-columns: unset;
+        gap: 16px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 50%;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 8px;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .cardWrapper {
+        flex: 0 0 auto;
+        width: min(82vw, 360px);
+    }
+
+    .card {
+        width: 100%;
+        padding: 24px 20px 20px;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        transform: none !important;
+    }
+
+    .card.featured {
+        transform: none !important;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+
+    .plansGrid::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .plansGrid::-webkit-scrollbar-track {
+        background: rgba(25, 245, 156, 0.05);
+        border-radius: 10px;
+    }
+
+    .plansGrid::-webkit-scrollbar-thumb {
+        background: rgba(25, 245, 156, 0.25);
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 720px) {
+    .card {
+        padding: 22px 18px 18px;
+    }
+
+    .planTitle {
+        font-size: 21px;
+    }
+
+    .priceValue {
+        font-size: 1.85rem;
+    }
+
+    :global(.cyn-section-sub),
+    .planNote {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .plansGrid {
+        display: flex;
+        grid-template-columns: unset;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 50%;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-bottom: 8px;
+        margin-right: calc(-1 * var(--cyn-shell-x));
+        margin-left: calc(-1 * var(--cyn-shell-x));
+        padding-left: var(--cyn-shell-x);
+        padding-right: var(--cyn-shell-x);
+    }
+
+    .plansGrid::-webkit-scrollbar-thumb:hover {
+        background: rgba(25, 245, 156, 0.45);
+    }
+}
