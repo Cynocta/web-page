@@ -12,9 +12,13 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
     return (
         <Suspense
             fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                    <span className="loader"></span>
-                </div>
+                <div
+                    className="w-full h-full"
+                    style={{
+                        background:
+                            'radial-gradient(ellipse 60% 50% at 55% 45%, rgba(25,245,156,0.12) 0%, rgba(25,245,156,0.03) 40%, transparent 70%)',
+                    }}
+                />
             }
         >
             <Spline

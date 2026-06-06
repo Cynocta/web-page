@@ -169,6 +169,7 @@ export const content: Record<Locale, Content> = {
         navItems: [
             { label: "Servicios", href: "#servicios" },
             { label: "Proceso", href: "#proceso" },
+            { label: "Resultados", href: "#resultados" },
             { label: "Planes", href: "#planes" },
         ],
         navCta: "Agendar llamada",
@@ -190,9 +191,9 @@ export const content: Record<Locale, Content> = {
             primaryCtaWhatsappText: "Hola, quiero agendar un diagnostico gratis",
             secondaryCta: "Ver casos reales",
             stats: [
-                { prefix: "+", value: "50", label: "Negocios automatizados" },
+                { prefix: "+", value: "52", label: "Negocios automatizados" },
                 { prefix: "<", value: "5s", label: "Primera respuesta" },
-                { prefix: "+", value: "30%", label: "Aumento en conversiones" },
+                { prefix: "+", value: "34%", label: "Aumento en conversiones" },
             ],
             visual: {
                 kicker: "Sistema activo",
@@ -327,7 +328,7 @@ export const content: Record<Locale, Content> = {
                     delivery: null,
                     monthlySubscriptionCOP: 197000,
                     disclaimer:
-                        "No incluye costos de WhatsApp API oficial (aprox $200.000 - $300.000 COP/mes)",
+                        "Si tu negocio necesita enviar mensajes masivos o usar WhatsApp verificado, se suma el costo de la API oficial (~$200.000–$300.000 COP/mes). Si solo necesitas responder chats, no aplica.",
                     badge: "MAS SOLICITADO",
                     featured: true,
                     features: [
@@ -351,7 +352,7 @@ export const content: Record<Locale, Content> = {
                     delivery: null,
                     monthlySubscriptionCOP: 397000,
                     disclaimer:
-                        "No incluye costos de WhatsApp API oficial (aprox $200.000 - $300.000 COP/mes)",
+                        "Si tu negocio necesita enviar mensajes masivos o usar WhatsApp verificado, se suma el costo de la API oficial (~$200.000–$300.000 COP/mes). Si solo necesitas responder chats, no aplica.",
                     badge: null,
                     featured: false,
                     features: [
@@ -434,6 +435,7 @@ export const content: Record<Locale, Content> = {
         navItems: [
             { label: "Services", href: "#servicios" },
             { label: "Process", href: "#proceso" },
+            { label: "Results", href: "#resultados" },
             { label: "Plans", href: "#planes" },
         ],
         navCta: "Schedule a call",
@@ -455,9 +457,9 @@ export const content: Record<Locale, Content> = {
             primaryCtaWhatsappText: "Hi, I'd like to schedule a free diagnosis",
             secondaryCta: "See real cases",
             stats: [
-                { prefix: "+", value: "50", label: "Businesses automated" },
+                { prefix: "+", value: "52", label: "Businesses automated" },
                 { prefix: "<", value: "5s", label: "First response" },
-                { prefix: "+", value: "30%", label: "Conversion lift" },
+                { prefix: "+", value: "34%", label: "Conversion lift" },
             ],
             visual: {
                 kicker: "System online",
@@ -592,7 +594,7 @@ export const content: Record<Locale, Content> = {
                     delivery: null,
                     monthlySubscriptionCOP: 197000,
                     disclaimer:
-                        "Does not include official WhatsApp API costs (approx COP $200,000 - $300,000 / month)",
+                        "If your business needs bulk messaging or a verified WhatsApp number, the official API cost (~COP $200,000–$300,000/mo) applies. If you only need to reply to chats, it doesn't.",
                     badge: "MOST REQUESTED",
                     featured: true,
                     features: [
@@ -616,7 +618,7 @@ export const content: Record<Locale, Content> = {
                     delivery: null,
                     monthlySubscriptionCOP: 397000,
                     disclaimer:
-                        "Does not include official WhatsApp API costs (approx COP $200,000 - $300,000 / month)",
+                        "If your business needs bulk messaging or a verified WhatsApp number, the official API cost (~COP $200,000–$300,000/mo) applies. If you only need to reply to chats, it doesn't.",
                     badge: null,
                     featured: false,
                     features: [

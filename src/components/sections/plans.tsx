@@ -114,6 +114,9 @@ export default function PlansSection() {
                                         {plan.delivery && (
                                             <p className={s.delivery}>{plan.delivery}</p>
                                         )}
+                                        {plan.disclaimer && (
+                                            <p className={s.disclaimerInline}>{plan.disclaimer}</p>
+                                        )}
                                     </div>
 
                                     {/* ── Feature highlights (always visible) ── */}
@@ -168,9 +171,6 @@ export default function PlansSection() {
                                     >
                                         {copy.plans.cta}
                                     </Link>
-                                    {plan.disclaimer && (
-                                        <p className={s.disclaimer}>{plan.disclaimer}</p>
-                                    )}
                                 </article>
                             </div>
                         );
