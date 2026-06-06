@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CurrencyToggle from "@/components/currency-toggle";
 import { useI18n } from "@/components/i18n-provider";
+import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import { formatCurrency } from "@/lib/content";
 import { buildWhatsappLink } from "@/lib/site-data";
 import s from "./plans.module.css";
@@ -28,6 +29,7 @@ const ChevronIcon = ({ open }: { open: boolean }) => (
 
 export default function PlansSection() {
     const plansGridRef = useRef<HTMLDivElement>(null);
+    const activeIndex = useScrollIndex(plansGridRef);
     const { copy, currency } = useI18n();
     const [titleLine1, titleLine2] = copy.plans.title.split("\n");
     const [openCards, setOpenCards] = useState<Record<number, boolean>>({});
@@ -176,6 +178,7 @@ export default function PlansSection() {
                         );
                     })}
                 </div>
+                <ScrollDots count={copy.plans.items.length} active={activeIndex} className={s.scrollDots} />
             </div>
         </section>
     );

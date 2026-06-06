@@ -1,10 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import { useI18n } from "@/components/i18n-provider";
+import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import s from "./process.module.css";
 
 export default function ProcessSection() {
     const { copy } = useI18n();
+    const stepsRef = useRef<HTMLDivElement>(null);
+    const activeIndex = useScrollIndex(stepsRef);
     const [titleLine1, titleLine2] = copy.process.title.split("\n");
 
     return (
@@ -17,7 +21,7 @@ export default function ProcessSection() {
                     {titleLine2}
                 </h2>
 
-                <div className={s.steps}>
+                <div ref={stepsRef} className={s.steps}>
                     {copy.process.steps.map((step) => (
                         <article key={step.num} className={s.step}>
                             <div className={s.stepNum}>{step.num}</div>
@@ -26,6 +30,7 @@ export default function ProcessSection() {
                         </article>
                     ))}
                 </div>
+                <ScrollDots count={copy.process.steps.length} active={activeIndex} className={s.scrollDots} />
             </div>
         </section>
     );

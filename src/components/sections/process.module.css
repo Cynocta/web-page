@@ -87,15 +87,13 @@
 
     .steps {
         display: flex;
-        gap: 14px;
+        gap: 0;
         overflow-x: auto;
-        overflow-y: visible;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-x: contain;
         scrollbar-width: none;
-        padding-bottom: 10px;
         margin-top: 2.2rem;
         margin-right: calc(-1 * var(--cyn-shell-x));
         margin-left: calc(-1 * var(--cyn-shell-x));
@@ -103,18 +101,12 @@
         padding-right: var(--cyn-shell-x);
     }
 
+    .scrollDots {
+        display: flex;
+    }
+
     .steps::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .steps::-webkit-scrollbar-track {
-        background: rgba(25, 245, 156, 0.08);
-        border-radius: 10px;
-    }
-
-    .steps::-webkit-scrollbar-thumb {
-        background: rgba(25, 245, 156, 0.3);
-        border-radius: 10px;
+        display: none;
     }
 
     .steps::after {
@@ -122,10 +114,10 @@
     }
 
     .step {
-        min-width: min(72vw, 280px);
+        min-width: calc(100vw - 2 * var(--cyn-shell-x));
+        max-width: calc(100vw - 2 * var(--cyn-shell-x));
         flex-shrink: 0;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
+        scroll-snap-align: center;
         padding: 0;
         text-align: left;
     }

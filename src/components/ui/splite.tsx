@@ -17,8 +17,13 @@ export function SplineScene({ scene, className }: SplineSceneProps) {
                     style={{
                         background:
                             'radial-gradient(ellipse 60% 50% at 55% 45%, rgba(25,245,156,0.12) 0%, rgba(25,245,156,0.03) 40%, transparent 70%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
-                />
+                >
+                    <div className="loader" />
+                </div>
             }
         >
             <Spline

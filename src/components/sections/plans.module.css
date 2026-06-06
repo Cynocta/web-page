@@ -66,7 +66,6 @@
 .card {
     position: relative;
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     background: linear-gradient(
         165deg,
         rgba(25, 245, 156, 0.04) 0%,
@@ -101,17 +100,44 @@
     transition: opacity 0.3s ease;
 }
 
-.card:hover {
-    border-color: rgba(25, 245, 156, 0.26);
-    transform: translateY(-4px);
-    box-shadow:
-        0 20px 48px rgba(0, 0, 0, 0.36),
-        0 0 40px rgba(25, 245, 156, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
+@media (hover: hover) {
+    .card:hover {
+        border-color: rgba(25, 245, 156, 0.26);
+        transform: translateY(-4px);
+        box-shadow:
+            0 20px 48px rgba(0, 0, 0, 0.36),
+            0 0 40px rgba(25, 245, 156, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
 
-.card:hover::after {
-    opacity: 1;
+    .card:hover::after {
+        opacity: 1;
+    }
+
+    .card.featured:hover {
+        border-color: rgba(25, 245, 156, 0.45);
+        box-shadow:
+            0 24px 56px rgba(25, 245, 156, 0.16),
+            0 0 60px rgba(25, 245, 156, 0.06),
+            inset 0 1px 0 rgba(25, 245, 156, 0.10);
+    }
+
+    .cta:hover {
+        border-color: rgba(25, 245, 156, 0.45);
+        color: var(--cyn-white);
+        background: rgba(25, 245, 156, 0.08);
+        box-shadow: 0 8px 24px rgba(25, 245, 156, 0.12);
+    }
+
+    .card.featured .cta:hover {
+        background: var(--cyn-accent-glow);
+        border-color: var(--cyn-accent-glow);
+        box-shadow: 0 12px 36px rgba(25, 245, 156, 0.38);
+    }
+
+    .toggle:hover {
+        opacity: 0.75;
+    }
 }
 
 /* ── Featured ── */
@@ -133,14 +159,6 @@
 .card.featured::after {
     opacity: 1;
     background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.50), transparent);
-}
-
-.card.featured:hover {
-    border-color: rgba(25, 245, 156, 0.45);
-    box-shadow:
-        0 24px 56px rgba(25, 245, 156, 0.16),
-        0 0 60px rgba(25, 245, 156, 0.06),
-        inset 0 1px 0 rgba(25, 245, 156, 0.10);
 }
 
 /* ── Header ── */
@@ -313,10 +331,6 @@
     transition: opacity 0.2s ease;
 }
 
-.toggle:hover {
-    opacity: 0.75;
-}
-
 .chevron {
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -438,25 +452,12 @@
         box-shadow 0.25s ease;
 }
 
-.cta:hover {
-    border-color: rgba(25, 245, 156, 0.45);
-    color: var(--cyn-white);
-    background: rgba(25, 245, 156, 0.08);
-    box-shadow: 0 8px 24px rgba(25, 245, 156, 0.12);
-}
-
 .card.featured .cta {
     background: var(--cyn-accent);
     border-color: var(--cyn-accent);
     color: var(--cyn-black);
     font-weight: 700;
     box-shadow: 0 8px 28px rgba(25, 245, 156, 0.28);
-}
-
-.card.featured .cta:hover {
-    background: var(--cyn-accent-glow);
-    border-color: var(--cyn-accent-glow);
-    box-shadow: 0 12px 36px rgba(25, 245, 156, 0.38);
 }
 
 .disclaimerInline {
@@ -493,13 +494,14 @@
         overflow-x: auto;
         overflow-y: visible;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: 50%;
+        scroll-padding-left: var(--cyn-shell-x);
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-x: contain;
         scrollbar-width: none;
+        touch-action: pan-x;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: stretch;
         padding-bottom: 8px;
         margin-right: calc(-1 * var(--cyn-shell-x));
         margin-left: calc(-1 * var(--cyn-shell-x));
@@ -514,17 +516,14 @@
 
     .card {
         width: 100%;
+        height: 100%;
         padding: 24px 20px 20px;
-        scroll-snap-align: center;
+        scroll-snap-align: start;
         scroll-snap-stop: always;
         transform: none !important;
     }
 
     .card.featured {
-        transform: none !important;
-    }
-
-    .card:hover {
         transform: none !important;
     }
 
@@ -540,6 +539,10 @@
     .plansGrid::-webkit-scrollbar-thumb {
         background: rgba(25, 245, 156, 0.25);
         border-radius: 10px;
+    }
+
+    .scrollDots {
+        display: flex;
     }
 }
 
@@ -563,24 +566,8 @@
 }
 
 @media (max-width: 640px) {
-    .plansGrid {
-        display: flex;
-        grid-template-columns: unset;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-padding-inline: 50%;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-x: contain;
-        scrollbar-width: none;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding-bottom: 8px;
-        margin-right: calc(-1 * var(--cyn-shell-x));
-        margin-left: calc(-1 * var(--cyn-shell-x));
-        padding-left: var(--cyn-shell-x);
-        padding-right: var(--cyn-shell-x);
+    .card {
+        backdrop-filter: blur(4px);
     }
 
     .plansGrid::-webkit-scrollbar-thumb:hover {

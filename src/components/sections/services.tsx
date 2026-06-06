@@ -1,11 +1,15 @@
 "use client";
 
+import { useRef } from "react";
 import { ServiceIcon } from "@/components/icons";
 import { useI18n } from "@/components/i18n-provider";
+import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import s from "./services.module.css";
 
 export default function ServicesSection() {
     const { copy } = useI18n();
+    const gridRef = useRef<HTMLDivElement>(null);
+    const activeIndex = useScrollIndex(gridRef);
     const [titleLine1, titleLine2] = copy.services.title.split("\n");
 
     return (
@@ -17,7 +21,7 @@ export default function ServicesSection() {
                 {titleLine2}
             </h2>
 
-            <div className={s.grid}>
+            <div ref={gridRef} className={s.grid}>
                 {copy.services.items.map((service) => (
                     <article key={service.title} className={s.card}>
                         <div className={s.icon}>
@@ -35,6 +39,7 @@ export default function ServicesSection() {
                     </article>
                 ))}
             </div>
+            <ScrollDots count={copy.services.items.length} active={activeIndex} className={s.scrollDots} />
         </section>
     );
 }

@@ -109,4 +109,8 @@
         padding-top: 60px;
         padding-bottom: 48px;
     }
+
+    .aurora {
+        filter: blur(40px);
+    }
 }

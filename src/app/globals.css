@@ -36,6 +36,8 @@
 
 html {
     scroll-behavior: smooth;
+    background: var(--cyn-black);
+    overscroll-behavior: none;
 }
 
 body {

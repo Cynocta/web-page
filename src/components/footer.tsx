@@ -62,12 +62,12 @@ const FOOTER_STYLES = `
   filter: drop-shadow(0 0 20px rgba(25,245,156,.12));
 }
 .cyn-footer-glass {
-  background: linear-gradient(145deg, rgba(25,245,156,.05) 0%, rgba(255,255,255,.01) 100%);
+  background: linear-gradient(145deg, rgba(25,245,156,.12) 0%, rgba(255,255,255,.04) 100%);
   box-shadow:
     0 8px 24px -8px rgba(0,0,0,.5),
-    inset 0 1px 1px rgba(255,255,255,.06),
+    inset 0 1px 1px rgba(255,255,255,.1),
     inset 0 -1px 2px rgba(0,0,0,.3);
-  border: 1px solid rgba(25,245,156,.1);
+  border: 1px solid rgba(255,255,255,.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   transition: background .4s cubic-bezier(.16,1,.3,1),
@@ -75,11 +75,11 @@ const FOOTER_STYLES = `
               box-shadow .4s cubic-bezier(.16,1,.3,1);
 }
 .cyn-footer-glass:hover {
-  background: linear-gradient(145deg, rgba(25,245,156,.12) 0%, rgba(255,255,255,.03) 100%);
-  border-color: rgba(25,245,156,.35);
+  background: linear-gradient(145deg, rgba(25,245,156,.2) 0%, rgba(255,255,255,.06) 100%);
+  border-color: rgba(25,245,156,.5);
   box-shadow:
     0 16px 36px -8px rgba(0,0,0,.6),
-    inset 0 1px 1px rgba(25,245,156,.15);
+    inset 0 1px 1px rgba(25,245,156,.2);
 }
 .cyn-footer-channel {
   display: flex;
@@ -109,6 +109,44 @@ const FOOTER_STYLES = `
 }
 .cyn-footer-channel:hover .cyn-footer-channel-label {
   color: var(--cyn-white);
+}
+.cyn-footer-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--cyn-white);
+  transition: background .4s cubic-bezier(.16,1,.3,1),
+              border-color .4s cubic-bezier(.16,1,.3,1),
+              box-shadow .4s cubic-bezier(.16,1,.3,1),
+              transform .3s cubic-bezier(.16,1,.3,1);
+}
+.cyn-footer-nav-link:hover {
+  transform: translateY(-2px);
+}
+.cyn-footer-legal-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--cyn-muted-2);
+  transition: background .4s cubic-bezier(.16,1,.3,1),
+              border-color .4s cubic-bezier(.16,1,.3,1),
+              box-shadow .4s cubic-bezier(.16,1,.3,1),
+              transform .3s cubic-bezier(.16,1,.3,1);
+}
+.cyn-footer-legal-link:hover {
+  color: var(--cyn-white);
+  transform: translateY(-2px);
 }
 .cyn-footer-marquee-track {
   animation: cyn-footer-marquee 35s linear infinite;
@@ -268,7 +306,7 @@ export default function Footer() {
             <div
                 ref={wrapperRef}
                 className="relative w-full h-[75svh] md:h-screen"
-                style={{ clipPath: "polygon(0 0,100% 0,100% 100%,0 100%)" }}
+                style={{ clipPath: "polygon(0 0,100% 0,100% 100%,0 100%)", background: "var(--cyn-black)" }}
             >
                 <footer
                     className="fixed bottom-0 left-0 w-full overflow-hidden text-[var(--cyn-white)] h-[75svh] md:h-screen"
@@ -311,7 +349,7 @@ export default function Footer() {
 
                         {/* Center content */}
                         <motion.div
-                            className="flex-1 flex flex-col items-center justify-center px-5 md:px-8 py-6 md:py-10 w-full max-w-5xl mx-auto gap-4 md:gap-6"
+                            className="flex-1 flex flex-col items-center justify-center px-5 md:px-8 py-6 md:py-10 w-full max-w-5xl self-center gap-4 md:gap-6"
                             variants={containerVariants}
                             animate={isInView ? "visible" : "hidden"}
                             initial="hidden"
@@ -351,8 +389,7 @@ export default function Footer() {
                                         key={link.label}
                                         as={Link}
                                         href={link.href}
-                                        className="cyn-footer-glass px-5 py-2.5 md:px-8 md:py-3.5 rounded-full font-semibold text-xs md:text-sm"
-                                        style={{ color: "var(--cyn-white)" } as MotionStyle}
+                                        className="cyn-footer-glass cyn-footer-nav-link"
                                     >
                                         {link.label}
                                     </MagPill>
@@ -383,8 +420,7 @@ export default function Footer() {
                                         key={link.label}
                                         as={Link}
                                         href={link.href}
-                                        className="cyn-footer-glass px-3.5 py-1.5 md:px-4 md:py-2 rounded-full text-[10px] md:text-xs uppercase tracking-wider font-medium whitespace-nowrap"
-                                        style={{ color: "var(--cyn-muted-2)" } as MotionStyle}
+                                        className="cyn-footer-glass cyn-footer-legal-link"
                                     >
                                         {link.label}
                                     </MagPill>

@@ -393,6 +393,7 @@
         align-items: stretch;
         padding: 0.7rem;
         margin-top: 0.5rem;
+        backdrop-filter: blur(4px);
     }
 
     .btnPrimary,
@@ -419,8 +420,27 @@
     }
 
     .statLabel {
-        font-size: 9px;
-        letter-spacing: 0.05em;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+    }
+}
+
+@media (max-width: 374px) {
+    .heroStats {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+
+    .heroStats > div {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    .statLabel {
+        font-size: 11px;
+        margin-top: 0;
     }
 }
 
