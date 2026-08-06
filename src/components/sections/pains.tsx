@@ -50,9 +50,12 @@ export default function PainsSection() {
         const cards = Array.from(el.children) as HTMLElement[];
         const card = cards[Math.max(0, Math.min(target, cards.length - 1))];
         if (!card) return;
+        // CSS scroll-behavior is overridden by this call, so honour the user's
+        // motion preference here too.
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         el.scrollTo({
             left: card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2,
-            behavior: "smooth",
+            behavior: reduced ? "auto" : "smooth",
         });
     }, []);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/i18n-provider";
 import { buildWhatsappLink } from "@/lib/site-data";
 import s from "./lead-form.module.css";
@@ -12,6 +12,9 @@ export default function LeadFormSection() {
     const [answers, setAnswers] = useState<Answers>({});
     const [step, setStep] = useState(0);
     const [attempted, setAttempted] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    /** Guards the first render: focusing on mount would scroll the page here on load. */
+    const navigated = useRef(false);
 
     const questions = copy.form.questions;
     const total = questions.length;
@@ -19,6 +22,13 @@ export default function LeadFormSection() {
     const isLast = step === total - 1;
     const value = answers[question.id] ?? "";
     const answered = value.trim().length > 0;
+
+    // Focus the text input only once the user is actually stepping through the
+    // form; `preventScroll` keeps the browser from jumping the page to it.
+    useEffect(() => {
+        if (!navigated.current) return;
+        inputRef.current?.focus({ preventScroll: true });
+    }, [step]);
 
     const setAnswer = (id: string, answer: string) => {
         setAnswers((prev) => ({ ...prev, [id]: answer }));
@@ -48,11 +58,13 @@ export default function LeadFormSection() {
             window.open(buildWhatsappLink(buildMessage()), "_blank", "noopener,noreferrer");
             return;
         }
+        navigated.current = true;
         setStep((prev) => prev + 1);
     };
 
     const goBack = () => {
         setAttempted(false);
+        navigated.current = true;
         setStep((prev) => Math.max(0, prev - 1));
     };
 
@@ -98,13 +110,13 @@ export default function LeadFormSection() {
 
                         {question.kind === "text" ? (
                             <input
+                                ref={inputRef}
                                 type="text"
                                 className={s.input}
                                 value={value}
                                 placeholder={question.placeholder}
                                 onChange={(e) => setAnswer(question.id, e.target.value)}
                                 aria-label={question.label}
-                                autoFocus
                             />
                         ) : (
                             <div className={s.options}>

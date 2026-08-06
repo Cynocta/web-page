@@ -91,42 +91,54 @@ export default function PlansSection() {
                                         <p className={s.planSub}>{plan.description}</p>
                                     </div>
 
-                                    {/* ── Pricing (reference figures, never a closed quote) ── */}
+                                    {/* ── Pricing ──
+                                        Fixed-height slots so the headline figure, the add-on row
+                                        and the chips below land on the same baseline in all three
+                                        cards — a 3-up grid is read across, not down. */}
                                     <div className={s.pricing}>
-                                        {plan.uniquePaymentUSD !== null && (
-                                            <div className={s.priceBlock}>
-                                                <p className={s.priceValue}>
-                                                    <span className={s.priceFrom}>{copy.plans.labels.from}</span>
-                                                    {formatCurrency(plan.uniquePaymentUSD, currency)}
+                                        <div className={s.priceMain}>
+                                            {plan.uniquePaymentUSD !== null ? (
+                                                <>
+                                                    <p className={s.priceLead}>{copy.plans.labels.from}</p>
+                                                    <p className={s.priceValue}>
+                                                        {formatCurrency(plan.uniquePaymentUSD, currency)}
+                                                    </p>
+                                                    <p className={s.priceTag}>{copy.plans.labels.oneTimeProject}</p>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className={s.priceLead} aria-hidden="true" />
+                                                    <p className={`${s.priceValue} ${s.priceValueCustom}`}>
+                                                        {plan.customPrice}
+                                                    </p>
+                                                    {plan.customPriceNote && (
+                                                        <p className={s.priceTag}>{plan.customPriceNote}</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </div>
+
+                                        {/* Secondary line: a recurring fee is an add-on to the
+                                            figure above, not a competing headline. */}
+                                        <div className={s.priceAside}>
+                                            {plan.monthlySubscriptionUSD !== null && (
+                                                <p className={s.priceAddon}>
+                                                    <span className={s.priceAddonPlus} aria-hidden="true">+</span>
+                                                    <span className={s.priceAddonValue}>
+                                                        {formatCurrency(plan.monthlySubscriptionUSD, currency)}
+                                                        <span className={s.pricePeriod}>{copy.plans.labels.perMonth}</span>
+                                                    </span>
+                                                    <span className={s.priceAddonTag}>
+                                                        {copy.plans.labels.subscription}
+                                                    </span>
                                                 </p>
-                                                <p className={s.priceTag}>{copy.plans.labels.oneTimeProject}</p>
-                                            </div>
-                                        )}
-                                        {plan.monthlySubscriptionUSD !== null && (
-                                            <div className={s.priceBlock}>
-                                                <p className={s.priceValue}>
-                                                    <span className={s.priceFrom}>{copy.plans.labels.from}</span>
-                                                    {formatCurrency(plan.monthlySubscriptionUSD, currency)}
-                                                    <span className={s.pricePeriod}>{copy.plans.labels.perMonth}</span>
-                                                </p>
-                                                <p className={s.priceTag}>{copy.plans.labels.subscription}</p>
-                                            </div>
-                                        )}
-                                        {plan.customPrice && (
-                                            <div className={s.priceBlock}>
-                                                <p className={s.priceCustom}>{plan.customPrice}</p>
-                                                {plan.customPriceNote && (
-                                                    <p className={s.priceTag}>{plan.customPriceNote}</p>
-                                                )}
-                                            </div>
-                                        )}
-                                        {plan.delivery && (
-                                            <p className={s.delivery}>{plan.delivery}</p>
-                                        )}
+                                            )}
+                                            {plan.delivery && (
+                                                <p className={s.delivery}>{plan.delivery}</p>
+                                            )}
+                                        </div>
+
                                         <p className={s.priceNote}>{plan.priceNote}</p>
-                                        {plan.disclaimer && (
-                                            <p className={s.disclaimerInline}>{plan.disclaimer}</p>
-                                        )}
                                     </div>
 
                                     {/* ── Feature highlights (always visible) ── */}
@@ -170,6 +182,9 @@ export default function PlansSection() {
                                                 <p className={s.guaranteeLabel}>{plan.guaranteeTitle}</p>
                                                 <p className={s.guaranteeText}>{plan.guaranteeText}</p>
                                             </div>
+                                            {plan.disclaimer && (
+                                                <p className={s.disclaimerInline}>{plan.disclaimer}</p>
+                                            )}
                                         </div>
                                     </div>
 

@@ -1,0 +1,123 @@
+/* ══════════════════════════════════════════════════
+   Lightweight hero visual — the mobile stand-in for the Spline scene.
+   Pure SVG + CSS: no WebGL runtime, no network request, no canvas.
+   Every animation runs on transform/opacity only.
+   ══════════════════════════════════════════════════ */
+
+.wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.svg {
+    width: min(120%, 520px);
+    height: auto;
+    max-height: 100%;
+    display: block;
+}
+
+/* ── Orbits ── */
+.orbit {
+    transform-origin: 200px 200px;
+    animation: spin 28s linear infinite;
+}
+
+.orbitMid {
+    animation-duration: 20s;
+    animation-direction: reverse;
+}
+
+.orbitInner {
+    animation-duration: 13s;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Core ── */
+.core {
+    transform-origin: 200px 200px;
+    animation: breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.92;
+    }
+    50% {
+        transform: scale(1.045);
+        opacity: 1;
+    }
+}
+
+/* ── Pulse rings radiating from the core ── */
+.pulse {
+    transform-origin: 200px 200px;
+    animation: pulse 4s ease-out infinite;
+    opacity: 0;
+}
+
+.pulseDelay {
+    animation-delay: 2s;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.55);
+        opacity: 0.5;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* ── Travelling data nodes ── */
+.node {
+    animation: nodeGlow 3s ease-in-out infinite;
+}
+
+.nodeB {
+    animation-delay: 1s;
+}
+
+.nodeC {
+    animation-delay: 2s;
+}
+
+@keyframes nodeGlow {
+    0%,
+    100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Motion is decoration here — hold everything still when asked. */
+@media (prefers-reduced-motion: reduce) {
+    .orbit,
+    .core,
+    .pulse,
+    .node {
+        animation: none;
+    }
+
+    .pulse {
+        opacity: 0.18;
+    }
+}
