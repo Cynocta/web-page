@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRef, useCallback } from "react";
 import { useI18n } from "@/components/i18n-provider";
-import { buildWhatsappLink } from "@/lib/site-data";
 import { SplineScene } from "@/components/ui/splite";
 import s from "./hero.module.css";
 
@@ -47,14 +46,9 @@ export default function HeroSection() {
                         </p>
 
                         <div className={s.heroActions}>
-                            <a
-                                href={buildWhatsappLink(copy.hero.primaryCtaWhatsappText)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={s.btnPrimary}
-                            >
+                            <Link href="#formulario" className={s.btnPrimary}>
                                 {copy.hero.primaryCta}
-                            </a>
+                            </Link>
                             <Link href="#resultados" className={s.btnGhost}>
                                 {copy.hero.secondaryCta}
                             </Link>

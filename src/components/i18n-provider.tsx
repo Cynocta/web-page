@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { content, Currency, currencyOptions, Locale } from "@/lib/content";
+import { content, Currency, currencyOptions, defaultCurrency, Locale } from "@/lib/content";
 
 export type I18nContextValue = {
     locale: Locale;
@@ -19,7 +19,7 @@ const CURRENCY_STORAGE_KEY = "cynocta_currency";
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
     const [locale, setLocale] = useState<Locale>("es");
-    const [currency, setCurrency] = useState<Currency>("COP");
+    const [currency, setCurrency] = useState<Currency>(defaultCurrency);
 
     useEffect(() => {
         const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null;

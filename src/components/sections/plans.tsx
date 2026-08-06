@@ -6,7 +6,6 @@ import CurrencyToggle from "@/components/currency-toggle";
 import { useI18n } from "@/components/i18n-provider";
 import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import { formatCurrency } from "@/lib/content";
-import { buildWhatsappLink } from "@/lib/site-data";
 import s from "./plans.module.css";
 
 // ── SVG icons ── //
@@ -92,30 +91,39 @@ export default function PlansSection() {
                                         <p className={s.planSub}>{plan.description}</p>
                                     </div>
 
-                                    {/* ── Pricing ── */}
+                                    {/* ── Pricing (reference figures, never a closed quote) ── */}
                                     <div className={s.pricing}>
-                                        {plan.uniquePaymentCOP !== null && (
+                                        {plan.uniquePaymentUSD !== null && (
                                             <div className={s.priceBlock}>
                                                 <p className={s.priceValue}>
-                                                    {formatCurrency(plan.uniquePaymentCOP, currency)}
+                                                    <span className={s.priceFrom}>{copy.plans.labels.from}</span>
+                                                    {formatCurrency(plan.uniquePaymentUSD, currency)}
                                                 </p>
-                                                <p className={s.priceTag}>
-                                                    {plan.featured ? copy.plans.labels.setupUnique : copy.plans.labels.oneTime}
-                                                </p>
+                                                <p className={s.priceTag}>{copy.plans.labels.oneTimeProject}</p>
                                             </div>
                                         )}
-                                        {plan.monthlySubscriptionCOP !== null && (
+                                        {plan.monthlySubscriptionUSD !== null && (
                                             <div className={s.priceBlock}>
                                                 <p className={s.priceValue}>
-                                                    {formatCurrency(plan.monthlySubscriptionCOP, currency)}
-                                                    <span className={s.pricePeriod}>/mes</span>
+                                                    <span className={s.priceFrom}>{copy.plans.labels.from}</span>
+                                                    {formatCurrency(plan.monthlySubscriptionUSD, currency)}
+                                                    <span className={s.pricePeriod}>{copy.plans.labels.perMonth}</span>
                                                 </p>
-                                                <p className={s.priceTag}>{copy.plans.labels.monthly}</p>
+                                                <p className={s.priceTag}>{copy.plans.labels.subscription}</p>
+                                            </div>
+                                        )}
+                                        {plan.customPrice && (
+                                            <div className={s.priceBlock}>
+                                                <p className={s.priceCustom}>{plan.customPrice}</p>
+                                                {plan.customPriceNote && (
+                                                    <p className={s.priceTag}>{plan.customPriceNote}</p>
+                                                )}
                                             </div>
                                         )}
                                         {plan.delivery && (
                                             <p className={s.delivery}>{plan.delivery}</p>
                                         )}
+                                        <p className={s.priceNote}>{plan.priceNote}</p>
                                         {plan.disclaimer && (
                                             <p className={s.disclaimerInline}>{plan.disclaimer}</p>
                                         )}
@@ -165,12 +173,8 @@ export default function PlansSection() {
                                         </div>
                                     </div>
 
-                                    {/* ── CTA ── */}
-                                    <Link
-                                        href={buildWhatsappLink(plan.whatsappText)}
-                                        className={s.cta}
-                                        target="_blank"
-                                    >
+                                    {/* ── CTA → filter form, not a raw WhatsApp handoff ── */}
+                                    <Link href="#formulario" className={s.cta}>
                                         {copy.plans.cta}
                                     </Link>
                                 </article>

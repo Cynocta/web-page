@@ -2,7 +2,10 @@
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 import ContactCtaSection from "@/components/sections/contact-cta";
+import CostSection from "@/components/sections/cost";
 import HeroSection from "@/components/sections/hero";
+import LeadFormSection from "@/components/sections/lead-form";
+import PainsSection from "@/components/sections/pains";
 import PlansSection from "@/components/sections/plans";
 import ProcessSection from "@/components/sections/process";
 import ResultsSection from "@/components/sections/results";
@@ -17,10 +20,13 @@ export default function Home() {
 
             <main>
                 <HeroSection />
+                <PainsSection />
+                <CostSection />
                 <ServicesSection />
                 <ProcessSection />
-                <PlansSection />
                 <ResultsSection />
+                <PlansSection />
+                <LeadFormSection />
                 <ContactCtaSection />
             </main>
 

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import LanguageToggle from "@/components/language-toggle";
 import { useI18n } from "@/components/i18n-provider";
-import { buildWhatsappLink } from "@/lib/site-data";
 import s from "./navigation.module.css";
 
 export default function Navigation() {
@@ -49,14 +48,9 @@ export default function Navigation() {
                         </li>
                     ))}
                     <li>
-                        <a
-                            href={buildWhatsappLink(copy.navCtaWhatsappText)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={s.navCta}
-                        >
+                        <Link href="#formulario" className={s.navCta}>
                             {copy.navCta}
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <LanguageToggle className="cyn-toggle--compact" />
@@ -71,14 +65,9 @@ export default function Navigation() {
                             {item.label}
                         </Link>
                     ))}
-                    <a
-                        href={buildWhatsappLink(copy.navCtaWhatsappText)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={closeMenu}
-                    >
+                    <Link href="#formulario" onClick={closeMenu}>
                         {copy.navCta}
-                    </a>
+                    </Link>
                 </div>
             )}
         </header>
