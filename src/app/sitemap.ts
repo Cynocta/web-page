@@ -27,10 +27,13 @@ const translated: Entry[] = Object.values(ROUTE_MAP).flatMap((paths) => {
     }));
 });
 
+/** Commercial pages get real weight; the legal ones are there to be found, not ranked. */
+const isLegal = (path: string) => path === "/terminos" || path === "/privacidad";
+
 const esOnly: Entry[] = ES_ONLY_PATHS.map((path) => ({
     path,
-    changeFrequency: "yearly" as const,
-    priority: 0.3,
+    changeFrequency: isLegal(path) ? ("yearly" as const) : ("monthly" as const),
+    priority: isLegal(path) ? 0.3 : path === "/servicios" || path === "/precios" ? 0.9 : 0.8,
 }));
 
 export default function sitemap(): MetadataRoute.Sitemap {

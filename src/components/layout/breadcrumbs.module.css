@@ -1,0 +1,80 @@
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 88px var(--cyn-shell-x) 0;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+}
+
+.item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--cyn-muted-2);
+}
+
+.item:not(:first-child)::before {
+    content: "/";
+    color: var(--cyn-muted-2);
+    opacity: 0.5;
+}
+
+.link {
+    color: var(--cyn-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    /* Keeps the tap target usable without inflating the row. */
+    padding: 8px 0;
+}
+
+@media (hover: hover) {
+    .link:hover {
+        color: var(--cyn-accent);
+    }
+}
+
+.link:focus-visible {
+    outline: 1px solid var(--cyn-accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+/* The page you are on is not a link. */
+.current {
+    color: var(--cyn-white);
+    padding: 8px 0;
+}
+
+@media (max-width: 1080px) {
+    .wrap {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .wrap {
+        padding-top: 76px;
+    }
+
+    .list {
+        font-size: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link {
+        transition: none;
+    }
+}

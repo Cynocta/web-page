@@ -3,10 +3,9 @@ import type { Content } from "./types";
 export const es: Content = {
     logoAlt: "Logo de Cynocta",
     navItems: [
-        { label: "El problema", href: "/#problema" },
-        { label: "Servicios", href: "/#servicios" },
+        { label: "Servicios", href: "/servicios" },
+        { label: "Precios", href: "/precios" },
         { label: "Resultados", href: "/#resultados" },
-        { label: "Planes", href: "/#planes" },
         { label: "FAQ", href: "/preguntas-frecuentes" },
     ],
     navCta: "Agendar llamada",
@@ -137,6 +136,7 @@ export const es: Content = {
                 kind: "kpi",
             },
         ],
+        moreLink: { label: "Ver los cinco servicios en detalle", href: "/servicios" },
     },
     process: {
         tag: "Metodología",
@@ -380,9 +380,9 @@ export const es: Content = {
             phone: "Llamar",
         },
         links: [
-            { label: "Servicios", href: "/#servicios", type: "link" },
+            { label: "Servicios", href: "/servicios", type: "link" },
+            { label: "Precios", href: "/precios", type: "link" },
             { label: "Proceso", href: "/#proceso", type: "link" },
-            { label: "Planes", href: "/#planes", type: "link" },
             { label: "Preguntas frecuentes", href: "/preguntas-frecuentes", type: "link" },
             { label: "Términos y condiciones", href: "/terminos", type: "legal" },
             { label: "Política de privacidad", href: "/privacidad", type: "legal" },

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { ServiceIcon } from "@/components/icons";
 import { useI18n } from "@/components/i18n-provider";
@@ -40,6 +41,13 @@ export default function ServicesSection() {
                 ))}
             </div>
             <ScrollDots count={copy.services.items.length} active={activeIndex} className={s.scrollDots} />
+
+            {copy.services.moreLink && (
+                <Link href={copy.services.moreLink.href} className={s.moreLink}>
+                    {copy.services.moreLink.label}
+                    <span aria-hidden="true">→</span>
+                </Link>
+            )}
         </section>
     );
 }

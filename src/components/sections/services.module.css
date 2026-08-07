@@ -154,3 +154,40 @@
         font-size: 14px;
     }
 }
+
+/* Hands authority from the landing to the services hub — the one internal link
+   that turns this section into a doorway rather than a dead end. */
+.moreLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 1.9rem;
+    padding: 12px 2px;
+    color: var(--cyn-accent);
+    text-decoration: none;
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+@media (hover: hover) {
+    .moreLink:hover {
+        color: var(--cyn-accent-glow);
+        border-bottom-color: var(--cyn-accent);
+    }
+}
+
+.moreLink:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .moreLink {
+        transition: none;
+    }
+}

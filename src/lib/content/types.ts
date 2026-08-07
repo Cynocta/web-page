@@ -133,6 +133,11 @@ export type Content = {
         tag: string;
         title: string;
         items: Service[];
+        /**
+         * Link out to the services hub. `null` where that hub has no version in
+         * this locale, so we never link to a page that doesn't exist.
+         */
+        moreLink: { label: string; href: string } | null;
     };
     process: {
         tag: string;

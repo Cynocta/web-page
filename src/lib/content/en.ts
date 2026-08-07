@@ -137,6 +137,7 @@ export const en: Content = {
                 kind: "kpi",
             },
         ],
+        moreLink: null,
     },
     process: {
         tag: "Methodology",

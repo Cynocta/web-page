@@ -1,0 +1,99 @@
+.section {
+    background: var(--cyn-surface);
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.inner {
+    max-width: 1200px;
+}
+
+/* One card per service, full width on mobile, two up from tablet. */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 16px;
+    margin-top: 2rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 26px 24px;
+    border-radius: 14px;
+    border: 1px solid var(--cyn-border-2);
+    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
+    text-decoration: none;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) {
+    .card:hover {
+        border-color: var(--cyn-border);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(25, 245, 156, 0.08);
+    }
+
+    .card:hover .arrow {
+        color: var(--cyn-accent-glow);
+    }
+}
+
+.card:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1.1rem;
+    border: 1px solid var(--cyn-border);
+    border-radius: 8px;
+    background: var(--cyn-accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--cyn-accent);
+    fill: none;
+    stroke-width: 1.5;
+}
+
+.title {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--cyn-white);
+    margin: 0 0 0.55rem;
+}
+
+.summary {
+    color: var(--cyn-muted);
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin: 0 0 1.2rem;
+    flex: 1;
+}
+
+.arrow {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    transition: color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .arrow {
+        transition: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}

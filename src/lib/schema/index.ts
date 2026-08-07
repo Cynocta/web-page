@@ -9,3 +9,5 @@ export { websiteJsonLd } from "./website";
 export { professionalServiceJsonLd } from "./professional-service";
 export { faqJsonLd } from "./faq";
 export { plansJsonLd } from "./plans";
+export { breadcrumbsJsonLd } from "./breadcrumbs";
+export { serviceDetailJsonLd, serviceFaqJsonLd } from "./service-detail";

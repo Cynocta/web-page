@@ -25,8 +25,21 @@ export type RouteKey = keyof typeof ROUTE_MAP;
 /** Every path that has a translation, for the sitemap and the toggle. */
 export const TRANSLATED_PATHS = Object.values(ROUTE_MAP);
 
-/** Spanish-only pages: self-canonical, no alternates. */
-export const ES_ONLY_PATHS = ["/terminos", "/privacidad"] as const;
+/**
+ * Spanish-only pages: self-canonical, no alternates.
+ * Service and pricing pages live here until their English versions are written.
+ */
+export const ES_ONLY_PATHS = [
+    "/servicios",
+    "/servicios/chatbot-whatsapp",
+    "/servicios/automatizacion-de-procesos",
+    "/servicios/agentes-ia",
+    "/servicios/integracion-crm",
+    "/servicios/paginas-web-que-convierten",
+    "/precios",
+    "/terminos",
+    "/privacidad",
+] as const;
 
 /**
  * Canonical + reciprocal hreflang for a translated page.
