@@ -1,6 +1,7 @@
 import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
+import SectionLink from "@/components/ui/section-link";
 import { useCases } from "@/lib/content/home";
 import s from "./home-blocks.module.css";
 
@@ -29,6 +30,8 @@ export default function UseCasesSection() {
                     </Reveal>
                 ))}
             </div>
+
+            <SectionLink href="/soluciones" label="Ver todas las soluciones" />
         </Section>
     );
 }

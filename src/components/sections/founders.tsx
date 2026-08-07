@@ -1,6 +1,7 @@
 import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
+import SectionLink from "@/components/ui/section-link";
 import { founders, foundersSection } from "@/lib/content/founders";
 import s from "./founders.module.css";
 
@@ -105,6 +106,8 @@ export default function FoundersSection() {
                     );
                 })}
             </div>
+
+            <SectionLink href="/nosotros" label="Conoce a Cynocta" />
         </Section>
     );
 }

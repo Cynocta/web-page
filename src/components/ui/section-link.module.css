@@ -1,0 +1,49 @@
+/* The link that turns a homepage section into a doorway rather than the whole
+   story. One per section, always in the same place: after the content. */
+.link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2.25rem;
+    padding: 12px 0;
+    color: var(--cyn-accent);
+    text-decoration: none;
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+    transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+}
+
+.arrow {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+    .link:hover {
+        color: var(--cyn-accent-glow);
+        border-bottom-color: var(--cyn-accent);
+    }
+
+    .link:hover .arrow {
+        transform: translateX(3px);
+    }
+}
+
+.link:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link,
+    .arrow {
+        transition: none;
+    }
+
+    .link:hover .arrow {
+        transform: none;
+    }
+}

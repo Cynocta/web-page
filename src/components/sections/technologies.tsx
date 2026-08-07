@@ -1,6 +1,7 @@
 import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
+import SectionLink from "@/components/ui/section-link";
 import { technologies } from "@/lib/content/home";
 import s from "./home-blocks.module.css";
 
@@ -28,6 +29,8 @@ export default function TechnologiesSection() {
                     </Reveal>
                 ))}
             </div>
+
+            <SectionLink href="/servicios" label="Ver cómo lo aplicamos" />
         </Section>
     );
 }

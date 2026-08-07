@@ -3,6 +3,7 @@ import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
 import { ServiceIcon } from "@/components/icons";
+import SectionLink from "@/components/ui/section-link";
 import { serviceList, servicePath } from "@/lib/content/services";
 import s from "./services-hub.module.css";
 
@@ -37,6 +38,8 @@ export default function ServicesOverviewSection() {
                     </Reveal>
                 ))}
             </div>
+
+            <SectionLink href="/servicios" label="Ver todos los servicios" />
         </Section>
     );
 }
