@@ -5,7 +5,6 @@ import { content, Currency, currencyOptions, defaultCurrency, Locale } from "@/l
 
 export type I18nContextValue = {
     locale: Locale;
-    setLocale: (locale: Locale) => void;
     currency: Currency;
     setCurrency: (currency: Currency) => void;
     copy: typeof content.es;
@@ -14,30 +13,29 @@ export type I18nContextValue = {
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-const LOCALE_STORAGE_KEY = "cynocta_locale";
 const CURRENCY_STORAGE_KEY = "cynocta_currency";
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-    const [locale, setLocale] = useState<Locale>("es");
+/**
+ * The locale is decided by the route and passed in from the server layout, so
+ * the served HTML always matches the URL. It is deliberately not state: changing
+ * language is a navigation, not a toggle, otherwise there is no URL for a
+ * crawler to index. Currency stays client-side — it is a display preference.
+ */
+export function I18nProvider({
+    locale,
+    children,
+}: {
+    locale: Locale;
+    children: React.ReactNode;
+}) {
     const [currency, setCurrency] = useState<Currency>(defaultCurrency);
 
     useEffect(() => {
-        const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY) as Locale | null;
-        const storedCurrency = window.localStorage.getItem(CURRENCY_STORAGE_KEY) as Currency | null;
-
-        if (storedLocale === "es" || storedLocale === "en") {
-            setLocale(storedLocale);
-        }
-
-        if (storedCurrency && currencyOptions.includes(storedCurrency)) {
-            setCurrency(storedCurrency);
+        const stored = window.localStorage.getItem(CURRENCY_STORAGE_KEY) as Currency | null;
+        if (stored && currencyOptions.includes(stored)) {
+            setCurrency(stored);
         }
     }, []);
-
-    useEffect(() => {
-        window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
-        document.documentElement.lang = locale;
-    }, [locale]);
 
     useEffect(() => {
         window.localStorage.setItem(CURRENCY_STORAGE_KEY, currency);
@@ -46,7 +44,6 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     const value = useMemo<I18nContextValue>(
         () => ({
             locale,
-            setLocale,
             currency,
             setCurrency,
             copy: content[locale],

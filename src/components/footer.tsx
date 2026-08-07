@@ -15,6 +15,7 @@ import {
 import LanguageToggle from "@/components/language-toggle";
 import { useI18n } from "@/components/i18n-provider";
 import { buildWhatsappLink, contactEmail, contactPhone, instagramUrl } from "@/lib/site-data";
+import { ROUTE_MAP } from "@/lib/i18n/routes";
 
 const FOOTER_STYLES = `
 @keyframes cyn-footer-breathe {
@@ -357,7 +358,7 @@ export default function Footer() {
                             <motion.div variants={itemVariants}>
                                 <MagPill
                                     as={Link}
-                                    href="#inicio"
+                                    href={ROUTE_MAP.home[locale]}
                                     className="cyn-logo inline-flex"
                                     aria-label={copy.footer.backToTopLabel}
                                 >

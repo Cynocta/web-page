@@ -5,18 +5,19 @@ import Link from "next/link";
 import { useState } from "react";
 import LanguageToggle from "@/components/language-toggle";
 import { useI18n } from "@/components/i18n-provider";
+import { ROUTE_MAP } from "@/lib/i18n/routes";
 import s from "./navigation.module.css";
 
 export default function Navigation() {
     const [mobileOpen, setMobileOpen] = useState(false);
-    const { copy } = useI18n();
+    const { copy, locale } = useI18n();
 
     const closeMenu = () => setMobileOpen(false);
 
     return (
         <header className={s.navWrap}>
             <nav className={s.nav}>
-                <Link href="#inicio" className="cyn-logo" onClick={closeMenu}>
+                <Link href={ROUTE_MAP.home[locale]} className="cyn-logo" onClick={closeMenu}>
                     <Image
                         src="/logo.svg"
                         alt={copy.logoAlt}
@@ -48,7 +49,7 @@ export default function Navigation() {
                         </li>
                     ))}
                     <li>
-                        <Link href="/#formulario" className={s.navCta}>
+                        <Link href={copy.navCtaHref} className={s.navCta}>
                             {copy.navCta}
                         </Link>
                     </li>
@@ -65,7 +66,7 @@ export default function Navigation() {
                             {item.label}
                         </Link>
                     ))}
-                    <Link href="/#formulario" onClick={closeMenu}>
+                    <Link href={copy.navCtaHref} onClick={closeMenu}>
                         {copy.navCta}
                     </Link>
                 </div>

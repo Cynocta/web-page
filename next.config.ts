@@ -27,8 +27,8 @@ const CSP = [
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
-    // Ignored while the policy is report-only; takes effect on promotion.
-    "upgrade-insecure-requests",
+    // NOTE: add "upgrade-insecure-requests" when promoting to an enforcing
+    // policy. It is ignored in report-only mode and only logs console noise.
 ].join("; ");
 
 const SECURITY_HEADERS = [

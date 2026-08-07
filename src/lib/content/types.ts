@@ -73,6 +73,8 @@ export type Content = {
     logoAlt: string;
     navItems: NavItem[];
     navCta: string;
+    /** Locale-aware, because the nav also renders on pages outside the landing. */
+    navCtaHref: string;
     navMenuLabel: string;
     navCloseLabel: string;
     navMenuAriaLabel: string;
