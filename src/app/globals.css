@@ -24,7 +24,7 @@
     /* Corporate rhythm: more air between bands than the landing used, because
        the page is now read section by section rather than scrolled through. */
     --cyn-space-block: clamp(64px, 4.4vw + 3.2vh, 132px);
-    --cyn-header-h: 72px;
+    --cyn-header-h: 78px;
 }
 
 @theme inline {
@@ -209,6 +209,48 @@ h4 {
 .cyn-toggle--compact .cyn-toggle-btn {
     padding: 4px 8px;
     font-size: 10px;
+}
+
+/* Bare variant for the header: no pill, no border — just two quiet labels with
+   a hairline between them, so the language switch stops competing with the
+   navigation for attention. */
+.cyn-toggle--bare {
+    gap: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+
+.cyn-toggle--bare .cyn-toggle-btn {
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--cyn-muted-2);
+    background: transparent;
+    border-color: transparent;
+}
+
+.cyn-toggle--bare .cyn-toggle-btn + .cyn-toggle-btn {
+    border-left: 1px solid var(--cyn-border-2);
+    border-radius: 0 6px 6px 0;
+}
+
+.cyn-toggle--bare .cyn-toggle-btn:hover {
+    color: var(--cyn-white);
+}
+
+.cyn-toggle--bare .cyn-toggle-btn.is-active {
+    color: var(--cyn-white);
+    background: transparent;
+    border-color: transparent;
+}
+
+.cyn-toggle--bare .cyn-toggle-btn.is-active + .cyn-toggle-btn,
+.cyn-toggle--bare .cyn-toggle-btn:has(+ .is-active) {
+    border-left-color: var(--cyn-border-2);
 }
 
 .cyn-toggle.cyn-nav-toggle-mobile {

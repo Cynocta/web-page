@@ -1,12 +1,13 @@
 /* Sits between two surface-toned sections (proceso, and the plans header), so
    it takes the black base plus a cyan wash. Same tokens as the rest of the
    system, but it stops proceso + resultados reading as one long block. */
+/* Surface band: it sits between pricing and the closing CTA, both of which are
+   dark, so it takes the lighter ground to keep the alternation going. */
 .section {
     max-width: 100%;
     background:
-        radial-gradient(760px 460px at 82% 6%, rgba(121, 226, 255, 0.07) 0%, transparent 64%),
-        radial-gradient(520px 340px at 8% 92%, rgba(25, 245, 156, 0.05) 0%, transparent 60%),
-        var(--cyn-black);
+        radial-gradient(760px 460px at 82% 6%, rgba(121, 226, 255, 0.06) 0%, transparent 64%),
+        var(--cyn-surface);
     border-top: 1px solid var(--cyn-border-2);
     border-bottom: 1px solid var(--cyn-border-2);
     padding: var(--cyn-section-space) 0;
@@ -28,7 +29,7 @@
 /* Inverted against proceso: there the markers sit straight on the surface,
    here the cards lift off a black base. */
 .card {
-    background: linear-gradient(135deg, rgba(25, 245, 156, 0.05) 0%, var(--cyn-surface) 100%);
+    background: linear-gradient(135deg, rgba(25, 245, 156, 0.05) 0%, var(--cyn-black) 100%);
     border: 1px solid rgba(25, 245, 156, 0.1);
     border-radius: 10px;
     padding: 30px 28px;

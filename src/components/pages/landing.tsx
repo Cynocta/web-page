@@ -4,6 +4,7 @@ import BenefitsSection from "@/components/sections/benefits";
 import ContactCtaSection from "@/components/sections/contact-cta";
 import FoundersSection from "@/components/sections/founders";
 import HomeHero from "@/components/sections/home-hero";
+import PricingSection from "@/components/sections/pricing";
 import ResultsSection from "@/components/sections/results";
 import ServicesOverviewSection from "@/components/sections/services-overview";
 import TechnologiesSection from "@/components/sections/technologies";
@@ -37,6 +38,8 @@ export default function LandingPage({ locale }: { locale: Locale }) {
                 <TechnologiesSection />
                 <UseCasesSection />
                 <FoundersSection />
+                {/* Trust before price: the founders come first on purpose. */}
+                <PricingSection ctaHref={isEs ? "/contacto" : "/en#contacto"} />
                 <ResultsSection />
                 <ContactCtaSection />
             </main>

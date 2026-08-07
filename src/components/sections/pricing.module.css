@@ -1,0 +1,364 @@
+/* ══════════════════════════════════════════════════
+   Pricing.
+   Built to be compared, not read: every row sits at the same height across
+   the three cards so the eye can scan sideways.
+   ══════════════════════════════════════════════════ */
+
+.head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.currency {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 3rem;
+}
+
+.currencyLabel {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* ── Grid ── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px 26px 26px;
+    border-radius: 18px;
+    border: 1px solid var(--cyn-border-2);
+    background: var(--cyn-surface);
+    transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--cyn-border);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
+    }
+}
+
+/* The recommended plan carries the weight: lit border, its own ground, and a
+   permanent lift so it reads as chosen before anything is compared. */
+.featured {
+    border-color: rgba(25, 245, 156, 0.34);
+    background:
+        radial-gradient(520px 220px at 50% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 72%),
+        var(--cyn-surface);
+    box-shadow:
+        0 20px 56px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(25, 245, 156, 0.08);
+}
+
+@media (hover: hover) {
+    .featured:hover {
+        border-color: rgba(25, 245, 156, 0.5);
+        box-shadow:
+            0 28px 68px rgba(25, 245, 156, 0.14),
+            0 0 0 1px rgba(25, 245, 156, 0.14);
+    }
+}
+
+/* ── Header block ── */
+.badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: var(--cyn-accent);
+    color: var(--cyn-black);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(25, 245, 156, 0.32);
+}
+
+.plan {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 0.85rem;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    color: var(--cyn-white);
+    margin: 0 0 0.45rem;
+}
+
+/* Reserved so the price line starts level in all three cards. */
+.summary {
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
+    min-height: 44px;
+}
+
+/* ── Price block ── */
+/* Sized for the tallest case — the plan that also carries a monthly fee — so
+   the feature lists start level. The extra air in the other two is the price
+   of being able to compare rows sideways. */
+.price {
+    min-height: 182px;
+    padding: 1.5rem 0 1.35rem;
+    margin-top: 1.35rem;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.from {
+    display: block;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+    opacity: 0.85;
+}
+
+.amount {
+    display: block;
+    font-size: clamp(2.1rem, 3.4vw, 2.65rem);
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--cyn-white);
+    margin: 0 0 0.5rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Plan 3 is quoted case by case — same slot, set in the heading face so it
+   doesn't pretend to be a figure. */
+.custom {
+    font-family: var(--font-heading), Georgia, serif;
+    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+}
+
+.cadence {
+    display: block;
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* Recurring fee reads as an addition, never as a competing headline. */
+.addon {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--cyn-border-2);
+    color: var(--cyn-muted);
+    font-size: 13px;
+}
+
+.addonValue {
+    color: var(--cyn-white);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Features ── */
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    flex: 1;
+}
+
+.feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.featured .feature {
+    color: var(--cyn-white);
+}
+
+.check {
+    flex: 0 0 auto;
+    width: 15px;
+    height: 15px;
+    margin-top: 1px;
+    color: var(--cyn-accent);
+}
+
+/* ── CTA ── */
+.cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    border-radius: 10px;
+    border: 1px solid var(--cyn-border);
+    background: transparent;
+    color: var(--cyn-white);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.featured .cta {
+    background: var(--cyn-accent);
+    border-color: var(--cyn-accent);
+    color: var(--cyn-black);
+    font-weight: 700;
+    box-shadow: 0 10px 26px rgba(25, 245, 156, 0.26);
+}
+
+@media (hover: hover) {
+    .cta:hover {
+        background: rgba(25, 245, 156, 0.08);
+        border-color: var(--cyn-accent);
+        color: var(--cyn-accent);
+    }
+
+    .featured .cta:hover {
+        background: var(--cyn-accent-glow);
+        color: var(--cyn-black);
+        box-shadow: 0 14px 34px rgba(25, 245, 156, 0.36);
+    }
+}
+
+.cta:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+/* ── Footnote ── */
+.note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    margin-top: 2rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid var(--cyn-border-2);
+    color: var(--cyn-muted-2);
+    font-size: 12.5px;
+    line-height: 1.6;
+}
+
+.noteLink {
+    color: var(--cyn-accent);
+    text-decoration: none;
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease;
+}
+
+@media (hover: hover) {
+    .noteLink:hover {
+        border-bottom-color: var(--cyn-accent);
+    }
+}
+
+/* ── Responsive ──
+   Below three-up the cards scroll horizontally with snap, which keeps them
+   comparable side by side instead of stacking into a long column. */
+@media (max-width: 1024px) {
+    .grid {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        margin-inline: calc(-1 * var(--cyn-shell-x));
+        padding-inline: var(--cyn-shell-x);
+        padding-top: 14px;
+        padding-bottom: 6px;
+    }
+
+    .grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .card {
+        flex: 0 0 auto;
+        width: min(84vw, 350px);
+        scroll-snap-align: center;
+        transform: none !important;
+    }
+
+    .head {
+        align-items: flex-start;
+    }
+
+    .currency {
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .card {
+        padding: 28px 22px 22px;
+    }
+
+    .note {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .cta,
+    .noteLink {
+        transition: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}

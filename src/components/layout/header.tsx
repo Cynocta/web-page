@@ -80,7 +80,8 @@ export default function Header() {
                 </ul>
 
                 <div className={s.actions}>
-                    <LanguageToggle className="cyn-toggle--compact" />
+                    <LanguageToggle className="cyn-toggle--bare" />
+                    <span className={s.divider} aria-hidden="true" />
                     <Link href={headerCta.href} className={s.cta}>
                         {headerCta.label}
                     </Link>
@@ -103,21 +104,21 @@ export default function Header() {
             {open && (
                 <div className={s.panel} id="menu-movil">
                     <ul className={s.panelNav}>
-                        {headerNav.map((item) => (
-                            <li key={item.href}>
+                        {headerNav.map((item, i) => (
+                            <li
+                                key={item.href}
+                                className={s.panelItem}
+                                style={{ animationDelay: `${60 + i * 45}ms` }}
+                            >
                                 <Link
                                     href={item.href}
                                     className={`${s.panelLink} ${isActive(pathname, item.href) ? s.panelActive : ""}`}
                                     aria-current={isActive(pathname, item.href) ? "page" : undefined}
                                 >
                                     {item.label}
-                                    {item.pending ? (
-                                        <span className={s.panelTag}>Pronto</span>
-                                    ) : (
-                                        <span className={s.chev} aria-hidden="true">
-                                            →
-                                        </span>
-                                    )}
+                                    <span className={s.chev} aria-hidden="true">
+                                        →
+                                    </span>
                                 </Link>
                             </li>
                         ))}
@@ -131,7 +132,7 @@ export default function Header() {
                             <a href={`mailto:${contactEmail}`} className={s.panelContact}>
                                 {contactEmail}
                             </a>
-                            <LanguageToggle className="cyn-toggle--compact" />
+                            <LanguageToggle className="cyn-toggle--bare" />
                         </div>
                     </div>
                 </div>
