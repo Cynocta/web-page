@@ -48,7 +48,7 @@ export default function Navigation() {
                         </li>
                     ))}
                     <li>
-                        <Link href="#formulario" className={s.navCta}>
+                        <Link href="/#formulario" className={s.navCta}>
                             {copy.navCta}
                         </Link>
                     </li>
@@ -65,7 +65,7 @@ export default function Navigation() {
                             {item.label}
                         </Link>
                     ))}
-                    <Link href="#formulario" onClick={closeMenu}>
+                    <Link href="/#formulario" onClick={closeMenu}>
                         {copy.navCta}
                     </Link>
                 </div>

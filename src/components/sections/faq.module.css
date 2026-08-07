@@ -1,0 +1,135 @@
+/* Continues the page rhythm: this band sits on black between two surface bands. */
+.section {
+    background:
+        radial-gradient(820px 420px at 78% 4%, rgba(25, 245, 156, 0.06) 0%, transparent 62%),
+        var(--cyn-black);
+    border-top: 1px solid var(--cyn-border-2);
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.inner {
+    max-width: 860px;
+}
+
+.intro {
+    max-width: 62ch;
+    color: var(--cyn-muted);
+    font-size: 16px;
+    line-height: 1.75;
+    margin-bottom: 2.25rem;
+}
+
+/* ── List ──
+   Plain sections, not accordions: the answer must be in the served HTML for
+   answer engines to read it, and hiding it behind a toggle risks that. */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--cyn-border-2);
+    scroll-margin-top: 96px;
+}
+
+.question {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--cyn-white);
+    margin-bottom: 0.6rem;
+}
+
+.marker {
+    flex: 0 0 auto;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    opacity: 0.8;
+}
+
+.answer {
+    color: var(--cyn-muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+    max-width: 68ch;
+    padding-left: 30px;
+    margin: 0;
+}
+
+/* ── Closing CTA ── */
+.cta {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--cyn-border-2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+
+.ctaText {
+    max-width: 46ch;
+    color: var(--cyn-white);
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.ctaLink {
+    flex: 0 0 auto;
+    display: inline-block;
+    padding: 13px 22px;
+    border-radius: 10px;
+    border: 1px solid var(--cyn-accent);
+    background: var(--cyn-accent);
+    color: var(--cyn-black);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) {
+    .ctaLink:hover {
+        background: var(--cyn-accent-glow);
+        box-shadow: 0 12px 32px rgba(25, 245, 156, 0.28);
+    }
+}
+
+.ctaLink:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .question {
+        font-size: 16.5px;
+    }
+
+    .answer {
+        padding-left: 0;
+        font-size: 15px;
+    }
+
+    .ctaLink {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ctaLink {
+        transition: none;
+    }
+}

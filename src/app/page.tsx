@@ -10,12 +10,15 @@ import PlansSection from "@/components/sections/plans";
 import ProcessSection from "@/components/sections/process";
 import ResultsSection from "@/components/sections/results";
 import ServicesSection from "@/components/sections/services";
-import { professionalServiceJsonLd } from "@/lib/structured-data";
+import { plansJsonLd, professionalServiceJsonLd } from "@/lib/schema";
 
 export default function Home() {
     return (
         <div className="cyn-page">
             <JsonLd data={professionalServiceJsonLd()} />
+            {plansJsonLd("es").map((plan) => (
+                <JsonLd key={plan["@id"]} data={plan} />
+            ))}
             <Navigation />
 
             <main>

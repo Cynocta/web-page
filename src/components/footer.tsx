@@ -284,19 +284,18 @@ export default function Footer() {
     const primaryLinks = copy.footer.links.filter((l) => l.type === "link");
     const legalLinks = copy.footer.links.filter((l) => l.type === "legal");
 
-    const marqueeItems = locale === "es"
-        ? ["Automatización con IA", "Resultados reales", "Conversión garantizada", "Soporte 24/7", "Sin contratos largos"]
-        : ["AI Automation", "Real Results", "Guaranteed Conversion", "24/7 Support", "No Long Contracts"];
+    const marqueeItems = copy.footer.marquee;
 
     const isInView = useInView(wrapperRef, { once: true, amount: 0.3 });
 
     const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
+    const { channelLabels } = copy.footer;
     const channelLinks = [
-        { key: "whatsapp", label: "WhatsApp", href: buildWhatsappLink(copy.footer.whatsappText), external: true },
-        { key: "instagram", label: "Instagram", href: instagramUrl, external: true },
-        { key: "email", label: locale === "es" ? "Correo" : "Email", href: `mailto:${contactEmail}`, external: false },
-        { key: "phone", label: locale === "es" ? "Llamar" : "Call", href: `tel:${contactPhone.replace(/\s+/g, "")}`, external: false },
+        { key: "whatsapp", label: channelLabels.whatsapp, href: buildWhatsappLink(copy.footer.whatsappText), external: true },
+        { key: "instagram", label: channelLabels.instagram, href: instagramUrl, external: true },
+        { key: "email", label: channelLabels.email, href: `mailto:${contactEmail}`, external: false },
+        { key: "phone", label: channelLabels.phone, href: `tel:${contactPhone.replace(/\s+/g, "")}`, external: false },
     ];
 
     return (

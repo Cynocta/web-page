@@ -1,7 +1,7 @@
 import "./globals.css";
 import { bodyFont, brandFont, headingFont, monoFont } from "@/lib/fonts";
 import { JsonLd } from "@/components/structured-data";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { I18nProvider } from "@/components/i18n-provider";
 
 export { metadata } from "@/lib/metadata";
