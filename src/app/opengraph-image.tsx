@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Cynocta - Automatizacion y web inteligente para negocios";
+export const alt = "Cynocta - Automatización y web inteligente para negocios";
 export const size = {
     width: 1200,
     height: 630,
@@ -53,7 +53,7 @@ export default function OpenGraphImage() {
                             fontWeight: 600,
                         }}
                     >
-                        Automatizacion y web inteligente para negocios
+                        Automatización y web inteligente para negocios
                     </div>
                     <div
                         style={{
@@ -62,7 +62,7 @@ export default function OpenGraphImage() {
                             color: "#9db2a8",
                         }}
                     >
-                        Captacion, conversion y operacion digital en un solo sistema.
+                        Captación, conversión y operación digital en un solo sistema.
                     </div>
                 </div>
             </div>

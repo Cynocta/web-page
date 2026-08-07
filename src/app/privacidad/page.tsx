@@ -23,14 +23,14 @@ export default function PrivacidadPage() {
         <div className={s.legalPage}>
             <header className={s.hero}>
                 <p className={s.kicker}>Cynocta</p>
-                <h1 className={s.title}>Politica de privacidad</h1>
-                <p className={s.subtitle}>Ultima actualizacion: Mayo 2026</p>
+                <h1 className={s.title}>Política de privacidad</h1>
+                <p className={s.subtitle}>Última actualización: Mayo 2026</p>
             </header>
 
             <div className={s.shell}>
                 <section className={s.legalSection}>
                     <p>
-                        Cynocta protege la informacion personal conforme a la Ley 1581 de 2012 y demas normas
+                        Cynocta protege la información personal conforme a la Ley 1581 de 2012 y demás normas
                         aplicables en Colombia.
                     </p>
                 </section>
@@ -47,7 +47,7 @@ export default function PrivacidadPage() {
                             <p>cynoctaadmin@gmail.com</p>
                         </div>
                         <div>
-                            <span>Telefono</span>
+                            <span>Teléfono</span>
                             <p>+57 305 2580874</p>
                         </div>
                     </div>
@@ -70,19 +70,19 @@ export default function PrivacidadPage() {
                     <h3>Datos directos</h3>
                     <ul>
                         <li>Nombre</li>
-                        <li>Telefono</li>
+                        <li>Teléfono</li>
                         <li>Email</li>
                         <li>Empresa</li>
                     </ul>
-                    <h3>Datos automaticos</h3>
+                    <h3>Datos automáticos</h3>
                     <ul>
                         <li>IP</li>
                         <li>Cookies</li>
-                        <li>Navegacion</li>
+                        <li>Navegación</li>
                     </ul>
                     <h3>Datos de terceros</h3>
                     <ul>
-                        <li>Informacion de clientes del cliente (cuando usa nuestros bots)</li>
+                        <li>Información de clientes del cliente (cuando usa nuestros bots)</li>
                     </ul>
                 </section>
 
@@ -90,10 +90,10 @@ export default function PrivacidadPage() {
                     <h2>4. Finalidad</h2>
                     <ul>
                         <li>Prestar servicios</li>
-                        <li>Automatizar atencion</li>
+                        <li>Automatizar atención</li>
                         <li>Procesar mensajes</li>
                         <li>Analizar comportamiento</li>
-                        <li>Marketing (con autorizacion)</li>
+                        <li>Marketing (con autorización)</li>
                     </ul>
                 </section>
 
@@ -101,14 +101,14 @@ export default function PrivacidadPage() {
                     <h2>5. Tratamiento de datos de terceros</h2>
                     <p>Cuando el cliente usa nuestros sistemas:</p>
                     <ul>
-                        <li>Cynocta actua como encargado del tratamiento</li>
+                        <li>Cynocta actúa como encargado del tratamiento</li>
                         <li>El cliente es el responsable de los datos</li>
                     </ul>
-                    <p>El cliente garantiza que tiene autorizacion para usar dichos datos.</p>
+                    <p>El cliente garantiza que tiene autorización para usar dichos datos.</p>
                 </section>
 
                 <section className={s.legalSection}>
-                    <h2>6. Uso de tecnologias y terceros</h2>
+                    <h2>6. Uso de tecnologías y terceros</h2>
                     <p>
                         Se utilizan servicios como WhatsApp (Meta), servidores cloud y APIs. Los datos pueden
                         ser transferidos internacionalmente.
@@ -132,7 +132,7 @@ export default function PrivacidadPage() {
                         <li>Acceder</li>
                         <li>Rectificar</li>
                         <li>Eliminar</li>
-                        <li>Revocar autorizacion</li>
+                        <li>Revocar autorización</li>
                     </ul>
                     <p>Solicitudes a: cynoctaadmin@gmail.com</p>
                 </section>
@@ -141,17 +141,17 @@ export default function PrivacidadPage() {
                     <h2>9. Seguridad</h2>
                     <ul>
                         <li>Control de acceso</li>
-                        <li>Encriptacion</li>
-                        <li>Buenas practicas</li>
+                        <li>Encriptación</li>
+                        <li>Buenas prácticas</li>
                     </ul>
                     <p>No garantizamos seguridad absoluta.</p>
                 </section>
 
                 <section className={s.legalSection}>
-                    <h2>10. Conservacion</h2>
+                    <h2>10. Conservación</h2>
                     <p>Los datos se almacenan mientras:</p>
                     <ul>
-                        <li>Exista relacion contractual</li>
+                        <li>Exista relación contractual</li>
                         <li>Sea necesario legalmente</li>
                     </ul>
                 </section>
@@ -160,8 +160,8 @@ export default function PrivacidadPage() {
                     <h2>11. Cookies</h2>
                     <p>Se usan cookies para:</p>
                     <ul>
-                        <li>Analitica</li>
-                        <li>Personalizacion</li>
+                        <li>Analítica</li>
+                        <li>Personalización</li>
                     </ul>
                     <p>El usuario puede desactivarlas.</p>
                 </section>
@@ -175,14 +175,14 @@ export default function PrivacidadPage() {
                     <h2>13. Transferencias</h2>
                     <p>Los datos pueden compartirse con:</p>
                     <ul>
-                        <li>Proveedores tecnologicos</li>
+                        <li>Proveedores tecnológicos</li>
                         <li>Autoridades legales</li>
                     </ul>
                 </section>
 
                 <section className={s.legalSection}>
                     <h2>14. Modificaciones</h2>
-                    <p>La politica puede cambiar en cualquier momento.</p>
+                    <p>La política puede cambiar en cualquier momento.</p>
                 </section>
 
                 <section className={s.legalSection}>
@@ -193,8 +193,8 @@ export default function PrivacidadPage() {
                 </section>
 
                 <section className={s.legalSection}>
-                    <h2>16. Aceptacion</h2>
-                    <p>El uso del servicio implica aceptacion de esta politica.</p>
+                    <h2>16. Aceptación</h2>
+                    <p>El uso del servicio implica aceptación de esta política.</p>
                 </section>
             </div>
         </div>

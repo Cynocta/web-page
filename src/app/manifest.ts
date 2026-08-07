@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: "Cynocta",
         short_name: "Cynocta",
         description:
-            "Automatizacion comercial, desarrollo web y sistemas digitales para negocios en crecimiento.",
+            "Automatización comercial, desarrollo web y sistemas digitales para negocios en crecimiento.",
         start_url: "/",
         display: "standalone",
         background_color: "#080c0a",

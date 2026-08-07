@@ -53,7 +53,7 @@ export default function TwitterImage() {
                             fontWeight: 600,
                         }}
                     >
-                        Automatizacion comercial para crecer sin caos
+                        Automatización comercial para crecer sin caos
                     </div>
                     <div
                         style={{
@@ -62,7 +62,7 @@ export default function TwitterImage() {
                             color: "#9db2a8",
                         }}
                     >
-                        Cynocta: web, automatizacion y procesos digitales orientados a resultados.
+                        Cynocta: web, automatización y procesos digitales orientados a resultados.
                     </div>
                 </div>
             </div>

@@ -285,7 +285,7 @@ export default function Footer() {
     const legalLinks = copy.footer.links.filter((l) => l.type === "legal");
 
     const marqueeItems = locale === "es"
-        ? ["Automatizacion con IA", "Resultados reales", "Conversion garantizada", "Soporte 24/7", "Sin contratos largos"]
+        ? ["Automatización con IA", "Resultados reales", "Conversión garantizada", "Soporte 24/7", "Sin contratos largos"]
         : ["AI Automation", "Real Results", "Guaranteed Conversion", "24/7 Support", "No Long Contracts"];
 
     const isInView = useInView(wrapperRef, { once: true, amount: 0.3 });

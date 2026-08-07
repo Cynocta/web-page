@@ -1,6 +1,6 @@
 export const siteName = "Cynocta";
 export const siteDescription =
-    "Cynocta ayuda a negocios y empresas a crecer con automatizacion comercial, paginas web de alto rendimiento y sistemas digitales orientados a conversion.";
+    "Cynocta ayuda a negocios y empresas a crecer con automatización comercial, páginas web de alto rendimiento y sistemas digitales orientados a conversión.";
 export const contactPhone = "+57 305 2580874";
 export const contactEmail = "cynoctaadmin@gmail.com";
 export const instagramUrl = "https://www.instagram.com/cynocta_ai/?utm_source=ig_web_button_share_sheet";

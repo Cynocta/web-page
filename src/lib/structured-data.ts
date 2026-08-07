@@ -52,13 +52,13 @@ export function professionalServiceJsonLd() {
         email: contactEmail,
         sameAs: [instagramUrl],
         description:
-            "Cynocta implementa automatizacion comercial, desarrollo web y procesos digitales para negocios en crecimiento.",
+            "Cynocta implementa automatización comercial, desarrollo web y procesos digitales para negocios en crecimiento.",
         serviceType: [
-            "Automatizacion comercial",
+            "Automatización comercial",
             "Desarrollo web para negocios",
-            "Integracion de procesos digitales",
-            "Optimizacion de conversion",
+            "Integración de procesos digitales",
+            "Optimización de conversión",
         ],
-        areaServed: "Latinoamerica",
+        areaServed: "Latinoamérica",
     };
 }
