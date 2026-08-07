@@ -1,0 +1,197 @@
+/* ══════════════════════════════════════════════════
+   Homepage blocks: benefits, technologies, use cases.
+   Shared sheet because the card language is the same across all three.
+   ══════════════════════════════════════════════════ */
+
+/* ── Benefits ── */
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 1px;
+    background: var(--cyn-border-2);
+    border: 1px solid var(--cyn-border-2);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.benefit {
+    background: var(--cyn-black);
+    padding: 28px 24px;
+    transition: background 0.3s ease;
+}
+
+@media (hover: hover) {
+    .benefit:hover {
+        background: var(--cyn-surface);
+    }
+}
+
+.benefitNum {
+    display: block;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    margin-bottom: 1.1rem;
+}
+
+.benefitTitle {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--cyn-white);
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+}
+
+.benefitText {
+    color: var(--cyn-muted);
+    font-size: 14px;
+    line-height: 1.72;
+    margin: 0;
+}
+
+/* ── Technologies ── */
+.techGroups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 28px 32px;
+}
+
+.techGroup {
+    border-top: 1px solid var(--cyn-border);
+    padding-top: 1rem;
+}
+
+.techLabel {
+    color: var(--cyn-white);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 0.9rem;
+}
+
+.techList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tech {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 11px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--cyn-border-2);
+    color: var(--cyn-muted);
+    font-size: 12.5px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (hover: hover) {
+    .tech:hover {
+        color: var(--cyn-white);
+        border-color: var(--cyn-border);
+    }
+}
+
+/* ── Use cases ── */
+.cases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 16px;
+}
+
+.case {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 22px;
+    border-radius: 14px;
+    border: 1px solid var(--cyn-border-2);
+    background: linear-gradient(160deg, rgba(25, 245, 156, 0.035) 0%, var(--cyn-black) 62%);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+@media (hover: hover) {
+    .case:hover {
+        border-color: var(--cyn-border);
+        transform: translateY(-3px);
+    }
+}
+
+.caseSector {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cyn-white);
+    margin: 0 0 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.caseRow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 0.9rem;
+}
+
+.caseRow:last-child {
+    margin-bottom: 0;
+}
+
+.caseLabel {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.caseText {
+    color: var(--cyn-muted);
+    font-size: 14px;
+    line-height: 1.68;
+    margin: 0;
+}
+
+.caseSolution {
+    color: var(--cyn-white);
+}
+
+@media (max-width: 640px) {
+    .benefit {
+        padding: 24px 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .benefit,
+    .tech,
+    .case {
+        transition: none;
+    }
+
+    .case:hover {
+        transform: none;
+    }
+}
+
+/* Reveal wrappers must stretch so cards in a row match height. */
+.cases > *,
+.techGroups > * {
+    display: flex;
+    min-width: 0;
+}
+
+.cases > * > .case {
+    width: 100%;
+}
+
+.techGroups > * > .techGroup {
+    width: 100%;
+}

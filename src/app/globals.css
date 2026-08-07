@@ -21,6 +21,10 @@
        same 100px gutters as a 27" display and no section would fit on screen. */
     --cyn-section-space: clamp(48px, 3.2vw + 2.6vh, 96px);
     --cyn-section-space-tight: clamp(40px, 2.6vw + 2.2vh, 80px);
+    /* Corporate rhythm: more air between bands than the landing used, because
+       the page is now read section by section rather than scrolled through. */
+    --cyn-space-block: clamp(64px, 4.4vw + 3.2vh, 132px);
+    --cyn-header-h: 72px;
 }
 
 @theme inline {

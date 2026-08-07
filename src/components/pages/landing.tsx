@@ -1,44 +1,47 @@
-import Footer from "@/components/footer";
-import Navigation from "@/components/navigation";
+import Header from "@/components/layout/header";
+import SiteFooter from "@/components/layout/site-footer";
+import BenefitsSection from "@/components/sections/benefits";
 import ContactCtaSection from "@/components/sections/contact-cta";
-import CostSection from "@/components/sections/cost";
-import HeroSection from "@/components/sections/hero";
-import LeadFormSection from "@/components/sections/lead-form";
-import PainsSection from "@/components/sections/pains";
-import PlansSection from "@/components/sections/plans";
-import ProcessSection from "@/components/sections/process";
+import FoundersSection from "@/components/sections/founders";
+import HomeHero from "@/components/sections/home-hero";
 import ResultsSection from "@/components/sections/results";
-import ServicesSection from "@/components/sections/services";
+import ServicesOverviewSection from "@/components/sections/services-overview";
+import TechnologiesSection from "@/components/sections/technologies";
+import UseCasesSection from "@/components/sections/use-cases";
 import { JsonLd } from "@/components/structured-data";
 import type { Locale } from "@/lib/content";
-import { plansJsonLd, professionalServiceJsonLd } from "@/lib/schema";
+import { professionalServiceJsonLd } from "@/lib/schema";
 
 /**
- * The landing page body, shared by both locales. The route files are thin
- * wrappers that only supply the locale and the metadata.
+ * The corporate homepage.
+ *
+ * It introduces the company and routes to the rest of the site rather than
+ * trying to close a sale in one scroll — pricing lives on /precios, the
+ * qualification form on /contacto, and the problem framing on /servicios.
  */
 export default function LandingPage({ locale }: { locale: Locale }) {
+    const isEs = locale === "es";
+
     return (
         <div className="cyn-page">
             <JsonLd data={professionalServiceJsonLd()} />
-            {plansJsonLd(locale).map((plan) => (
-                <JsonLd key={plan["@id"]} data={plan} />
-            ))}
-            <Navigation />
+            <Header />
 
             <main>
-                <HeroSection />
-                <PainsSection />
-                <CostSection />
-                <ServicesSection />
-                <ProcessSection />
+                <HomeHero
+                    primaryHref={isEs ? "/contacto" : "/en#contacto"}
+                    secondaryHref={isEs ? "/servicios" : "/en#resultados"}
+                />
+                <ServicesOverviewSection />
+                <BenefitsSection />
+                <TechnologiesSection />
+                <UseCasesSection />
+                <FoundersSection />
                 <ResultsSection />
-                <PlansSection />
-                <LeadFormSection />
                 <ContactCtaSection />
             </main>
 
-            <Footer />
+            <SiteFooter />
         </div>
     );
 }

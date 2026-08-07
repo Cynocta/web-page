@@ -1,5 +1,4 @@
-import Footer from "@/components/footer";
-import Navigation from "@/components/navigation";
+import PageShell from "@/components/layout/page-shell";
 import FaqSection from "@/components/sections/faq";
 import { JsonLd } from "@/components/structured-data";
 import { faqContent, type Locale } from "@/lib/content";
@@ -9,18 +8,17 @@ import { siteUrl } from "@/lib/site-data";
 
 export default function FaqPageBody({ locale }: { locale: Locale }) {
     const path = ROUTE_MAP.faq[locale];
-    const homePath = ROUTE_MAP.home[locale];
+    const isEs = locale === "es";
 
     return (
-        <div className="cyn-page">
+        <PageShell
+            crumbs={[
+                { label: isEs ? "Inicio" : "Home", href: ROUTE_MAP.home[locale] },
+                { label: isEs ? "Preguntas frecuentes" : "FAQ", href: path },
+            ]}
+        >
             <JsonLd data={faqJsonLd(locale, `${siteUrl}${path}`)} />
-            <Navigation />
-
-            <main>
-                <FaqSection faq={faqContent[locale]} ctaHref={`${homePath === "/" ? "" : homePath}/#formulario`} />
-            </main>
-
-            <Footer />
-        </div>
+            <FaqSection faq={faqContent[locale]} ctaHref={isEs ? "/contacto" : "/en#contacto"} />
+        </PageShell>
     );
 }

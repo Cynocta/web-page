@@ -30,6 +30,10 @@ export const TRANSLATED_PATHS = Object.values(ROUTE_MAP);
  * Service and pricing pages live here until their English versions are written.
  */
 export const ES_ONLY_PATHS = [
+    "/nosotros",
+    "/contacto",
+    "/portafolio",
+    "/blog",
     "/servicios",
     "/servicios/chatbot-whatsapp",
     "/servicios/automatizacion-de-procesos",

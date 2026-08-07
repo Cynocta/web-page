@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import Footer from "@/components/footer";
-import Navigation from "@/components/navigation";
+import Header from "@/components/layout/header";
+import SiteFooter from "@/components/layout/site-footer";
 import { siteUrl } from "@/lib/site-data";
 
 /**
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
     return (
         <div className="cyn-page">
-            <Navigation />
+            <Header />
 
             <main>
                 <section className="cyn-section" style={{ minHeight: "52vh" }}>
@@ -38,7 +38,7 @@ export default function NotFound() {
                 </section>
             </main>
 
-            <Footer />
+            <SiteFooter />
         </div>
     );
 }

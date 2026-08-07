@@ -1,7 +1,9 @@
+/* The header is sticky and takes its own space, so this only needs breathing
+   room of its own — not clearance for a fixed bar. */
 .wrap {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 88px var(--cyn-shell-x) 0;
+    padding: 22px var(--cyn-shell-x) 0;
 }
 
 .list {
@@ -65,7 +67,7 @@
 
 @media (max-width: 640px) {
     .wrap {
-        padding-top: 76px;
+        padding-top: 16px;
     }
 
     .list {

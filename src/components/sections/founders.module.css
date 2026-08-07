@@ -1,0 +1,226 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+    gap: 20px;
+    max-width: 940px;
+}
+
+/* ── Card ──
+   Glass over the accent wash of the band: the blur has something to pick up,
+   which is what makes the effect read as material rather than as grey haze. */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 26px 24px 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+        158deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.02) 42%,
+        rgba(7, 8, 9, 0.35) 100%
+    );
+    backdrop-filter: blur(18px) saturate(130%);
+    box-shadow:
+        0 18px 48px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Light sweep across the top edge, revealed on hover. */
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.55), transparent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(25, 245, 156, 0.26);
+        box-shadow:
+            0 26px 60px rgba(0, 0, 0, 0.42),
+            0 0 46px rgba(25, 245, 156, 0.07),
+            inset 0 1px 0 rgba(25, 245, 156, 0.14);
+    }
+
+    .card:hover::after {
+        opacity: 1;
+    }
+
+    .card:hover .avatar {
+        border-color: rgba(25, 245, 156, 0.4);
+    }
+}
+
+/* ── Header row ── */
+.head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Photo placeholder: a monogram plate, not a grey silhouette. Reads as a
+   deliberate slot so it can ship before the photographs exist. */
+.avatar {
+    position: relative;
+    flex: 0 0 auto;
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+    border: 1px solid var(--cyn-border);
+    background:
+        radial-gradient(90% 90% at 30% 20%, rgba(25, 245, 156, 0.18) 0%, transparent 62%),
+        linear-gradient(150deg, var(--cyn-surface-2) 0%, var(--cyn-black) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.35s ease;
+}
+
+.initials {
+    font-family: var(--font-heading), Georgia, serif;
+    font-size: 25px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--cyn-accent);
+}
+
+.photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.identity {
+    min-width: 0;
+}
+
+.name {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--cyn-white);
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+}
+
+.role {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.bio {
+    color: var(--cyn-muted);
+    font-size: 14.5px;
+    line-height: 1.75;
+    margin: 0;
+    flex: 1;
+}
+
+/* ── Card footer ── */
+.foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.pending {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.socials {
+    display: flex;
+    gap: 7px;
+}
+
+.social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    border: 1px solid var(--cyn-border-2);
+    color: var(--cyn-muted);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+@media (hover: hover) {
+    .social:hover {
+        color: var(--cyn-accent);
+        border-color: var(--cyn-border);
+        background: var(--cyn-accent-dim);
+    }
+}
+
+.social:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 2px;
+}
+
+.social svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 560px) {
+    .card {
+        padding: 22px 20px 20px;
+    }
+
+    .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 15px;
+    }
+
+    .initials {
+        font-size: 21px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card::after,
+    .avatar,
+    .social {
+        transition: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}
+
+/* Same as the services grid: Reveal's wrapper is the grid item. */
+.grid > * {
+    display: flex;
+    min-width: 0;
+}
+
+.grid > * > .card {
+    width: 100%;
+}

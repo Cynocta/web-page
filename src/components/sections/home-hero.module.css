@@ -1,0 +1,259 @@
+/* ══════════════════════════════════════════════════
+   Homepage hero.
+   Calmer than the old landing opener: the type carries it, the 3D scene sits
+   back, and the header floats over the top of it.
+   ══════════════════════════════════════════════════ */
+
+.hero {
+    position: relative;
+    /* Pulls up under the sticky header, which is transparent at rest. */
+    margin-top: calc(-1 * var(--cyn-header-h));
+    padding-top: var(--cyn-header-h);
+    background:
+        radial-gradient(1100px 620px at 78% 4%, rgba(25, 245, 156, 0.10) 0%, transparent 62%),
+        radial-gradient(700px 460px at 4% 88%, rgba(121, 226, 255, 0.05) 0%, transparent 66%),
+        var(--cyn-black);
+    overflow: hidden;
+}
+
+/* Faint grid, the quiet technical texture behind the type. */
+.grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: 68px 68px;
+    mask-image: radial-gradient(ellipse 80% 62% at 50% 34%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 62% at 50% 34%, #000 30%, transparent 78%);
+    pointer-events: none;
+}
+
+.inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: clamp(56px, 8vh, 104px) var(--cyn-shell-x) clamp(48px, 6vh, 80px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: center;
+}
+
+.copy {
+    max-width: 60ch;
+}
+
+/* ── Eyebrow pill ── */
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 13px 6px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--cyn-border);
+    background: rgba(25, 245, 156, 0.05);
+    color: var(--cyn-muted);
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    margin: 0 0 1.75rem;
+}
+
+.pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+    box-shadow: 0 0 0 3px rgba(25, 245, 156, 0.14);
+}
+
+/* ── Title ──
+   Bigger and lighter than the landing had. Weight 200 at this size reads as
+   confidence; bold reads as shouting. */
+.title {
+    font-size: clamp(2.5rem, 5.6vw, 4.35rem);
+    line-height: 1.03;
+    letter-spacing: -0.035em;
+    font-weight: 200;
+    color: var(--cyn-white);
+    margin: 0 0 1.5rem;
+    text-wrap: balance;
+}
+
+.title em {
+    font-style: normal;
+    background: linear-gradient(96deg, var(--cyn-cyan) 0%, var(--cyn-mint) 46%, var(--cyn-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--cyn-muted);
+    font-size: clamp(16px, 1.35vw, 18.5px);
+    line-height: 1.75;
+    max-width: 54ch;
+    margin: 0 0 2.25rem;
+}
+
+/* ── Actions ── */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.primary,
+.secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 50px;
+    padding: 14px 24px;
+    border-radius: 11px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease,
+        color 0.25s ease, transform 0.25s ease;
+}
+
+.primary {
+    background: var(--cyn-accent);
+    border: 1px solid var(--cyn-accent);
+    color: var(--cyn-black);
+}
+
+.secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--cyn-border-2);
+    color: var(--cyn-white);
+}
+
+@media (hover: hover) {
+    .primary:hover {
+        background: var(--cyn-accent-glow);
+        box-shadow: 0 14px 36px rgba(25, 245, 156, 0.28);
+        transform: translateY(-1px);
+    }
+
+    .secondary:hover {
+        border-color: var(--cyn-border);
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+/* ── Trust strip ── */
+.stats {
+    position: relative;
+    z-index: 2;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--cyn-shell-x);
+}
+
+.statsInner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(50%, 170px), 1fr));
+    gap: 1px;
+    background: var(--cyn-border-2);
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.stat {
+    background: var(--cyn-black);
+    padding: 24px 4px 30px;
+}
+
+.statValue {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--cyn-white);
+    margin: 0 0 0.5rem;
+}
+
+.statPrefix {
+    color: var(--cyn-accent);
+    font-size: 0.55em;
+    font-weight: 400;
+}
+
+.statLabel {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ── Visual ── */
+.visual {
+    display: none;
+    position: relative;
+    align-self: stretch;
+    min-height: 400px;
+}
+
+.visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--cyn-black) 0%, transparent 26%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.visual canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (min-width: 1000px) {
+    .inner {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 3rem;
+        min-height: min(72vh, 640px);
+    }
+
+    .visual {
+        display: block;
+    }
+}
+
+@media (max-width: 560px) {
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .stat {
+        padding: 20px 4px 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary,
+    .secondary {
+        transition: none;
+    }
+
+    .primary:hover {
+        transform: none;
+    }
+}
