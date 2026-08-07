@@ -1,18 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const fallbackSiteUrl = "https://cynocta.com";
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-const siteUrl = (() => {
-    if (!rawSiteUrl) {
-        return fallbackSiteUrl;
-    }
-
-    try {
-        return new URL(rawSiteUrl).origin;
-    } catch {
-        return fallbackSiteUrl;
-    }
-})();
+import { siteUrl } from "@/lib/site-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const lastModified = new Date();
@@ -24,6 +11,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "weekly",
             priority: 1,
             images: [`${siteUrl}/opengraph-image`],
+        },
+        {
+            url: `${siteUrl}/terminos`,
+            lastModified,
+            changeFrequency: "yearly",
+            priority: 0.3,
+        },
+        {
+            url: `${siteUrl}/privacidad`,
+            lastModified,
+            changeFrequency: "yearly",
+            priority: 0.3,
         },
     ];
 }

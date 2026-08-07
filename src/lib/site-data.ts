@@ -4,7 +4,9 @@ export const siteDescription =
 export const contactPhone = "+57 305 2580874";
 export const contactEmail = "cynoctaadmin@gmail.com";
 export const instagramUrl = "https://www.instagram.com/cynocta_ai/?utm_source=ig_web_button_share_sheet";
-const fallbackSiteUrl = "https://cynocta.com";
+/** Must match the host the site is actually served from: cynocta.com redirects
+ *  to www, so a non-www fallback points every canonical at a redirect. */
+const fallbackSiteUrl = "https://www.cynocta.com";
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 
 export const siteUrl = (() => {

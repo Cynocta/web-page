@@ -1,4 +1,22 @@
+import type { Metadata } from "next";
 import s from "@/components/legal.module.css";
+
+/** Without this the page inherits the root canonical ("/") and tells Google it
+ *  is the homepage, which drops it from the index. */
+export const metadata: Metadata = {
+    title: "Política de privacidad",
+    description:
+        "Cómo Cynocta recoge, trata y protege los datos personales de quienes usan su sitio web y contratan sus servicios.",
+    alternates: {
+        canonical: "/privacidad",
+    },
+    openGraph: {
+        title: "Política de privacidad | Cynocta",
+        description:
+            "Cómo Cynocta recoge, trata y protege los datos personales de quienes usan su sitio web y contratan sus servicios.",
+        url: "/privacidad",
+    },
+};
 
 export default function PrivacidadPage() {
     return (

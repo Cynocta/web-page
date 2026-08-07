@@ -1,4 +1,22 @@
+import type { Metadata } from "next";
 import s from "@/components/legal.module.css";
+
+/** Without this the page inherits the root canonical ("/") and tells Google it
+ *  is the homepage, which drops it from the index. */
+export const metadata: Metadata = {
+    title: "Términos y condiciones",
+    description:
+        "Términos y condiciones de uso de los servicios de automatización, desarrollo web e integración de procesos de Cynocta.",
+    alternates: {
+        canonical: "/terminos",
+    },
+    openGraph: {
+        title: "Términos y condiciones | Cynocta",
+        description:
+            "Términos y condiciones de uso de los servicios de automatización, desarrollo web e integración de procesos de Cynocta.",
+        url: "/terminos",
+    },
+};
 
 export default function TerminosPage() {
     return (
