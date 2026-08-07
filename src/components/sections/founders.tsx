@@ -4,6 +4,8 @@ import Reveal from "@/components/ui/reveal";
 import { founders, foundersSection } from "@/lib/content/founders";
 import s from "./founders.module.css";
 
+/* Hand-rolled: lucide dropped its brand icons in v1, so importing Linkedin or
+   Github from lucide-react no longer resolves on the installed version. */
 const LinkedInIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M6.94 5.5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.3 8.9h3.4V21H3.3V8.9Zm5.6 0h3.25v1.65h.05c.45-.85 1.56-1.75 3.2-1.75 3.43 0 4.06 2.25 4.06 5.18V21h-3.4v-5.35c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.83V21H8.9V8.9Z" />
@@ -17,11 +19,11 @@ const GitHubIcon = () => (
 );
 
 /**
- * Founder cards.
+ * Founder profiles.
  *
- * Photographs do not exist yet, so the avatar slot renders a monogram plate and
- * says so. Shipping an obvious placeholder beats a stock silhouette, which
- * would read as a real person who isn't.
+ * Portrait plate with the copy card overlapping it. Photographs don't exist
+ * yet, so the plate renders a monogram and says so — an obvious placeholder
+ * beats a stock portrait, which would read as a real person who isn't.
  */
 export default function FoundersSection() {
     return (
@@ -32,12 +34,14 @@ export default function FoundersSection() {
                 intro={foundersSection.intro}
             />
 
-            <div className={s.grid}>
-                {founders.map((founder, i) => (
-                    <Reveal key={founder.name} delay={i * 90}>
-                        <article className={s.card}>
-                            <div className={s.head}>
-                                <div className={s.avatar}>
+            <div className={s.list}>
+                {founders.map((founder, i) => {
+                    const hasSocials = Boolean(founder.linkedin || founder.github);
+
+                    return (
+                        <Reveal key={founder.name} blur delay={i * 120}>
+                            <article className={`${s.row} ${i % 2 === 1 ? s.mirrored : ""}`}>
+                                <div className={s.plate}>
                                     {founder.photo ? (
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img
@@ -46,56 +50,60 @@ export default function FoundersSection() {
                                             className={s.photo}
                                         />
                                     ) : (
-                                        <span className={s.initials} aria-hidden="true">
-                                            {founder.initials}
-                                        </span>
+                                        <>
+                                            <span className={s.initials} aria-hidden="true">
+                                                {founder.initials}
+                                            </span>
+                                            <span className={s.pending}>
+                                                <span className={s.pendingDot} aria-hidden="true" />
+                                                {foundersSection.photoPendingLabel}
+                                            </span>
+                                        </>
                                     )}
                                 </div>
-                                <div className={s.identity}>
+
+                                <div className={s.card}>
                                     <h3 className={s.name}>{founder.name}</h3>
                                     <p className={s.role}>{founder.role}</p>
-                                </div>
-                            </div>
+                                    <p className={s.bio}>{founder.bio}</p>
 
-                            <p className={s.bio}>{founder.bio}</p>
-
-                            <div className={s.foot}>
-                                {!founder.photo && (
-                                    <span className={s.pending}>
-                                        {foundersSection.photoPendingLabel}
-                                    </span>
-                                )}
-
-                                {(founder.linkedin || founder.github) && (
                                     <div className={s.socials}>
-                                        {founder.linkedin && (
-                                            <a
-                                                href={founder.linkedin}
-                                                className={s.social}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={`LinkedIn de ${founder.name}`}
-                                            >
-                                                <LinkedInIcon />
-                                            </a>
-                                        )}
-                                        {founder.github && (
-                                            <a
-                                                href={founder.github}
-                                                className={s.social}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                aria-label={`GitHub de ${founder.name}`}
-                                            >
-                                                <GitHubIcon />
-                                            </a>
+                                        {hasSocials ? (
+                                            <>
+                                                {founder.linkedin && (
+                                                    <a
+                                                        href={founder.linkedin}
+                                                        className={s.social}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        aria-label={`LinkedIn de ${founder.name}`}
+                                                    >
+                                                        <LinkedInIcon />
+                                                    </a>
+                                                )}
+                                                {founder.github && (
+                                                    <a
+                                                        href={founder.github}
+                                                        className={s.social}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        aria-label={`GitHub de ${founder.name}`}
+                                                    >
+                                                        <GitHubIcon />
+                                                    </a>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <span className={s.socialsPending}>
+                                                Perfiles próximamente
+                                            </span>
                                         )}
                                     </div>
-                                )}
-                            </div>
-                        </article>
-                    </Reveal>
-                ))}
+                                </div>
+                            </article>
+                        </Reveal>
+                    );
+                })}
             </div>
         </Section>
     );

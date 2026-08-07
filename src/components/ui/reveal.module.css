@@ -7,9 +7,19 @@
     will-change: opacity, transform;
 }
 
+/* Defocused entrance — the content resolves rather than slides. */
+.blur {
+    filter: blur(4px);
+    transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .shown {
     opacity: 1;
     transform: none;
+    filter: none;
     will-change: auto;
 }
 

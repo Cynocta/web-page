@@ -1,100 +1,43 @@
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
-    gap: 20px;
-    max-width: 940px;
-}
+/* ══════════════════════════════════════════════════
+   Founder profiles.
+   Portrait plate with the copy card overlapping it — the layout carries the
+   weight, so it still reads as premium before the photographs exist.
+   ══════════════════════════════════════════════════ */
 
-/* ── Card ──
-   Glass over the accent wash of the band: the blur has something to pick up,
-   which is what makes the effect read as material rather than as grey haze. */
-.card {
-    position: relative;
+.list {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 26px 24px 24px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(
-        158deg,
-        rgba(255, 255, 255, 0.07) 0%,
-        rgba(255, 255, 255, 0.02) 42%,
-        rgba(7, 8, 9, 0.35) 100%
-    );
-    backdrop-filter: blur(18px) saturate(130%);
-    box-shadow:
-        0 18px 48px rgba(0, 0, 0, 0.34),
-        inset 0 1px 0 rgba(255, 255, 255, 0.09);
-    overflow: hidden;
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.35s ease, box-shadow 0.35s ease;
+    gap: clamp(48px, 6vw, 88px);
 }
 
-/* Light sweep across the top edge, revealed on hover. */
-.card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 12%;
-    right: 12%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.55), transparent);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-@media (hover: hover) {
-    .card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(25, 245, 156, 0.26);
-        box-shadow:
-            0 26px 60px rgba(0, 0, 0, 0.42),
-            0 0 46px rgba(25, 245, 156, 0.07),
-            inset 0 1px 0 rgba(25, 245, 156, 0.14);
-    }
-
-    .card:hover::after {
-        opacity: 1;
-    }
-
-    .card:hover .avatar {
-        border-color: rgba(25, 245, 156, 0.4);
-    }
-}
-
-/* ── Header row ── */
-.head {
+.row {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 16px;
 }
 
-/* Photo placeholder: a monogram plate, not a grey silhouette. Reads as a
-   deliberate slot so it can ship before the photographs exist. */
-.avatar {
+/* The second profile mirrors the first so the page doesn't fall into a pattern. */
+.mirrored {
+    flex-direction: row-reverse;
+}
+
+/* ── Portrait plate ── */
+.plate {
     position: relative;
     flex: 0 0 auto;
-    width: 76px;
-    height: 76px;
-    border-radius: 18px;
+    width: min(440px, 42vw);
+    aspect-ratio: 1;
+    border-radius: 26px;
     border: 1px solid var(--cyn-border);
     background:
-        radial-gradient(90% 90% at 30% 20%, rgba(25, 245, 156, 0.18) 0%, transparent 62%),
+        radial-gradient(88% 88% at 28% 18%, rgba(25, 245, 156, 0.16) 0%, transparent 64%),
         linear-gradient(150deg, var(--cyn-surface-2) 0%, var(--cyn-black) 100%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1.25rem;
     overflow: hidden;
-    transition: border-color 0.35s ease;
-}
-
-.initials {
-    font-family: var(--font-heading), Georgia, serif;
-    font-size: 25px;
-    font-weight: 300;
-    letter-spacing: 0.04em;
-    color: var(--cyn-accent);
 }
 
 .photo {
@@ -103,124 +46,184 @@
     object-fit: cover;
 }
 
-.identity {
+.initials {
+    font-family: var(--font-heading), Georgia, serif;
+    font-size: clamp(3.4rem, 7vw, 5.2rem);
+    font-weight: 200;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    color: var(--cyn-accent);
+    opacity: 0.9;
+}
+
+/* Says the slot is intentional rather than a failed image. */
+.pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--cyn-border-2);
+    background: rgba(7, 8, 9, 0.5);
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.pendingDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+    opacity: 0.7;
+    flex: 0 0 auto;
+}
+
+/* ── Overlapping card ── */
+.card {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
     min-width: 0;
+    margin-left: -80px;
+    padding: clamp(28px, 3vw, 42px);
+    border-radius: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(
+        158deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.02) 42%,
+        rgba(7, 8, 9, 0.55) 100%
+    );
+    backdrop-filter: blur(20px) saturate(130%);
+    box-shadow:
+        0 26px 64px rgba(0, 0, 0, 0.44),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.mirrored .card {
+    margin-left: 0;
+    margin-right: -80px;
+}
+
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(25, 245, 156, 0.24);
+        box-shadow:
+            0 34px 76px rgba(0, 0, 0, 0.5),
+            0 0 52px rgba(25, 245, 156, 0.07),
+            inset 0 1px 0 rgba(25, 245, 156, 0.14);
+    }
 }
 
 .name {
-    font-size: 19px;
-    font-weight: 500;
-    line-height: 1.25;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     color: var(--cyn-white);
-    margin: 0 0 4px;
-    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
 }
 
 .role {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: 10.5px;
-    letter-spacing: 0.11em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    margin: 0;
+    margin: 0 0 1.5rem;
 }
 
 .bio {
     color: var(--cyn-muted);
-    font-size: 14.5px;
-    line-height: 1.75;
-    margin: 0;
-    flex: 1;
+    font-size: 15.5px;
+    line-height: 1.8;
+    margin: 0 0 1.75rem;
+    max-width: 54ch;
 }
 
-/* ── Card footer ── */
-.foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.pending {
-    color: var(--cyn-muted-2);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 9.5px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
+/* ── Social ── */
 .socials {
     display: flex;
-    gap: 7px;
+    align-items: center;
+    gap: 10px;
 }
 
 .social {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 9px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
     border: 1px solid var(--cyn-border-2);
-    color: var(--cyn-muted);
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--cyn-white);
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease,
+        transform 0.25s ease;
 }
 
 @media (hover: hover) {
     .social:hover {
-        color: var(--cyn-accent);
-        border-color: var(--cyn-border);
-        background: var(--cyn-accent-dim);
+        background: var(--cyn-accent);
+        border-color: var(--cyn-accent);
+        color: var(--cyn-black);
+        transform: translateY(-2px);
     }
 }
 
 .social:focus-visible {
     outline: 2px solid var(--cyn-accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
 }
 
 .social svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
 }
 
-@media (max-width: 560px) {
-    .card {
-        padding: 22px 20px 20px;
+/* Shown until the profile URLs exist, instead of buttons that go nowhere. */
+.socialsPending {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ── Stacked below the overlap breakpoint ── */
+@media (max-width: 900px) {
+    .row,
+    .mirrored {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 15px;
+    .plate {
+        width: 100%;
+        max-width: 400px;
     }
 
-    .initials {
-        font-size: 21px;
+    .card,
+    .mirrored .card {
+        margin: -48px 0 0;
+        width: 100%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .card,
-    .card::after,
-    .avatar,
     .social {
         transition: none;
     }
 
-    .card:hover {
+    .card:hover,
+    .social:hover {
         transform: none;
     }
-}
-
-/* Same as the services grid: Reveal's wrapper is the grid item. */
-.grid > * {
-    display: flex;
-    min-width: 0;
-}
-
-.grid > * > .card {
-    width: 100%;
 }
