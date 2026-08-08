@@ -10,8 +10,13 @@ export { SERVICE_SLUGS };
  */
 export const servicesEsNav: Record<ServiceSlug, string> = {
     "paginas-web-que-convierten": "Desarrollo web",
-    "automatizacion-de-procesos": "Automatización",
-    "agentes-ia": "Inteligencia artificial",
-    "integracion-crm": "Integraciones",
+    "software-a-medida": "Software a medida",
+    "automatizacion-de-procesos": "Automatización de procesos",
+    "automatizaciones-n8n": "Automatizaciones con n8n",
+    "agentes-ia": "Agentes de IA",
     "chatbot-whatsapp": "Chatbots",
+    "integraciones-api": "Integraciones con APIs",
+    "integracion-crm": "Integración con CRM",
+    dashboards: "Dashboards",
+    "consultoria-tecnologica": "Consultoría tecnológica",
 };

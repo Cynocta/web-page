@@ -1,13 +1,13 @@
-import type { ServiceDetail, ServiceSlug, ServicesHub } from "./types";
+import type { ServiceDetail, ServicesHub } from "./types";
 
 export const servicesHubEs: ServicesHub = {
     metaTitle: "Servicios de automatización con IA para negocios",
     metaDescription:
-        "Chatbots de WhatsApp, automatización de procesos, agentes de IA, integración con CRM y webs que convierten. Implementación a medida para PYMES en Latinoamérica.",
+        "Desarrollo web y software a medida, automatización de procesos, agentes de IA, chatbots, integraciones y consultoría tecnológica para empresas en Latinoamérica.",
     eyebrow: "Servicios",
-    heading: "Cinco formas de dejar de perder clientes.",
+    heading: "Diez formas de dejar de perder clientes.",
     intro:
-        "Cada servicio resuelve una grieta concreta por donde se te escapan ventas. Se pueden contratar por separado o combinarse: la mayoría de los proyectos empiezan por uno y crecen desde ahí.",
+        "Cada servicio resuelve una grieta concreta por donde se te escapan ventas o se te van las horas. Se contratan por separado o combinados: la mayoría de los proyectos empieza por uno y crece desde ahí.",
     listTitle: "Qué implementamos",
     ctaTitle: "¿No sabes por cuál empezar?",
     ctaBody:
@@ -15,7 +15,9 @@ export const servicesHubEs: ServicesHub = {
     ctaLabel: "Quiero un diagnóstico",
 };
 
-export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
+/** First batch. The registry index merges this with `es-extra` and applies
+ *  the full `Record<ServiceSlug, ServiceDetail>` type to the result. */
+export const servicesEs: Record<string, ServiceDetail> = {
     "chatbot-whatsapp": {
         slug: "chatbot-whatsapp",
         navLabel: "Chatbot de WhatsApp",
@@ -129,7 +131,7 @@ export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
                     "Deriva a una persona con el historial de la conversación ya recogido, en vez de insistir o dar una respuesta equivocada. Ese umbral se calibra: prefiere pasar a humano antes que arriesgar una respuesta incorrecta sobre precios o disponibilidad.",
             },
         ],
-        related: ["agentes-ia", "integracion-crm"],
+        related: ["agentes-ia", "integracion-crm", "automatizaciones-n8n"],
     },
 
     "automatizacion-de-procesos": {
@@ -234,7 +236,7 @@ export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
                     "Los que son repetitivos, tienen reglas claras y ocurren seguido: seguimiento de leads, traspaso de datos entre sistemas, recordatorios, generación de reportes y facturación recurrente. Lo que requiere criterio o negociación se queda con una persona.",
             },
         ],
-        related: ["integracion-crm", "agentes-ia"],
+        related: ["automatizaciones-n8n", "integraciones-api", "consultoria-tecnologica"],
     },
 
     "agentes-ia": {
@@ -345,7 +347,7 @@ export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
                     "Si tus consultas se repiten y caben en unas pocas rutas, un bot bien hecho es más barato y más predecible. El agente se justifica cuando las preguntas cruzan varias fuentes o requieren decidir entre opciones que no se pueden enumerar.",
             },
         ],
-        related: ["chatbot-whatsapp", "automatizacion-de-procesos"],
+        related: ["chatbot-whatsapp", "automatizacion-de-procesos", "software-a-medida"],
     },
 
     "integracion-crm": {
@@ -450,7 +452,7 @@ export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
                     "Se puede empezar con algo simple y ordenado antes de pagar una licencia. Lo importante es que los leads queden registrados con su origen y su estado; la herramienta se puede migrar después sin perder el histórico.",
             },
         ],
-        related: ["automatizacion-de-procesos", "chatbot-whatsapp"],
+        related: ["integraciones-api", "dashboards", "automatizacion-de-procesos"],
     },
 
     "paginas-web-que-convierten": {
@@ -560,6 +562,6 @@ export const servicesEs: Record<ServiceSlug, ServiceDetail> = {
                     "Sí. Se puede conectar un gestor de contenidos para los textos y secciones que vayas a cambiar seguido. Lo definimos al inicio: gestionar todo es más caro y casi nunca se usa.",
             },
         ],
-        related: ["chatbot-whatsapp", "integracion-crm"],
+        related: ["software-a-medida", "chatbot-whatsapp", "integracion-crm"],
     },
 };

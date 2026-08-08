@@ -1,6 +1,50 @@
-type ServiceKind = "web" | "chat" | "ops" | "kpi";
+type ServiceKind = "web" | "chat" | "ops" | "kpi" | "code" | "api" | "flow" | "advisory";
 
 export function ServiceIcon({ kind }: { kind: ServiceKind }) {
+    if (kind === "code") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="8 6 3 12 8 18" />
+                <polyline points="16 6 21 12 16 18" />
+                <line x1="13.5" y1="4" x2="10.5" y2="20" />
+            </svg>
+        );
+    }
+
+    if (kind === "api") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2.5" y="8.5" width="7" height="7" rx="1.5" />
+                <rect x="14.5" y="8.5" width="7" height="7" rx="1.5" />
+                <path d="M9.5 12h5" />
+                <path d="M12 12v-5" />
+                <circle cx="12" cy="5.5" r="1.5" />
+            </svg>
+        );
+    }
+
+    if (kind === "flow") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="5" cy="6" r="2.5" />
+                <circle cx="19" cy="12" r="2.5" />
+                <circle cx="5" cy="18" r="2.5" />
+                <path d="M7.5 6h4.5a2 2 0 0 1 2 2v2" />
+                <path d="M7.5 18h4.5a2 2 0 0 0 2-2v-2" />
+            </svg>
+        );
+    }
+
+    if (kind === "advisory") {
+        return (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v2" />
+                <path d="M9 20h6" />
+                <path d="M10 17h4v-1.5a4.5 4.5 0 1 0-4 0Z" />
+            </svg>
+        );
+    }
+
     if (kind === "web") {
         return (
             <svg viewBox="0 0 24 24" aria-hidden="true">

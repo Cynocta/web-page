@@ -1,17 +1,23 @@
 import type { FaqItem } from "../faq";
 
+/** Order drives the nav menu, the hub grid and the footer column. */
 export const SERVICE_SLUGS = [
-    "chatbot-whatsapp",
-    "automatizacion-de-procesos",
-    "agentes-ia",
-    "integracion-crm",
     "paginas-web-que-convierten",
+    "software-a-medida",
+    "automatizacion-de-procesos",
+    "automatizaciones-n8n",
+    "agentes-ia",
+    "chatbot-whatsapp",
+    "integraciones-api",
+    "integracion-crm",
+    "dashboards",
+    "consultoria-tecnologica",
 ] as const;
 
 export type ServiceSlug = (typeof SERVICE_SLUGS)[number];
 
-/** Reuses the landing's icon vocabulary so the visual language stays consistent. */
-export type ServiceIcon = "web" | "chat" | "ops" | "kpi";
+/** Reuses the shared icon vocabulary so the visual language stays consistent. */
+export type ServiceIcon = "web" | "chat" | "ops" | "kpi" | "code" | "api" | "flow" | "advisory";
 
 export type ServiceDetail = {
     slug: ServiceSlug;
