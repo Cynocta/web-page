@@ -10,7 +10,7 @@ export const en: Content = {
         { label: "FAQ", href: "/en/faq" },
     ],
     navCta: "Schedule a call",
-    navCtaHref: "/en#formulario",
+    navCtaHref: "/en#contacto",
     navMenuLabel: "Menu",
     navCloseLabel: "Close",
     navMenuAriaLabel: "Open menu",

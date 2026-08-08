@@ -110,7 +110,7 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
                                 este servicio lo resuelve, si conviene otro, o si no somos para ti.
                             </p>
                         </div>
-                        <Link href="/#formulario" className={s.ctaButton}>
+                        <Link href="/contacto" className={s.ctaButton}>
                             Quiero resolverlo
                         </Link>
                     </div>

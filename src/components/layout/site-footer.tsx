@@ -70,26 +70,7 @@ export default function SiteFooter() {
                             Implementamos automatización, inteligencia artificial y sistemas web para
                             que los negocios dejen de perder clientes por responder tarde.
                         </p>
-                    </Reveal>
 
-                    {footerColumns.map((column, i) => (
-                        <Reveal key={column.title} blur delay={100 + i * 100}>
-                            <nav aria-label={column.title}>
-                                <h2 className={s.colTitle}>{column.title}</h2>
-                                <ul className={s.colList}>
-                                    {column.links.map((link) => (
-                                        <li key={link.href}>
-                                            <Link href={link.href} className={s.colLink}>
-                                                {link.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </nav>
-                        </Reveal>
-                    ))}
-
-                    <Reveal blur delay={400}>
                         <h2 className={s.colTitle}>Contacto</h2>
                         <ul className={s.contactList}>
                             <li className={s.contactItem}>
@@ -138,6 +119,24 @@ export default function SiteFooter() {
                             ))}
                         </ul>
                     </Reveal>
+
+                    {footerColumns.map((column, i) => (
+                        <Reveal key={column.title} blur delay={100 + i * 100}>
+                            <nav aria-label={column.title}>
+                                <h2 className={s.colTitle}>{column.title}</h2>
+                                <ul className={s.colList}>
+                                    {column.links.map((link) => (
+                                        <li key={link.href}>
+                                            <Link href={link.href} className={s.colLink}>
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </Reveal>
+                    ))}
+
                 </div>
 
                 <div className={s.bottom}>

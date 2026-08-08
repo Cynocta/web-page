@@ -334,7 +334,9 @@
 }
 
 /* ── Breakpoints ── */
-@media (min-width: 1100px) {
+/* Seven entries plus logo, language switch and CTA need real room. Below this
+   the bar overflowed by ~100px, so the mobile panel keeps working further up. */
+@media (min-width: 1200px) {
     .nav {
         display: block;
     }
@@ -546,5 +548,23 @@
     .dropdown,
     .panelSub {
         animation: none;
+    }
+}
+
+
+/* Between the breakpoint and a comfortable desktop the bar is tight, so the
+   links give up padding before anything is allowed to overflow. */
+@media (min-width: 1200px) and (max-width: 1400px) {
+    .bar {
+        gap: 1rem;
+    }
+
+    .link {
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+    .cta {
+        padding: 0 14px;
     }
 }

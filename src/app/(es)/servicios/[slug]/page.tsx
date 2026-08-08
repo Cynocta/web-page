@@ -69,7 +69,7 @@ export default async function ServicePage({
                 eyebrow={service.eyebrow}
                 title={service.heading}
                 intro={service.intro}
-                primary={{ label: "Quiero resolverlo", href: "/#formulario" }}
+                primary={{ label: "Quiero resolverlo", href: "/contacto" }}
                 secondary={{ label: "Ver planes", href: "/precios" }}
                 facts={service.facts}
             />

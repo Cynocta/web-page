@@ -37,14 +37,14 @@ export default function ServiciosPage() {
                 eyebrow={servicesHub.eyebrow}
                 title={servicesHub.heading}
                 intro={servicesHub.intro}
-                primary={{ label: servicesHub.ctaLabel, href: "/#formulario" }}
+                primary={{ label: servicesHub.ctaLabel, href: "/contacto" }}
                 secondary={{ label: "Ver precios", href: "/precios" }}
             />
 
             <section className={s.section}>
                 <div className={`cyn-section ${s.inner}`}>
                     <p className="cyn-section-tag">{servicesHub.listTitle}</p>
-                    <h2 className="cyn-section-title">Elige por donde te duele.</h2>
+                    <h2 className="cyn-section-title">Empieza por lo que más te está costando.</h2>
 
                     <div className={s.grid}>
                         {serviceList.map((service, i) => (
