@@ -3,7 +3,7 @@
 import Link from "next/link";
 import CurrencyToggle from "@/components/currency-toggle";
 import { useI18n } from "@/components/i18n-provider";
-import Section from "@/components/ui/section";
+import Section, { type SectionTone } from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import { formatCurrency } from "@/lib/content";
 import s from "./pricing.module.css";
@@ -33,12 +33,19 @@ const MAX_FEATURES = 5;
  * cards line up row by row. A pricing grid is read sideways, and misaligned
  * rows are what make one hard to compare.
  */
-export default function PricingSection({ ctaHref }: { ctaHref: string }) {
+export default function PricingSection({
+    ctaHref,
+    tone = "black",
+}: {
+    ctaHref: string;
+    /** Set by the caller so the band keeps alternating with whatever precedes it. */
+    tone?: SectionTone;
+}) {
     const { copy, currency } = useI18n();
     const { plans } = copy;
 
     return (
-        <Section id="precios" tone="black">
+        <Section id="precios" tone={tone}>
             <div className={s.head}>
                 <SectionHeader
                     eyebrow={plans.tag}

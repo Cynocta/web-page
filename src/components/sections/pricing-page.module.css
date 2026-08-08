@@ -1,0 +1,243 @@
+/* ══════════════════════════════════════════════════
+   Pricing page blocks: plan detail, comparison matrix, hiring process.
+   ══════════════════════════════════════════════════ */
+
+/* ── Plan detail ── */
+.details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 16px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 26px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--cyn-border-2);
+    background: var(--cyn-black);
+}
+
+.detailHighlight {
+    border-color: rgba(25, 245, 156, 0.28);
+    background:
+        radial-gradient(460px 200px at 50% 0%, rgba(25, 245, 156, 0.07) 0%, transparent 72%),
+        var(--cyn-black);
+}
+
+.detailName {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--cyn-white);
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.block {
+    margin-bottom: 1.35rem;
+}
+
+.block:last-child {
+    margin-bottom: 0;
+}
+
+.blockLabel {
+    display: block;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    opacity: 0.85;
+}
+
+.blockText {
+    color: var(--cyn-muted);
+    font-size: 14px;
+    line-height: 1.72;
+    margin: 0;
+}
+
+.blockList {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.blockItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.55;
+}
+
+.bullet {
+    flex: 0 0 auto;
+    width: 4px;
+    height: 4px;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+    opacity: 0.7;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--cyn-border-2);
+    color: var(--cyn-muted);
+    font-size: 12px;
+}
+
+/* ── Comparison matrix ──
+   Scrolls inside its own container so the page body never moves sideways. */
+.tableWrap {
+    overflow-x: auto;
+    border: 1px solid var(--cyn-border-2);
+    border-radius: 16px;
+    background: var(--cyn-black);
+}
+
+.table {
+    width: 100%;
+    min-width: 680px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.table th,
+.table td {
+    padding: 13px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+/* Plan names stay visible while the rows scroll past. */
+.table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--cyn-surface);
+    color: var(--cyn-white);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--cyn-border);
+}
+
+.table thead th:first-child {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.colHighlight {
+    background: rgba(25, 245, 156, 0.05) !important;
+    color: var(--cyn-accent) !important;
+}
+
+/* Group heading row. */
+.groupRow td {
+    padding-top: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cyn-border);
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.rowLabel {
+    color: var(--cyn-white);
+    font-weight: 400;
+    width: 34%;
+}
+
+.cell {
+    color: var(--cyn-muted);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.cellHighlight {
+    background: rgba(25, 245, 156, 0.035);
+}
+
+.yes {
+    color: var(--cyn-accent);
+}
+
+.no {
+    color: var(--cyn-muted-2);
+    opacity: 0.5;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ── Hiring process ── */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 22px;
+}
+
+.step {
+    border-top: 1px solid var(--cyn-border);
+    padding-top: 14px;
+}
+
+.stepNum {
+    display: block;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    margin-bottom: 9px;
+}
+
+.stepTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cyn-white);
+    margin: 0 0 6px;
+}
+
+.stepText {
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .detail {
+        padding: 22px 20px;
+    }
+
+    .table th,
+    .table td {
+        padding: 11px 14px;
+    }
+}
