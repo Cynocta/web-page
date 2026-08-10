@@ -1,3 +1,4 @@
+import type { FaqItem } from "../faq";
 import type { ServiceSlug } from "../services/types";
 
 export const SOLUTION_SLUGS = [
@@ -42,6 +43,19 @@ export type SolutionDetail = {
     /** Cross-links into the service tree — no service copy is repeated here. */
     delivers: { title: string; intro: string; services: ServiceSlug[] };
 
+    /**
+     * How the work actually runs. A solution page that only describes outcomes
+     * reads as a brochure; the phases are what let a buyer picture committing.
+     */
+    approach: {
+        title: string;
+        intro: string;
+        steps: Array<{ num: string; title: string; description: string }>;
+    };
+
+    /** Questions specific to this solution, marked up as FAQPage. */
+    faq: FaqItem[];
+
     ctaTitle: string;
     ctaBody: string;
 };
@@ -53,4 +67,16 @@ export type SolutionsHub = {
     heading: string;
     intro: string;
     listTitle: string;
+
+    /** Services or solutions? It's the question this hub exists to answer. */
+    explainer: { title: string; body: string };
+
+    /** How to pick, for a reader who recognises themselves in more than one. */
+    criteria: {
+        title: string;
+        intro: string;
+        items: Array<{ title: string; description: string }>;
+    };
+
+    faq: FaqItem[];
 };

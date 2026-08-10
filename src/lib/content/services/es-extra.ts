@@ -464,7 +464,7 @@ export const servicesEsExtra: Record<string, ServiceDetail> = {
         cardSummary:
             "Decidir qué construir, qué comprar y qué no hacer todavía.",
         icon: "advisory",
-        metaTitle: "Consultoría tecnológica para empresas en crecimiento",
+        metaTitle: "Consultoría tecnológica para empresas",
         metaDescription:
             "Diagnóstico independiente de tu operación y tu stack: qué automatizar primero, qué comprar, qué construir y en qué orden invertir.",
         eyebrow: "Servicio",

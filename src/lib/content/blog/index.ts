@@ -1,3 +1,4 @@
+import type { ServiceSlug } from "../services/types";
 import { blogIndexEs } from "./es";
 import { postsEs } from "./posts";
 import {
@@ -51,6 +52,19 @@ export function postPath(slug: PostSlug) {
 
 /** Every article URL, for the sitemap and the route map. */
 export const POST_PATHS = POST_SLUGS.map(postPath);
+
+/**
+ * The articles that cover a given service, derived by inverting the
+ * `relatedServices` each post already declares.
+ *
+ * Inverted rather than stored a second time on the service: the relationship is
+ * written once, on the article, so a service page can't claim an article that
+ * doesn't point back at it, and a new post appears on the relevant service
+ * pages the moment it names them.
+ */
+export function postsForService(slug: ServiceSlug): BlogPost[] {
+    return postList.filter((post) => post.relatedServices.includes(slug));
+}
 
 /** The h2s of an article, in order — the source of the table of contents. */
 export function tableOfContents(post: BlogPost) {

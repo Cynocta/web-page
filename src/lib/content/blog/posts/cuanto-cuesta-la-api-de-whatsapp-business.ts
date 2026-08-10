@@ -17,7 +17,7 @@ export const costoApiWhatsapp: BlogPost = {
 
     metaTitle: "Cuánto cuesta la API de WhatsApp Business en 2026",
     metaDescription:
-        "Desglose del costo real de la API de WhatsApp Business: cobro por mensaje, categorías de plantilla, ventana de servicio gratuita y los costos de proveedor que nadie cotiza.",
+        "El costo real de la API de WhatsApp Business: cobro por mensaje, categorías de plantilla, ventana gratuita de 24 h y los costos de proveedor que nadie cotiza.",
 
     author: "diego",
     publishedAt: "2026-08-10",

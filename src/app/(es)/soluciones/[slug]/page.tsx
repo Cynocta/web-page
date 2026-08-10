@@ -15,7 +15,7 @@ import {
     solutionPath,
 } from "@/lib/content/solutions";
 import { getService, servicePath } from "@/lib/content/services";
-import { ORGANIZATION_ID } from "@/lib/schema";
+import { ORGANIZATION_ID, faqItemsJsonLd } from "@/lib/schema";
 import { siteUrl } from "@/lib/site-data";
 import blocks from "@/components/sections/home-blocks.module.css";
 import hub from "@/components/sections/services-hub.module.css";
@@ -83,6 +83,9 @@ export default async function SolutionPage({
                     areaServed: "Latinoamérica",
                 }}
             />
+            {solution.faq.length > 0 && (
+                <JsonLd data={faqItemsJsonLd(solution.faq, `${siteUrl}${path}`)} />
+            )}
 
             <PageHero
                 eyebrow={solution.eyebrow}
@@ -112,8 +115,25 @@ export default async function SolutionPage({
                 </div>
             </Section>
 
-            {/* Cross-link into the service tree instead of restating it here. */}
             <Section tone="surface">
+                <SectionHeader
+                    eyebrow="Cómo trabajamos"
+                    title={solution.approach.title}
+                    intro={solution.approach.intro}
+                />
+                <ol className={body.steps}>
+                    {solution.approach.steps.map((step) => (
+                        <li key={step.num} className={body.step}>
+                            <span className={body.stepNum}>{step.num}</span>
+                            <h3 className={body.stepTitle}>{step.title}</h3>
+                            <p className={body.stepText}>{step.description}</p>
+                        </li>
+                    ))}
+                </ol>
+            </Section>
+
+            {/* Cross-link into the service tree instead of restating it here. */}
+            <Section tone="black">
                 <SectionHeader
                     eyebrow="Servicios"
                     title={solution.delivers.title}
@@ -133,6 +153,18 @@ export default async function SolutionPage({
                                 </span>
                             </Link>
                         </Reveal>
+                    ))}
+                </div>
+            </Section>
+
+            <Section id="preguntas" tone="surface" width="narrow">
+                <SectionHeader eyebrow="Preguntas frecuentes" title="Antes de decidir" />
+                <div className={body.faqList}>
+                    {solution.faq.map((item) => (
+                        <article key={item.id} id={item.id} className={body.faqItem}>
+                            <h3 className={body.faqQuestion}>{item.question}</h3>
+                            <p className={body.faqAnswer}>{item.answer}</p>
+                        </article>
                     ))}
                 </div>
             </Section>

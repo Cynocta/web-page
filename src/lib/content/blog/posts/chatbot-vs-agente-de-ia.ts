@@ -9,7 +9,7 @@ export const chatbotVsAgenteIa: BlogPost = {
     excerpt:
         "Un chatbot sigue un guion; un agente decide qué hacer y ejecuta acciones. La distinción no es de marketing: cambia el costo, el riesgo y lo que hay que construir alrededor.",
 
-    metaTitle: "Chatbot vs agente de IA: diferencias y cuándo usar cada uno",
+    metaTitle: "Chatbot vs agente de IA: cuál necesitas",
     metaDescription:
         "Qué separa a un chatbot de reglas de un agente de IA con herramientas: control, costo, manejo de errores y en qué casos conviene cada uno para un negocio.",
 

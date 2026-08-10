@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatPostDate, postPath, postsForService } from "@/lib/content/blog";
 import { getService, servicePath, type ServiceDetail } from "@/lib/content/services";
 import s from "./service-body.module.css";
 
@@ -7,6 +8,18 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
     const related = service.related
         .map((slug) => getService(slug))
         .filter((r): r is ServiceDetail => Boolean(r));
+
+    /** Articles that named this service. Empty for services nobody has written about yet. */
+    const posts = postsForService(service.slug);
+
+    /**
+     * Bands alternate surface / black, and the reading list is optional — so the
+     * two sections after it take their tone from whether it rendered. Hardcoding
+     * them would put two black bands together on any service without an article,
+     * which reads as one long block.
+     */
+    const faqTone = posts.length > 0 ? s.black : s.surface;
+    const closingTone = posts.length > 0 ? s.surface : s.black;
 
     return (
         <>
@@ -63,7 +76,38 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
                 </div>
             </section>
 
-            <section id="preguntas" className={s.surface}>
+            {posts.length > 0 && (
+                <section className={s.surface}>
+                    <div className={`cyn-section ${s.inner}`}>
+                        <p className="cyn-section-tag">Lecturas</p>
+                        <h2 className="cyn-section-title">Lo que hemos escrito sobre esto</h2>
+                        <div className={s.posts}>
+                            {posts.map((post) => (
+                                <Link
+                                    key={post.slug}
+                                    href={postPath(post.slug)}
+                                    className={s.postCard}
+                                >
+                                    <h3 className={s.postTitle}>{post.title}</h3>
+                                    <p className={s.postText}>{post.excerpt}</p>
+                                    <p className={s.postMeta}>
+                                        <time dateTime={post.publishedAt}>
+                                            {formatPostDate(post.publishedAt)}
+                                        </time>
+                                        <span aria-hidden="true"> · </span>
+                                        <span>{post.readingMinutes} min</span>
+                                    </p>
+                                    <span className={s.postArrow} aria-hidden="true">
+                                        LEER ARTÍCULO →
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            <section id="preguntas" className={faqTone}>
                 <div className={`cyn-section ${s.narrow}`}>
                     <p className="cyn-section-tag">Preguntas frecuentes</p>
                     <h2 className="cyn-section-title">Antes de contratar</h2>
@@ -78,7 +122,7 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
                 </div>
             </section>
 
-            <section className={s.black}>
+            <section className={closingTone}>
                 <div className={`cyn-section ${s.inner}`}>
                     {related.length > 0 && (
                         <>

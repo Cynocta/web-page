@@ -143,7 +143,7 @@ export const servicesEs: Record<string, ServiceDetail> = {
         icon: "ops",
         metaTitle: "Automatización de procesos para PYMES",
         metaDescription:
-            "Conectamos tus herramientas con n8n y Make para eliminar el trabajo manual repetitivo: seguimiento de leads, facturación, reportes y traspaso de datos entre sistemas.",
+            "Conectamos tus herramientas con n8n y Make para eliminar el trabajo manual repetitivo: seguimiento de leads, facturación y traspaso de datos entre sistemas.",
         eyebrow: "Servicio",
         heading: "El trabajo repetitivo no necesita a una persona.",
         intro:

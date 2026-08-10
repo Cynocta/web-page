@@ -1,5 +1,6 @@
 import type { SolutionDetail, SolutionSlug, SolutionsHub } from "./types";
 
+
 export const solutionsHubEs: SolutionsHub = {
     metaTitle: "Soluciones de automatización por tipo de negocio",
     metaDescription:
@@ -9,6 +10,54 @@ export const solutionsHubEs: SolutionsHub = {
     intro:
         "Los servicios describen lo que construimos. Las soluciones describen para quién y para qué. Si no sabes qué necesitas, este es el camino más corto.",
     listTitle: "Cinco puntos de partida",
+
+    explainer: {
+        title: "Servicios o soluciones",
+        body: "Un servicio es una pieza que construimos: un chatbot, una integración, un dashboard. Una solución es un problema completo, que casi siempre necesita dos o tres de esas piezas trabajando juntas. Si ya sabes qué te falta, entra por servicios. Si sabes qué te duele pero no qué lo arregla, empieza aquí: la página te dice qué servicios lo componen y por qué esos.",
+    },
+
+    criteria: {
+        title: "Cómo elegir si te reconoces en varias",
+        intro: "Es lo normal: las cinco se solapan. Estas tres preguntas suelen ordenar la decisión.",
+        items: [
+            {
+                title: "¿El problema está antes o después de la venta?",
+                description:
+                    "Si se pierden clientes entre que preguntan y compran, es automatización comercial. Si el desgaste está en el trabajo interno una vez cerrada la venta, es operativa.",
+            },
+            {
+                title: "¿Cuántas personas y sistemas hay en medio?",
+                description:
+                    "Con un equipo pequeño y dos o tres herramientas, empieza por PYMES. Con varias áreas y sistemas que no se hablan, el trabajo real está en las costuras y aplica Empresas.",
+            },
+            {
+                title: "¿Basta con reglas o hace falta criterio?",
+                description:
+                    "Si las respuestas se pueden escribir por adelantado, no necesitas IA y ahorras dinero. Cuando cada caso es distinto o hay que consultar datos para decidir, entra IA empresarial.",
+            },
+        ],
+    },
+
+    faq: [
+        {
+            id: "soluciones-cual-primero",
+            question: "¿Puedo contratar más de una solución a la vez?",
+            answer:
+                "Se puede, pero casi nunca conviene. Implementar dos frentes en paralelo duplica el tiempo de tu equipo en revisiones y hace imposible saber cuál de los dos movió el resultado. Lo habitual es cerrar el primero, medirlo y usar ese dato para decidir el siguiente.",
+        },
+        {
+            id: "soluciones-vs-servicios",
+            question: "¿Cuesta lo mismo entrar por soluciones que por servicios?",
+            answer:
+                "Sí: el precio depende de lo que se construye, no de la puerta por la que entras. Una solución es un conjunto de servicios, así que su costo es el de las piezas que la componen. Entrar por aquí solo cambia cómo se decide el alcance.",
+        },
+        {
+            id: "soluciones-no-encaja",
+            question: "¿Y si mi caso no encaja en ninguna?",
+            answer:
+                "Escríbenos y lo miramos. Estas cinco cubren lo que más nos llega, no todo lo que existe. Si tu problema es de otro tipo, la sesión de diagnóstico sirve igual para decirte si podemos ayudarte o si te conviene otro proveedor.",
+        },
+    ],
 };
 
 export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
@@ -59,6 +108,56 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
             intro: "Casi siempre es una combinación de estos dos o tres servicios.",
             services: ["chatbot-whatsapp", "paginas-web-que-convierten", "integracion-crm"],
         },
+        approach: {
+            title: "Cómo se implementa",
+            intro: "Por etapas cortas, para que decidas seguir con un resultado en la mano y no con una promesa.",
+            steps: [
+                {
+                    num: "01",
+                    title: "Diagnóstico",
+                    description:
+                        "Una sesión para ver dónde se pierden consultas y cuánto cuesta cada fuga. Salimos con una lista priorizada, no con una propuesta genérica.",
+                },
+                {
+                    num: "02",
+                    title: "Primer flujo",
+                    description:
+                        "Automatizamos el punto que más duele, casi siempre la primera respuesta. Funcionando en dos o tres semanas.",
+                },
+                {
+                    num: "03",
+                    title: "Medición",
+                    description:
+                        "Dejamos el dato de antes y el de después. Si el flujo no movió nada, se ajusta antes de seguir ampliando.",
+                },
+                {
+                    num: "04",
+                    title: "Siguiente etapa",
+                    description:
+                        "Con el primer resultado decides si continúas. No comprometemos seis meses por adelantado.",
+                },
+            ],
+        },
+        faq: [
+            {
+                id: "pymes-crm-antes",
+                question: "¿Necesito tener un CRM antes de automatizar?",
+                answer:
+                    "No. Se puede empezar por el canal donde ya te escriben, normalmente WhatsApp, y registrar en una hoja de cálculo. El CRM tiene sentido cuando el volumen justifica el orden: instalarlo primero suele terminar en una herramienta cara que nadie usa.",
+            },
+            {
+                id: "pymes-tiempo",
+                question: "¿Cuánto tiempo tengo que dedicarle yo?",
+                answer:
+                    "Unas tres o cuatro horas repartidas en las primeras dos semanas: la sesión de diagnóstico, una revisión de las respuestas que dará el sistema y una prueba antes de publicarlo. Después el mantenimiento normal son minutos al mes.",
+            },
+            {
+                id: "pymes-negocio-especifico",
+                question: "¿Y si mi negocio es muy específico?",
+                answer:
+                    "Es lo habitual, y por eso la primera sesión es de diagnóstico: los flujos se construyen sobre tu proceso real, no sobre una plantilla. Si tu caso no encaja con lo que sabemos hacer, lo decimos en esa sesión y no cobramos por descubrirlo.",
+            },
+        ],
         ctaTitle: "¿Empezamos por lo que más te duele?",
         ctaBody:
             "Cuéntanos tu caso en cuatro preguntas. Te decimos qué automatizar primero y qué no vale la pena todavía.",
@@ -70,7 +169,7 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
         cardTitle: "Para Empresas",
         cardSummary:
             "Varios equipos, varios sistemas y datos que no se hablan entre sí.",
-        metaTitle: "Automatización e IA para empresas medianas y grandes",
+        metaTitle: "Automatización e IA para medianas y grandes",
         metaDescription:
             "Integración de sistemas, automatización de procesos entre áreas y agentes de IA sobre datos propios, con trazabilidad y control de accesos.",
         eyebrow: "Solución",
@@ -111,6 +210,56 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
             intro: "Proyectos que casi siempre combinan integración, automatización y agentes.",
             services: ["integracion-crm", "automatizacion-de-procesos", "agentes-ia"],
         },
+        approach: {
+            title: "Cómo se implementa",
+            intro: "Una prueba acotada antes que un despliegue grande: valida la integración y convence al resto de la organización.",
+            steps: [
+                {
+                    num: "01",
+                    title: "Mapeo",
+                    description:
+                        "Levantamos el proceso real, no el que está documentado. Casi siempre difieren, y esa diferencia es donde está el problema.",
+                },
+                {
+                    num: "02",
+                    title: "Prueba acotada",
+                    description:
+                        "Un proceso, un área, con el criterio de éxito definido antes de empezar y no después.",
+                },
+                {
+                    num: "03",
+                    title: "Integración",
+                    description:
+                        "Conexión sobre las APIs que ya existen, con manejo de errores, reintentos y alertas. Sin tocar los sistemas de registro.",
+                },
+                {
+                    num: "04",
+                    title: "Despliegue por fases",
+                    description:
+                        "Se amplía área por área. Cada fase entra con su documentación y su plan de reversión.",
+                },
+            ],
+        },
+        faq: [
+            {
+                id: "empresas-cambiar-sistemas",
+                question: "¿Hay que cambiar los sistemas que ya usamos?",
+                answer:
+                    "No. El trabajo se hace sobre las APIs de lo que ya tienes: el CRM, el ERP y las herramientas de cada área siguen siendo el sistema de registro. Reemplazar un sistema es un proyecto distinto, mucho más caro, y rara vez es lo que resuelve el problema de fondo.",
+            },
+            {
+                id: "empresas-acceso-datos",
+                question: "¿Cómo se controla el acceso a los datos?",
+                answer:
+                    "Cada integración usa credenciales propias con el mínimo alcance necesario, y las acciones sensibles requieren confirmación humana. Queda registrado qué se ejecutó, cuándo y con qué datos, de modo que una auditoría pueda reconstruirlo.",
+            },
+            {
+                id: "empresas-fallo-integracion",
+                question: "¿Qué pasa si una integración falla?",
+                answer:
+                    "Se diseña asumiendo que va a fallar: reintentos con espera progresiva, alerta al responsable y una cola con lo que quedó pendiente. Lo que nunca hacemos es dejar que un fallo pase en silencio y se descubra semanas después.",
+            },
+        ],
         ctaTitle: "Hablemos del proceso que más te cuesta",
         ctaBody:
             "Una sesión para mapear dónde se atasca hoy y qué tendría más retorno automatizar primero.",
@@ -122,7 +271,7 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
         cardTitle: "Automatización Comercial",
         cardSummary:
             "Del primer mensaje al cierre: captar, calificar, agendar y hacer seguimiento.",
-        metaTitle: "Automatización comercial: captación, calificación y seguimiento",
+        metaTitle: "Automatización comercial: captación y cierre",
         metaDescription:
             "Automatiza el embudo comercial completo: respuesta inmediata, calificación de prospectos, agendamiento y seguimiento sin que nadie lo empuje.",
         eyebrow: "Solución",
@@ -163,6 +312,56 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
             intro: "El bloque comercial completo, de la captación al CRM.",
             services: ["chatbot-whatsapp", "integracion-crm", "paginas-web-que-convierten"],
         },
+        approach: {
+            title: "Cómo se implementa",
+            intro: "Se empieza contando lo que hoy se pierde: sin esa línea base, cualquier mejora posterior es una impresión.",
+            steps: [
+                {
+                    num: "01",
+                    title: "Auditoría del embudo",
+                    description:
+                        "Cuántas consultas llegan, cuántas se responden y en qué punto se caen. Ese número es la referencia contra la que se mide todo lo demás.",
+                },
+                {
+                    num: "02",
+                    title: "Respuesta y calificación",
+                    description:
+                        "Se automatiza el primer contacto y las preguntas que deciden si el prospecto encaja.",
+                },
+                {
+                    num: "03",
+                    title: "Agenda y CRM",
+                    description:
+                        "Lo calificado pasa a la agenda y queda registrado, sin que nadie transcriba nada a mano.",
+                },
+                {
+                    num: "04",
+                    title: "Seguimiento",
+                    description:
+                        "Secuencias para quien no respondió, con un corte claro para no perseguir a quien ya dijo que no.",
+                },
+            ],
+        },
+        faq: [
+            {
+                id: "comercial-reemplaza-equipo",
+                question: "¿Esto reemplaza a mi equipo comercial?",
+                answer:
+                    "No: cambia en qué gastan el día. El sistema absorbe la primera respuesta, el filtrado y el seguimiento mecánico, y el equipo entra cuando hay una conversación que merece una persona. Lo que baja es el número de vendedores necesarios por cada cien leads.",
+            },
+            {
+                id: "comercial-espantar-cliente",
+                question: "¿Cómo se evita que el bot espante a un buen cliente?",
+                answer:
+                    "Con dos reglas: el sistema dice desde el principio que es un asistente, y escala a una persona en cuanto aparece una consulta compleja o una queja. Un bot que insiste en resolver lo que no puede pierde más ventas de las que gana.",
+            },
+            {
+                id: "comercial-medir-aporte",
+                question: "¿Se puede medir cuánto aporta?",
+                answer:
+                    "Sí, y es la razón de empezar por la auditoría. Se compara el mismo periodo antes y después en tres cifras: consultas que quedaron sin responder, tiempo hasta la primera respuesta y prospectos que llegaron a agendar.",
+            },
+        ],
         ctaTitle: "¿Cuántos leads se te enfriaron este mes?",
         ctaBody:
             "Si no lo sabes, ese es el primer dato que vamos a poner sobre la mesa.",
@@ -215,6 +414,56 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
             intro: "Automatización de procesos, apoyada en integraciones cuando hace falta.",
             services: ["automatizacion-de-procesos", "integracion-crm"],
         },
+        approach: {
+            title: "Cómo se implementa",
+            intro: "Un flujo a la vez, empezando por el que devuelve horas más rápido.",
+            steps: [
+                {
+                    num: "01",
+                    title: "Inventario de tareas",
+                    description:
+                        "Listamos lo repetitivo con su frecuencia y las horas que consume. Casi siempre aparecen tareas que nadie había contado.",
+                },
+                {
+                    num: "02",
+                    title: "Priorización",
+                    description:
+                        "Se empieza por la de más horas con la lógica más simple, que es donde el retorno llega antes.",
+                },
+                {
+                    num: "03",
+                    title: "Construcción",
+                    description:
+                        "El flujo se construye con validación de datos, reintentos y una alerta si algo falla.",
+                },
+                {
+                    num: "04",
+                    title: "Entrega documentada",
+                    description:
+                        "Qué lo dispara, qué hace, qué ocurre si falla y cómo pausarlo. En tu poder, no en el nuestro.",
+                },
+            ],
+        },
+        faq: [
+            {
+                id: "operativa-que-automatizar",
+                question: "¿Qué tareas conviene automatizar primero?",
+                answer:
+                    "Las que se repiten con reglas claras y sin criterio: mover datos entre sistemas, generar el mismo reporte, enviar recordatorios. Lo que exige juicio —negociar, decidir una excepción— conviene dejarlo en manos de una persona aunque sea técnicamente automatizable.",
+            },
+            {
+                id: "operativa-cambiar-herramienta",
+                question: "¿Qué pasa si cambio de herramienta más adelante?",
+                answer:
+                    "Los flujos se construyen sobre herramientas estándar y quedan exportados en tu cuenta. Cambiar una pieza significa reescribir la conexión de esa pieza, no el proceso entero, y no dependes de nosotros para hacerlo.",
+            },
+            {
+                id: "operativa-mantenimiento",
+                question: "¿Cuánto cuesta mantenerlo?",
+                answer:
+                    "Un flujo estable casi no consume mantenimiento; lo que sí cuesta es la plataforma que lo ejecuta y el servidor si se autoaloja. El gasto crece cuando cambian las herramientas conectadas, no con el volumen de trabajo que el flujo hace.",
+            },
+        ],
         ctaTitle: "¿Qué tarea repites cada semana?",
         ctaBody:
             "Empezamos por la que más horas consume con la lógica más simple. Suele pagarse sola en el primer mes.",
@@ -267,6 +516,56 @@ export const solutionsEs: Record<SolutionSlug, SolutionDetail> = {
             intro: "Agentes como núcleo, con automatización e integraciones alrededor.",
             services: ["agentes-ia", "chatbot-whatsapp", "automatizacion-de-procesos"],
         },
+        approach: {
+            title: "Cómo se implementa",
+            intro: "La mayor parte del trabajo no es el modelo: son los límites que lo rodean.",
+            steps: [
+                {
+                    num: "01",
+                    title: "Delimitar el alcance",
+                    description:
+                        "Qué preguntas debe resolver y cuáles no. Un agente sin límites definidos es exactamente el que termina inventando.",
+                },
+                {
+                    num: "02",
+                    title: "Conectar los datos",
+                    description:
+                        "Acceso a tus fuentes reales, para que responda con tu catálogo y tus políticas y no con lo que el modelo recuerde del mundo.",
+                },
+                {
+                    num: "03",
+                    title: "Herramientas y permisos",
+                    description:
+                        "Cada acción que puede ejecutar se define por separado con su alcance. Consultar es seguro; modificar requiere confirmación.",
+                },
+                {
+                    num: "04",
+                    title: "Pruebas y techo de gasto",
+                    description:
+                        "Se prueba con preguntas difíciles antes de publicar, y se fija un límite de consumo por conversación y por mes.",
+                },
+            ],
+        },
+        faq: [
+            {
+                id: "ia-inventa-informacion",
+                question: "¿El agente puede inventarse información?",
+                answer:
+                    "Puede, si se le pregunta algo fuera de los datos que tiene. Se controla acotando sus respuestas a tus fuentes, dándole una salida explícita para decir que no lo sabe y escalando a una persona en lugar de improvisar. Es la parte que más pruebas exige.",
+            },
+            {
+                id: "ia-datos-entrenamiento",
+                question: "¿Nuestros datos entran a entrenar el modelo?",
+                answer:
+                    "No con la configuración que usamos: los planes empresariales de los proveedores permiten desactivar el uso de datos para entrenamiento, y es lo primero que se comprueba. Si el requisito es que la información no salga de tu infraestructura, se plantea con modelos autoalojados.",
+            },
+            {
+                id: "ia-costo-operacion",
+                question: "¿Cuánto cuesta operarlo?",
+                answer:
+                    "Cada conversación consume tokens del modelo, así que el costo crece con el uso y con la longitud de las conversaciones. Se controla acortando el contexto que se envía, cacheando las respuestas frecuentes y resolviendo con reglas lo que no necesita un modelo.",
+            },
+        ],
         ctaTitle: "¿Qué debería poder resolver solo?",
         ctaBody:
             "Definimos el alcance y los límites antes de construir nada. Es la parte que más determina si funciona.",

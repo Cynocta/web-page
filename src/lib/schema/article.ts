@@ -1,5 +1,6 @@
 import { BLOG_BASE_PATH, getAuthor, postPath, type BlogPost } from "@/lib/content/blog";
 import { siteUrl } from "@/lib/site-data";
+import { faqItemsJsonLd } from "./faq";
 import { ORGANIZATION_ID } from "./organization";
 
 const abs = (path: string) => `${siteUrl}${path}`;
@@ -52,23 +53,7 @@ export function blogPostingJsonLd(post: BlogPost, pageUrl: string) {
 
 /** The article's own questions, same contract as the service pages. */
 export function articleFaqJsonLd(post: BlogPost, pageUrl: string) {
-    return {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "@id": `${pageUrl}#faq`,
-        inLanguage: "es",
-        mainEntity: post.faq.map((item) => ({
-            "@type": "Question",
-            "@id": `${pageUrl}#${item.id}`,
-            name: item.question,
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: item.answer,
-                url: `${pageUrl}#${item.id}`,
-            },
-        })),
-        publisher: { "@id": ORGANIZATION_ID },
-    };
+    return faqItemsJsonLd(post.faq, pageUrl);
 }
 
 /** The blog itself, declared once on the index and pointed at by every article. */

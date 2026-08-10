@@ -309,3 +309,91 @@
         transform: none;
     }
 }
+
+/* ── Reading list ──
+   Articles that named this service. Sits on a surface band, so its cards go
+   black to keep the same figure-on-ground contrast the rest of the page has. */
+.posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 14px;
+    margin-top: 1.8rem;
+}
+
+.postCard {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--cyn-border-2);
+    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
+    text-decoration: none;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+@media (hover: hover) {
+    .postCard:hover {
+        border-color: var(--cyn-accent);
+        transform: translateY(-2px);
+    }
+
+    .postCard:hover .postArrow {
+        color: var(--cyn-accent-glow);
+    }
+}
+
+.postCard:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+.postTitle {
+    color: var(--cyn-white);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0 0 0.5rem;
+}
+
+.postText {
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.65;
+    margin: 0 0 0.9rem;
+    flex: 1;
+}
+
+.postMeta {
+    color: var(--cyn-muted-2);
+    font-size: 12px;
+    margin: 0 0 0.8rem;
+}
+
+.postArrow {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    transition: color 0.25s ease;
+}
+
+/* The closing band flips tone depending on whether the reading list rendered,
+   so the cards inside it have to follow rather than assume a black parent. */
+.black .relatedCard {
+    background: var(--cyn-surface);
+}
+
+.surface .relatedCard {
+    background: var(--cyn-black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .postCard,
+    .postArrow {
+        transition: none;
+    }
+
+    .postCard:hover {
+        transform: none;
+    }
+}

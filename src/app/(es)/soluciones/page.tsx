@@ -11,7 +11,11 @@ import {
     solutionPath,
     solutionsHub,
 } from "@/lib/content/solutions";
+import { JsonLd } from "@/components/structured-data";
+import { faqItemsJsonLd } from "@/lib/schema";
+import { siteUrl } from "@/lib/site-data";
 import s from "@/components/sections/services-hub.module.css";
+import body from "@/components/sections/service-body.module.css";
 
 export const metadata: Metadata = {
     title: solutionsHub.metaTitle,
@@ -32,6 +36,10 @@ export default function SolucionesPage() {
                 { label: "Soluciones", href: SOLUTIONS_BASE_PATH },
             ]}
         >
+            <JsonLd
+                data={faqItemsJsonLd(solutionsHub.faq, `${siteUrl}${SOLUTIONS_BASE_PATH}`)}
+            />
+
             <PageHero
                 eyebrow={solutionsHub.eyebrow}
                 title={solutionsHub.heading}
@@ -53,6 +61,45 @@ export default function SolucionesPage() {
                                 </span>
                             </Link>
                         </Reveal>
+                    ))}
+                </div>
+            </Section>
+
+            {/* The question this hub exists to answer, before the reader guesses. */}
+            <Section tone="black" width="narrow">
+                <SectionHeader
+                    eyebrow={solutionsHub.explainer.title}
+                    title="Cuál es la diferencia"
+                />
+                <p className={body.lead}>{solutionsHub.explainer.body}</p>
+            </Section>
+
+            <Section tone="surface">
+                <SectionHeader
+                    eyebrow="Cómo elegir"
+                    title={solutionsHub.criteria.title}
+                    intro={solutionsHub.criteria.intro}
+                />
+                <div className={body.grid}>
+                    {solutionsHub.criteria.items.map((item, i) => (
+                        <Reveal key={item.title} delay={i * 70}>
+                            <article className={body.card}>
+                                <h3 className={body.cardTitle}>{item.title}</h3>
+                                <p className={body.cardText}>{item.description}</p>
+                            </article>
+                        </Reveal>
+                    ))}
+                </div>
+            </Section>
+
+            <Section id="preguntas" tone="black" width="narrow">
+                <SectionHeader eyebrow="Preguntas frecuentes" title="Antes de elegir" />
+                <div className={body.faqList}>
+                    {solutionsHub.faq.map((item) => (
+                        <article key={item.id} id={item.id} className={body.faqItem}>
+                            <h3 className={body.faqQuestion}>{item.question}</h3>
+                            <p className={body.faqAnswer}>{item.answer}</p>
+                        </article>
                     ))}
                 </div>
             </Section>

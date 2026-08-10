@@ -16,7 +16,7 @@ export const n8nVsMakeVsZapier: BlogPost = {
 
     metaTitle: "n8n vs Make vs Zapier: cuál elegir en 2026",
     metaDescription:
-        "Comparativa práctica de n8n, Make y Zapier: modelo de cobro, límites reales, manejo de errores y cuándo conviene cada una. Escrita desde proyectos implementados.",
+        "Comparativa práctica de n8n, Make y Zapier: modelo de cobro, límites reales, manejo de errores y cuándo conviene cada una en un proyecto real.",
 
     author: "diego",
     publishedAt: "2026-08-10",
