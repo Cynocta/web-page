@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site-data";
 import { ES_ONLY_PATHS, ROUTE_MAP } from "@/lib/i18n/routes";
+import { CASE_SLUGS, casePath } from "@/lib/content/portfolio";
 
 type Entry = {
     path: string;
@@ -34,7 +35,15 @@ const isHub = (path: string) =>
 /** Articles, not the blog index — an individual post sits below the money pages. */
 const isPost = (path: string) => path.startsWith("/blog/");
 
-const esOnly: Entry[] = ES_ONLY_PATHS.map((path) => ({
+/**
+ * Case studies come straight from their registry rather than through the route
+ * map: the slug list is derived from the case bodies, and those have no reason
+ * to travel into the client bundle alongside the language toggle. Empty until
+ * the first case is published.
+ */
+const casePaths = CASE_SLUGS.map(casePath);
+
+const esOnly: Entry[] = [...ES_ONLY_PATHS, ...casePaths].map((path) => ({
     path,
     changeFrequency: isLegal(path) ? ("yearly" as const) : ("monthly" as const),
     priority: isLegal(path) ? 0.3 : isHub(path) ? 0.9 : isPost(path) ? 0.7 : 0.8,

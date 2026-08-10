@@ -12,3 +12,4 @@ export { plansJsonLd } from "./plans";
 export { breadcrumbsJsonLd } from "./breadcrumbs";
 export { serviceDetailJsonLd, serviceFaqJsonLd } from "./service-detail";
 export { blogPostingJsonLd, articleFaqJsonLd, blogJsonLd } from "./article";
+export { caseStudyJsonLd, portfolioJsonLd } from "./case-study";
