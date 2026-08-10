@@ -1,0 +1,622 @@
+/* ══════════════════════════════════════════════════
+   Article page: hero, prose and closing bands.
+   Measure is capped at ~68ch throughout — the whole point of this
+   template is that a long technical read stays readable.
+   ══════════════════════════════════════════════════ */
+
+.hero {
+    background: var(--cyn-black);
+    padding: clamp(28px, 3vw, 48px) var(--cyn-shell-x) clamp(32px, 3.4vw, 56px);
+}
+
+.heroInner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.category {
+    display: inline-block;
+    margin-bottom: 1.1rem;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-accent-dim);
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: clamp(1.9rem, 1.1rem + 2.6vw, 3rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--cyn-white);
+    margin: 0 0 1.1rem;
+    text-wrap: balance;
+}
+
+.excerpt {
+    max-width: 62ch;
+    color: var(--cyn-muted);
+    font-size: 17px;
+    line-height: 1.75;
+    margin: 0 0 2rem;
+}
+
+/* ── Byline ── */
+.byline {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.avatar {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-accent-dim);
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+}
+
+.bylineText {
+    min-width: 0;
+}
+
+.bylineName {
+    color: var(--cyn-white);
+    font-size: 14.5px;
+    margin: 0 0 2px;
+}
+
+.bylineMeta {
+    color: var(--cyn-muted-2);
+    font-size: 12.5px;
+    margin: 0;
+}
+
+/* ── Body ── */
+.body {
+    background: var(--cyn-surface);
+    border-top: 1px solid var(--cyn-border-2);
+    padding: clamp(40px, 3.4vw, 72px) var(--cyn-shell-x);
+}
+
+.bodyInner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+/* ── Key takeaway ── */
+.takeaway {
+    padding: 1.6rem 1.7rem;
+    border-radius: 14px;
+    border: 1px solid var(--cyn-border);
+    background:
+        radial-gradient(600px 200px at 15% 0%, rgba(25, 245, 156, 0.09) 0%, transparent 70%),
+        var(--cyn-black);
+}
+
+.takeawayLabel {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 0.7rem;
+}
+
+.takeawayText {
+    color: var(--cyn-white);
+    font-size: 16px;
+    line-height: 1.78;
+    margin: 0;
+}
+
+/* ── Table of contents ── */
+.toc {
+    margin-top: 2.2rem;
+    padding: 1.3rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--cyn-border-2);
+    background: var(--cyn-black);
+}
+
+.tocTitle {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin: 0 0 0.85rem;
+}
+
+.tocList {
+    list-style: none;
+    counter-reset: toc;
+    margin: 0;
+    padding: 0;
+}
+
+.tocList li {
+    counter-increment: toc;
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 8px;
+    padding: 5px 0;
+}
+
+.tocList li::before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    padding-top: 3px;
+}
+
+.tocLink {
+    color: var(--cyn-muted);
+    font-size: 14.5px;
+    line-height: 1.55;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+@media (hover: hover) {
+    .tocLink:hover {
+        color: var(--cyn-accent);
+    }
+}
+
+.tocLink:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 2px;
+}
+
+/* ── Prose ── */
+.prose {
+    margin-top: 2.6rem;
+}
+
+.h2 {
+    font-size: clamp(1.3rem, 1rem + 1.1vw, 1.75rem);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--cyn-white);
+    margin: 2.9rem 0 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cyn-border-2);
+    scroll-margin-top: calc(var(--cyn-header-h) + 18px);
+    text-wrap: balance;
+}
+
+.prose > .h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.h3 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--cyn-white);
+    margin: 2rem 0 0.7rem;
+}
+
+.p {
+    max-width: 68ch;
+    color: var(--cyn-muted);
+    font-size: 16.5px;
+    line-height: 1.85;
+    margin: 0 0 1.15rem;
+}
+
+.ul,
+.ol {
+    max-width: 68ch;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+}
+
+.li {
+    position: relative;
+    padding-left: 26px;
+    color: var(--cyn-muted);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 0.7rem;
+}
+
+.ul .li::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+}
+
+.ol .li {
+    counter-increment: step;
+}
+
+.ol .li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 12.5px;
+}
+
+/* ── Quote ── */
+.quoteWrap {
+    margin: 2rem 0;
+    padding-left: 1.3rem;
+    border-left: 2px solid var(--cyn-accent);
+}
+
+.quote {
+    color: var(--cyn-white);
+    font-size: 18px;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 58ch;
+}
+
+.quoteSource {
+    color: var(--cyn-muted-2);
+    font-size: 13px;
+    margin-top: 0.6rem;
+}
+
+/* ── Callout ── */
+.callout {
+    margin: 2rem 0;
+    padding: 1.3rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--cyn-border-2);
+    border-left: 3px solid var(--cyn-accent);
+    background: var(--cyn-black);
+}
+
+.calloutTitle {
+    color: var(--cyn-white);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.calloutText {
+    color: var(--cyn-muted);
+    font-size: 15px;
+    line-height: 1.75;
+    margin: 0;
+}
+
+/* ── Table ── */
+.tableWrap {
+    margin: 2rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--cyn-border-2);
+    border-radius: 12px;
+    background: var(--cyn-black);
+}
+
+.table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tableCaption {
+    caption-side: bottom;
+    padding: 12px 16px;
+    color: var(--cyn-muted-2);
+    font-size: 12.5px;
+    text-align: left;
+}
+
+.table th,
+.table td {
+    padding: 11px 16px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--cyn-border-2);
+    line-height: 1.6;
+}
+
+.table thead th {
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--cyn-surface-2);
+}
+
+.table tbody th {
+    color: var(--cyn-white);
+    font-weight: 500;
+}
+
+.table td {
+    color: var(--cyn-muted);
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ── FAQ band ── */
+.faqSection {
+    background: var(--cyn-black);
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.narrow {
+    max-width: 820px;
+}
+
+.inner {
+    max-width: 1200px;
+}
+
+.faqList {
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.faqItem {
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--cyn-border-2);
+    scroll-margin-top: calc(var(--cyn-header-h) + 18px);
+}
+
+.faqQuestion {
+    font-size: 16.5px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--cyn-white);
+    margin: 0 0 0.55rem;
+}
+
+.faqAnswer {
+    color: var(--cyn-muted);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 68ch;
+    margin: 0;
+}
+
+/* ── Closing band ── */
+.closing {
+    background: var(--cyn-surface);
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.related {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 14px;
+    margin-top: 1.6rem;
+}
+
+.relatedCard {
+    display: block;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--cyn-border-2);
+    background: var(--cyn-black);
+    text-decoration: none;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+@media (hover: hover) {
+    .relatedCard:hover {
+        border-color: var(--cyn-accent);
+        transform: translateY(-2px);
+    }
+}
+
+.relatedCard:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+.relatedTitle {
+    color: var(--cyn-white);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 6px;
+}
+
+.relatedText {
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.relatedArrow {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--cyn-accent);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+}
+
+/* ── Service hand-off ── */
+.servicesBlock {
+    margin-top: 2.4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.servicesLabel {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin: 0 0 0.9rem;
+}
+
+.servicesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.serviceLink {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 13px;
+    border-radius: 8px;
+    background: rgba(25, 245, 156, 0.06);
+    border: 1px solid rgba(25, 245, 156, 0.12);
+    color: var(--cyn-white);
+    text-decoration: none;
+    font-size: 13px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+@media (hover: hover) {
+    .serviceLink:hover {
+        border-color: var(--cyn-accent);
+        background: var(--cyn-accent-dim);
+    }
+}
+
+.serviceLink:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+/* ── Closing CTA ── */
+.cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.9rem;
+    border-radius: 16px;
+    border: 1px solid var(--cyn-border);
+    background:
+        radial-gradient(600px 220px at 20% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 70%),
+        var(--cyn-black);
+    margin-top: 2.4rem;
+}
+
+.ctaCopy {
+    max-width: 52ch;
+}
+
+.ctaTitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--cyn-white);
+    margin: 0 0 0.5rem;
+}
+
+.ctaText {
+    color: var(--cyn-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.ctaButton {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 13px 24px;
+    border-radius: 10px;
+    background: var(--cyn-accent);
+    border: 1px solid var(--cyn-accent);
+    color: var(--cyn-black);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) {
+    .ctaButton:hover {
+        background: var(--cyn-accent-glow);
+        box-shadow: 0 12px 32px rgba(25, 245, 156, 0.28);
+    }
+}
+
+.ctaButton:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .takeaway {
+        padding: 1.3rem 1.25rem;
+    }
+
+    .p,
+    .li {
+        font-size: 16px;
+    }
+
+    .cta {
+        padding: 1.5rem;
+    }
+
+    .ctaButton {
+        width: 100%;
+    }
+
+    .faqQuestion {
+        font-size: 15.5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .relatedCard,
+    .serviceLink,
+    .tocLink,
+    .ctaButton {
+        transition: none;
+    }
+
+    .relatedCard:hover {
+        transform: none;
+    }
+}

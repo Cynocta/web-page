@@ -11,3 +11,4 @@ export { faqJsonLd } from "./faq";
 export { plansJsonLd } from "./plans";
 export { breadcrumbsJsonLd } from "./breadcrumbs";
 export { serviceDetailJsonLd, serviceFaqJsonLd } from "./service-detail";
+export { blogPostingJsonLd, articleFaqJsonLd, blogJsonLd } from "./article";

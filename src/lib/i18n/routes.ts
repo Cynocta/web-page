@@ -1,4 +1,7 @@
 import type { Locale } from "@/lib/content";
+import { POST_SLUGS } from "@/lib/content/blog/nav";
+import { SERVICE_SLUGS } from "@/lib/content/services/nav";
+import { SOLUTION_SLUGS } from "@/lib/content/solutions/nav";
 
 export const LOCALES = ["es", "en"] as const;
 
@@ -27,34 +30,29 @@ export const TRANSLATED_PATHS = Object.values(ROUTE_MAP);
 
 /**
  * Spanish-only pages: self-canonical, no alternates.
- * Service and pricing pages live here until their English versions are written.
+ * Service, solution, blog and pricing pages live here until their English
+ * versions are written.
+ *
+ * The child paths are derived from the same slug lists the navigation reads, so
+ * a new service or article reaches the sitemap by existing — it can't be added
+ * to the site and forgotten here. Only the slug modules are imported, never the
+ * full content registries: this file is pulled into the client bundle by the
+ * language toggle, and article bodies have no business travelling with it.
  */
-export const ES_ONLY_PATHS = [
+export const ES_ONLY_PATHS: readonly string[] = [
     "/nosotros",
     "/contacto",
     "/portafolio",
     "/blog",
+    ...POST_SLUGS.map((slug) => `/blog/${slug}`),
     "/servicios",
-    "/servicios/chatbot-whatsapp",
-    "/servicios/automatizacion-de-procesos",
-    "/servicios/agentes-ia",
-    "/servicios/integracion-crm",
-    "/servicios/paginas-web-que-convierten",
-    "/servicios/software-a-medida",
-    "/servicios/automatizaciones-n8n",
-    "/servicios/integraciones-api",
-    "/servicios/dashboards",
-    "/servicios/consultoria-tecnologica",
+    ...SERVICE_SLUGS.map((slug) => `/servicios/${slug}`),
     "/soluciones",
-    "/soluciones/pymes",
-    "/soluciones/empresas",
-    "/soluciones/automatizacion-comercial",
-    "/soluciones/automatizacion-operativa",
-    "/soluciones/ia-empresarial",
+    ...SOLUTION_SLUGS.map((slug) => `/soluciones/${slug}`),
     "/precios",
     "/terminos",
     "/privacidad",
-] as const;
+];
 
 /**
  * Canonical + reciprocal hreflang for a translated page.
