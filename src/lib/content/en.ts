@@ -2,15 +2,6 @@ import type { Content } from "./types";
 
 export const en: Content = {
     logoAlt: "Cynocta logo",
-    navItems: [
-        { label: "The problem", href: "/en#problema" },
-        { label: "Services", href: "/en#servicios" },
-        { label: "Results", href: "/en#resultados" },
-        { label: "Plans", href: "/en#planes" },
-        { label: "FAQ", href: "/en/faq" },
-    ],
-    navCta: "Schedule a call",
-    navCtaHref: "/en#contacto",
     navMenuLabel: "Menu",
     navCloseLabel: "Close",
     navMenuAriaLabel: "Open menu",

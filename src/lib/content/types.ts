@@ -1,8 +1,6 @@
 export type Locale = "es" | "en";
 export type Currency = "COP" | "USD" | "EUR";
 
-export type NavItem = { label: string; href: string };
-
 export type Service = {
     title: string;
     description: string;
@@ -71,10 +69,11 @@ export type HeroStat = {
 
 export type Content = {
     logoAlt: string;
-    navItems: NavItem[];
-    navCta: string;
-    /** Locale-aware, because the nav also renders on pages outside the landing. */
-    navCtaHref: string;
+    /**
+     * Only the labels the header actually reads. The link list and its CTA live
+     * in `content/navigation.ts`, which is what the header renders from — the
+     * copies that used to sit here were never read and drifted out of date.
+     */
     navMenuLabel: string;
     navCloseLabel: string;
     navMenuAriaLabel: string;
