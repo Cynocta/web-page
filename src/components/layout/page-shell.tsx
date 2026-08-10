@@ -3,6 +3,7 @@ import SiteFooter from "@/components/layout/site-footer";
 import Breadcrumbs, { type Crumb } from "@/components/layout/breadcrumbs";
 import { JsonLd } from "@/components/structured-data";
 import { breadcrumbsJsonLd } from "@/lib/schema";
+import type { Locale } from "@/lib/content";
 
 /**
  * Standard frame for every interior page: header, breadcrumbs, content, footer.
@@ -13,9 +14,12 @@ import { breadcrumbsJsonLd } from "@/lib/schema";
  */
 export default function PageShell({
     crumbs,
+    locale = "es",
     children,
 }: {
     crumbs: Crumb[];
+    /** Defaults to Spanish, which every interior page currently is. */
+    locale?: Locale;
     children: React.ReactNode;
 }) {
     return (
@@ -28,7 +32,7 @@ export default function PageShell({
                 {children}
             </main>
 
-            <SiteFooter />
+            <SiteFooter locale={locale} />
         </div>
     );
 }

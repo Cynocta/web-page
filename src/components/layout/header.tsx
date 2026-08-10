@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import LanguageToggle from "@/components/language-toggle";
 import { useI18n } from "@/components/i18n-provider";
-import { headerCta, headerNav, type NavEntry } from "@/lib/content/navigation";
+import {
+    foreignLinkLabel,
+    headerCta,
+    headerNav,
+    type NavEntry,
+} from "@/lib/content/navigation";
 import { contactEmail } from "@/lib/site-data";
 import s from "./header.module.css";
 
@@ -22,7 +27,11 @@ function entryIsActive(pathname: string, entry: NavEntry) {
 }
 
 export default function Header() {
-    const { copy } = useI18n();
+    const { copy, locale } = useI18n();
+    const nav = headerNav[locale];
+    const cta = headerCta[locale];
+    /** Badge on links that leave the reader's language — "ES" while browsing /en. */
+    const foreign = foreignLinkLabel[locale];
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
@@ -89,7 +98,15 @@ export default function Header() {
     return (
         <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
             <div className={s.bar}>
-                <Link href="/" className={`cyn-logo ${s.brand}`} aria-label="Cynocta, ir al inicio">
+                {/* The logo returns to the home of the tree you're in, not always
+                    to the Spanish one. */}
+                <Link
+                    href={locale === "es" ? "/" : "/en"}
+                    className={`cyn-logo ${s.brand}`}
+                    aria-label={
+                        locale === "es" ? "Cynocta, ir al inicio" : "Cynocta, go to homepage"
+                    }
+                >
                     <Image
                         src="/logo.svg"
                         alt={copy.logoAlt}
@@ -103,7 +120,7 @@ export default function Header() {
 
                 <nav ref={navRef} className={s.nav} aria-label="Principal">
                     <ul className={s.navList}>
-                        {headerNav.map((entry) => {
+                        {nav.map((entry) => {
                             const active = entryIsActive(pathname, entry);
 
                             if (entry.kind === "link") {
@@ -113,8 +130,12 @@ export default function Header() {
                                             href={entry.href}
                                             className={`${s.link} ${active ? s.active : ""}`}
                                             aria-current={active ? "page" : undefined}
+                                            hrefLang={entry.lang}
                                         >
                                             {entry.label}
+                                            {entry.lang && (
+                                                <span className={s.foreign}>{foreign}</span>
+                                            )}
                                         </Link>
                                     </li>
                                 );
@@ -154,13 +175,23 @@ export default function Header() {
                                                         <Link
                                                             href={item.href}
                                                             className={`${s.dropdownLink} ${isActive(pathname, item.href) ? s.dropdownActive : ""}`}
+                                                            hrefLang={item.lang}
                                                         >
                                                             {item.label}
+                                                            {item.lang && (
+                                                                <span className={s.foreign}>
+                                                                    {foreign}
+                                                                </span>
+                                                            )}
                                                         </Link>
                                                     </li>
                                                 ))}
                                             </ul>
-                                            <Link href={entry.href} className={s.dropdownAll}>
+                                            <Link
+                                                href={entry.href}
+                                                className={s.dropdownAll}
+                                                hrefLang={entry.lang}
+                                            >
                                                 {entry.seeAll}
                                                 <span aria-hidden="true">→</span>
                                             </Link>
@@ -175,8 +206,8 @@ export default function Header() {
                 <div className={s.actions}>
                     <LanguageToggle className="cyn-toggle--bare" />
                     <span className={s.divider} aria-hidden="true" />
-                    <Link href={headerCta.href} className={s.cta}>
-                        {headerCta.label}
+                    <Link href={cta.href} className={s.cta} hrefLang={cta.lang}>
+                        {cta.label}
                     </Link>
                     <button
                         type="button"
@@ -197,7 +228,7 @@ export default function Header() {
             {open && (
                 <div className={s.panel} id="menu-movil">
                     <ul className={s.panelNav}>
-                        {headerNav.map((entry, i) => {
+                        {nav.map((entry, i) => {
                             const active = entryIsActive(pathname, entry);
                             const style = { animationDelay: `${60 + i * 40}ms` };
 
@@ -208,8 +239,12 @@ export default function Header() {
                                             href={entry.href}
                                             className={`${s.panelLink} ${active ? s.panelActive : ""}`}
                                             aria-current={active ? "page" : undefined}
+                                            hrefLang={entry.lang}
                                         >
                                             {entry.label}
+                                            {entry.lang && (
+                                                <span className={s.foreign}>{foreign}</span>
+                                            )}
                                             <span className={s.chev} aria-hidden="true">
                                                 →
                                             </span>
@@ -239,13 +274,26 @@ export default function Header() {
                                         <ul className={s.panelSub}>
                                             {entry.items.map((item) => (
                                                 <li key={item.href}>
-                                                    <Link href={item.href} className={s.panelSubLink}>
+                                                    <Link
+                                                        href={item.href}
+                                                        className={s.panelSubLink}
+                                                        hrefLang={item.lang}
+                                                    >
                                                         {item.label}
+                                                        {item.lang && (
+                                                            <span className={s.foreign}>
+                                                                {foreign}
+                                                            </span>
+                                                        )}
                                                     </Link>
                                                 </li>
                                             ))}
                                             <li>
-                                                <Link href={entry.href} className={s.panelSubAll}>
+                                                <Link
+                                                    href={entry.href}
+                                                    className={s.panelSubAll}
+                                                    hrefLang={entry.lang}
+                                                >
                                                     {entry.seeAll} →
                                                 </Link>
                                             </li>
@@ -257,8 +305,8 @@ export default function Header() {
                     </ul>
 
                     <div className={s.panelFooter}>
-                        <Link href={headerCta.href} className={s.panelCta}>
-                            {headerCta.label}
+                        <Link href={cta.href} className={s.panelCta} hrefLang={cta.lang}>
+                            {cta.label}
                         </Link>
                         <div className={s.panelMeta}>
                             <a href={`mailto:${contactEmail}`} className={s.panelContact}>

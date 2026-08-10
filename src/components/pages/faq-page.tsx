@@ -12,6 +12,7 @@ export default function FaqPageBody({ locale }: { locale: Locale }) {
 
     return (
         <PageShell
+            locale={locale}
             crumbs={[
                 { label: isEs ? "Inicio" : "Home", href: ROUTE_MAP.home[locale] },
                 { label: isEs ? "Preguntas frecuentes" : "FAQ", href: path },

@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import Reveal from "@/components/ui/reveal";
-import { footerColumns } from "@/lib/content/navigation";
+import { foreignLinkLabel, footerColumns, footerCopy } from "@/lib/content/navigation";
+import type { Locale } from "@/lib/content";
 import {
     buildWhatsappLink,
     contactEmail,
@@ -31,24 +32,32 @@ const WhatsappMark = () => (
     </svg>
 );
 
-const socialLinks = [
-    { label: "Instagram", href: instagramUrl, Icon: InstagramMark },
-    {
-        label: "WhatsApp",
-        href: buildWhatsappLink("Hola, quiero contactar a Cynocta"),
-        Icon: WhatsappMark,
-    },
-    { label: "Correo", href: `mailto:${contactEmail}`, Icon: MailIcon },
-];
-
 /**
  * Site-wide footer.
  *
  * Doubles as the secondary navigation layer: every section of the site is
  * reachable from here, which keeps deep pages within reach of the homepage
  * instead of orphaned.
+ *
+ * Takes the locale rather than reading it from context because it renders on
+ * the server. Defaults to Spanish, which is what every interior page is.
  */
-export default function SiteFooter() {
+export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
+    const copy = footerCopy[locale];
+    const columns = footerColumns[locale];
+    const foreign = foreignLinkLabel[locale];
+    const home = locale === "es" ? "/" : "/en";
+
+    const socialLinks = [
+        { label: "Instagram", href: instagramUrl, Icon: InstagramMark },
+        {
+            label: "WhatsApp",
+            href: buildWhatsappLink("Hola, quiero contactar a Cynocta"),
+            Icon: WhatsappMark,
+        },
+        { label: copy.emailSocialLabel, href: `mailto:${contactEmail}`, Icon: MailIcon },
+    ];
+
     return (
         <footer className={s.footer}>
             <span className={s.seam} aria-hidden="true" />
@@ -56,7 +65,11 @@ export default function SiteFooter() {
             <div className={s.inner}>
                 <div className={s.top}>
                     <Reveal blur className={s.brandCol}>
-                        <Link href="/" className="cyn-logo" aria-label={`${siteName}, ir al inicio`}>
+                        <Link
+                            href={home}
+                            className="cyn-logo"
+                            aria-label={`${siteName}, ${copy.homeAria}`}
+                        >
                             <Image
                                 src="/logo.svg"
                                 alt=""
@@ -66,22 +79,19 @@ export default function SiteFooter() {
                             />
                             <span className="cyn-logo-text">C Y N O C T A</span>
                         </Link>
-                        <p className={s.tagline}>
-                            Implementamos automatización, inteligencia artificial y sistemas web para
-                            que los negocios dejen de perder clientes por responder tarde.
-                        </p>
+                        <p className={s.tagline}>{copy.tagline}</p>
 
-                        <h2 className={s.colTitle}>Contacto</h2>
+                        <h2 className={s.colTitle}>{copy.contactTitle}</h2>
                         <ul className={s.contactList}>
                             <li className={s.contactItem}>
-                                <span className={s.contactLabel}>Email</span>
+                                <span className={s.contactLabel}>{copy.emailLabel}</span>
                                 <a href={`mailto:${contactEmail}`} className={s.contactValue}>
                                     <MailIcon aria-hidden="true" />
                                     {contactEmail}
                                 </a>
                             </li>
                             <li className={s.contactItem}>
-                                <span className={s.contactLabel}>WhatsApp</span>
+                                <span className={s.contactLabel}>{copy.whatsappLabel}</span>
                                 <a
                                     href={buildWhatsappLink("Hola, quiero contactar a Cynocta")}
                                     className={s.contactValue}
@@ -93,15 +103,15 @@ export default function SiteFooter() {
                                 </a>
                             </li>
                             <li className={s.contactItem}>
-                                <span className={s.contactLabel}>Ubicación</span>
+                                <span className={s.contactLabel}>{copy.locationLabel}</span>
                                 <span className={s.contactStatic}>
                                     <MapPinIcon aria-hidden="true" />
-                                    Colombia · Remoto en LATAM
+                                    {copy.locationValue}
                                 </span>
                             </li>
                         </ul>
 
-                        <h2 className={`${s.colTitle} ${s.socialTitle}`}>Redes</h2>
+                        <h2 className={`${s.colTitle} ${s.socialTitle}`}>{copy.socialTitle}</h2>
                         <ul className={s.colList}>
                             {socialLinks.map(({ label, href, Icon }) => (
                                 <li key={label}>
@@ -120,15 +130,22 @@ export default function SiteFooter() {
                         </ul>
                     </Reveal>
 
-                    {footerColumns.map((column, i) => (
+                    {columns.map((column, i) => (
                         <Reveal key={column.title} blur delay={100 + i * 100}>
                             <nav aria-label={column.title}>
                                 <h2 className={s.colTitle}>{column.title}</h2>
                                 <ul className={s.colList}>
                                     {column.links.map((link) => (
                                         <li key={link.href}>
-                                            <Link href={link.href} className={s.colLink}>
+                                            <Link
+                                                href={link.href}
+                                                className={s.colLink}
+                                                hrefLang={link.lang}
+                                            >
                                                 {link.label}
+                                                {link.lang && (
+                                                    <span className={s.foreign}>{foreign}</span>
+                                                )}
                                             </Link>
                                         </li>
                                     ))}
@@ -141,17 +158,25 @@ export default function SiteFooter() {
 
                 <div className={s.bottom}>
                     <p className={s.copy}>
-                        © {YEAR} {siteName}. Todos los derechos reservados.
+                        © {YEAR} {siteName}. {copy.rights}
                     </p>
                     <ul className={s.bottomLinks}>
                         <li>
-                            <Link href="/privacidad" className={s.bottomLink}>
-                                Política de privacidad
+                            <Link
+                                href={copy.privacy.href}
+                                className={s.bottomLink}
+                                hrefLang={copy.privacy.lang}
+                            >
+                                {copy.privacy.label}
                             </Link>
                         </li>
                         <li>
-                            <Link href="/terminos" className={s.bottomLink}>
-                                Términos y condiciones
+                            <Link
+                                href={copy.terms.href}
+                                className={s.bottomLink}
+                                hrefLang={copy.terms.lang}
+                            >
+                                {copy.terms.label}
                             </Link>
                         </li>
                     </ul>

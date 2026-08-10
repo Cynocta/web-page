@@ -44,7 +44,7 @@ export default function LandingPage({ locale }: { locale: Locale }) {
                 <ContactCtaSection />
             </main>
 
-            <SiteFooter />
+            <SiteFooter locale={locale} />
         </div>
     );
 }

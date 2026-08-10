@@ -286,3 +286,19 @@
         transform: none;
     }
 }
+
+/* Marker on a link whose destination is in the other language. */
+.foreign {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid var(--cyn-border-2);
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    vertical-align: 1px;
+}
