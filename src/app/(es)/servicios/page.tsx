@@ -13,15 +13,36 @@ import {
     servicesHub,
 } from "@/lib/content/services";
 import s from "@/components/sections/services-hub.module.css";
+import { JsonLd } from "@/components/structured-data";
+import { pageMetadata } from "@/lib/metadata";
+import { ORGANIZATION_ID } from "@/lib/schema";
+import { siteUrl } from "@/lib/site-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: SERVICES_BASE_PATH,
     title: servicesHub.metaTitle,
     description: servicesHub.metaDescription,
-    alternates: { canonical: SERVICES_BASE_PATH },
-    openGraph: {
-        title: `${servicesHub.metaTitle} | Cynocta`,
-        description: servicesHub.metaDescription,
-        url: SERVICES_BASE_PATH,
+});
+
+/** The catalogue as an ordered list, so the hub declares what it indexes. */
+const servicesHubJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${siteUrl}${SERVICES_BASE_PATH}#collection`,
+    url: `${siteUrl}${SERVICES_BASE_PATH}`,
+    name: servicesHub.metaTitle,
+    description: servicesHub.metaDescription,
+    inLanguage: "es",
+    about: { "@id": ORGANIZATION_ID },
+    mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: serviceList.length,
+        itemListElement: serviceList.map((service, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: service.cardTitle,
+            url: `${siteUrl}${servicePath(service.slug)}`,
+        })),
     },
 };
 
@@ -33,6 +54,7 @@ export default function ServiciosPage() {
                 { label: "Servicios", href: SERVICES_BASE_PATH },
             ]}
         >
+            <JsonLd data={servicesHubJsonLd} />
             <PageHero
                 eyebrow={servicesHub.eyebrow}
                 title={servicesHub.heading}

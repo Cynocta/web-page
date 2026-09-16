@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/structured-data";
 import { about } from "@/lib/content/about";
 import { content } from "@/lib/content";
 import { founders } from "@/lib/content/founders";
+import { pageMetadata } from "@/lib/metadata";
 import { ORGANIZATION_ID } from "@/lib/schema";
 import { siteUrl } from "@/lib/site-data";
 import s from "@/components/sections/pricing-page.module.css";
@@ -18,16 +19,11 @@ import body from "@/components/sections/service-body.module.css";
 
 const PATH = "/nosotros";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: PATH,
     title: about.metaTitle,
     description: about.metaDescription,
-    alternates: { canonical: PATH },
-    openGraph: {
-        title: `${about.metaTitle} | Cynocta`,
-        description: about.metaDescription,
-        url: PATH,
-    },
-};
+});
 
 /**
  * Founders as `Person` entities linked to the organisation. This is the EEAT
@@ -44,6 +40,9 @@ const peopleJsonLd = {
     about: { "@id": ORGANIZATION_ID },
     mainEntity: founders.map((f) => ({
         "@type": "Person",
+        // The @id every article's author already points at. Without it those
+        // references resolved to nothing and the byline was an orphan entity.
+        "@id": `${siteUrl}${PATH}#${f.id}`,
         name: f.name,
         jobTitle: f.role,
         description: f.bio,
@@ -142,10 +141,12 @@ export default function NosotrosPage() {
 
             {/* Accent band renders on surface, so it alternates against the culture
                 band above it. */}
-            <FoundersSection />
+            <FoundersSection showLink={false} />
 
-            {/* The methodology used to live on the homepage; it belongs here now. */}
-            <Section tone="black">
+            {/* The methodology used to live on the homepage; it belongs here now.
+                The id is what the footer's "Proceso" entry targets — it pointed at
+                /#proceso for as long as this section had no anchor to land on. */}
+            <Section id="proceso" tone="black">
                 <SectionHeader
                     eyebrow={about.processEyebrow}
                     title={process.title.replace("\n", " ")}

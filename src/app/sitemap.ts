@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site-data";
 import { ES_ONLY_PATHS, ROUTE_MAP } from "@/lib/i18n/routes";
 import { CASE_SLUGS, casePath } from "@/lib/content/portfolio";
+import { BLOG_BASE_PATH, postList, postPath } from "@/lib/content/blog";
 
 type Entry = {
     path: string;
@@ -49,15 +50,38 @@ const esOnly: Entry[] = [...ES_ONLY_PATHS, ...casePaths].map((path) => ({
     priority: isLegal(path) ? 0.3 : isHub(path) ? 0.9 : isPost(path) ? 0.7 : 0.8,
 }));
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    const lastModified = new Date();
+/**
+ * `lastmod` only where the date is real.
+ *
+ * This used to stamp `new Date()` on every URL, so each deploy told Google that
+ * all 31 pages had just changed. Google only honours `lastmod` when it proves
+ * consistently accurate, and a value that moves on every build teaches it to
+ * ignore the field site-wide — including for the articles, where it matters.
+ * Articles carry their own publish/revision dates; the blog index takes the
+ * newest of them; pages without a tracked date simply omit the field.
+ */
+const postDates = new Map(
+    postList.map((post) => [postPath(post.slug), post.updatedAt ?? post.publishedAt]),
+);
+const newestPost = [...postDates.values()].sort().at(-1);
 
-    return [...translated, ...esOnly].map(({ path, changeFrequency, priority, alternates, images }) => ({
-        url: abs(path),
-        lastModified,
-        changeFrequency,
-        priority,
-        ...(alternates ? { alternates: { languages: alternates } } : {}),
-        ...(images ? { images: images.map(abs) } : {}),
-    }));
+function lastModifiedFor(path: string) {
+    if (postDates.has(path)) return postDates.get(path);
+    if (path === BLOG_BASE_PATH) return newestPost;
+    return undefined;
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+    return [...translated, ...esOnly].map(({ path, changeFrequency, priority, alternates, images }) => {
+        const lastModified = lastModifiedFor(path);
+
+        return {
+            url: abs(path),
+            ...(lastModified ? { lastModified } : {}),
+            changeFrequency,
+            priority,
+            ...(alternates ? { alternates: { languages: alternates } } : {}),
+            ...(images ? { images: images.map(abs) } : {}),
+        };
+    });
 }
