@@ -1,30 +1,35 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/page-shell";
+import { pageMetadata } from "@/lib/metadata";
 import s from "@/components/legal.module.css";
 
 /** Without this the page inherits the root canonical ("/") and tells Google it
  *  is the homepage, which drops it from the index. */
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: "/privacidad",
     title: "Política de privacidad",
     description:
         "Cómo Cynocta recoge, trata y protege los datos personales de quienes usan su sitio web y contratan sus servicios.",
-    alternates: {
-        canonical: "/privacidad",
-    },
-    openGraph: {
-        title: "Política de privacidad | Cynocta",
-        description:
-            "Cómo Cynocta recoge, trata y protege los datos personales de quienes usan su sitio web y contratan sus servicios.",
-        url: "/privacidad",
-    },
-};
+});
 
+/**
+ * Rendered inside the site chrome. It used to be a bare <div> with no header or
+ * footer, so anyone landing here from search had no link back into the site —
+ * a dead end for readers and for the authority the page receives.
+ */
 export default function PrivacidadPage() {
     return (
+        <PageShell
+            crumbs={[
+                { label: "Inicio", href: "/" },
+                { label: "Política de privacidad", href: "/privacidad" },
+            ]}
+        >
         <div className={s.legalPage}>
             <header className={s.hero}>
                 <p className={s.kicker}>Cynocta</p>
                 <h1 className={s.title}>Política de privacidad</h1>
-                <p className={s.subtitle}>Última actualización: Mayo 2026</p>
+                <p className={s.subtitle}>Última actualización: septiembre de 2026</p>
             </header>
 
             <div className={s.shell}>
@@ -76,10 +81,16 @@ export default function PrivacidadPage() {
                     </ul>
                     <h3>Datos automáticos</h3>
                     <ul>
-                        <li>IP</li>
-                        <li>Cookies</li>
-                        <li>Navegación</li>
+                        <li>Páginas visitadas, duración de la visita y enlaces pulsados</li>
+                        <li>Tipo de dispositivo, navegador y ubicación aproximada (país o ciudad)</li>
+                        <li>Canal de origen de la visita (buscador, redes sociales, enlace directo)</li>
                     </ul>
+                    <h3>Formulario de diagnóstico</h3>
+                    <p>
+                        Las respuestas del formulario de diagnóstico no se guardan en nuestros servidores. Al
+                        terminarlo, el sitio abre WhatsApp con tus respuestas redactadas y eres tú quien decide
+                        si enviar el mensaje.
+                    </p>
                     <h3>Datos de terceros</h3>
                     <ul>
                         <li>Información de clientes del cliente (cuando usa nuestros bots)</li>
@@ -109,9 +120,16 @@ export default function PrivacidadPage() {
 
                 <section className={s.legalSection}>
                     <h2>6. Uso de tecnologías y terceros</h2>
+                    <p>Para operar el sitio y prestar los servicios se utilizan, entre otros:</p>
+                    <ul>
+                        <li>WhatsApp y WhatsApp Business Platform (Meta Platforms), para la mensajería.</li>
+                        <li>Google Analytics 4 (Google LLC), para la medición de visitas del sitio web.</li>
+                        <li>Vercel, para el alojamiento del sitio web.</li>
+                        <li>Proveedores de servidores en la nube y de modelos de IA, en los proyectos que lo requieren.</li>
+                    </ul>
                     <p>
-                        Se utilizan servicios como WhatsApp (Meta), servidores cloud y APIs. Los datos pueden
-                        ser transferidos internacionalmente.
+                        Estos proveedores pueden tratar datos fuera de Colombia. Solo se trabaja con proveedores
+                        que ofrecen garantías de seguridad y confidencialidad adecuadas.
                     </p>
                 </section>
 
@@ -157,13 +175,25 @@ export default function PrivacidadPage() {
                 </section>
 
                 <section className={s.legalSection}>
-                    <h2>11. Cookies</h2>
-                    <p>Se usan cookies para:</p>
-                    <ul>
-                        <li>Analítica</li>
-                        <li>Personalización</li>
-                    </ul>
-                    <p>El usuario puede desactivarlas.</p>
+                    <h2>11. Cookies y almacenamiento en el navegador</h2>
+                    <h3>Analítica</h3>
+                    <p>
+                        El sitio usa Google Analytics 4, que instala las cookies <code>_ga</code> y{" "}
+                        <code>_ga_*</code> para distinguir visitas y medir cómo se usa el sitio, por ejemplo qué
+                        páginas se leen y qué canal de contacto se elige. Caducan a los 2 años. Google Analytics
+                        no nos entrega tu nombre, correo ni número de teléfono.
+                    </p>
+                    <h3>Preferencias</h3>
+                    <p>
+                        La divisa que eliges para ver los precios (USD, COP o EUR) se guarda en el almacenamiento
+                        local de tu navegador para recordarla en tu próxima visita. No sale de tu dispositivo.
+                    </p>
+                    <h3>Cómo desactivarlas</h3>
+                    <p>
+                        Puedes bloquear o borrar las cookies desde la configuración de tu navegador, o instalar
+                        el complemento de inhabilitación de Google Analytics (tools.google.com/dlpage/gaoptout).
+                        El sitio sigue funcionando con normalidad sin ellas.
+                    </p>
                 </section>
 
                 <section className={s.legalSection}>
@@ -175,9 +205,10 @@ export default function PrivacidadPage() {
                     <h2>13. Transferencias</h2>
                     <p>Los datos pueden compartirse con:</p>
                     <ul>
-                        <li>Proveedores tecnológicos</li>
-                        <li>Autoridades legales</li>
+                        <li>Los proveedores tecnológicos indicados en la sección 6</li>
+                        <li>Autoridades competentes, cuando lo exija la ley</li>
                     </ul>
+                    <p>Cynocta no vende ni alquila datos personales.</p>
                 </section>
 
                 <section className={s.legalSection}>
@@ -198,5 +229,6 @@ export default function PrivacidadPage() {
                 </section>
             </div>
         </div>
+        </PageShell>
     );
 }

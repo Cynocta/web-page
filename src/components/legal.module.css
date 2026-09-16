@@ -1,6 +1,7 @@
+/* The header and breadcrumbs sit above this now, so no clearance for a
+   floating header is needed. */
 .legalPage {
-    min-height: 100vh;
-    padding: 140px var(--cyn-shell-x) 80px;
+    padding: 40px var(--cyn-shell-x) 80px;
     position: relative;
     overflow: hidden;
 }

@@ -1,25 +1,30 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/page-shell";
+import { pageMetadata } from "@/lib/metadata";
 import s from "@/components/legal.module.css";
 
 /** Without this the page inherits the root canonical ("/") and tells Google it
  *  is the homepage, which drops it from the index. */
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: "/terminos",
     title: "Términos y condiciones",
     description:
         "Términos y condiciones de uso de los servicios de automatización, desarrollo web e integración de procesos de Cynocta.",
-    alternates: {
-        canonical: "/terminos",
-    },
-    openGraph: {
-        title: "Términos y condiciones | Cynocta",
-        description:
-            "Términos y condiciones de uso de los servicios de automatización, desarrollo web e integración de procesos de Cynocta.",
-        url: "/terminos",
-    },
-};
+});
 
+/**
+ * Rendered inside the site chrome. It used to be a bare <div> with no header or
+ * footer, so anyone landing here from search had no link back into the site —
+ * a dead end for readers and for the authority the page receives.
+ */
 export default function TerminosPage() {
     return (
+        <PageShell
+            crumbs={[
+                { label: "Inicio", href: "/" },
+                { label: "Términos y condiciones", href: "/terminos" },
+            ]}
+        >
         <div className={s.legalPage}>
             <header className={s.hero}>
                 <p className={s.kicker}>Cynocta</p>
@@ -197,7 +202,7 @@ export default function TerminosPage() {
                             terceros integradas con los Servicios de Cynocta.
                         </li>
                         <li>
-                            Disponer de una cuenta de WhatsApp Business valida y activa, con número telefónico
+                            Disponer de una cuenta de WhatsApp Business válida y activa, con número telefónico
                             habilitado, en caso de contratar servicios de mensajería automatizada.
                         </li>
                     </ul>
@@ -404,9 +409,9 @@ export default function TerminosPage() {
                     <p>El Cliente reconoce y acepta que:</p>
                     <ul>
                         <li>Los sistemas de inteligencia artificial pueden generar respuestas inexactas, incompletas o que no reflejen fielmente la información del negocio del Cliente.</li>
-                        <li>Los modelos de IA pueden presentar "alucinaciones" (generación de información ficticia presentada como real), lo cual es una limitación técnica inherente a esta tecnología.</li>
+                        <li>Los modelos de IA pueden presentar «alucinaciones» (generación de información ficticia presentada como real), lo cual es una limitación técnica inherente a esta tecnología.</li>
                         <li>El rendimiento de los sistemas de IA puede verse afectado por cambios en los modelos subyacentes, actualizaciones de los proveedores de IA o modificaciones en los parámetros de entrenamiento.</li>
-                        <li>Los sistemas de IA no reemplazan el criterio humano en decisiones sensibles de negocio, legales, medicas, financieras o de cualquier otra naturaleza que requiera asesoramiento profesional especializado.</li>
+                        <li>Los sistemas de IA no reemplazan el criterio humano en decisiones sensibles de negocio, legales, médicas, financieras o de cualquier otra naturaleza que requiera asesoramiento profesional especializado.</li>
                     </ul>
                     <h3>7.3. Responsabilidad del Cliente sobre la IA</h3>
                     <p>El Cliente es el único responsable de:</p>
@@ -692,5 +697,6 @@ export default function TerminosPage() {
                 <p className={s.site}>www.cynocta.com</p>
             </div>
         </div>
+        </PageShell>
     );
 }
