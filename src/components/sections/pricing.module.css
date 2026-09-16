@@ -338,6 +338,22 @@
     .currency {
         padding-bottom: 0;
     }
+
+    /* The grid turns into a snap scroller here and gave no sign of it: two of the
+       three plans sat off-screen with nothing to suggest they existed. Same
+       indicator the results carousel already uses. */
+    .scrollDots {
+        display: flex;
+    }
+}
+
+/* 30px tall, and it is the only route from the home to the full plan detail. */
+@media (pointer: coarse) {
+    .noteLink {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
 }
 
 @media (max-width: 640px) {

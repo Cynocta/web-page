@@ -43,6 +43,9 @@
 
 .copy {
     max-width: 60ch;
+    /* Above the mobile backdrop SVG, which is absolutely placed behind it. */
+    position: relative;
+    z-index: 1;
 }
 
 /* ── Eyebrow pill ── */
@@ -201,18 +204,36 @@
     margin: 0;
 }
 
-/* ── Visual ── */
+/* ── Visual ──
+   Shown on every width. Below 1000px this is the lightweight SVG core (the
+   Spline scene only mounts on desktop); it used to be hidden outright, which
+   left the phone hero a wall of stacked text with no image at all.
+
+   On mobile it sits *behind* the copy as an ambient backdrop rather than as a
+   stacked block — the orbits give the hero depth without adding a screenful of
+   height, and the text reads over a dimmed core. */
 .visual {
-    display: none;
-    position: relative;
-    align-self: stretch;
-    min-height: 400px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(150%, 560px);
+    height: min(150%, 560px);
+    z-index: 0;
+    opacity: 0.4;
+    margin: 0;
+    pointer-events: none;
 }
 
+/* The left-to-black fade only makes sense in the desktop side-by-side, where it
+   blends the scene into the copy column. Stacked on mobile it would just dim
+   the top of the SVG, so it is a desktop device. */
 .visual::after {
     content: "";
     position: absolute;
     inset: 0;
+    display: none;
     background: linear-gradient(to right, var(--cyn-black) 0%, transparent 26%);
     pointer-events: none;
     z-index: 3;
@@ -231,7 +252,22 @@
         min-height: min(72vh, 640px);
     }
 
+    /* Back into the grid as the right-hand column at full strength — no longer a
+       backdrop, so the transform/opacity/absolute treatment is all undone. */
     .visual {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        align-self: stretch;
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+        opacity: 1;
+        z-index: auto;
+    }
+
+    .visual::after {
         display: block;
     }
 }
@@ -242,8 +278,25 @@
         align-items: stretch;
     }
 
+    /* Three stats in a two-column grid left the third alone on its row, next to
+       an empty cell painted in the gap colour. Three narrow columns keep them
+       on one line and take a row less of the first screen. */
+    .statsInner {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .stat {
-        padding: 20px 4px 24px;
+        padding: 18px 8px 20px;
+    }
+
+    .statValue {
+        font-size: 1.55rem;
+    }
+
+    .statLabel {
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        line-height: 1.4;
     }
 }
 

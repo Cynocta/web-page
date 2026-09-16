@@ -195,3 +195,150 @@
 .techGroups > * > .techGroup {
     width: 100%;
 }
+
+/* ══════════════════════════════════════════════════
+   Technology stack as rows (homepage).
+   The grid above (.techGroups) stays for /precios; the home uses this denser
+   label-plus-chips list, which is what took the band from five stacked blocks
+   down to a single panel.
+   ══════════════════════════════════════════════════ */
+.stack {
+    margin: 0;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.stackRow {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    gap: 8px 24px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.stackLabel {
+    color: var(--cyn-white);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.stackTools {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .stackRow {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 12px 0;
+    }
+
+    .stackRow .tech {
+        padding: 5px 9px;
+        font-size: 12px;
+    }
+}
+
+/* ══════════════════════════════════════════════════
+   Use cases as a table (homepage).
+   Desktop: a real three-column table. Below 760px each row becomes a block and
+   every cell repeats its column label from `data-label`, since the header row
+   has scrolled out of view by then.
+   ══════════════════════════════════════════════════ */
+.caseTableWrap {
+    border: 1px solid var(--cyn-border-2);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.caseTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.caseTable thead th {
+    padding: 14px 20px;
+    background: var(--cyn-surface);
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.caseTable tbody tr + tr {
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.ctSector,
+.ctText {
+    padding: 18px 20px;
+    vertical-align: top;
+}
+
+.ctSector {
+    width: 22%;
+    color: var(--cyn-white);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.ctText {
+    color: var(--cyn-muted);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.ctSolution {
+    color: var(--cyn-white);
+}
+
+@media (max-width: 760px) {
+    .caseTable thead {
+        /* Visually hidden, still read by assistive tech. */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .caseTable,
+    .caseTable tbody,
+    .caseTable tr,
+    .ctSector,
+    .ctText {
+        display: block;
+        width: 100%;
+    }
+
+    .caseTable tbody tr {
+        padding: 16px 18px;
+    }
+
+    .ctSector {
+        padding: 0 0 10px;
+        font-size: 16px;
+    }
+
+    .ctText {
+        padding: 6px 0 0;
+    }
+
+    .ctText::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        color: var(--cyn-muted-2);
+        font-family: var(--font-mono), "Consolas", monospace;
+        font-size: 9.5px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+    }
+}

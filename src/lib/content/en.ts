@@ -16,7 +16,9 @@ export const en: Content = {
         subtitle:
             "We implement automation, AI, and web systems that capture clients, respond 24/7, and scale your operation effortlessly.",
         primaryCta: "Schedule a free diagnosis",
-        secondaryCta: "See real cases",
+        /* The English tree is a single page, so this one lands on #resultados
+           rather than a catalogue — the label names what is actually there. */
+        secondaryCta: "See the results",
         stats: [
             { prefix: "+", value: "52", label: "Businesses automated" },
             { prefix: "<", value: "5s", label: "First response" },
@@ -174,6 +176,7 @@ export const en: Content = {
             subscription: "subscription",
         },
         currencyLabel: "Currency",
+        fullDetailsLabel: "See everything included (in Spanish)",
         previewLabel: "Plan summary",
         detailsShow: "View details",
         detailsHide: "Hide details",
@@ -343,6 +346,10 @@ export const en: Content = {
         tag: "Next step",
         title: "If your business has grown,",
         titleEmphasis: "your system must grow too.",
+        body: "Tell us what's slipping through the cracks. The diagnosis is free and we reply within one business day.",
+        primaryCta: null,
+        whatsappCta: "Message us on WhatsApp",
+        emailCta: "Send us an email",
         whatsappText: "Hi, I want my free diagnosis",
         iconsLabel: "Contact channels",
         labels: {

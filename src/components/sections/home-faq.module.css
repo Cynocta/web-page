@@ -1,0 +1,144 @@
+/* ══════════════════════════════════════════════════
+   Homepage FAQ — disclosure list.
+   ══════════════════════════════════════════════════ */
+
+.list {
+    max-width: 860px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+/* Also used as a plain link list on /contacto. */
+a.summary {
+    color: var(--cyn-accent);
+    text-decoration: none;
+}
+
+.item {
+    border-bottom: 1px solid var(--cyn-border-2);
+    scroll-margin-top: 96px;
+}
+
+.summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 44px;
+    padding: 18px 0;
+    cursor: pointer;
+    list-style: none;
+}
+
+.summary::-webkit-details-marker {
+    display: none;
+}
+
+.summary:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.question {
+    margin: 0;
+    font-family: var(--font-body), "Segoe UI", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--cyn-white);
+    transition: color 0.2s ease;
+}
+
+@media (hover: hover) {
+    .summary:hover .question {
+        color: var(--cyn-accent);
+    }
+}
+
+/* A plus that turns into a minus. */
+.icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--cyn-border);
+}
+
+.icon::before,
+.icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 1.5px;
+    background: var(--cyn-accent);
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.item[open] .icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.answer {
+    margin: 0;
+    padding: 0 48px 22px 0;
+    max-width: 68ch;
+    color: var(--cyn-muted);
+    font-size: 15.5px;
+    line-height: 1.75;
+}
+
+.more {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin-top: 1.75rem;
+    color: var(--cyn-accent);
+    text-decoration: none;
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@media (hover: hover) {
+    .more:hover {
+        color: var(--cyn-accent-glow);
+    }
+}
+
+.more:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+@media (max-width: 640px) {
+    .question {
+        font-size: 16px;
+    }
+
+    .answer {
+        padding-right: 0;
+        font-size: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .question,
+    .icon::before,
+    .icon::after {
+        transition: none;
+    }
+}

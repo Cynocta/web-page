@@ -1,63 +1,70 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import Link from "next/link";
 import { useI18n } from "@/components/i18n-provider";
+import Reveal from "@/components/ui/reveal";
+import { buildWhatsappLink, contactEmail } from "@/lib/site-data";
 import s from "./contact-cta.module.css";
 
-const containerV: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-
-const itemV: Variants = {
-    hidden: { opacity: 0, y: 32, filter: "blur(6px)" },
-    visible: {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-    },
-};
-
+/**
+ * The closing band.
+ *
+ * It used to end the page with "Descubre como contactarnos abajo" — no accent,
+ * and no action: the last thing the home said was to go and look in the
+ * footer. On the English home it was worse, because the hero's main CTA points
+ * here (`/en#contacto`), so the primary button led to a band with no button.
+ * It carries the real channels now.
+ *
+ * Entrance runs through `Reveal`, which fails open, rather than a motion
+ * library that served the heading at `opacity: 0` until an observer fired.
+ */
 export default function ContactCtaSection() {
-    const { copy, locale } = useI18n();
-    const ref = useRef<HTMLElement>(null);
-    const inView = useInView(ref, { once: true, amount: 0.3 });
+    const { copy } = useI18n();
+    const { contact } = copy;
 
     return (
-        <section ref={ref} className={s.section} id="contacto">
+        <section className={s.section} id="contacto">
             <div className={s.aurora} />
 
-            <motion.div
-                className={s.inner}
-                variants={containerV}
-                initial="hidden"
-                animate={inView ? "visible" : "hidden"}
-            >
-                <motion.p variants={itemV} className={s.tag}>
-                    {copy.contact.tag}
-                </motion.p>
+            <div className={s.inner}>
+                <Reveal blur>
+                    <p className={s.tag}>{contact.tag}</p>
+                </Reveal>
 
-                <motion.h2 variants={itemV} className={s.heading}>
-                    {copy.contact.title}
-                    <br />
-                    <em>{copy.contact.titleEmphasis}</em>
-                </motion.h2>
+                <Reveal blur delay={120}>
+                    <h2 className={s.heading}>
+                        {contact.title}
+                        <br />
+                        <em>{contact.titleEmphasis}</em>
+                    </h2>
+                </Reveal>
 
-                <motion.p variants={itemV} className={s.sub}>
-                    {locale === "es"
-                        ? "Descubre como contactarnos abajo."
-                        : "Find out how to reach us below."}
-                </motion.p>
+                <Reveal blur delay={220}>
+                    <p className={s.sub}>{contact.body}</p>
+                </Reveal>
 
-                <motion.div variants={itemV} className={s.scrollHint}>
-                    <div className={s.scrollLine} />
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--cyn-accent)", opacity: 0.5 }}>
-                        <path d="M12 5v14M5 12l7 7 7-7" />
-                    </svg>
-                </motion.div>
-            </motion.div>
+                <Reveal blur delay={320}>
+                    <div className={s.actions}>
+                        {contact.primaryCta && (
+                            <Link href={contact.primaryCta.href} className={s.primary}>
+                                {contact.primaryCta.label}
+                                <span aria-hidden="true">→</span>
+                            </Link>
+                        )}
+                        <a
+                            href={buildWhatsappLink(contact.whatsappText)}
+                            className={contact.primaryCta ? s.secondary : s.primary}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {contact.whatsappCta}
+                        </a>
+                        <a href={`mailto:${contactEmail}`} className={s.secondary}>
+                            {contact.emailCta}
+                        </a>
+                    </div>
+                </Reveal>
+            </div>
         </section>
     );
 }

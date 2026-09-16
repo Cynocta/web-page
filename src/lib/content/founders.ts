@@ -1,4 +1,9 @@
 export type Founder = {
+    /**
+     * Anchor of the person's schema entity on /nosotros (`/nosotros#<id>`).
+     * Articles point their author at this @id, so it must never change.
+     */
+    id: "diego" | "mateo";
     name: string;
     /** Initials for the photo placeholder. */
     initials: string;
@@ -17,12 +22,11 @@ export const foundersSection = {
     title: "Conoce a nuestros fundadores",
     intro:
         "Detrás de Cynocta hay personas apasionadas por crear soluciones tecnológicas que generan impacto real para las empresas.",
-    /** Shown on the placeholder so it reads as intentional, not as a broken image. */
-    photoPendingLabel: "Fotografía profesional pendiente",
 };
 
 export const founders: Founder[] = [
     {
+        id: "diego",
         name: "Diego Carrasquilla",
         initials: "DC",
         role: "Cofundador & Software Engineer",
@@ -31,6 +35,7 @@ export const founders: Founder[] = [
         github: "",
     },
     {
+        id: "mateo",
         name: "Mateo Giraldo",
         initials: "MG",
         role: "Cofundador & Software Engineer",

@@ -8,9 +8,18 @@ import s from "./section-link.module.css";
  * between the two, and it is also what passes authority from the home to the
  * pages that need to rank.
  */
-export default function SectionLink({ href, label }: { href: string; label: string }) {
+export default function SectionLink({
+    href,
+    label,
+    hrefLang,
+}: {
+    href: string;
+    label: string;
+    /** Set when the destination is in a different language from the page. */
+    hrefLang?: string;
+}) {
     return (
-        <Link href={href} className={s.link}>
+        <Link href={href} className={s.link} hrefLang={hrefLang}>
             {label}
             <span className={s.arrow} aria-hidden="true">
                 →

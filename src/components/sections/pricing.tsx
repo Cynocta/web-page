@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import CurrencyToggle from "@/components/currency-toggle";
 import { useI18n } from "@/components/i18n-provider";
 import Section, { type SectionTone } from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
+import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import { formatCurrency } from "@/lib/content";
 import s from "./pricing.module.css";
 
@@ -41,8 +43,10 @@ export default function PricingSection({
     /** Set by the caller so the band keeps alternating with whatever precedes it. */
     tone?: SectionTone;
 }) {
-    const { copy, currency } = useI18n();
+    const { copy, currency, locale } = useI18n();
     const { plans } = copy;
+    const gridRef = useRef<HTMLDivElement>(null);
+    const activeIndex = useScrollIndex(gridRef);
 
     return (
         <Section id="precios" tone={tone}>
@@ -58,7 +62,7 @@ export default function PricingSection({
                 </div>
             </div>
 
-            <div className={s.grid}>
+            <div ref={gridRef} className={s.grid}>
                 {plans.items.map((plan) => {
                     const active = plan.features.filter((f) => f.active).slice(0, MAX_FEATURES);
 
@@ -126,10 +130,20 @@ export default function PricingSection({
                 })}
             </div>
 
+            <ScrollDots
+                count={plans.items.length}
+                active={activeIndex}
+                className={s.scrollDots}
+            />
+
             <div className={s.note}>
                 <span>{plans.note}</span>
-                <Link href="/precios" className={s.noteLink}>
-                    Ver todo lo que incluye →
+                <Link
+                    href="/precios"
+                    className={s.noteLink}
+                    hrefLang={locale === "es" ? undefined : "es"}
+                >
+                    {plans.fullDetailsLabel} →
                 </Link>
             </div>
         </Section>

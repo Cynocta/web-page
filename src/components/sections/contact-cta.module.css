@@ -1,6 +1,7 @@
 .section {
     position: relative;
     overflow: hidden;
+    border-top: 1px solid var(--cyn-border-2);
     padding: clamp(80px, 12vw, 140px) var(--cyn-shell-x);
     padding-bottom: clamp(60px, 8vw, 100px);
     background: linear-gradient(to bottom, transparent 0%, var(--cyn-black) 90%);
@@ -35,6 +36,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+/* Reveal wraps each child in a div; let those span the column so the stacked
+   buttons can go full width on a phone. */
+.inner > * {
+    width: 100%;
 }
 
 .tag {
@@ -76,22 +83,61 @@
 
 .sub {
     color: var(--cyn-muted);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 46ch;
+    margin: 0 auto 2rem;
 }
 
-.scrollHint {
+/* ── Actions ── */
+.actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
 }
-.scrollLine {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, rgba(25, 245, 156, 0.3), transparent);
-    animation: scrollPulse 2.5s ease-in-out infinite;
+
+.primary,
+.secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+}
+
+.primary {
+    background: var(--cyn-accent);
+    color: var(--cyn-black);
+}
+
+.secondary {
+    border: 1px solid var(--cyn-border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--cyn-white);
+}
+
+@media (hover: hover) {
+    .primary:hover {
+        background: var(--cyn-accent-glow);
+    }
+
+    .secondary:hover {
+        border-color: var(--cyn-accent-mid);
+        color: var(--cyn-accent);
+    }
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 3px;
 }
 
 @keyframes breathe {
@@ -99,10 +145,6 @@
     100% { transform: scale(1.15); opacity: 1; }
 }
 
-@keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
-    50% { opacity: 0.8; transform: scaleY(1); }
-}
 
 @media (max-width: 640px) {
     .section {
@@ -112,5 +154,18 @@
 
     .aurora {
         filter: blur(40px);
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+}
+
+/* Loops forever; it ignored the preference before. */
+@media (prefers-reduced-motion: reduce) {
+    .aurora {
+        animation: none;
     }
 }

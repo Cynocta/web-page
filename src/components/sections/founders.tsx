@@ -2,7 +2,9 @@ import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
 import SectionLink from "@/components/ui/section-link";
-import { founders, foundersSection } from "@/lib/content/founders";
+import type { Locale } from "@/lib/content";
+import { founders } from "@/lib/content/founders";
+import { homeContent } from "@/lib/content/home";
 import s from "./founders.module.css";
 
 /* Hand-rolled: lucide dropped its brand icons in v1, so importing Linkedin or
@@ -22,84 +24,90 @@ const GitHubIcon = () => (
 /**
  * Founder profiles.
  *
- * Portrait plate with the copy card overlapping it. Photographs don't exist
- * yet, so the plate renders a monogram and says so — an obvious placeholder
- * beats a stock portrait, which would read as a real person who isn't.
+ * Compact cards with a monogram avatar. This band used to render two 440px
+ * portrait plates labelled "photograph pending" with the copy card overlapping
+ * them — 1,550px on desktop and nearly two screens on a phone for 111 words,
+ * the worst ratio on the home. A monogram in a small avatar reads as a normal
+ * choice without a photo; `founder.photo` swaps in the real portrait when it
+ * exists, at the same size.
  */
-export default function FoundersSection() {
+export default function FoundersSection({
+    locale = "es",
+    showLink = true,
+}: {
+    locale?: Locale;
+    /** Off on /nosotros, where the link would point at the page it is on. */
+    showLink?: boolean;
+}) {
+    const copy = homeContent[locale].founders;
+
     return (
-        <Section id="fundadores" tone="accent" rhythm="roomy">
-            <SectionHeader
-                eyebrow={foundersSection.eyebrow}
-                title={foundersSection.title}
-                intro={foundersSection.intro}
-            />
+        <Section id="fundadores" tone="accent">
+            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
 
             <div className={s.list}>
                 {founders.map((founder, i) => {
+                    const role = copy.people?.[i]?.role ?? founder.role;
+                    const bio = copy.people?.[i]?.bio ?? founder.bio;
                     const hasSocials = Boolean(founder.linkedin || founder.github);
 
                     return (
-                        <Reveal key={founder.name} blur delay={i * 120}>
-                            <article className={`${s.row} ${i % 2 === 1 ? s.mirrored : ""}`}>
-                                <div className={s.plate}>
-                                    {founder.photo ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img
-                                            src={founder.photo}
-                                            alt={founder.photoAlt ?? founder.name}
-                                            className={s.photo}
-                                        />
-                                    ) : (
-                                        <>
+                        <Reveal key={founder.name} delay={i * 100}>
+                            <article className={s.card}>
+                                <div className={s.head}>
+                                    <div className={s.avatar}>
+                                        {founder.photo ? (
+                                            // eslint-disable-next-line @next/next/no-img-element
+                                            <img
+                                                src={founder.photo}
+                                                alt={founder.photoAlt ?? founder.name}
+                                                className={s.photo}
+                                                width={72}
+                                                height={72}
+                                            />
+                                        ) : (
                                             <span className={s.initials} aria-hidden="true">
                                                 {founder.initials}
                                             </span>
-                                            <span className={s.pending}>
-                                                <span className={s.pendingDot} aria-hidden="true" />
-                                                {foundersSection.photoPendingLabel}
-                                            </span>
-                                        </>
-                                    )}
-                                </div>
-
-                                <div className={s.card}>
-                                    <h3 className={s.name}>{founder.name}</h3>
-                                    <p className={s.role}>{founder.role}</p>
-                                    <p className={s.bio}>{founder.bio}</p>
-
-                                    <div className={s.socials}>
-                                        {hasSocials ? (
-                                            <>
-                                                {founder.linkedin && (
-                                                    <a
-                                                        href={founder.linkedin}
-                                                        className={s.social}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        aria-label={`LinkedIn de ${founder.name}`}
-                                                    >
-                                                        <LinkedInIcon />
-                                                    </a>
-                                                )}
-                                                {founder.github && (
-                                                    <a
-                                                        href={founder.github}
-                                                        className={s.social}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        aria-label={`GitHub de ${founder.name}`}
-                                                    >
-                                                        <GitHubIcon />
-                                                    </a>
-                                                )}
-                                            </>
-                                        ) : (
-                                            <span className={s.socialsPending}>
-                                                Perfiles próximamente
-                                            </span>
                                         )}
                                     </div>
+                                    <div className={s.identity}>
+                                        <h3 className={s.name}>{founder.name}</h3>
+                                        <p className={s.role}>{role}</p>
+                                    </div>
+                                </div>
+
+                                <p className={s.bio}>{bio}</p>
+
+                                <div className={s.socials}>
+                                    {hasSocials ? (
+                                        <>
+                                            {founder.linkedin && (
+                                                <a
+                                                    href={founder.linkedin}
+                                                    className={s.social}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    aria-label={copy.linkedinLabel.replace("{name}", founder.name)}
+                                                >
+                                                    <LinkedInIcon />
+                                                </a>
+                                            )}
+                                            {founder.github && (
+                                                <a
+                                                    href={founder.github}
+                                                    className={s.social}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    aria-label={copy.githubLabel.replace("{name}", founder.name)}
+                                                >
+                                                    <GitHubIcon />
+                                                </a>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <span className={s.socialsPending}>{copy.profilesPendingLabel}</span>
+                                    )}
                                 </div>
                             </article>
                         </Reveal>
@@ -107,7 +115,13 @@ export default function FoundersSection() {
                 })}
             </div>
 
-            <SectionLink href="/nosotros" label="Conoce a Cynocta" />
+            {showLink && (
+                <SectionLink
+                    href="/nosotros"
+                    label={copy.linkLabel}
+                    hrefLang={locale === "es" ? undefined : "es"}
+                />
+            )}
         </Section>
     );
 }

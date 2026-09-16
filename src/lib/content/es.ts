@@ -16,7 +16,11 @@ export const es: Content = {
         subtitle:
             "Implementamos automatizaciones, IA y sistemas web que capturan clientes, responden 24/7 y escalan tu operación sin esfuerzo.",
         primaryCta: "Agendar diagnóstico gratis",
-        secondaryCta: "Ver casos reales",
+        /* Was "Ver casos reales" pointing at /servicios — it promised case
+           studies and delivered a catalogue. /portafolio is empty by design
+           until a real client agrees to be named, so the label matches the
+           destination instead. Put both back when the first case ships. */
+        secondaryCta: "Ver qué automatizamos",
         stats: [
             { prefix: "+", value: "52", label: "Negocios automatizados" },
             { prefix: "<", value: "5s", label: "Primera respuesta" },
@@ -174,6 +178,7 @@ export const es: Content = {
             subscription: "suscripción",
         },
         currencyLabel: "Divisa",
+        fullDetailsLabel: "Ver todo lo que incluye",
         previewLabel: "Resumen del plan",
         detailsShow: "Ver detalles",
         detailsHide: "Ocultar detalles",
@@ -343,6 +348,10 @@ export const es: Content = {
         tag: "Siguiente paso",
         title: "Si tu negocio ya creció,",
         titleEmphasis: "tu sistema también debe hacerlo.",
+        body: "Cuéntanos qué se te está escapando. El diagnóstico es gratuito y respondemos en menos de 24 horas hábiles.",
+        primaryCta: { label: "Agendar diagnóstico gratis", href: "/contacto" },
+        whatsappCta: "Escribir por WhatsApp",
+        emailCta: "Enviar un correo",
         whatsappText: "Hola, quiero mi diagnóstico gratuito",
         iconsLabel: "Canales de contacto",
         labels: {
@@ -374,7 +383,7 @@ export const es: Content = {
         links: [
             { label: "Servicios", href: "/servicios", type: "link" },
             { label: "Precios", href: "/precios", type: "link" },
-            { label: "Proceso", href: "/#proceso", type: "link" },
+            { label: "Proceso", href: "/nosotros#proceso", type: "link" },
             { label: "Preguntas frecuentes", href: "/preguntas-frecuentes", type: "link" },
             { label: "Términos y condiciones", href: "/terminos", type: "legal" },
             { label: "Política de privacidad", href: "/privacidad", type: "legal" },

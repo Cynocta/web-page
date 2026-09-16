@@ -157,6 +157,8 @@ export type Content = {
             subscription: string;
         };
         currencyLabel: string;
+        /** Link from the pricing cards to the full /precios page. */
+        fullDetailsLabel: string;
         previewLabel: string;
         detailsShow: string;
         detailsHide: string;
@@ -186,6 +188,12 @@ export type Content = {
         tag: string;
         title: string;
         titleEmphasis: string;
+        /** One line under the heading: what happens when they get in touch. */
+        body: string;
+        /** Main action. Spanish has a contact page; English goes straight to WhatsApp. */
+        primaryCta: { label: string; href: string } | null;
+        whatsappCta: string;
+        emailCta: string;
         whatsappText: string;
         iconsLabel: string;
         labels: {

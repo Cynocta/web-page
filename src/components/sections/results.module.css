@@ -1,8 +1,5 @@
-/* Sits between two surface-toned sections (proceso, and the plans header), so
-   it takes the black base plus a cyan wash. Same tokens as the rest of the
-   system, but it stops proceso + resultados reading as one long block. */
-/* Surface band: it sits between pricing and the closing CTA, both of which are
-   dark, so it takes the lighter ground to keep the alternation going. */
+/* Surface band: it sits between the benefits and the use cases, both on black,
+   so it takes the lighter ground to keep the alternation going. */
 .section {
     max-width: 100%;
     background:

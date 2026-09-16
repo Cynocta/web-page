@@ -10,12 +10,17 @@ import { siteUrl } from "@/lib/site-data";
  * `acceptedAnswer.text` is the answer the page renders, never a shortened
  * variant: answer engines consume it literally.
  */
-export function faqItemsJsonLd(items: FaqItem[], pageUrl: string, name?: string) {
+export function faqItemsJsonLd(
+    items: FaqItem[],
+    pageUrl: string,
+    name?: string,
+    locale: Locale = "es",
+) {
     return {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "@id": `${pageUrl}#faq`,
-        inLanguage: "es",
+        inLanguage: locale,
         ...(name ? { name } : {}),
         mainEntity: items.map((item) => ({
             "@type": "Question",
