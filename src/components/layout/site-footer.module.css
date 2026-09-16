@@ -237,6 +237,25 @@
     border-radius: 3px;
 }
 
+/* ── Touch targets ──
+   The footer held most of the page's undersized controls: 31 navigation links
+   at 34px, the email and phone lines at 22px, and the legal pair at 27px. */
+@media (pointer: coarse) {
+    .colLink,
+    .bottomLink {
+        min-height: 44px;
+    }
+
+    .bottomLink {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .contactValue {
+        min-height: 44px;
+    }
+}
+
 /* ── Responsive ── */
 @media (max-width: 1180px) {
     .top {

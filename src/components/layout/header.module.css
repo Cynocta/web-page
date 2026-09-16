@@ -123,6 +123,21 @@
     flex: 0 0 auto;
 }
 
+/* On mobile the corner held three mismatched things at once — the wordmark, a
+   bare ES/EN pair, and the boxed menu button — which is what made the header
+   read as cluttered. The language switch already lives inside the menu panel,
+   so the top bar drops it and keeps a clean logo-versus-menu balance. It comes
+   back the moment the full desktop nav appears. */
+.actions :global(.cyn-toggle) {
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .actions :global(.cyn-toggle) {
+        display: inline-flex;
+    }
+}
+
 .divider {
     display: none;
     width: 1px;
@@ -130,37 +145,35 @@
     background: var(--cyn-border-2);
 }
 
+/* Ghost, not solid. The hero carries the only filled CTA on the page; when this
+   one was also solid accent the two competed in the first viewport with the
+   same colour and the same verb, and neither read as *the* action. Outlined
+   keeps it available without claiming primacy. */
 .cta {
     display: none;
     align-items: center;
-    height: 38px;
+    height: 40px;
     padding: 0 18px;
     border-radius: 9px;
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: transparent;
+    border: 1px solid var(--cyn-border);
+    color: var(--cyn-white);
     text-decoration: none;
     font-size: 12.5px;
-    font-weight: 650;
+    font-weight: 500;
     letter-spacing: 0.005em;
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.22);
     transition:
         background 0.22s ease,
-        box-shadow 0.22s ease,
-        transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        border-color 0.22s ease,
+        color 0.22s ease;
 }
 
 @media (hover: hover) {
     .cta:hover {
-        background: var(--cyn-accent-glow);
-        transform: translateY(-1px);
-        box-shadow:
-            0 8px 20px rgba(25, 245, 156, 0.28),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .cta:active {
-        transform: translateY(0);
+        background: var(--cyn-accent-dim);
+        border-color: var(--cyn-accent-mid);
+        color: var(--cyn-accent);
     }
 }
 
@@ -174,8 +187,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    /* 42px missed the 44px minimum by the width of a hairline, and this is the
+       only way into the navigation on a phone. */
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: 1px solid var(--cyn-border-2);
     border-radius: 11px;

@@ -81,8 +81,15 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
                         </Link>
                         <p className={s.tagline}>{copy.tagline}</p>
 
-                        <h2 className={s.colTitle}>{copy.contactTitle}</h2>
-                        <ul className={s.contactList}>
+                        {/* These column labels were <h2>. Six of them, which meant six
+                            of the page's fourteen <h2> described menus rather than
+                            content and diluted the heading map a crawler reads. They
+                            are <p> now, wired to their list with aria-labelledby so
+                            the accessible name survives the demotion. */}
+                        <p className={s.colTitle} id="footer-contact-title">
+                            {copy.contactTitle}
+                        </p>
+                        <ul className={s.contactList} aria-labelledby="footer-contact-title">
                             <li className={s.contactItem}>
                                 <span className={s.contactLabel}>{copy.emailLabel}</span>
                                 <a href={`mailto:${contactEmail}`} className={s.contactValue}>
@@ -111,8 +118,10 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
                             </li>
                         </ul>
 
-                        <h2 className={`${s.colTitle} ${s.socialTitle}`}>{copy.socialTitle}</h2>
-                        <ul className={s.colList}>
+                        <p className={`${s.colTitle} ${s.socialTitle}`} id="footer-social-title">
+                            {copy.socialTitle}
+                        </p>
+                        <ul className={s.colList} aria-labelledby="footer-social-title">
                             {socialLinks.map(({ label, href, Icon }) => (
                                 <li key={label}>
                                     <a
@@ -132,8 +141,10 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
 
                     {columns.map((column, i) => (
                         <Reveal key={column.title} blur delay={100 + i * 100}>
+                            {/* The <nav> already carries the accessible name, so the
+                                label here is purely visual — see the note above. */}
                             <nav aria-label={column.title}>
-                                <h2 className={s.colTitle}>{column.title}</h2>
+                                <p className={s.colTitle}>{column.title}</p>
                                 <ul className={s.colList}>
                                     {column.links.map((link) => (
                                         <li key={link.href}>

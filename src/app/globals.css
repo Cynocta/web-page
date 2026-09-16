@@ -346,3 +346,20 @@ h4 {
         scroll-behavior: auto;
     }
 }
+
+/* ── Touch targets ──
+   Measured at 390px: 39 controls came in under 44px. The two worst were these
+   toggles — the currency switch at 26px tall and the language switch at 32px.
+   Only the visual box grows; the type scale and the pill are untouched. */
+@media (pointer: coarse) {
+    .cyn-toggle-btn {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .cyn-toggle--compact .cyn-toggle-btn {
+        min-height: 44px;
+        padding: 0 12px;
+    }
+}
