@@ -16,7 +16,7 @@
 export type Value = { num: string; title: string; description: string };
 
 export const about = {
-    metaTitle: "Nosotros",
+    metaTitle: "Quiénes somos: equipo de automatización con IA",
     metaDescription:
         "Cynocta es un estudio de software enfocado en automatización e inteligencia artificial para empresas en Latinoamérica. Cómo trabajamos y quiénes estamos detrás.",
 

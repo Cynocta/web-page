@@ -6,6 +6,7 @@ import ArticleBody from "@/components/sections/article-body";
 import { JsonLd } from "@/components/structured-data";
 import { BLOG_BASE_PATH, POST_SLUGS, getPost, postPath } from "@/lib/content/blog";
 import { articleFaqJsonLd, blogPostingJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 
 /** One template, every article — same contract as the service pages. */
@@ -25,19 +26,15 @@ export async function generateMetadata({
 
     const path = postPath(post.slug);
 
-    return {
+    return pageMetadata({
+        path,
         title: post.metaTitle,
         description: post.metaDescription,
-        alternates: { canonical: path },
-        openGraph: {
-            title: `${post.metaTitle} | Cynocta`,
-            description: post.metaDescription,
-            url: path,
-            type: "article",
-            publishedTime: post.publishedAt,
-            modifiedTime: post.updatedAt ?? post.publishedAt,
-        },
-    };
+        type: "article",
+        publishedTime: post.publishedAt,
+        modifiedTime: post.updatedAt ?? post.publishedAt,
+        image: { og: `/og/blog/${post.slug}`, twitter: `/og/blog/${post.slug}` },
+    });
 }
 
 export default async function BlogPostPage({

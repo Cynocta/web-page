@@ -1,74 +1,14 @@
-import { ImageResponse } from "next/og";
+import { renderOgImage } from "@/lib/og-image";
 
-export const alt = "Cynocta - Automatización y web inteligente para negocios";
-export const size = {
-    width: 1200,
-    height: 630,
-};
+export const alt = "Cynocta: automatización con IA y chatbots de WhatsApp para negocios en LATAM";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Generic card for every page without an image of its own. */
 export default function OpenGraphImage() {
-    return new ImageResponse(
-        (
-            <div
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    background:
-                        "radial-gradient(1200px 500px at 15% 10%, #183229 0%, #080c0a 55%), linear-gradient(120deg, #080c0a 0%, #0e1410 100%)",
-                    color: "#f2f5f3",
-                    padding: "72px",
-                    fontFamily: "Arial, sans-serif",
-                }}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        alignSelf: "flex-start",
-                        fontSize: 26,
-                        letterSpacing: 6,
-                        textTransform: "uppercase",
-                        color: "#00ffa3",
-                    }}
-                >
-                    Cynocta
-                </div>
-
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 16,
-                        maxWidth: "920px",
-                    }}
-                >
-                    <div
-                        style={{
-                            fontSize: 70,
-                            lineHeight: 1.08,
-                            fontWeight: 600,
-                        }}
-                    >
-                        Automatización y web inteligente para negocios
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 30,
-                            lineHeight: 1.35,
-                            color: "#9db2a8",
-                        }}
-                    >
-                        Captación, conversión y operación digital en un solo sistema.
-                    </div>
-                </div>
-            </div>
-        ),
-        {
-            ...size,
-        }
-    );
+    return renderOgImage({
+        eyebrow: "Agencia de automatización con IA",
+        title: "Automatización con IA y chatbots de WhatsApp para negocios",
+        subtitle: "Agentes de IA, automatizaciones con n8n e integraciones con tu CRM, en LATAM.",
+    });
 }

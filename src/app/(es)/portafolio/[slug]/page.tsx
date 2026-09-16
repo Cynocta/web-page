@@ -5,6 +5,7 @@ import CaseBody from "@/components/sections/case-body";
 import { JsonLd } from "@/components/structured-data";
 import { CASE_SLUGS, PORTFOLIO_BASE_PATH, casePath, getCase } from "@/lib/content/portfolio";
 import { caseStudyJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 
 /**
@@ -33,17 +34,12 @@ export async function generateMetadata({
 
     const path = casePath(study.slug);
 
-    return {
+    return pageMetadata({
+        path,
         title: study.metaTitle,
         description: study.metaDescription,
-        alternates: { canonical: path },
-        openGraph: {
-            title: `${study.metaTitle} | Cynocta`,
-            description: study.metaDescription,
-            url: path,
-            type: "article",
-        },
-    };
+        type: "article",
+    });
 }
 
 export default async function CaseStudyPage({

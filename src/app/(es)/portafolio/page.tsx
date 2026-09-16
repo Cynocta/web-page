@@ -16,17 +16,13 @@ import {
     sectorsEsNav,
 } from "@/lib/content/portfolio";
 import { portfolioJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: PORTFOLIO_BASE_PATH,
     title: "Portafolio y casos de éxito",
     description: portfolioHub.metaDescription,
-    alternates: { canonical: PORTFOLIO_BASE_PATH },
-    openGraph: {
-        title: "Portafolio | Cynocta",
-        description: portfolioHub.metaDescription,
-        url: PORTFOLIO_BASE_PATH,
-    },
-};
+});
 
 /** Flattened for the client component: it filters, it doesn't need the case bodies. */
 const cards: CaseCard[] = caseList.map((study) => ({

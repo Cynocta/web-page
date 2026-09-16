@@ -1,7 +1,7 @@
 import type { BlogIndexCopy } from "./types";
 
 export const blogIndexEs: BlogIndexCopy = {
-    metaTitle: "Blog",
+    metaTitle: "Blog de automatización con IA y WhatsApp",
     metaDescription:
         "Guías y comparativas sobre automatización, chatbots de WhatsApp, agentes de IA y las herramientas que usamos para construirlos.",
     eyebrow: "Blog",

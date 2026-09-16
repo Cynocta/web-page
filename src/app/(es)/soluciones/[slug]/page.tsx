@@ -16,6 +16,7 @@ import {
 } from "@/lib/content/solutions";
 import { getService, servicePath } from "@/lib/content/services";
 import { ORGANIZATION_ID, faqItemsJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 import blocks from "@/components/sections/home-blocks.module.css";
 import hub from "@/components/sections/services-hub.module.css";
@@ -36,16 +37,12 @@ export async function generateMetadata({
 
     const path = solutionPath(solution.slug);
 
-    return {
+    return pageMetadata({
+        path,
         title: solution.metaTitle,
         description: solution.metaDescription,
-        alternates: { canonical: path },
-        openGraph: {
-            title: `${solution.metaTitle} | Cynocta`,
-            description: solution.metaDescription,
-            url: path,
-        },
-    };
+        image: { og: `/og/soluciones/${solution.slug}`, twitter: `/og/soluciones/${solution.slug}` },
+    });
 }
 
 export default async function SolutionPage({

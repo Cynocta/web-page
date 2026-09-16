@@ -11,6 +11,7 @@ import {
     servicePath,
 } from "@/lib/content/services";
 import { serviceDetailJsonLd, serviceFaqJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 
 /** One template, five pages — the content lives in the data, not in the routes. */
@@ -30,16 +31,12 @@ export async function generateMetadata({
 
     const path = servicePath(service.slug);
 
-    return {
+    return pageMetadata({
+        path,
         title: service.metaTitle,
         description: service.metaDescription,
-        alternates: { canonical: path },
-        openGraph: {
-            title: `${service.metaTitle} | Cynocta`,
-            description: service.metaDescription,
-            url: path,
-        },
-    };
+        image: { og: `/og/servicios/${service.slug}`, twitter: `/og/servicios/${service.slug}` },
+    });
 }
 
 export default async function ServicePage({

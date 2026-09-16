@@ -16,18 +16,13 @@ import {
     postPath,
 } from "@/lib/content/blog";
 import { blogJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: BLOG_BASE_PATH,
     title: blogIndex.metaTitle,
     description: blogIndex.metaDescription,
-    alternates: { canonical: BLOG_BASE_PATH },
-    openGraph: {
-        title: `${blogIndex.metaTitle} | Cynocta`,
-        description: blogIndex.metaDescription,
-        url: BLOG_BASE_PATH,
-        type: "website",
-    },
-};
+});
 
 /** Flattened for the client component: it filters, it doesn't need the article bodies. */
 const cards: PostCard[] = postList.map((post) => ({
@@ -70,7 +65,10 @@ export default function BlogPage() {
             <Section tone="surface">
                 {postList.length > 0 ? (
                     <>
-                        <p className="cyn-section-tag">{blogIndex.listTitle}</p>
+                        {/* An <h2>, not a <p>: the article cards are <h3>, and without a level in
+                            between the page jumped straight from its <h1> to them. The
+                            section-tag class sets its own font, so it looks the same. */}
+                        <h2 className="cyn-section-tag">{blogIndex.listTitle}</h2>
                         <BlogList posts={cards} categories={chips} allLabel={blogIndex.allLabel} />
                     </>
                 ) : (

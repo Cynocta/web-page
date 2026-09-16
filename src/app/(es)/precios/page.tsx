@@ -12,6 +12,7 @@ import { content } from "@/lib/content";
 import { pricingPage } from "@/lib/content/pricing";
 import { technologies } from "@/lib/content/home";
 import { plansJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 import s from "@/components/sections/pricing-page.module.css";
 import blocks from "@/components/sections/home-blocks.module.css";
@@ -19,16 +20,11 @@ import body from "@/components/sections/service-body.module.css";
 
 const PATH = "/precios";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: PATH,
     title: pricingPage.metaTitle,
     description: pricingPage.metaDescription,
-    alternates: { canonical: PATH },
-    openGraph: {
-        title: `${pricingPage.metaTitle} | Cynocta`,
-        description: pricingPage.metaDescription,
-        url: PATH,
-    },
-};
+});
 
 const faqJsonLd = {
     "@context": "https://schema.org",

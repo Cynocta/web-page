@@ -13,20 +13,16 @@ import {
 } from "@/lib/content/solutions";
 import { JsonLd } from "@/components/structured-data";
 import { faqItemsJsonLd } from "@/lib/schema";
+import { pageMetadata } from "@/lib/metadata";
 import { siteUrl } from "@/lib/site-data";
 import s from "@/components/sections/services-hub.module.css";
 import body from "@/components/sections/service-body.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+    path: SOLUTIONS_BASE_PATH,
     title: solutionsHub.metaTitle,
     description: solutionsHub.metaDescription,
-    alternates: { canonical: SOLUTIONS_BASE_PATH },
-    openGraph: {
-        title: `${solutionsHub.metaTitle} | Cynocta`,
-        description: solutionsHub.metaDescription,
-        url: SOLUTIONS_BASE_PATH,
-    },
-};
+});
 
 export default function SolucionesPage() {
     return (
