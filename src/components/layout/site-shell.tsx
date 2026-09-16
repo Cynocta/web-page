@@ -1,4 +1,5 @@
 import { bodyFont, brandFont, headingFont, monoFont } from "@/lib/fonts";
+import Analytics from "@/components/analytics";
 import { JsonLd } from "@/components/structured-data";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { I18nProvider } from "@/components/i18n-provider";
@@ -29,6 +30,7 @@ export default function SiteShell({
                     <JsonLd data={websiteJsonLd(locale)} />
                     <div className="relative z-10">{children}</div>
                 </I18nProvider>
+                <Analytics />
             </body>
         </html>
     );

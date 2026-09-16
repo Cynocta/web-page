@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/i18n-provider";
+import { trackEvent } from "@/lib/analytics";
 import { buildWhatsappLink } from "@/lib/site-data";
 import s from "./lead-form.module.css";
 
@@ -55,6 +56,13 @@ export default function LeadFormSection() {
         }
         setAttempted(false);
         if (isLast) {
+            // Only the multiple-choice answers go to analytics — never the
+            // free-text business description, which could identify someone.
+            trackEvent("generate_lead", {
+                method: "whatsapp_form",
+                pain: answers.pain,
+                volume: answers.volume,
+            });
             window.open(buildWhatsappLink(buildMessage()), "_blank", "noopener,noreferrer");
             return;
         }

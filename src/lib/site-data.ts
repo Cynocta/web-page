@@ -21,5 +21,11 @@ export const siteUrl = (() => {
     }
 })();
 
+/** GA4 measurement ID. Public by design — it ships in the page source either
+ *  way. Overridable so a preview deploy can report to a separate property
+ *  instead of polluting the production one. */
+export const googleAnalyticsId =
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-V2JPLWQPJD";
+
 export const buildWhatsappLink = (text: string) =>
     `https://wa.me/573052580874?text=${encodeURIComponent(text)}`;
