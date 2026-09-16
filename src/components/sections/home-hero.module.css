@@ -164,17 +164,26 @@
     padding: 0 var(--cyn-shell-x);
 }
 
+/* Hairline dividers drawn as borders on transparent cells. They used to be the
+   1px grid gap showing through, which needs every cell painted solid black —
+   and solid black boxes sat on top of the hero's green glow and grid texture
+   as visibly pasted-on rectangles. */
 .statsInner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(50%, 170px), 1fr));
-    gap: 1px;
-    background: var(--cyn-border-2);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     border-top: 1px solid var(--cyn-border-2);
 }
 
 .stat {
-    background: var(--cyn-black);
-    padding: 24px 4px 30px;
+    padding: 24px 24px 30px;
+}
+
+.stat:first-child {
+    padding-left: 0;
+}
+
+.stat + .stat {
+    border-left: 1px solid var(--cyn-border-2);
 }
 
 .statValue {
@@ -226,19 +235,6 @@
     pointer-events: none;
 }
 
-/* The left-to-black fade only makes sense in the desktop side-by-side, where it
-   blends the scene into the copy column. Stacked on mobile it would just dim
-   the top of the SVG, so it is a desktop device. */
-.visual::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    display: none;
-    background: linear-gradient(to right, var(--cyn-black) 0%, transparent 26%);
-    pointer-events: none;
-    z-index: 3;
-}
-
 .visual canvas {
     display: block;
     width: 100% !important;
@@ -265,10 +261,17 @@
         min-height: 400px;
         opacity: 1;
         z-index: auto;
-    }
-
-    .visual::after {
-        display: block;
+        /* The mobile backdrop ignores the pointer so it can't swallow taps on
+           the copy above it. The desktop Spline scene needs the pointer back:
+           without this the robot stopped following the cursor. */
+        pointer-events: auto;
+        /* The Spline canvas paints its own background, darker than the green
+           glow behind the hero, so it read as a hard-edged box with the robot's
+           legs chopped off at the bottom. A soft elliptical mask dissolves every
+           edge into the page instead — the scene sits in the hero, not in a
+           rectangle placed on top of it. */
+        -webkit-mask-image: radial-gradient(ellipse 68% 72% at 55% 44%, #000 58%, transparent 100%);
+        mask-image: radial-gradient(ellipse 68% 72% at 55% 44%, #000 58%, transparent 100%);
     }
 }
 
@@ -278,15 +281,8 @@
         align-items: stretch;
     }
 
-    /* Three stats in a two-column grid left the third alone on its row, next to
-       an empty cell painted in the gap colour. Three narrow columns keep them
-       on one line and take a row less of the first screen. */
-    .statsInner {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
     .stat {
-        padding: 18px 8px 20px;
+        padding: 18px 10px 20px;
     }
 
     .statValue {

@@ -8,21 +8,43 @@
     position: sticky;
     top: 0;
     z-index: 60;
-    background: transparent;
     border-bottom: 1px solid transparent;
-    transition:
-        background 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.35s ease,
-        backdrop-filter 0.35s ease;
+    transition: border-color 0.35s ease;
+}
+
+/* The frosted glass lives on a pseudo-element, never on the header itself.
+   An element with backdrop-filter becomes the containing block for its fixed
+   descendants, and the mobile menu panel is a `position: fixed; inset: 0`
+   child of this header: once the page scrolled and the blur switched on, the
+   "full-screen" panel was sized against the 62px header instead of the
+   viewport and came out clipped to a sliver. */
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(7, 8, 9, 0.82);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    backdrop-filter: blur(18px) saturate(150%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scrolled {
-    background: rgba(7, 8, 9, 0.82);
-    backdrop-filter: blur(18px) saturate(150%);
     border-bottom-color: var(--cyn-border-2);
 }
 
+.scrolled::before {
+    opacity: 1;
+}
+
 .bar {
+    /* Above the mobile menu panel (z-index 55), which is full-screen and would
+       otherwise cover the logo and the close button — leaving no visible way
+       to dismiss the menu. */
+    position: relative;
+    z-index: 60;
     max-width: 1240px;
     margin: 0 auto;
     height: 78px;

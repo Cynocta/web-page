@@ -313,9 +313,14 @@
         gap: 14px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
+        /* Bleed to the screen edges by exactly the section's side padding, which
+           is 2rem below 1080px — not --cyn-shell-x, which is narrower on phones
+           and left the carousel stopping 12px short of each edge. Cards snap to
+           the content edge rather than flush against the screen. */
+        scroll-padding-inline: 2rem;
         scrollbar-width: none;
-        margin-inline: calc(-1 * var(--cyn-shell-x));
-        padding-inline: var(--cyn-shell-x);
+        margin-inline: -2rem;
+        padding-inline: 2rem;
         padding-top: 14px;
         padding-bottom: 6px;
     }
@@ -324,10 +329,13 @@
         display: none;
     }
 
+    /* Sized so the next card clearly peeks in. At min(84vw, 350px) only ~25px
+       of it showed at the right edge on a tablet or a phone, which read as the
+       section being cut off rather than as something to swipe. */
     .card {
         flex: 0 0 auto;
-        width: min(84vw, 350px);
-        scroll-snap-align: center;
+        width: calc((100vw - 2 * var(--cyn-shell-x)) * 0.44);
+        scroll-snap-align: start;
         transform: none !important;
     }
 
@@ -358,6 +366,7 @@
 
 @media (max-width: 640px) {
     .card {
+        width: 72vw;
         padding: 28px 22px 22px;
     }
 

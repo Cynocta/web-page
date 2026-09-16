@@ -120,11 +120,14 @@
         overscroll-behavior-x: contain;
         scrollbar-width: none;
         margin-top: 2rem;
-        margin-left: calc(-1 * var(--cyn-shell-x));
-        margin-right: calc(-1 * var(--cyn-shell-x));
-        padding-left: var(--cyn-shell-x);
-        padding-right: var(--cyn-shell-x);
-        gap: 0;
+        /* Same bleed as the section padding (2rem below 1080px), so the
+           carousel reaches both screen edges. */
+        margin-left: -2rem;
+        margin-right: -2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        scroll-padding-inline: 2rem;
+        gap: 12px;
     }
 
     .grid::-webkit-scrollbar {
@@ -135,9 +138,11 @@
         display: flex;
     }
 
+    /* 72vw, not the full content width: at full width the next card showed by
+       8px, which looked like the section had been cut rather than scrollable. */
     .card {
-        min-width: calc(100vw - 2 * var(--cyn-shell-x));
-        max-width: calc(100vw - 2 * var(--cyn-shell-x));
+        min-width: 72vw;
+        max-width: 72vw;
         scroll-snap-align: center;
         flex-shrink: 0;
         padding: 28px 22px;
