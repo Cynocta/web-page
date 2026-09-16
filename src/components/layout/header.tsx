@@ -50,11 +50,15 @@ export default function Header() {
     }, []);
 
     // Route change closes everything; without this the panel survives navigation.
-    useEffect(() => {
+    // Adjusted during render rather than in an effect, which would paint the
+    // stale open panel for one frame and then re-render to close it.
+    const [lastPathname, setLastPathname] = useState(pathname);
+    if (pathname !== lastPathname) {
+        setLastPathname(pathname);
         setOpen(false);
         setMenu(null);
         setSection(null);
-    }, [pathname]);
+    }
 
     useEffect(() => {
         if (!open) return;
