@@ -14,7 +14,7 @@
 .intro {
     max-width: 62ch;
     color: var(--cyn-muted);
-    font-size: 16px;
+    font-size: var(--fs-md);
     line-height: 1.75;
     margin-bottom: 2.25rem;
 }
@@ -39,7 +39,7 @@
     display: flex;
     align-items: baseline;
     gap: 12px;
-    font-size: 18px;
+    font-size: var(--fs-lg);
     font-weight: 500;
     line-height: 1.4;
     color: var(--cyn-white);
@@ -50,14 +50,14 @@
     flex: 0 0 auto;
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.12em;
     opacity: 0.8;
 }
 
 .answer {
     color: var(--cyn-muted);
-    font-size: 15.5px;
+    font-size: var(--fs-base);
     line-height: 1.75;
     max-width: 68ch;
     padding-left: 30px;
@@ -79,7 +79,7 @@
 .ctaText {
     max-width: 46ch;
     color: var(--cyn-white);
-    font-size: 16px;
+    font-size: var(--fs-md);
     line-height: 1.65;
     margin: 0;
 }
@@ -88,13 +88,13 @@
     flex: 0 0 auto;
     display: inline-block;
     padding: 13px 22px;
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     border: 1px solid var(--cyn-accent);
     background: var(--cyn-accent);
     color: var(--cyn-black);
     text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--fs-xs);
+    font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: background 0.25s ease, box-shadow 0.25s ease;
@@ -114,12 +114,12 @@
 
 @media (max-width: 640px) {
     .question {
-        font-size: 16.5px;
+        font-size: var(--fs-md);
     }
 
     .answer {
         padding-left: 0;
-        font-size: 15px;
+        font-size: var(--fs-base);
     }
 
     .ctaLink {

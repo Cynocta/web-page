@@ -5,7 +5,7 @@
     gap: 1.25rem;
     max-width: 58ch;
     padding: 34px 30px;
-    border-radius: 18px;
+    border-radius: var(--r-lg);
     border: 1px dashed var(--cyn-border);
     background:
         radial-gradient(560px 240px at 18% 0%, rgba(25, 245, 156, 0.07) 0%, transparent 68%),
@@ -18,7 +18,7 @@
     gap: 8px;
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.16em;
     text-transform: uppercase;
 }
@@ -32,7 +32,7 @@
 }
 
 .title {
-    font-size: 21px;
+    font-size: var(--fs-lg);
     font-weight: 400;
     line-height: 1.35;
     color: var(--cyn-white);
@@ -41,7 +41,7 @@
 
 .body {
     color: var(--cyn-muted);
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.78;
     margin: 0;
 }
@@ -60,10 +60,10 @@
     justify-content: center;
     min-height: 46px;
     padding: 12px 20px;
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--fs-xs);
+    font-weight: 600;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;

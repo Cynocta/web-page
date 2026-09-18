@@ -13,12 +13,12 @@
     align-items: center;
     gap: 8px;
     padding: 8px 14px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 1px solid var(--cyn-border-2);
     background: transparent;
     color: var(--cyn-muted);
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1;
     cursor: pointer;
     transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
@@ -44,7 +44,7 @@
 
 .count {
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     color: var(--cyn-muted-2);
 }
 
@@ -72,7 +72,7 @@
     flex-direction: column;
     width: 100%;
     padding: 26px 24px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
     background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
     text-decoration: none;
@@ -101,12 +101,12 @@
     align-self: flex-start;
     margin-bottom: 1.1rem;
     padding: 4px 10px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 1px solid var(--cyn-border);
     background: var(--cyn-accent-dim);
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.09em;
     text-transform: uppercase;
 }
@@ -129,12 +129,12 @@
 .metricLabel {
     display: block;
     color: var(--cyn-muted-2);
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
     line-height: 1.5;
 }
 
 .title {
-    font-size: 18px;
+    font-size: var(--fs-lg);
     font-weight: 500;
     line-height: 1.35;
     color: var(--cyn-white);
@@ -143,7 +143,7 @@
 
 .summary {
     color: var(--cyn-muted);
-    font-size: 14.5px;
+    font-size: var(--fs-base);
     line-height: 1.7;
     margin: 0 0 1.2rem;
     flex: 1;
@@ -156,13 +156,13 @@
     gap: 7px;
     margin: 0 0 1rem;
     color: var(--cyn-muted-2);
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
 }
 
 .arrow {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
     transition: color 0.25s ease;
 }

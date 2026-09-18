@@ -10,7 +10,7 @@
     gap: 1px;
     background: var(--cyn-border-2);
     border: 1px solid var(--cyn-border-2);
-    border-radius: 16px;
+    border-radius: var(--r-lg);
     overflow: hidden;
 }
 
@@ -30,13 +30,13 @@
     display: block;
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.16em;
     margin-bottom: 1.1rem;
 }
 
 .benefitTitle {
-    font-size: 17px;
+    font-size: var(--fs-md);
     font-weight: 500;
     line-height: 1.35;
     color: var(--cyn-white);
@@ -46,7 +46,7 @@
 
 .benefitText {
     color: var(--cyn-muted);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.72;
     margin: 0;
 }
@@ -66,7 +66,7 @@
 .techLabel {
     color: var(--cyn-white);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     margin: 0 0 0.9rem;
@@ -85,11 +85,11 @@
     display: inline-flex;
     align-items: center;
     padding: 6px 11px;
-    border-radius: 7px;
+    border-radius: var(--r-sm);
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--cyn-border-2);
     color: var(--cyn-muted);
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -111,7 +111,7 @@
     display: flex;
     flex-direction: column;
     padding: 24px 22px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
     background: linear-gradient(160deg, rgba(25, 245, 156, 0.035) 0%, var(--cyn-black) 62%);
     transition: border-color 0.3s ease, transform 0.3s ease;
@@ -125,7 +125,7 @@
 }
 
 .caseSector {
-    font-size: 16px;
+    font-size: var(--fs-md);
     font-weight: 600;
     color: var(--cyn-white);
     margin: 0 0 1rem;
@@ -147,14 +147,14 @@
 .caseLabel {
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 9.5px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.13em;
     text-transform: uppercase;
 }
 
 .caseText {
     color: var(--cyn-muted);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.68;
     margin: 0;
 }
@@ -219,7 +219,7 @@
 .stackLabel {
     color: var(--cyn-white);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
@@ -236,7 +236,7 @@
 
     .stackRow .tech {
         padding: 5px 9px;
-        font-size: 12px;
+        font-size: var(--fs-xs);
     }
 }
 
@@ -248,7 +248,7 @@
    ══════════════════════════════════════════════════ */
 .caseTableWrap {
     border: 1px solid var(--cyn-border-2);
-    border-radius: 14px;
+    border-radius: var(--r-md);
     overflow: hidden;
 }
 
@@ -263,7 +263,7 @@
     background: var(--cyn-surface);
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     font-weight: 400;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -283,14 +283,14 @@
 .ctSector {
     width: 22%;
     color: var(--cyn-white);
-    font-size: 15px;
+    font-size: var(--fs-base);
     font-weight: 500;
     line-height: 1.45;
 }
 
 .ctText {
     color: var(--cyn-muted);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.65;
 }
 
@@ -324,7 +324,7 @@
 
     .ctSector {
         padding: 0 0 10px;
-        font-size: 16px;
+        font-size: var(--fs-md);
     }
 
     .ctText {
@@ -337,7 +337,7 @@
         margin-bottom: 2px;
         color: var(--cyn-muted-2);
         font-family: var(--font-mono), "Consolas", monospace;
-        font-size: 9.5px;
+        font-size: var(--fs-2xs);
         letter-spacing: 0.13em;
         text-transform: uppercase;
     }

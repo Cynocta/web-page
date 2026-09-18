@@ -25,7 +25,7 @@
 .lead {
     max-width: 64ch;
     color: var(--cyn-muted);
-    font-size: 16.5px;
+    font-size: var(--fs-md);
     line-height: 1.8;
     margin: 0;
 }
@@ -41,7 +41,7 @@
 .card {
     background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-surface) 65%);
     border: 1px solid var(--cyn-border-2);
-    border-radius: 12px;
+    border-radius: var(--r-md);
     padding: 22px 20px;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -57,7 +57,7 @@
     display: flex;
     align-items: baseline;
     gap: 9px;
-    font-size: 15px;
+    font-size: var(--fs-base);
     font-weight: 600;
     line-height: 1.4;
     color: var(--cyn-white);
@@ -76,7 +76,7 @@
 
 .cardText {
     color: var(--cyn-muted);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.7;
     margin: 0;
 }
@@ -97,14 +97,14 @@
 .stepNum {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.14em;
     display: block;
     margin-bottom: 8px;
 }
 
 .stepTitle {
-    font-size: 15px;
+    font-size: var(--fs-base);
     font-weight: 600;
     color: var(--cyn-white);
     margin: 0 0 6px;
@@ -112,7 +112,7 @@
 
 .stepText {
     color: var(--cyn-muted);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1.65;
     margin: 0;
 }
@@ -129,12 +129,12 @@
     display: inline-flex;
     align-items: center;
     padding: 8px 13px;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     background: rgba(25, 245, 156, 0.06);
     border: 1px solid rgba(25, 245, 156, 0.12);
     color: var(--cyn-white);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.02em;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .faqQuestion {
-    font-size: 16.5px;
+    font-size: var(--fs-md);
     font-weight: 500;
     line-height: 1.45;
     color: var(--cyn-white);
@@ -160,7 +160,7 @@
 
 .faqAnswer {
     color: var(--cyn-muted);
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.75;
     max-width: 68ch;
     margin: 0;
@@ -177,7 +177,7 @@
 .relatedCard {
     display: block;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
     background: var(--cyn-surface);
     text-decoration: none;
@@ -198,14 +198,14 @@
 
 .relatedTitle {
     color: var(--cyn-white);
-    font-size: 15px;
+    font-size: var(--fs-base);
     font-weight: 600;
     margin: 0 0 6px;
 }
 
 .relatedText {
     color: var(--cyn-muted);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1.6;
     margin: 0;
 }
@@ -215,7 +215,7 @@
     margin-top: 10px;
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
 }
 
@@ -227,7 +227,7 @@
     justify-content: space-between;
     gap: 1.5rem;
     padding: 1.9rem;
-    border-radius: 16px;
+    border-radius: var(--r-lg);
     border: 1px solid var(--cyn-border);
     background:
         radial-gradient(600px 220px at 20% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 70%),
@@ -240,7 +240,7 @@
 }
 
 .ctaTitle {
-    font-size: 20px;
+    font-size: var(--fs-lg);
     font-weight: 400;
     color: var(--cyn-white);
     margin: 0 0 0.5rem;
@@ -248,7 +248,7 @@
 
 .ctaText {
     color: var(--cyn-muted);
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.7;
     margin: 0;
 }
@@ -260,13 +260,13 @@
     justify-content: center;
     min-height: 46px;
     padding: 13px 24px;
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     background: var(--cyn-accent);
     border: 1px solid var(--cyn-accent);
     color: var(--cyn-black);
     text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--fs-xs);
+    font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: background 0.25s ease, box-shadow 0.25s ease;
@@ -294,7 +294,7 @@
     }
 
     .faqQuestion {
-        font-size: 15.5px;
+        font-size: var(--fs-base);
     }
 }
 
@@ -324,7 +324,7 @@
     display: flex;
     flex-direction: column;
     padding: 22px 20px;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
     background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
     text-decoration: none;
@@ -349,7 +349,7 @@
 
 .postTitle {
     color: var(--cyn-white);
-    font-size: 16px;
+    font-size: var(--fs-md);
     font-weight: 500;
     line-height: 1.4;
     margin: 0 0 0.5rem;
@@ -357,7 +357,7 @@
 
 .postText {
     color: var(--cyn-muted);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1.65;
     margin: 0 0 0.9rem;
     flex: 1;
@@ -365,14 +365,14 @@
 
 .postMeta {
     color: var(--cyn-muted-2);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     margin: 0 0 0.8rem;
 }
 
 .postArrow {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
     transition: color 0.25s ease;
 }

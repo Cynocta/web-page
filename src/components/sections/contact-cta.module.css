@@ -47,7 +47,7 @@
 .tag {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.22em;
     text-transform: uppercase;
     margin-bottom: 1.2rem;
@@ -83,7 +83,7 @@
 
 .sub {
     color: var(--cyn-muted);
-    font-size: 16px;
+    font-size: var(--fs-md);
     line-height: 1.65;
     max-width: 46ch;
     margin: 0 auto 2rem;
@@ -105,8 +105,8 @@
     gap: 10px;
     min-height: 50px;
     padding: 0 24px;
-    border-radius: 12px;
-    font-size: 15px;
+    border-radius: var(--r-md);
+    font-size: var(--fs-base);
     font-weight: 500;
     text-decoration: none;
     transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;

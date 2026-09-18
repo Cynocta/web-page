@@ -63,7 +63,7 @@
 .brand {
     flex: 0 0 auto;
     margin-right: auto;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .brand:focus-visible {
@@ -91,10 +91,10 @@
     align-items: center;
     height: 36px;
     padding: 0 14px;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     color: var(--cyn-muted);
     text-decoration: none;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     font-weight: 500;
     letter-spacing: -0.005em;
     white-space: nowrap;
@@ -126,7 +126,7 @@
     left: 50%;
     width: 16px;
     height: 2px;
-    border-radius: 2px;
+    border-radius: var(--r-xs);
     background: var(--cyn-accent);
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
@@ -176,12 +176,12 @@
     align-items: center;
     height: 40px;
     padding: 0 18px;
-    border-radius: 9px;
+    border-radius: var(--r-sm);
     background: transparent;
     border: 1px solid var(--cyn-border);
     color: var(--cyn-white);
     text-decoration: none;
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
     font-weight: 500;
     letter-spacing: 0.005em;
     white-space: nowrap;
@@ -215,7 +215,7 @@
     height: 44px;
     padding: 0;
     border: 1px solid var(--cyn-border-2);
-    border-radius: 11px;
+    border-radius: var(--r-md);
     background: rgba(255, 255, 255, 0.03);
     color: var(--cyn-white);
     cursor: pointer;
@@ -245,7 +245,7 @@
     left: 0;
     width: 100%;
     height: 1.5px;
-    border-radius: 2px;
+    border-radius: var(--r-xs);
     background: currentColor;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
@@ -307,7 +307,7 @@
     border-bottom: 1px solid var(--cyn-border-2);
     color: var(--cyn-white);
     text-decoration: none;
-    font-size: 22px;
+    font-size: var(--fs-xl);
     font-weight: 300;
     letter-spacing: -0.02em;
 }
@@ -319,7 +319,7 @@
 
 .chev {
     color: var(--cyn-muted-2);
-    font-size: 15px;
+    font-size: var(--fs-base);
     transition: transform 0.22s ease, color 0.22s ease;
 }
 
@@ -346,12 +346,12 @@
     align-items: center;
     justify-content: center;
     min-height: 54px;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     background: var(--cyn-accent);
     color: var(--cyn-black);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--fs-base);
+    font-weight: 600;
     letter-spacing: 0.01em;
     box-shadow: 0 10px 28px rgba(25, 245, 156, 0.24);
 }
@@ -365,7 +365,7 @@
 
 .panelContact {
     color: var(--cyn-muted);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     text-decoration: none;
     padding: 8px 0;
 }
@@ -455,7 +455,7 @@
     transform: translateX(-50%);
     min-width: 268px;
     padding: 8px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
     background: rgba(14, 15, 17, 0.94);
     backdrop-filter: blur(20px) saturate(150%);
@@ -480,10 +480,10 @@
 .dropdownLink {
     display: block;
     padding: 10px 12px;
-    border-radius: 9px;
+    border-radius: var(--r-sm);
     color: var(--cyn-muted);
     text-decoration: none;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1.4;
     transition: color 0.18s ease, background 0.18s ease;
 }
@@ -515,7 +515,7 @@
     color: var(--cyn-accent);
     text-decoration: none;
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -523,7 +523,7 @@
 .dropdownAll:focus-visible {
     outline: 2px solid var(--cyn-accent);
     outline-offset: -2px;
-    border-radius: 9px;
+    border-radius: var(--r-sm);
 }
 
 /* ── Mobile disclosure ── */
@@ -559,14 +559,14 @@
     border-left: 1px solid var(--cyn-border-2);
     color: var(--cyn-muted);
     text-decoration: none;
-    font-size: 16px;
+    font-size: var(--fs-md);
     font-weight: 300;
 }
 
 .panelSubAll {
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -598,7 +598,7 @@
 
     .link {
         padding: 0 10px;
-        font-size: 13px;
+        font-size: var(--fs-sm);
     }
 
     .cta {
@@ -614,11 +614,11 @@
     display: inline-block;
     margin-left: 6px;
     padding: 1px 4px;
-    border-radius: 3px;
+    border-radius: var(--r-xs);
     border: 1px solid var(--cyn-border-2);
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 9px;
+    font-size: var(--fs-2xs);
     font-weight: 600;
     letter-spacing: 0.06em;
     line-height: 1.5;

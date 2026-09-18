@@ -45,21 +45,21 @@
     background: var(--cyn-black);
     color: var(--cyn-accent);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .step h3 {
-    font-size: 15px;
+    font-size: var(--fs-base);
     font-weight: 600;
     margin-bottom: 8px;
 }
 
 .step p {
     color: var(--cyn-muted);
-    font-size: 13px;
+    font-size: var(--fs-sm);
     line-height: 1.6;
 }
 

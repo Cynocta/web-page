@@ -67,14 +67,14 @@
 .stepButton:focus-visible {
     outline: 2px solid var(--cyn-accent);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
 }
 
 .stepIndex {
     flex: 0 0 auto;
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 11px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.1em;
     transition: color 0.3s ease;
 }
@@ -83,7 +83,7 @@
     flex: 1 1 auto;
     color: var(--cyn-muted);
     font-family: var(--font-heading), "Segoe UI", sans-serif;
-    font-size: 18px;
+    font-size: var(--fs-lg);
     font-weight: 500;
     line-height: 1.35;
     letter-spacing: -0.01em;
@@ -93,7 +93,7 @@
 .stepTime {
     flex: 0 0 auto;
     color: var(--cyn-muted-2);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-variant-numeric: tabular-nums;
 }
 
@@ -109,7 +109,7 @@
     margin: 0;
     max-width: 48ch;
     color: var(--cyn-muted);
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.7;
 }
 
@@ -188,7 +188,7 @@
         height: 44px;
         padding: 0;
         border: 0;
-        border-radius: 6px;
+        border-radius: var(--r-sm);
         background: none;
         cursor: pointer;
     }
@@ -198,7 +198,7 @@
         display: block;
         width: 100%;
         height: 4px;
-        border-radius: 4px;
+        border-radius: var(--r-xs);
         background: rgba(255, 255, 255, 0.12);
         overflow: hidden;
     }
@@ -228,7 +228,7 @@
         min-height: 12.2em;
         margin: 12px 2px 0;
         color: var(--cyn-muted);
-        font-size: 15px;
+        font-size: var(--fs-base);
         line-height: 1.65;
         animation: captionIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
@@ -238,7 +238,7 @@
         margin-bottom: 4px;
         color: var(--cyn-white);
         font-family: var(--font-heading), "Segoe UI", sans-serif;
-        font-size: 17px;
+        font-size: var(--fs-md);
         font-weight: 500;
     }
 }
@@ -315,7 +315,7 @@
     }
 
     .stepTitle {
-        font-size: 21px;
+        font-size: var(--fs-lg);
     }
 }
 
@@ -323,7 +323,7 @@
 .stage {
     position: relative;
     padding: 16px;
-    border-radius: 20px;
+    border-radius: var(--r-lg);
     border: 1px solid rgba(255, 255, 255, 0.08);
     background:
         radial-gradient(120% 80% at 85% 0%, rgba(25, 245, 156, 0.1) 0%, transparent 60%),
@@ -346,11 +346,11 @@
     align-items: center;
     gap: 8px;
     padding: 5px 11px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 1px solid var(--cyn-border);
     background: var(--cyn-accent-dim);
     color: var(--cyn-muted);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     white-space: nowrap;
 }
 
@@ -370,7 +370,7 @@
 
 .progressLabel {
     color: var(--cyn-muted-2);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
@@ -378,7 +378,7 @@
 .progressTrack {
     height: 2px;
     margin-bottom: 14px;
-    border-radius: 2px;
+    border-radius: var(--r-xs);
     background: rgba(255, 255, 255, 0.06);
     overflow: hidden;
 }
@@ -406,7 +406,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     border: 1px solid rgba(255, 255, 255, 0.06);
     background: #0b1014;
     overflow: hidden;
@@ -430,7 +430,7 @@
     border-radius: 50%;
     background: linear-gradient(135deg, var(--cyn-cyan), var(--cyn-accent));
     color: #06130d;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-weight: 600;
 }
 
@@ -438,13 +438,13 @@
     display: flex;
     flex-direction: column;
     color: var(--cyn-white);
-    font-size: 13px;
+    font-size: var(--fs-sm);
     line-height: 1.25;
 }
 
 .chatStatus {
     color: var(--cyn-accent);
-    font-size: 11px;
+    font-size: var(--fs-xs);
 }
 
 /* Newest messages sit at the bottom and push older ones up and out, the way a
@@ -469,9 +469,9 @@
     gap: 2px;
     max-width: 86%;
     padding: 8px 10px 5px;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     color: #e9edef;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     line-height: 1.45;
     animation: messageIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -493,7 +493,7 @@
 .messageTime {
     align-self: flex-end;
     color: rgba(233, 237, 239, 0.5);
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     font-variant-numeric: tabular-nums;
 }
 
@@ -514,7 +514,7 @@
     flex-direction: column;
     min-width: 0;
     padding: 12px 10px 14px;
-    border-radius: 14px;
+    border-radius: var(--r-md);
     border: 1px solid rgba(255, 255, 255, 0.06);
     background: rgba(255, 255, 255, 0.02);
 }
@@ -525,7 +525,7 @@
     margin: 0 6px 6px;
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
@@ -549,7 +549,7 @@
     align-items: flex-start;
     gap: 10px;
     padding: 6px;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .eventDot {
@@ -590,14 +590,14 @@
 
 .eventLabel {
     color: var(--cyn-muted-2);
-    font-size: 13px;
+    font-size: var(--fs-sm);
     line-height: 1.35;
     transition: color 0.35s ease;
 }
 
 .eventDetail {
     color: var(--cyn-muted-2);
-    font-size: 11.5px;
+    font-size: var(--fs-xs);
     line-height: 1.4;
     opacity: 0.55;
     transition: opacity 0.35s ease, color 0.35s ease;
@@ -633,7 +633,7 @@
 
 .metric dt {
     color: var(--cyn-muted-2);
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     line-height: 1.3;
 }
 
@@ -641,7 +641,7 @@
     margin: 2px 0 0;
     color: var(--cyn-white);
     font-family: var(--font-heading), "Segoe UI", sans-serif;
-    font-size: 20px;
+    font-size: var(--fs-lg);
     font-weight: 500;
     transition: color 0.4s ease;
 }
@@ -654,7 +654,7 @@
     max-width: 62ch;
     margin: 32px 0 0;
     color: var(--cyn-muted-2);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.65;
 }
 

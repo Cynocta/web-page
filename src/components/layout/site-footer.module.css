@@ -24,7 +24,7 @@
     width: min(34%, 380px);
     height: 1px;
     transform: translate(-50%, -50%);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.55), transparent);
     filter: blur(1.5px);
     pointer-events: none;
@@ -65,7 +65,7 @@
 
 .tagline {
     color: var(--cyn-muted);
-    font-size: 14px;
+    font-size: var(--fs-base);
     line-height: 1.75;
     margin: 0;
 }
@@ -74,7 +74,7 @@
 .colTitle {
     color: var(--cyn-white);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
+    font-size: var(--fs-xs);
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -97,7 +97,7 @@
     padding: 7px 0;
     color: var(--cyn-muted);
     text-decoration: none;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     line-height: 1.5;
     transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -112,7 +112,7 @@
 .colLink:focus-visible {
     outline: 2px solid var(--cyn-accent);
     outline-offset: 3px;
-    border-radius: 3px;
+    border-radius: var(--r-xs);
 }
 
 /* ── Contact column ── */
@@ -134,7 +134,7 @@
 .contactLabel {
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 9.5px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
@@ -143,7 +143,7 @@
     display: inline-flex;
     align-items: center;
     color: var(--cyn-white);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     text-decoration: none;
     transition: color 0.2s ease;
     word-break: break-word;
@@ -162,14 +162,14 @@
 .contactValue:focus-visible {
     outline: 2px solid var(--cyn-accent);
     outline-offset: 3px;
-    border-radius: 3px;
+    border-radius: var(--r-xs);
 }
 
 .contactStatic {
     display: inline-flex;
     align-items: center;
     color: var(--cyn-white);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
 }
 
 /* Icons sit inline with the label rather than in a separate button row —
@@ -204,7 +204,7 @@
 
 .copy {
     color: var(--cyn-muted-2);
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
     margin: 0;
 }
 
@@ -219,7 +219,7 @@
 
 .bottomLink {
     color: var(--cyn-muted-2);
-    font-size: 12.5px;
+    font-size: var(--fs-sm);
     text-decoration: none;
     padding: 6px 0;
     transition: color 0.2s ease;
@@ -234,7 +234,7 @@
 .bottomLink:focus-visible {
     outline: 2px solid var(--cyn-accent);
     outline-offset: 3px;
-    border-radius: 3px;
+    border-radius: var(--r-xs);
 }
 
 /* ── Touch targets ──
@@ -294,7 +294,7 @@
 
     .colLink {
         padding: 4px 0;
-        font-size: 13px;
+        font-size: var(--fs-sm);
     }
 
     /* Social channels in one row rather than three lines. */
@@ -328,11 +328,11 @@
     display: inline-block;
     margin-left: 6px;
     padding: 1px 4px;
-    border-radius: 3px;
+    border-radius: var(--r-xs);
     border: 1px solid var(--cyn-border-2);
     color: var(--cyn-muted-2);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 9px;
+    font-size: var(--fs-2xs);
     font-weight: 600;
     letter-spacing: 0.06em;
     line-height: 1.5;
