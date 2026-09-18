@@ -14,8 +14,25 @@ export type HomeContent = {
         eyebrow: string;
         title: string;
         intro: string;
-        /** Disclosure label; `{n}` is the number of services in the family. */
-        toggleLabel: string;
+        /** Heading over a family's list of services in the explorer panel. */
+        listLabel: string;
+        /**
+         * Words inside the per-family illustrations. Illustrative only: the
+         * charts carry no figures, so they can't be read as a claim.
+         */
+        visuals: {
+            channels: string[];
+            agent: string;
+            outcomes: string[];
+            flow: string[];
+            flowCaption: string;
+            browserUrl: string;
+            browserCta: string;
+            browserToast: string;
+            chartTitle: string;
+            chartDays: string[];
+            chartLegend: [string, string];
+        };
         /** Link to the catalogue; `{n}` is the total number of services. */
         allLabel: string;
         families: Array<{

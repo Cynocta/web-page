@@ -1,0 +1,314 @@
+/* ══════════════════════════════════════════════════
+   Service explorer.
+   Phones: an accordion, families stacked, the open one showing its panel.
+   Desktop: the families become a numbered index in the left column and the
+   open family's panel fills the right column — same markup, `display:
+   contents` lets each family's heading and panel sit in different columns.
+   ══════════════════════════════════════════════════ */
+
+.explorer {
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.family {
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.heading {
+    margin: 0;
+}
+
+.trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 44px;
+    padding: 20px 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.trigger:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+.index {
+    flex: 0 0 auto;
+    width: 2.2em;
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    transition: color 0.3s ease;
+}
+
+.triggerText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.title {
+    color: var(--cyn-muted);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(19px, 2vw, 24px);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    transition: color 0.3s ease;
+}
+
+.summary {
+    display: none;
+    color: var(--cyn-muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+}
+
+.chevron {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    color: var(--cyn-muted-2);
+    transform: rotate(90deg);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+@media (hover: hover) {
+    .trigger:hover .title {
+        color: var(--cyn-white);
+    }
+}
+
+.open .index {
+    color: var(--cyn-accent);
+}
+
+.open .title {
+    color: var(--cyn-white);
+}
+
+.open .summary {
+    display: block;
+}
+
+.open .chevron {
+    color: var(--cyn-accent);
+    transform: rotate(-90deg);
+}
+
+/* ── Panel ── */
+.panel {
+    display: none;
+}
+
+.open .panel {
+    display: grid;
+    gap: 16px;
+    padding-bottom: 22px;
+    animation: panelIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 210px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background:
+        radial-gradient(120% 90% at 80% 0%, rgba(25, 245, 156, 0.09) 0%, transparent 60%),
+        linear-gradient(180deg, #0e1012 0%, #090a0b 100%);
+    background-size: auto, auto;
+    overflow: hidden;
+}
+
+.panelBody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.listLabel {
+    margin: 0;
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.items {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 44px;
+    padding: 12px 14px;
+    margin-inline: -14px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.25s ease;
+}
+
+.item:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 1px;
+}
+
+.itemText {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.itemName {
+    color: var(--cyn-white);
+    font-size: 15.5px;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.itemDesc {
+    color: var(--cyn-muted);
+    font-size: 13.5px;
+    line-height: 1.55;
+}
+
+.itemArrow {
+    flex: 0 0 auto;
+    color: var(--cyn-muted-2);
+    transition: color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+    .item:hover {
+        background: rgba(25, 245, 156, 0.06);
+    }
+
+    .item:hover .itemArrow {
+        color: var(--cyn-accent);
+        transform: translateX(3px);
+    }
+}
+
+/* ── Desktop: index left, panel right ── */
+@media (min-width: 1000px) {
+    .explorer {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+        grid-template-rows: repeat(4, auto) 1fr;
+        column-gap: 48px;
+        border-top: 0;
+    }
+
+    .family {
+        display: contents;
+    }
+
+    .heading {
+        grid-column: 1;
+        grid-row: var(--row);
+        border-top: 1px solid var(--cyn-border-2);
+    }
+
+    .family:last-child .heading {
+        border-bottom: 1px solid var(--cyn-border-2);
+    }
+
+    .trigger {
+        padding: 24px 16px 24px 20px;
+    }
+
+    /* Accent rail on the open family, drawn in from the top. */
+    .trigger::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 16px;
+        bottom: 16px;
+        width: 2px;
+        border-radius: 2px;
+        background: var(--cyn-accent);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .open .trigger::before {
+        transform: scaleY(1);
+    }
+
+    .open .trigger {
+        background: linear-gradient(90deg, rgba(25, 245, 156, 0.05), transparent 70%);
+    }
+
+    .chevron,
+    .open .chevron {
+        transform: none;
+    }
+
+    .open .panel {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        align-self: start;
+        gap: 22px;
+        padding: 22px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+            radial-gradient(110% 70% at 90% 0%, rgba(25, 245, 156, 0.07) 0%, transparent 60%),
+            linear-gradient(180deg, #0f1113 0%, #0a0b0c 100%);
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .visual {
+        min-height: 240px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .open .panel {
+        animation: none;
+    }
+
+    .index,
+    .title,
+    .chevron,
+    .trigger::before,
+    .item,
+    .itemArrow {
+        transition: none;
+    }
+}

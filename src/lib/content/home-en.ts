@@ -12,7 +12,20 @@ export const homeEn: HomeContent = {
         eyebrow: "Services",
         title: "WhatsApp chatbots, AI agents and custom automation",
         intro: "Four areas you can hire separately or combine. Most projects start with one and grow from there.",
-        toggleLabel: "See {n} services",
+        listLabel: "Services in this area",
+        visuals: {
+            channels: ["WhatsApp", "Web", "Instagram"],
+            agent: "AI agent",
+            outcomes: ["Qualified", "Appointment booked", "To an advisor"],
+            flow: ["Form", "n8n", "CRM", "Report"],
+            flowCaption: "Every step runs on its own and is logged.",
+            browserUrl: "yourbusiness.com",
+            browserCta: "Book a diagnosis",
+            browserToast: "New enquiry · 2 s ago",
+            chartTitle: "Enquiries and bookings per day",
+            chartDays: ["M", "T", "W", "T", "F", "S", "S"],
+            chartLegend: ["Enquiries", "Bookings"],
+        },
         allLabel: "See all {n} services (in Spanish)",
         families: [
             {
