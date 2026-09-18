@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/content";
 import s from "./breadcrumbs.module.css";
 
 export type Crumb = {
@@ -7,11 +8,11 @@ export type Crumb = {
     href: string;
 };
 
-export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
+export default function Breadcrumbs({ crumbs, locale = "es" }: { crumbs: Crumb[]; locale?: Locale }) {
     if (crumbs.length < 2) return null;
 
     return (
-        <nav className={s.wrap} aria-label="Ruta de navegación">
+        <nav className={s.wrap} aria-label={locale === "es" ? "Ruta de navegación" : "Breadcrumb"}>
             <ol className={s.list}>
                 {crumbs.map((crumb, i) => {
                     const isLast = i === crumbs.length - 1;

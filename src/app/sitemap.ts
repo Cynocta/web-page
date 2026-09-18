@@ -15,6 +15,13 @@ type Entry = {
 
 const abs = (path: string) => `${siteUrl}${path === "/" ? "" : path}`;
 
+/** Commercial pages get real weight; the legal ones are there to be found, not ranked. */
+const isLegal = (path: string) => path === "/terminos" || path === "/privacidad";
+const isHub = (path: string) =>
+    path === "/servicios" || path === "/precios" || path === "/soluciones";
+/** Articles, not the blog index — an individual post sits below the money pages. */
+const isPost = (path: string) => path.startsWith("/blog/");
+
 /** Translated pages contribute one entry per locale, cross-linked by hreflang. */
 const translated: Entry[] = Object.values(ROUTE_MAP).flatMap((paths) => {
     const languages = { es: abs(paths.es), en: abs(paths.en) };
@@ -23,18 +30,11 @@ const translated: Entry[] = Object.values(ROUTE_MAP).flatMap((paths) => {
     return (["es", "en"] as const).map((locale) => ({
         path: paths[locale],
         changeFrequency: isHome ? ("weekly" as const) : ("monthly" as const),
-        priority: isHome ? 1 : 0.8,
+        priority: isHome ? 1 : isHub(paths.es) ? 0.9 : 0.8,
         alternates: languages,
         ...(isHome && locale === "es" ? { images: ["/opengraph-image"] } : {}),
     }));
 });
-
-/** Commercial pages get real weight; the legal ones are there to be found, not ranked. */
-const isLegal = (path: string) => path === "/terminos" || path === "/privacidad";
-const isHub = (path: string) =>
-    path === "/servicios" || path === "/precios" || path === "/soluciones";
-/** Articles, not the blog index — an individual post sits below the money pages. */
-const isPost = (path: string) => path.startsWith("/blog/");
 
 /**
  * Case studies come straight from their registry rather than through the route

@@ -13,7 +13,7 @@ import UseCasesSection from "@/components/sections/use-cases";
 import { JsonLd } from "@/components/structured-data";
 import type { Locale } from "@/lib/content";
 import { homeContent } from "@/lib/content/home";
-import { ROUTE_MAP } from "@/lib/i18n/routes";
+import { ROUTE_MAP, localePath } from "@/lib/i18n/routes";
 import { faqItemsJsonLd, plansJsonLd, professionalServiceJsonLd } from "@/lib/schema";
 import { siteUrl } from "@/lib/site-data";
 
@@ -51,7 +51,7 @@ export default function LandingPage({ locale }: { locale: Locale }) {
 
             <main>
                 <HomeHero
-                    primaryHref={isEs ? "/contacto" : "/en#contacto"}
+                    primaryHref={localePath("contact", locale)}
                     secondaryHref={isEs ? "/servicios" : "/en#como-funciona"}
                 />
                 <ServicesOverviewSection locale={locale} />
@@ -59,7 +59,7 @@ export default function LandingPage({ locale }: { locale: Locale }) {
                 <MeasurementSection locale={locale} />
                 <UseCasesSection locale={locale} />
                 <TechnologiesSection locale={locale} />
-                <PricingSection ctaHref={isEs ? "/contacto" : "/en#contacto"} />
+                <PricingSection ctaHref={localePath("contact", locale)} />
                 <FoundersSection locale={locale} />
                 <HomeFaqSection locale={locale} />
                 <ContactCtaSection />

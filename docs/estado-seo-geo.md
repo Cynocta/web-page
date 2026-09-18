@@ -86,7 +86,7 @@ Ordenado por impacto. Cada punto requiere una decisión o un dato del cliente.
 5. **Consentimiento de cookies.** GA4 instala cookies sin banner. Es aceptable bajo la normativa colombiana si la política lo informa (ya lo hace); si se captan visitantes de la UE, hace falta un banner con Consent Mode.
 6. **Revisión legal** de la política de privacidad actualizada. Además, los términos siguen fechados en "Mayo 2025".
 7. **Correo de marca.** `cynoctaadmin@gmail.com` resta credibilidad en schema, `llms.txt` y pie. Cambiarlo es una línea en `src/lib/site-data.ts` cuando exista `hola@cynocta.com`.
-8. **Cobertura en inglés.** Solo la home y la FAQ existen en inglés; servicios, soluciones, precios y blog no.
+8. ~~**Cobertura en inglés.**~~ **Resuelto en parte (18-09-2026).** Ya existen en inglés `/en/services`, las 10 páginas de servicio (`/en/services/<slug-en>`), `/en/pricing` y `/en/contact`, con hreflang recíproco, OG propia, schema en `en`, sitemap (44 URL) y `llms.txt`. **Pendiente:** soluciones, blog, portafolio y nosotros siguen solo en español.
 9. **CSP en modo report-only.** Pasarla a obligatoria tras verificar en un deploy de preview que no hay violaciones (ya incluye los dominios de GA4).
 10. **Tipografía de las imágenes OG.** Satori usa su fuente por defecto: sin negrita y con espacios dobles ocasionales. Se arregla incluyendo Space Grotesk (licencia OFL) en el repo.
 
@@ -100,3 +100,23 @@ Ordenado por impacto. Cada punto requiere una decisión o un dato del cliente.
 - [ ] GA4 → Tiempo real: pulsar WhatsApp en la home y ver `generate_lead`.
 - [ ] PageSpeed Insights móvil y escritorio. LCP y FCP no pudieron medirse aquí (panel en segundo plano); sí se midió CLS 0 y 19 peticiones / ~291 KB en móvil, sin descargar Spline.
 - [ ] A los 28 días: CTR y consultas nuevas de `/` en Search Console, frente a la línea base.
+
+## 6. Rendimiento (Lighthouse, 18-09-2026)
+
+Medido en local con Lighthouse 12 contra producción (`main@d3c09c2`), porque la API pública de PageSpeed agotó su cuota diaria. Móvil = throttling simulado de Lighthouse; son valores de laboratorio y varían entre ejecuciones (una misma página dio entre 71 y 95).
+
+| Página | Móvil | Escritorio | Notas |
+|---|---|---|---|
+| `/` | 70–73 | 70 | Móvil: FCP ~3,1 s, LCP ~5 s. Escritorio: TBT 860 ms |
+| `/servicios/chatbot-whatsapp` | 71–98 | 100 | |
+| `/precios` | 71 | 100 | |
+| `/blog` | 73–78 | 100 | |
+
+SEO 100, buenas prácticas 100 y accesibilidad 96–100 en todas. CLS 0 en todas.
+
+**Causas encontradas y cambios:**
+- **gtag.js (170 KB) se precargaba con prioridad alta** junto al CSS y las fuentes. Pasa a `lazyOnload`: se carga tras el evento `load`. Coste: se pierde la visita de quien se va en el primer segundo o dos; los `generate_lead` no cambian.
+- **Se precargaban 5 fuentes**, tres de ellas de DM Mono, que solo se usa en etiquetas pequeñas. DM Mono deja de precargarse.
+- **Escritorio: el runtime de Spline (577 KB) ocupaba el hilo principal ~2,1 s** nada más hidratar. El robot se monta ahora al primer movimiento del puntero o cuando el navegador queda libre tras la carga.
+
+**Pendiente:** volver a medir en producción tras el deploy y en PageSpeed Insights cuando haya cuota. Los datos de campo (CrUX) aparecerán en Search Console → Métricas web principales cuando haya tráfico suficiente.

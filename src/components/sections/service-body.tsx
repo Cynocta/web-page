@@ -1,16 +1,64 @@
 import Link from "next/link";
 import { formatPostDate, postPath, postsForService } from "@/lib/content/blog";
+import type { Locale } from "@/lib/content";
+import { localePath } from "@/lib/i18n/routes";
 import { getService, servicePath, type ServiceDetail } from "@/lib/content/services";
 import s from "./service-body.module.css";
 
+/** Fixed labels around the service copy. */
+const LABELS = {
+    es: {
+        scope: "Alcance",
+        process: "Proceso",
+        readingTag: "Lecturas",
+        readingTitle: "Lo que hemos escrito sobre esto",
+        readArticle: "LEER ARTÍCULO →",
+        faqTag: "Preguntas frecuentes",
+        faqTitle: "Antes de contratar",
+        relatedTag: "Relacionado",
+        relatedTitle: "Suele combinarse con",
+        seeService: "VER SERVICIO →",
+        ctaTitle: "¿Encaja con lo que necesitas?",
+        ctaText:
+            "Cuéntanos tu caso en cuatro preguntas. Te decimos con honestidad si este servicio lo resuelve, si conviene otro, o si no somos para ti.",
+        ctaLabel: "Quiero resolverlo",
+    },
+    en: {
+        scope: "Scope",
+        process: "Process",
+        readingTag: "Reading",
+        readingTitle: "What we've written about this",
+        readArticle: "READ ARTICLE →",
+        faqTag: "FAQ",
+        faqTitle: "Before you hire us",
+        relatedTag: "Related",
+        relatedTitle: "Often combined with",
+        seeService: "SEE SERVICE →",
+        ctaTitle: "Is this what you need?",
+        ctaText:
+            "Tell us about your case in four questions. We'll tell you honestly whether this service solves it, whether another one fits better, or whether we're not right for you.",
+        ctaLabel: "Let's solve it",
+    },
+} satisfies Record<Locale, Record<string, string>>;
+
 /** The whole body of a service page, below the hero. */
-export default function ServiceBody({ service }: { service: ServiceDetail }) {
+export default function ServiceBody({
+    service,
+    locale = "es",
+}: {
+    service: ServiceDetail;
+    locale?: Locale;
+}) {
+    const t = LABELS[locale];
     const related = service.related
-        .map((slug) => getService(slug))
+        .map((slug) => getService(slug, locale))
         .filter((r): r is ServiceDetail => Boolean(r));
 
-    /** Articles that named this service. Empty for services nobody has written about yet. */
-    const posts = postsForService(service.slug);
+    /**
+     * Articles that named this service. Empty for services nobody has written
+     * about yet — and on English pages, since the articles are Spanish only.
+     */
+    const posts = locale === "es" ? postsForService(service.slug) : [];
 
     /**
      * Bands alternate surface / black, and the reading list is optional — so the
@@ -32,7 +80,7 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
 
             <section className={s.black}>
                 <div className={`cyn-section ${s.inner}`}>
-                    <p className="cyn-section-tag">Alcance</p>
+                    <p className="cyn-section-tag">{t.scope}</p>
                     <h2 className="cyn-section-title">{service.includes.title}</h2>
                     <div className={s.grid}>
                         {service.includes.items.map((item) => (
@@ -47,7 +95,7 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
 
             <section className={s.surface}>
                 <div className={`cyn-section ${s.inner}`}>
-                    <p className="cyn-section-tag">Proceso</p>
+                    <p className="cyn-section-tag">{t.process}</p>
                     <h2 className="cyn-section-title">{service.process.title}</h2>
                     <ol className={s.steps}>
                         {service.process.steps.map((step) => (
@@ -79,8 +127,8 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
             {posts.length > 0 && (
                 <section className={s.surface}>
                     <div className={`cyn-section ${s.inner}`}>
-                        <p className="cyn-section-tag">Lecturas</p>
-                        <h2 className="cyn-section-title">Lo que hemos escrito sobre esto</h2>
+                        <p className="cyn-section-tag">{t.readingTag}</p>
+                        <h2 className="cyn-section-title">{t.readingTitle}</h2>
                         <div className={s.posts}>
                             {posts.map((post) => (
                                 <Link
@@ -98,7 +146,7 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
                                         <span>{post.readingMinutes} min</span>
                                     </p>
                                     <span className={s.postArrow} aria-hidden="true">
-                                        LEER ARTÍCULO →
+                                        {t.readArticle}
                                     </span>
                                 </Link>
                             ))}
@@ -109,8 +157,8 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
 
             <section id="preguntas" className={faqTone}>
                 <div className={`cyn-section ${s.narrow}`}>
-                    <p className="cyn-section-tag">Preguntas frecuentes</p>
-                    <h2 className="cyn-section-title">Antes de contratar</h2>
+                    <p className="cyn-section-tag">{t.faqTag}</p>
+                    <h2 className="cyn-section-title">{t.faqTitle}</h2>
                     <div className={s.faqList}>
                         {service.faq.map((item) => (
                             <article key={item.id} id={item.id} className={s.faqItem}>
@@ -126,19 +174,19 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
                 <div className={`cyn-section ${s.inner}`}>
                     {related.length > 0 && (
                         <>
-                            <p className="cyn-section-tag">Relacionado</p>
-                            <h2 className="cyn-section-title">Suele combinarse con</h2>
+                            <p className="cyn-section-tag">{t.relatedTag}</p>
+                            <h2 className="cyn-section-title">{t.relatedTitle}</h2>
                             <div className={s.related}>
                                 {related.map((item) => (
                                     <Link
                                         key={item.slug}
-                                        href={servicePath(item.slug)}
+                                        href={servicePath(item.slug, locale)}
                                         className={s.relatedCard}
                                     >
                                         <h3 className={s.relatedTitle}>{item.cardTitle}</h3>
                                         <p className={s.relatedText}>{item.cardSummary}</p>
                                         <span className={s.relatedArrow} aria-hidden="true">
-                                            VER SERVICIO →
+                                            {t.seeService}
                                         </span>
                                     </Link>
                                 ))}
@@ -148,14 +196,11 @@ export default function ServiceBody({ service }: { service: ServiceDetail }) {
 
                     <div className={s.cta}>
                         <div className={s.ctaCopy}>
-                            <p className={s.ctaTitle}>¿Encaja con lo que necesitas?</p>
-                            <p className={s.ctaText}>
-                                Cuéntanos tu caso en cuatro preguntas. Te decimos con honestidad si
-                                este servicio lo resuelve, si conviene otro, o si no somos para ti.
-                            </p>
+                            <p className={s.ctaTitle}>{t.ctaTitle}</p>
+                            <p className={s.ctaText}>{t.ctaText}</p>
                         </div>
-                        <Link href="/contacto" className={s.ctaButton}>
-                            Quiero resolverlo
+                        <Link href={localePath("contact", locale)} className={s.ctaButton}>
+                            {t.ctaLabel}
                         </Link>
                     </div>
                 </div>

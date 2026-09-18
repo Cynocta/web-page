@@ -1,6 +1,8 @@
 import { content, faqContent } from "@/lib/content";
 import { postList, postPath } from "@/lib/content/blog";
-import { serviceList, servicePath } from "@/lib/content/services";
+import { serviceList, serviceListFor, servicePath } from "@/lib/content/services";
+import { pricingPageByLocale } from "@/lib/content/pricing";
+import { localePath } from "@/lib/i18n/routes";
 import { solutionList, solutionPath } from "@/lib/content/solutions";
 import { contactEmail, contactPhone, siteUrl } from "@/lib/site-data";
 
@@ -81,9 +83,19 @@ function buildLlmsTxt() {
         `- [Nosotros](${url("/nosotros")}): equipo, valores y forma de trabajar.`,
         `- [Contacto](${url("/contacto")}): WhatsApp, correo y formulario de diagnóstico gratuito.`,
         "",
+        "## English",
+        "",
+        `- [Home](${url("/en")}): what Cynocta does, in English.`,
+        `- [Services](${url(localePath("services", "en"))}): the ten services.`,
+        ...serviceListFor("en").map(
+            (service) => `- [${service.cardTitle}](${url(servicePath(service.slug, "en"))}): ${service.cardSummary}`,
+        ),
+        `- [Pricing](${url(localePath("pricing", "en"))}): ${pricingPageByLocale.en.metaDescription}`,
+        `- [Contact](${url(localePath("contact", "en"))}): WhatsApp, email and the free diagnosis form.`,
+        `- [FAQ](${url(localePath("faq", "en"))}): direct answers about pricing, timelines and the WhatsApp API.`,
+        "",
         "## Optional",
         "",
-        `- [English version](${url("/en")}): home and FAQ in English.`,
         `- [Términos y condiciones](${url("/terminos")})`,
         `- [Política de privacidad](${url("/privacidad")})`,
         "",

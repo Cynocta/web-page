@@ -2,6 +2,7 @@ import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import Reveal from "@/components/ui/reveal";
 import SectionLink from "@/components/ui/section-link";
+import { localePath } from "@/lib/i18n/routes";
 import type { Locale } from "@/lib/content";
 import { homeContent } from "@/lib/content/home";
 import s from "./home-blocks.module.css";
@@ -40,9 +41,8 @@ export default function TechnologiesSection({ locale = "es" }: { locale?: Locale
             </Reveal>
 
             <SectionLink
-                href="/servicios"
+                href={localePath("services", locale)}
                 label={copy.linkLabel}
-                hrefLang={locale === "es" ? undefined : "es"}
             />
         </Section>
     );
