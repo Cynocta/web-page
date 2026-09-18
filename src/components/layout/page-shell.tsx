@@ -18,7 +18,7 @@ export default function PageShell({
     children,
 }: {
     crumbs: Crumb[];
-    /** Defaults to Spanish, which every interior page currently is. */
+    /** Defaults to Spanish, the language most interior pages exist in. */
     locale?: Locale;
     children: React.ReactNode;
 }) {
@@ -28,7 +28,7 @@ export default function PageShell({
             <Header />
 
             <main>
-                <Breadcrumbs crumbs={crumbs} />
+                <Breadcrumbs crumbs={crumbs} locale={locale} />
                 {children}
             </main>
 

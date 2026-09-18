@@ -13,6 +13,12 @@ import s from "./home-hero.module.css";
  * Same gating as before: the Spline scene pulls a ~6.6MB WebGL runtime, so it
  * stays a desktop-only treat and the lazy chunk is never fetched on a phone.
  * Starting at `false` also keeps the server render on the light visual.
+ *
+ * Even on desktop it waits: evaluating the runtime blocks the main thread for
+ * about two seconds, which on page load delayed everything else the visitor
+ * could do. It now mounts on the first pointer movement (the robot follows the
+ * pointer, so that's when it matters) or once the page has loaded and the
+ * browser is idle, whichever comes first.
  */
 export default function HomeHero({
     primaryHref,
@@ -23,6 +29,7 @@ export default function HomeHero({
 }) {
     const { copy } = useI18n();
     const [useSpline, setUseSpline] = useState(false);
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         const wide = window.matchMedia("(min-width: 1000px)");
@@ -37,6 +44,33 @@ export default function HomeHero({
             reduced.removeEventListener("change", update);
         };
     }, []);
+
+    // Wait for a reason to spend two seconds of main thread on the scene.
+    useEffect(() => {
+        if (!useSpline || ready) return;
+
+        let idleId: number | undefined;
+        let timeoutId: number | undefined;
+        const start = () => setReady(true);
+        const whenIdle = () => {
+            if (typeof window.requestIdleCallback === "function") {
+                idleId = window.requestIdleCallback(start, { timeout: 4000 });
+            } else {
+                timeoutId = window.setTimeout(start, 1500);
+            }
+        };
+
+        window.addEventListener("pointermove", start, { once: true, passive: true });
+        if (document.readyState === "complete") whenIdle();
+        else window.addEventListener("load", whenIdle, { once: true });
+
+        return () => {
+            window.removeEventListener("pointermove", start);
+            window.removeEventListener("load", whenIdle);
+            if (idleId !== undefined) window.cancelIdleCallback(idleId);
+            if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+        };
+    }, [useSpline, ready]);
 
     return (
         <section className={s.hero} id="inicio">
@@ -71,7 +105,7 @@ export default function HomeHero({
                 </div>
 
                 <aside className={s.visual} aria-label={copy.hero.aria.visual}>
-                    {useSpline ? (
+                    {useSpline && ready ? (
                         <SplineScene
                             scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                             className="w-full h-full"

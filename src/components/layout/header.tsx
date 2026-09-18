@@ -15,9 +15,9 @@ import {
 import { contactEmail } from "@/lib/site-data";
 import s from "./header.module.css";
 
-/** `/` must match exactly; every other entry also matches its children. */
+/** The homes (`/`, `/en`) match exactly; every other entry also matches its children. */
 function isActive(pathname: string, href: string) {
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+    return href === "/" || href === "/en" ? pathname === href : pathname.startsWith(href);
 }
 
 function entryIsActive(pathname: string, entry: NavEntry) {

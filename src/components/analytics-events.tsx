@@ -46,7 +46,7 @@ export default function AnalyticsEvents() {
                 trackEvent("generate_lead", { method: "email", link_location: location });
             } else if (href.startsWith("tel:")) {
                 trackEvent("generate_lead", { method: "phone", link_location: location });
-            } else if (href === "/contacto" || href.endsWith("#contacto")) {
+            } else if (href === "/contacto" || href === "/en/contact" || href.endsWith("#contacto")) {
                 trackEvent("cta_click", {
                     link_text: link.textContent?.replace(/\s+/g, " ").trim().slice(0, 100),
                     link_url: href,

@@ -1,12 +1,24 @@
 import type { Locale } from "@/lib/content";
 import { POST_SLUGS } from "@/lib/content/blog/nav";
-import { SERVICE_SLUGS } from "@/lib/content/services/nav";
+import { SERVICE_SLUGS, serviceSlugEn, type ServiceSlug } from "@/lib/content/services/nav";
 import { SOLUTION_SLUGS } from "@/lib/content/solutions/nav";
 
 export const LOCALES = ["es", "en"] as const;
 
 /** Spanish stays at the root: those URLs are the ones already indexed. */
 export const DEFAULT_LOCALE: Locale = "es";
+
+type LocalePaths = Record<Locale, string>;
+
+/** Route key for one service page, e.g. `service:chatbot-whatsapp`. */
+export type ServiceRouteKey = `service:${ServiceSlug}`;
+
+const SERVICE_ROUTES = Object.fromEntries(
+    SERVICE_SLUGS.map((slug) => [
+        `service:${slug}`,
+        { es: `/servicios/${slug}`, en: `/en/services/${serviceSlugEn[slug]}` },
+    ]),
+) as Record<ServiceRouteKey, LocalePaths>;
 
 /**
  * Pages that exist as genuine translations, with the path each locale serves.
@@ -21,35 +33,38 @@ export const DEFAULT_LOCALE: Locale = "es";
 export const ROUTE_MAP = {
     home: { es: "/", en: "/en" },
     faq: { es: "/preguntas-frecuentes", en: "/en/faq" },
-} as const satisfies Record<string, Record<Locale, string>>;
+    services: { es: "/servicios", en: "/en/services" },
+    pricing: { es: "/precios", en: "/en/pricing" },
+    contact: { es: "/contacto", en: "/en/contact" },
+    ...SERVICE_ROUTES,
+} satisfies Record<string, LocalePaths>;
 
 export type RouteKey = keyof typeof ROUTE_MAP;
 
-/** Every path that has a translation, for the sitemap and the toggle. */
-export const TRANSLATED_PATHS = Object.values(ROUTE_MAP);
+/** The path of a translated page in one locale. */
+export function localePath(key: RouteKey, locale: Locale) {
+    return ROUTE_MAP[key][locale];
+}
 
 /**
  * Spanish-only pages: self-canonical, no alternates.
- * Service, solution, blog and pricing pages live here until their English
- * versions are written.
+ * Solutions, blog, portfolio, about and the legal documents live here until
+ * their English versions are written.
  *
  * The child paths are derived from the same slug lists the navigation reads, so
- * a new service or article reaches the sitemap by existing — it can't be added
- * to the site and forgotten here. Only the slug modules are imported, never the
- * full content registries: this file is pulled into the client bundle by the
- * language toggle, and article bodies have no business travelling with it.
+ * a new solution or article reaches the sitemap by existing — it can't be
+ * added to the site and forgotten here. Only the slug modules are imported,
+ * never the full content registries: this file is pulled into the client
+ * bundle by the language toggle, and article bodies have no business
+ * travelling with it.
  */
 export const ES_ONLY_PATHS: readonly string[] = [
     "/nosotros",
-    "/contacto",
     "/portafolio",
     "/blog",
     ...POST_SLUGS.map((slug) => `/blog/${slug}`),
-    "/servicios",
-    ...SERVICE_SLUGS.map((slug) => `/servicios/${slug}`),
     "/soluciones",
     ...SOLUTION_SLUGS.map((slug) => `/soluciones/${slug}`),
-    "/precios",
     "/terminos",
     "/privacidad",
 ];
@@ -85,7 +100,7 @@ export function counterpartPath(key: RouteKey, target: Locale) {
 export function routeKeyFromPath(pathname: string): RouteKey {
     const path = pathname.replace(/\/+$/, "") || "/";
 
-    for (const [key, paths] of Object.entries(ROUTE_MAP) as Array<[RouteKey, Record<Locale, string>]>) {
+    for (const [key, paths] of Object.entries(ROUTE_MAP) as Array<[RouteKey, LocalePaths]>) {
         if (path === paths.es || path === paths.en) return key;
     }
 

@@ -1,35 +1,64 @@
+import type { Locale } from "../types";
 import { servicesEs, servicesHubEs } from "./es";
 import { servicesEsExtra } from "./es-extra";
+import { servicesEn, servicesHubEn } from "./en";
+import { servicesEnExtra } from "./en-extra";
+import { serviceSlugEn } from "./nav";
 import { SERVICE_SLUGS, type ServiceDetail, type ServiceSlug, type ServicesHub } from "./types";
 
 export * from "./types";
 
 /**
- * Service pages exist in Spanish only for now. They are not in the i18n route
- * map, so no hreflang alternate is claimed for them — same rule as the legal
- * documents: an alternate that doesn't exist is worse than none.
+ * Service copy per locale.
  *
- * The copy arrives in two modules purely so neither grows past the point where
- * it's navigable; the registry is the single place that knows about both.
+ * The Spanish slug is the identity everywhere in code (`related`, the home's
+ * families, analytics); only the English URL uses an English slug, resolved
+ * through `serviceSlugEn`. Each locale arrives in two modules purely so no file
+ * grows past the point where it's navigable.
  */
-export const services = {
-    ...servicesEs,
-    ...servicesEsExtra,
-} as Record<ServiceSlug, ServiceDetail>;
+export const servicesByLocale: Record<Locale, Record<ServiceSlug, ServiceDetail>> = {
+    es: { ...servicesEs, ...servicesEsExtra } as Record<ServiceSlug, ServiceDetail>,
+    en: { ...servicesEn, ...servicesEnExtra } as Record<ServiceSlug, ServiceDetail>,
+};
+
+/** Spanish registry, kept under its old name for the Spanish-only consumers. */
+export const services = servicesByLocale.es;
+
+export const servicesHubByLocale: Record<Locale, ServicesHub> = {
+    es: servicesHubEs,
+    en: servicesHubEn,
+};
 
 export const servicesHub: ServicesHub = servicesHubEs;
 
 /** Ordered list for the hub grid, the nav menu and the footer column. */
-export const serviceList: ServiceDetail[] = SERVICE_SLUGS.map((slug) => services[slug]);
+export function serviceListFor(locale: Locale): ServiceDetail[] {
+    return SERVICE_SLUGS.map((slug) => servicesByLocale[locale][slug]);
+}
 
-export function getService(slug: string): ServiceDetail | undefined {
+export const serviceList: ServiceDetail[] = serviceListFor("es");
+
+export function getService(slug: string, locale: Locale = "es"): ServiceDetail | undefined {
     return (SERVICE_SLUGS as readonly string[]).includes(slug)
-        ? services[slug as ServiceSlug]
+        ? servicesByLocale[locale][slug as ServiceSlug]
         : undefined;
+}
+
+/** English pages are addressed by their English slug. */
+export function getServiceByEnSlug(enSlug: string): ServiceDetail | undefined {
+    const slug = SERVICE_SLUGS.find((s) => serviceSlugEn[s] === enSlug);
+    return slug ? servicesByLocale.en[slug] : undefined;
 }
 
 export const SERVICES_BASE_PATH = "/servicios";
 
-export function servicePath(slug: ServiceSlug) {
-    return `${SERVICES_BASE_PATH}/${slug}`;
+export const servicesBasePath: Record<Locale, string> = {
+    es: SERVICES_BASE_PATH,
+    en: "/en/services",
+};
+
+export function servicePath(slug: ServiceSlug, locale: Locale = "es") {
+    return locale === "es"
+        ? `${SERVICES_BASE_PATH}/${slug}`
+        : `${servicesBasePath.en}/${serviceSlugEn[slug]}`;
 }

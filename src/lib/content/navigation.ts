@@ -1,5 +1,5 @@
 import type { Locale } from "./types";
-import { SERVICE_SLUGS, servicesEsNav } from "./services/nav";
+import { SERVICE_SLUGS, serviceSlugEn, servicesEnNav, servicesEsNav } from "./services/nav";
 import { SOLUTION_SLUGS, solutionsEsNav } from "./solutions/nav";
 
 export type NavLink = {
@@ -34,12 +34,12 @@ export type NavEntry =
           items: NavLink[];
       };
 
-const serviceLinks = (lang?: Locale): NavLink[] =>
-    SERVICE_SLUGS.map((slug) => ({
-        label: servicesEsNav[slug],
-        href: `/servicios/${slug}`,
-        ...(lang ? { lang } : {}),
-    }));
+const serviceLinks = (locale: Locale): NavLink[] =>
+    SERVICE_SLUGS.map((slug) =>
+        locale === "es"
+            ? { label: servicesEsNav[slug], href: `/servicios/${slug}` }
+            : { label: servicesEnNav[slug], href: `/en/services/${serviceSlugEn[slug]}` },
+    );
 
 const solutionLinks = (lang?: Locale): NavLink[] =>
     SOLUTION_SLUGS.map((slug) => ({
@@ -55,7 +55,7 @@ const es: NavEntry[] = [
         label: "Servicios",
         href: "/servicios",
         seeAll: "Ver todos los servicios",
-        items: serviceLinks(),
+        items: serviceLinks("es"),
     },
     {
         kind: "menu",
@@ -83,21 +83,20 @@ const es: NavEntry[] = [
 /**
  * The English header.
  *
- * Only `/en` and `/en/faq` are written in English today; everything commercial
- * exists in Spanish only. Rather than hide those pages from an English visitor
- * — which would leave them with a two-item site and no way to see what we sell
- * — they are listed, labelled in English, and marked as Spanish destinations.
- * The marker comes off each entry as its translation is published.
+ * Home, services, pricing, contact and the FAQ exist in English. Solutions,
+ * the blog, case studies and the about page are still Spanish only; rather
+ * than hide them from an English visitor they are listed, labelled in English,
+ * and marked as Spanish destinations. The marker comes off each entry as its
+ * translation is published.
  */
 const en: NavEntry[] = [
     { kind: "link", label: "Home", href: "/en" },
     {
         kind: "menu",
         label: "Services",
-        href: "/servicios",
+        href: "/en/services",
         seeAll: "See all services",
-        lang: "es",
-        items: serviceLinks("es"),
+        items: serviceLinks("en"),
     },
     {
         kind: "menu",
@@ -119,15 +118,15 @@ const en: NavEntry[] = [
         ],
     },
     { kind: "link", label: "About", href: "/nosotros", lang: "es" },
-    { kind: "link", label: "Pricing", href: "/precios", lang: "es" },
-    { kind: "link", label: "Contact", href: "/contacto", lang: "es" },
+    { kind: "link", label: "Pricing", href: "/en/pricing" },
+    { kind: "link", label: "Contact", href: "/en/contact" },
 ];
 
 export const headerNav: Record<Locale, NavEntry[]> = { es, en };
 
 export const headerCta: Record<Locale, { label: string; href: string; lang?: Locale }> = {
     es: { label: "Agendar diagnóstico", href: "/contacto" },
-    en: { label: "Book a diagnosis", href: "/contacto", lang: "es" },
+    en: { label: "Book a diagnosis", href: "/en/contact" },
 };
 
 export type FooterColumn = {
@@ -149,7 +148,7 @@ const footerEs: FooterColumn[] = [
             { label: "Contacto", href: "/contacto" },
         ],
     },
-    { title: "Servicios", links: serviceLinks() },
+    { title: "Servicios", links: serviceLinks("es") },
     { title: "Soluciones", links: solutionLinks() },
     {
         title: "Recursos",
@@ -169,16 +168,16 @@ const footerEn: FooterColumn[] = [
             { label: "About", href: "/nosotros", lang: "es" },
             { label: "Portfolio", href: "/portafolio", lang: "es" },
             { label: "Blog", href: "/blog", lang: "es" },
-            { label: "Contact", href: "/contacto", lang: "es" },
+            { label: "Contact", href: "/en/contact" },
         ],
     },
-    { title: "Services", links: serviceLinks("es") },
+    { title: "Services", links: serviceLinks("en") },
     { title: "Solutions", links: solutionLinks("es") },
     {
         title: "Resources",
         links: [
             { label: "FAQ", href: "/en/faq" },
-            { label: "Pricing", href: "/precios", lang: "es" },
+            { label: "Pricing", href: "/en/pricing" },
             { label: "Privacy policy", href: "/privacidad", lang: "es" },
             { label: "Terms and conditions", href: "/terminos", lang: "es" },
         ],

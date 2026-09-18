@@ -1,22 +1,24 @@
 import { Fragment } from "react";
-import { content } from "@/lib/content";
-import { pricingPage, type ComparisonValue } from "@/lib/content/pricing";
+import { content, type Locale } from "@/lib/content";
+import { pricingPageByLocale, type ComparisonValue } from "@/lib/content/pricing";
 import s from "./pricing-page.module.css";
 
-/** Index of the recommended plan, so the column can be highlighted from one place. */
-const FEATURED = content.es.plans.items.findIndex((p) => p.featured);
+const LABELS = {
+    es: { feature: "Característica", included: "Incluido", notIncluded: "No incluido" },
+    en: { feature: "Feature", included: "Included", notIncluded: "Not included" },
+} satisfies Record<Locale, Record<string, string>>;
 
-function Cell({ value }: { value: ComparisonValue }) {
+function Cell({ value, locale }: { value: ComparisonValue; locale: Locale }) {
     if (value === true) {
         return (
-            <span className={s.yes} aria-label="Incluido">
+            <span className={s.yes} aria-label={LABELS[locale].included}>
                 ✓
             </span>
         );
     }
     if (value === false) {
         return (
-            <span className={s.no} aria-label="No incluido">
+            <span className={s.no} aria-label={LABELS[locale].notIncluded}>
                 —
             </span>
         );
@@ -31,8 +33,11 @@ function Cell({ value }: { value: ComparisonValue }) {
  * the table disagreeing with them. The header row sticks while the body scrolls,
  * which is what keeps a long comparison readable.
  */
-export default function PlanComparison() {
-    const plans = content.es.plans.items;
+export default function PlanComparison({ locale = "es" }: { locale?: Locale }) {
+    const plans = content[locale].plans.items;
+    const pricingPage = pricingPageByLocale[locale];
+    /** Index of the recommended plan, so the column can be highlighted from one place. */
+    const FEATURED = plans.findIndex((p) => p.featured);
 
     return (
         <div className={s.tableWrap}>
@@ -40,7 +45,7 @@ export default function PlanComparison() {
                 <caption className="sr-only">{pricingPage.comparisonTitle}</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Característica</th>
+                        <th scope="col">{LABELS[locale].feature}</th>
                         {plans.map((plan, i) => (
                             <th
                                 key={plan.plan}
@@ -68,7 +73,7 @@ export default function PlanComparison() {
                                             key={i}
                                             className={`${s.cell} ${i === FEATURED ? s.cellHighlight : ""}`}
                                         >
-                                            <Cell value={value} />
+                                            <Cell value={value} locale={locale} />
                                         </td>
                                     ))}
                                 </tr>

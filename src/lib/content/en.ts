@@ -176,7 +176,7 @@ export const en: Content = {
             subscription: "subscription",
         },
         currencyLabel: "Currency",
-        fullDetailsLabel: "See everything included (in Spanish)",
+        fullDetailsLabel: "See everything included",
         previewLabel: "Plan summary",
         detailsShow: "View details",
         detailsHide: "Hide details",

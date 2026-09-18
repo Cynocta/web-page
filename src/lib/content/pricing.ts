@@ -1,4 +1,5 @@
 import type { FaqItem } from "./faq";
+import type { Locale } from "./types";
 
 /** A cell in the comparison matrix: included, not included, or a specific value. */
 export type ComparisonValue = boolean | string;
@@ -22,8 +23,7 @@ export type PlanDetail = {
 };
 
 /**
- * Copy for the pricing page. Spanish only for now, like the service and
- * solution trees, so it claims no hreflang alternate.
+ * Copy for the Spanish pricing page; the English one is `pricingPageEn`.
  *
  * Plan names, prices and features live in `content.plans` — the single source.
  * What lives here is everything the cards deliberately leave out.
@@ -280,4 +280,269 @@ export const pricingPage = {
     ctaBody:
         "Sin presentación comercial. Miramos tu caso, te decimos qué automatizar primero, qué no vale la pena todavía y en qué rango cae.",
     ctaLabel: "Agendar diagnóstico",
+};
+
+export type PricingPageContent = typeof pricingPage;
+
+/**
+ * English pricing page. Same prices, timelines and conditions as the Spanish
+ * page; plan titles match `content.en.plans` so the two datasets stay joinable.
+ */
+export const pricingPageEn: PricingPageContent = {
+    metaTitle: "AI automation pricing and plans",
+    metaDescription:
+        "What each plan includes, who it's for, deliverables, support and delivery times. Full comparison, how hiring works and frequently asked questions.",
+    eyebrow: "Pricing",
+    heading: "Everything you get, before you have to ask.",
+    intro:
+        "We publish our starting prices and what's behind them: what gets delivered, how fast, with what support and which costs aren't ours. Hiding it only makes the conversation longer.",
+    facts: [
+        { value: "From USD 750", label: "Starter project" },
+        { value: "2–8 weeks", label: "Depending on scope" },
+        { value: "No lock-in", label: "Contracts" },
+    ],
+
+    audienceTitle: "Who each plan is for",
+    audienceIntro:
+        "If you're torn between two, the smaller one is almost always the right call: it can grow, and that way the spending comes after the first result.",
+
+    details: [
+        {
+            title: "Professional presence",
+            audience:
+                "Businesses that don't yet have a website that works, or have one that generates nothing. There isn't enough message volume yet to justify automating customer service.",
+            projectTypes: ["Lead-capture landing page", "Company website", "Catalogue without checkout"],
+            deliverables: [
+                "Website live on your domain",
+                "Source code and access in your name",
+                "Sales copy written by us",
+                "Qualification form connected to WhatsApp",
+                "Analytics and Search Console set up",
+                "A short guide to editing the text",
+            ],
+            support: "30 days of adjustments included after launch.",
+            timeline: "2 weeks from the positioning session.",
+        },
+        {
+            title: "Automatic sales",
+            audience:
+                "Businesses that already get enquiries and lose sales by not replying in time. There's enough volume for a bot to free up real hours from the first month.",
+            projectTypes: [
+                "Automated WhatsApp customer service",
+                "Booking and reminders",
+                "Lead qualification",
+            ],
+            deliverables: [
+                "Everything in the previous plan",
+                "Bot in production, trained on your information",
+                "Dedicated VPS with monitoring and alerts",
+                "Documented conversation flows",
+                "Connection to your calendar",
+                "A panel to review conversations",
+            ],
+            support: "Direct WhatsApp line, reply within 3 business hours. One monthly bot adjustment included.",
+            timeline: "2 to 4 weeks. If you need the official API, Meta's verification adds 3 to 10 days.",
+        },
+        {
+            title: "Smart scale",
+            audience:
+                "Businesses with several channels, systems that don't talk to each other, or a sales team that needs data. Here the work is in the orchestration, not in a single piece.",
+            projectTypes: [
+                "Integration of several systems",
+                "AI agents on your own data",
+                "Conversion dashboards and reports",
+            ],
+            deliverables: [
+                "Everything in the previous plans",
+                "CRM configured with your real pipeline",
+                "Integrations with the systems you already use",
+                "Monthly conversion report",
+                "Technical documentation of the architecture",
+                "Verified automatic backups",
+            ],
+            support: "Priority support and a monthly 1:1 strategy call.",
+            timeline: "4 to 8 weeks, delivered in phases: each one live before the next starts.",
+        },
+    ],
+
+    comparisonTitle: "Full comparison",
+    comparisonIntro:
+        "The same as the cards, without cutting anything. If something isn't listed, ask and we'll add it.",
+
+    comparison: [
+        {
+            label: "Delivery",
+            rows: [
+                { label: "Delivery time", values: ["2 weeks", "2–4 weeks", "4–8 weeks"] },
+                { label: "Source code in your name", values: [true, true, true] },
+                { label: "Phased delivery", values: [false, true, true] },
+                { label: "Technical documentation", values: [false, "Flows", "Full architecture"] },
+            ],
+        },
+        {
+            label: "Website",
+            rows: [
+                { label: "Website or lead-capture landing page", values: [true, true, true] },
+                { label: "Sales copy written", values: [true, true, true] },
+                { label: "Qualification form", values: [true, true, true] },
+                { label: "Analytics set up", values: [true, true, true] },
+            ],
+        },
+        {
+            label: "Automation",
+            rows: [
+                { label: "AI WhatsApp bot", values: [false, true, true] },
+                { label: "Automatic booking", values: [false, true, true] },
+                { label: "Lead qualification", values: [false, true, true] },
+                { label: "AI agents on your data", values: [false, false, true] },
+                { label: "Automations between systems", values: [false, "Basic", "Advanced"] },
+            ],
+        },
+        {
+            label: "Data and CRM",
+            rows: [
+                { label: "CRM configured", values: [false, false, true] },
+                { label: "Integrations with your systems", values: [false, "1 channel", "Multiple"] },
+                { label: "Conversion report", values: [false, false, "Monthly"] },
+            ],
+        },
+        {
+            label: "Infrastructure and support",
+            rows: [
+                { label: "Server", values: ["Static hosting", "Dedicated VPS", "Premium VPS"] },
+                { label: "Automatic backups", values: [false, false, true] },
+                { label: "Support channel", values: ["Email", "Direct WhatsApp", "Priority"] },
+                { label: "Response time", values: ["48 business hours", "< 3 business hours", "< 3 h, priority"] },
+                { label: "Adjustments included", values: ["30 days", "1 a month", "As agreed"] },
+                { label: "1:1 strategy call", values: [false, false, "Monthly"] },
+            ],
+        },
+    ],
+
+    processTitle: "How hiring works",
+    processIntro:
+        "Five steps, no surprises. Nothing is invoiced before the scope is in writing and approved.",
+    process: [
+        {
+            num: "01",
+            title: "Free diagnosis",
+            description:
+                "Half an hour to understand what's slipping through. If we're not the right option, we tell you here.",
+        },
+        {
+            num: "02",
+            title: "Proposal with a fixed scope",
+            description:
+                "What gets built, what doesn't, how long it takes and what it costs. In writing, so there's no room for interpretation.",
+        },
+        {
+            num: "03",
+            title: "Deposit and kick-off",
+            description:
+                "50% when you approve the proposal. We start with the workflow that returns the most, not the flashiest one.",
+        },
+        {
+            num: "04",
+            title: "Delivery in stages",
+            description:
+                "Each stage goes live and is reviewed with you before moving to the next.",
+        },
+        {
+            num: "05",
+            title: "Launch and handover",
+            description:
+                "The remaining 50% on delivery. We leave you access, documentation and a team that knows how to run it.",
+        },
+    ],
+
+    howTitle: "What drives the price",
+    howIntro:
+        "Three variables. Knowing them, you can estimate on your own which range your case falls into before writing to us.",
+    factors: [
+        {
+            title: "Number of workflows",
+            description:
+                "A bot that answers and books doesn't cost the same as one that also checks inventory, takes payments and invoices. Each workflow adds design, integration and testing.",
+        },
+        {
+            title: "Integrations required",
+            description:
+                "Connecting to a CRM with a documented API is quick. With an in-house system or an old ERP, it isn't. We check before quoting.",
+        },
+        {
+            title: "Message volume",
+            description:
+                "It affects the infrastructure, not our work. A business with 5,000 conversations a month needs a different server from one with 200.",
+        },
+    ],
+
+    extrasTitle: "Costs we don't charge",
+    extrasIntro:
+        "Worth accounting for from the start so the budget doesn't fall short.",
+    extras: [
+        {
+            title: "Official WhatsApp API",
+            description:
+                "Roughly USD 50 to 75 a month, and only if you need bulk messages, approved templates or a verified account. It's paid to Meta, not to us.",
+        },
+        {
+            title: "Server",
+            description:
+                "Between USD 6 and 40 a month depending on volume. Included in subscription plans; on a one-off project it stays in your name.",
+        },
+        {
+            title: "AI models",
+            description:
+                "OpenAI or Claude usage is billed by consumption. For a typical business it's a few dollars a month; we estimate it from your volume.",
+        },
+    ],
+
+    faq: [
+        {
+            id: "por-que-desde",
+            question: "Why do the prices say \"from\"?",
+            answer:
+                "Because they're a floor, not a closed quote. Two businesses asking for \"a WhatsApp bot\" can need jobs that differ threefold. Publishing a fixed price would mean inflating it to cover the worst case.",
+        },
+        {
+            id: "formas-de-pago",
+            question: "How do I pay?",
+            answer:
+                "Implementation is split in two: 50% when you approve the proposal and 50% on delivery. The subscription is billed monthly and can be cancelled with one month's notice. We accept Colombian pesos, US dollars and euros.",
+        },
+        {
+            id: "sin-permanencia",
+            question: "Is there a minimum contract term?",
+            answer:
+                "No. If the subscription stops adding value, you cancel it. What we built is yours: the code, the workflows and the data are handed over. We'd rather you stay because it works, not because of a clause.",
+        },
+        {
+            id: "cambiar-de-plan",
+            question: "Can I start on one plan and move up later?",
+            answer:
+                "Yes, and that's the usual path. Each plan includes the previous one, so upgrading means building on what exists, not redoing it. You only pay the implementation difference for the new scope.",
+        },
+        {
+            id: "que-pasa-si-no-funciona",
+            question: "What if it doesn't work?",
+            answer:
+                "Each plan has a concrete, measurable commitment: the website live in two weeks, or the bot replying in under three minutes every day. If it isn't met, we keep working at no extra cost until it is.",
+        },
+        {
+            id: "presupuesto-bajo",
+            question: "What if my budget doesn't stretch that far?",
+            answer:
+                "We tell you in the first conversation instead of stretching the scope. It often makes sense to start with a single workflow, measure the return and grow from there. And if we're not the right option, we say so too.",
+        },
+    ],
+
+    ctaTitle: "Half an hour and you'll know if this is for you",
+    ctaBody:
+        "No sales pitch. We look at your case and tell you what to automate first, what isn't worth it yet and which range it falls into.",
+    ctaLabel: "Book a diagnosis",
+};
+
+export const pricingPageByLocale: Record<Locale, PricingPageContent> = {
+    es: pricingPage,
+    en: pricingPageEn,
 };

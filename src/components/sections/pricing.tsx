@@ -8,6 +8,7 @@ import Section, { type SectionTone } from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import { ScrollDots, useScrollIndex } from "@/components/ui/scroll-dots";
 import { formatCurrency } from "@/lib/content";
+import { localePath } from "@/lib/i18n/routes";
 import s from "./pricing.module.css";
 
 const CheckIcon = () => (
@@ -138,11 +139,7 @@ export default function PricingSection({
 
             <div className={s.note}>
                 <span>{plans.note}</span>
-                <Link
-                    href="/precios"
-                    className={s.noteLink}
-                    hrefLang={locale === "es" ? undefined : "es"}
-                >
+                <Link href={localePath("pricing", locale)} className={s.noteLink}>
                     {plans.fullDetailsLabel} →
                 </Link>
             </div>

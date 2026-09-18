@@ -1,5 +1,6 @@
 import { POST_SLUGS, getPost } from "@/lib/content/blog";
-import { SERVICE_SLUGS, getService } from "@/lib/content/services";
+import { SERVICE_SLUGS, getService, getServiceByEnSlug } from "@/lib/content/services";
+import { serviceSlugEn } from "@/lib/content/services/nav";
 import { SOLUTION_SLUGS, getSolution } from "@/lib/content/solutions";
 import { renderOgImage } from "@/lib/og-image";
 
@@ -19,6 +20,15 @@ const KINDS = {
         eyebrow: "Servicio",
         resolve: (slug: string) => {
             const item = getService(slug);
+            return item && { title: item.heading, subtitle: item.cardSummary };
+        },
+    },
+    /** English service pages, addressed by their English slug. */
+    services: {
+        slugs: SERVICE_SLUGS.map((slug) => serviceSlugEn[slug]),
+        eyebrow: "Service",
+        resolve: (slug: string) => {
+            const item = getServiceByEnSlug(slug);
             return item && { title: item.heading, subtitle: item.cardSummary };
         },
     },

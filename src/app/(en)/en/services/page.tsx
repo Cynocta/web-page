@@ -4,15 +4,16 @@ import { servicesHubByLocale } from "@/lib/content/services";
 import { alternatesFor } from "@/lib/i18n/routes";
 import { pageMetadata } from "@/lib/metadata";
 
-const hub = servicesHubByLocale.es;
+const hub = servicesHubByLocale.en;
 
 export const metadata: Metadata = pageMetadata({
-    path: alternatesFor("services", "es").canonical,
+    path: alternatesFor("services", "en").canonical,
     title: hub.metaTitle,
     description: hub.metaDescription,
-    alternates: alternatesFor("services", "es"),
+    locale: "en",
+    alternates: alternatesFor("services", "en"),
 });
 
-export default function ServiciosPage() {
-    return <ServicesHubPage locale="es" />;
+export default function ServicesPage() {
+    return <ServicesHubPage locale="en" />;
 }

@@ -4,15 +4,16 @@ import { pricingPageByLocale } from "@/lib/content/pricing";
 import { alternatesFor } from "@/lib/i18n/routes";
 import { pageMetadata } from "@/lib/metadata";
 
-const copy = pricingPageByLocale.es;
+const copy = pricingPageByLocale.en;
 
 export const metadata: Metadata = pageMetadata({
-    path: alternatesFor("pricing", "es").canonical,
+    path: alternatesFor("pricing", "en").canonical,
     title: copy.metaTitle,
     description: copy.metaDescription,
-    alternates: alternatesFor("pricing", "es"),
+    locale: "en",
+    alternates: alternatesFor("pricing", "en"),
 });
 
-export default function PreciosPage() {
-    return <PricingPage locale="es" />;
+export default function EnPricingPage() {
+    return <PricingPage locale="en" />;
 }

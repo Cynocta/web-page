@@ -3,7 +3,7 @@ import FaqSection from "@/components/sections/faq";
 import { JsonLd } from "@/components/structured-data";
 import { faqContent, type Locale } from "@/lib/content";
 import { faqJsonLd } from "@/lib/schema";
-import { ROUTE_MAP } from "@/lib/i18n/routes";
+import { ROUTE_MAP, localePath } from "@/lib/i18n/routes";
 import { siteUrl } from "@/lib/site-data";
 
 export default function FaqPageBody({ locale }: { locale: Locale }) {
@@ -19,7 +19,7 @@ export default function FaqPageBody({ locale }: { locale: Locale }) {
             ]}
         >
             <JsonLd data={faqJsonLd(locale, `${siteUrl}${path}`)} />
-            <FaqSection faq={faqContent[locale]} ctaHref={isEs ? "/contacto" : "/en#contacto"} />
+            <FaqSection faq={faqContent[locale]} ctaHref={localePath("contact", locale)} />
         </PageShell>
     );
 }

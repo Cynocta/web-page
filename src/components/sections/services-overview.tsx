@@ -3,7 +3,8 @@ import SectionHeader from "@/components/ui/section-header";
 import SectionLink from "@/components/ui/section-link";
 import type { Locale } from "@/lib/content";
 import { homeContent } from "@/lib/content/home";
-import { serviceList, services, servicePath } from "@/lib/content/services";
+import { serviceList, servicePath, servicesByLocale } from "@/lib/content/services";
+import { localePath } from "@/lib/i18n/routes";
 import ServiceExplorer, { type ExplorerFamily } from "./service-explorer";
 
 /**
@@ -20,8 +21,7 @@ import ServiceExplorer, { type ExplorerFamily } from "./service-explorer";
  */
 export default function ServicesOverviewSection({ locale = "es" }: { locale?: Locale }) {
     const copy = homeContent[locale].services;
-    // Service pages exist in Spanish only; say so to crawlers on the English home.
-    const hrefLang = locale === "es" ? undefined : "es";
+    const services = servicesByLocale[locale];
 
     const families: ExplorerFamily[] = copy.families.map((family) => ({
         title: family.title,
@@ -32,7 +32,7 @@ export default function ServicesOverviewSection({ locale = "es" }: { locale?: Lo
                 title: services[slug].cardTitle,
                 summary: services[slug].cardSummary,
             };
-            return { href: servicePath(slug), title: card.title, summary: card.summary };
+            return { href: servicePath(slug, locale), title: card.title, summary: card.summary };
         }),
     }));
 
@@ -44,13 +44,11 @@ export default function ServicesOverviewSection({ locale = "es" }: { locale?: Lo
                 families={families}
                 listLabel={copy.listLabel}
                 visuals={copy.visuals}
-                hrefLang={hrefLang}
             />
 
             <SectionLink
-                href="/servicios"
+                href={localePath("services", locale)}
                 label={copy.allLabel.replace("{n}", String(serviceList.length))}
-                hrefLang={hrefLang}
             />
         </Section>
     );
