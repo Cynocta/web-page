@@ -238,12 +238,13 @@
 }
 
 /* ── Touch targets ──
-   The footer held most of the page's undersized controls: 31 navigation links
-   at 34px, the email and phone lines at 22px, and the legal pair at 27px. */
+   36px, not 44: WCAG 2.2 AA asks for 24px, and at 44px the 31 stacked links
+   pushed the footer past two and a half phone screens. In two columns at 36px
+   every link stays comfortably tappable without the footer dwarfing the page. */
 @media (pointer: coarse) {
     .colLink,
     .bottomLink {
-        min-height: 44px;
+        min-height: 36px;
     }
 
     .bottomLink {
@@ -282,9 +283,25 @@
     }
 }
 
+/* Phones keep two columns of links. A single column stacked all four lists
+   one under another and made the footer 2,150px tall. */
 @media (max-width: 560px) {
     .top {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 18px;
+        padding-bottom: 28px;
+    }
+
+    .colLink {
+        padding: 4px 0;
+        font-size: 13px;
+    }
+
+    /* Social channels in one row rather than three lines. */
+    .socialList {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 18px;
     }
 
     .bottom {

@@ -30,12 +30,35 @@ export type HomeContent = {
          */
         cards?: Record<ServiceSlug, { title: string; summary: string }>;
     };
-    benefits: {
+    /**
+     * The live walkthrough: one enquiry followed through the system, step by
+     * step. Replaces the four benefit cards — each benefit is now a step the
+     * reader watches happen rather than a claim they read.
+     */
+    demo: {
         eyebrow: string;
         title: string;
         intro: string;
-        items: Array<{ num: string; title: string; description: string }>;
+        /** Labels the scenario as an illustration, not a client case. */
+        scenario: string;
+        /** `{n}` and `{total}` are replaced. */
+        progressLabel: string;
+        chatTitle: string;
+        chatStatus: string;
+        systemTitle: string;
+        steps: Array<{ time: string; title: string; body: string }>;
+        /** Chat bubbles; each appears once its `step` is reached. */
+        messages: Array<{ id: string; from: "client" | "bot"; text: string; time: string; step: number }>;
+        /** System log rows; each turns done once its `step` is reached. */
+        events: Array<{ id: string; label: string; detail: string; step: number }>;
+        /** Summary figures shown on the final step. */
+        metrics: Array<{ label: string; value: string }>;
+        footnote: string;
         linkLabel: string;
+        /** Phone stepper controls. `{n}` and `{title}` are replaced. */
+        prevLabel: string;
+        nextLabel: string;
+        goToLabel: string;
     };
     technologies: {
         eyebrow: string;

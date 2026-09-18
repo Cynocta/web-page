@@ -121,7 +121,10 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
                         <p className={`${s.colTitle} ${s.socialTitle}`} id="footer-social-title">
                             {copy.socialTitle}
                         </p>
-                        <ul className={s.colList} aria-labelledby="footer-social-title">
+                        <ul
+                            className={`${s.colList} ${s.socialList}`}
+                            aria-labelledby="footer-social-title"
+                        >
                             {socialLinks.map(({ label, href, Icon }) => (
                                 <li key={label}>
                                     <a

@@ -87,37 +87,68 @@ export const homeEn: HomeContent = {
             },
         },
     },
-    benefits: {
-        eyebrow: "Why Cynocta",
-        title: "Technology you notice in your operations, not on your invoice.",
-        intro: "We don't sell tools or hours. We deliver systems that do a specific job and can be measured from the first week.",
-        items: [
+    demo: {
+        eyebrow: "How it works",
+        title: "A message at 9:47 pm. Watch what happens without anyone on the team touching it.",
+        intro: "An example flow for a dental clinic. The same system adapts to a real estate agency, an online store or a school: the questions change, the logic doesn't.",
+        scenario: "Example · Dental clinic",
+        progressLabel: "Step {n} of {total}",
+        chatTitle: "Clinic · WhatsApp",
+        chatStatus: "online",
+        systemTitle: "Your system",
+        steps: [
             {
-                num: "01",
-                title: "Replies in seconds",
-                description:
-                    "The first to reply wins the sale. Your channels answer instantly at any hour, including when your team is away.",
+                time: "9:47 pm",
+                title: "The enquiry arrives",
+                body: "A patient messages on WhatsApp after hours. Without automation, that enquiry waits until tomorrow, and by then they have often picked someone else.",
             },
             {
-                num: "02",
-                title: "Less repetitive work",
-                description:
-                    "Copying data, sending reminders, putting reports together. None of it depends on someone remembering to do it anymore.",
+                time: "9:47 pm",
+                title: "A reply in seconds",
+                body: "The assistant answers in 4 seconds with your business's information, in your tone. The first to reply wins the sale, including when your team is away.",
             },
             {
-                num: "03",
-                title: "Everything measured",
-                description:
-                    "Where customers come from, where they drop off and how long closing takes. Without data, any improvement is an opinion.",
+                time: "9:48 pm",
+                title: "It qualifies the enquiry",
+                body: "It asks what your front desk would ask — first visit, urgency, preferred time — and classifies the patient by real intent before anyone spends time on them.",
             },
             {
-                num: "04",
-                title: "No lock-in",
-                description:
-                    "We build on standard tools and open source. If you want to take it with you or change providers tomorrow, you can.",
+                time: "9:49 pm",
+                title: "It books and records on its own",
+                body: "It offers real slots from the calendar, confirms the appointment and creates the record in your CRM. Copying data or sending reminders no longer depends on someone remembering.",
+            },
+            {
+                time: "8:00 am",
+                title: "Your team starts the day ready",
+                body: "A daily summary, an automatic reminder to the patient and every step measured: where they came from, how fast the reply was and whether it became an appointment. Without data, any improvement is an opinion.",
             },
         ],
+        messages: [
+            { id: "m1", from: "client", text: "Hi, do you have an appointment this week for a cleaning?", time: "9:47 pm", step: 0 },
+            { id: "m2", from: "bot", text: "Hi! Yes, we have availability. Is this your first visit with us?", time: "9:47 pm", step: 1 },
+            { id: "m3", from: "client", text: "Yes, first time. And one of my teeth hurts a bit.", time: "9:48 pm", step: 2 },
+            { id: "m4", from: "bot", text: "Got it, I'll flag it as a priority. Does tomorrow at 4 pm or Thursday at 10 am work?", time: "9:48 pm", step: 2 },
+            { id: "m5", from: "client", text: "Thursday at 10.", time: "9:49 pm", step: 3 },
+            { id: "m6", from: "bot", text: "Done: Thursday 10 am. I'll send you a reminder on Wednesday. ✓", time: "9:49 pm", step: 3 },
+        ],
+        events: [
+            { id: "e1", label: "Enquiry received", detail: "WhatsApp · after hours", step: 0 },
+            { id: "e2", label: "Reply sent", detail: "4 seconds", step: 1 },
+            { id: "e3", label: "Patient qualified", detail: "First visit · high priority", step: 2 },
+            { id: "e4", label: "Appointment booked", detail: "Thursday 10 am · calendar", step: 3 },
+            { id: "e5", label: "CRM record created", detail: "Details and full conversation", step: 3 },
+            { id: "e6", label: "Team notified", detail: "Daily summary at 8 am", step: 4 },
+        ],
+        metrics: [
+            { label: "First reply", value: "4 s" },
+            { label: "Data copied by hand", value: "0" },
+            { label: "Steps measured", value: "6/6" },
+        ],
+        footnote: "Built on standard tools such as n8n, the official WhatsApp API and the CRM you already use. If you want to take it with you or change providers tomorrow, you can.",
         linkLabel: "How we work (in Spanish)",
+        prevLabel: "Previous step",
+        nextLabel: "Next step",
+        goToLabel: "Go to step {n}: {title}",
     },
     technologies: {
         eyebrow: "Technology",

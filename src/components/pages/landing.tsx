@@ -1,10 +1,10 @@
 import Header from "@/components/layout/header";
 import SiteFooter from "@/components/layout/site-footer";
-import BenefitsSection from "@/components/sections/benefits";
 import ContactCtaSection from "@/components/sections/contact-cta";
 import FoundersSection from "@/components/sections/founders";
 import HomeFaqSection from "@/components/sections/home-faq";
 import HomeHero from "@/components/sections/home-hero";
+import LiveDemoSection from "@/components/sections/live-demo";
 import PricingSection from "@/components/sections/pricing";
 import ResultsSection from "@/components/sections/results";
 import ServicesOverviewSection from "@/components/sections/services-overview";
@@ -25,7 +25,7 @@ import { siteUrl } from "@/lib/site-data";
  * qualification form on /contacto, and the problem framing on /servicios.
  *
  * Order, and why:
- *   services → benefits → results   what we do, why it matters, the numbers
+ *   services → demo → results      what we do, watching it work, the numbers
  *   use cases → technologies        how it applies, what it is built with
  *   pricing → founders → FAQ        what it costs, who does it, the objections
  *   contact                         the action
@@ -55,7 +55,7 @@ export default function LandingPage({ locale }: { locale: Locale }) {
                     secondaryHref={isEs ? "/servicios" : "/en#resultados"}
                 />
                 <ServicesOverviewSection locale={locale} />
-                <BenefitsSection locale={locale} />
+                <LiveDemoSection locale={locale} />
                 <ResultsSection />
                 <UseCasesSection locale={locale} />
                 <TechnologiesSection locale={locale} />

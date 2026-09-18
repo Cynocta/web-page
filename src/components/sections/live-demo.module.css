@@ -1,0 +1,716 @@
+/* ══════════════════════════════════════════════════
+   "Así funciona" — live walkthrough.
+   Phones: stage first, then a compact step list where only the active step
+   shows its text. Desktop: steps on the left scroll past a stage that sticks.
+   ══════════════════════════════════════════════════ */
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+}
+
+.stageColumn {
+    order: -1;
+}
+
+/* ── Steps ── */
+.steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.step {
+    position: relative;
+    padding: 2px 0 2px 18px;
+    border-left: 1px solid var(--cyn-border-2);
+}
+
+/* The accent rail grows down the active step. */
+.step::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--cyn-accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.active::before {
+    transform: scaleY(1);
+}
+
+.stepHeading {
+    margin: 0;
+}
+
+.stepButton {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.stepButton:focus-visible {
+    outline: 2px solid var(--cyn-accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.stepIndex {
+    flex: 0 0 auto;
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease;
+}
+
+.stepTitle {
+    flex: 1 1 auto;
+    color: var(--cyn-muted);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+
+.stepTime {
+    flex: 0 0 auto;
+    color: var(--cyn-muted-2);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.active .stepIndex {
+    color: var(--cyn-accent);
+}
+
+.active .stepTitle {
+    color: var(--cyn-white);
+}
+
+.stepBody {
+    margin: 0;
+    max-width: 48ch;
+    color: var(--cyn-muted);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Phones and tablets: the step list gives way to the stepper under the stage,
+   and the active step's title and text are read from the caption. The list
+   stays in the served HTML for crawlers. */
+.caption,
+.mobileNav {
+    display: none;
+}
+
+@media (max-width: 999px) {
+    .steps {
+        display: none;
+    }
+
+    /* The segments below say which step this is; no need to say it twice. */
+    .progressLabel,
+    .progressTrack {
+        display: none;
+    }
+
+    .stageTop {
+        margin-bottom: 12px;
+    }
+
+    .mobileNav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .navArrow {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid var(--cyn-border-2);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--cyn-white);
+        cursor: pointer;
+        transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .navArrow svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .navArrow:active {
+        background: var(--cyn-accent-dim);
+        border-color: var(--cyn-accent-mid);
+    }
+
+    .navArrow:focus-visible,
+    .segment:focus-visible {
+        outline: 2px solid var(--cyn-accent);
+        outline-offset: 2px;
+    }
+
+    .segments {
+        display: flex;
+        flex: 1 1 auto;
+        gap: 6px;
+    }
+
+    /* The visible bar is 4px; the button around it is the full 44px tap target. */
+    .segment {
+        display: flex;
+        align-items: center;
+        flex: 1 1 0;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 6px;
+        background: none;
+        cursor: pointer;
+    }
+
+    .segmentTrack {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.12);
+        overflow: hidden;
+    }
+
+    .segmentFill {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--cyn-cyan), var(--cyn-accent));
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    .segmentDone .segmentFill,
+    .segmentActive .segmentFill {
+        transform: scaleX(1);
+    }
+
+    .segmentPlaying .segmentFill {
+        animation: segmentFill linear both;
+    }
+
+    /* Reserved for the longest step at each width (measured), so the box never
+       resizes between steps and leaves no dead space under shorter text. */
+    .caption {
+        display: block;
+        min-height: 12.2em;
+        margin: 12px 2px 0;
+        color: var(--cyn-muted);
+        font-size: 15px;
+        line-height: 1.65;
+        animation: captionIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .captionTitle {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--cyn-white);
+        font-family: var(--font-heading), "Segoe UI", sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 999px) {
+    .caption {
+        min-height: 10.5em;
+    }
+}
+
+@media (min-width: 430px) and (max-width: 999px) {
+    .caption {
+        min-height: 8.9em;
+    }
+}
+
+@media (min-width: 560px) and (max-width: 999px) {
+    .caption {
+        min-height: 7.2em;
+    }
+}
+
+@keyframes segmentFill {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes captionIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Desktop: every step is readable; the active one is full strength and each
+   step gets enough height that scrolling reads as moving through a story. */
+@media (min-width: 1000px) {
+    .layout {
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 56px;
+        align-items: start;
+    }
+
+    .stageColumn {
+        order: 0;
+        position: sticky;
+        top: calc(var(--cyn-header-h) + 6vh);
+    }
+
+    .steps {
+        padding: 8vh 0 24vh;
+    }
+
+    .step {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 44vh;
+        padding-left: 24px;
+        opacity: 0.42;
+        transition: opacity 0.45s ease;
+    }
+
+    .active {
+        opacity: 1;
+    }
+
+    .stepTitle {
+        font-size: 21px;
+    }
+}
+
+/* ── Stage ── */
+.stage {
+    position: relative;
+    padding: 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+        radial-gradient(120% 80% at 85% 0%, rgba(25, 245, 156, 0.1) 0%, transparent 60%),
+        linear-gradient(180deg, #0f1113 0%, #08090a 100%);
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.stageTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.scenario {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-accent-dim);
+    color: var(--cyn-muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.liveDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyn-accent);
+    animation: livePulse 2s ease-out infinite;
+}
+
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(25, 245, 156, 0.55); }
+    70% { box-shadow: 0 0 0 7px rgba(25, 245, 156, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(25, 245, 156, 0); }
+}
+
+.progressLabel {
+    color: var(--cyn-muted-2);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.progressTrack {
+    height: 2px;
+    margin-bottom: 14px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyn-cyan), var(--cyn-accent));
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panels {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+}
+
+@media (min-width: 560px) {
+    .panels {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+}
+
+/* ── Chat (the patient's view, as WhatsApp shows it) ── */
+.chat {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #0b1014;
+    overflow: hidden;
+}
+
+.chatHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.chatAvatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyn-cyan), var(--cyn-accent));
+    color: #06130d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.chatName {
+    display: flex;
+    flex-direction: column;
+    color: var(--cyn-white);
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.chatStatus {
+    color: var(--cyn-accent);
+    font-size: 11px;
+}
+
+/* Newest messages sit at the bottom and push older ones up and out, the way a
+   real conversation scrolls; the top edge fades instead of cutting. */
+.messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    height: 272px;
+    padding: 12px;
+    overflow: hidden;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 14px 14px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 86%;
+    padding: 8px 10px 5px;
+    border-radius: 12px;
+    color: #e9edef;
+    font-size: 13px;
+    line-height: 1.45;
+    animation: messageIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.fromClient {
+    align-self: flex-end;
+    background: #134d3b;
+    border-top-right-radius: 4px;
+}
+
+/* The assistant's reply lands a beat after the message it answers. */
+.fromBot {
+    align-self: flex-start;
+    background: #1d262c;
+    border-top-left-radius: 4px;
+    animation-delay: 0.4s;
+}
+
+.messageTime {
+    align-self: flex-end;
+    color: rgba(233, 237, 239, 0.5);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes messageIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── System log ── */
+.system {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 12px 10px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.systemTitle {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 6px 6px;
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.systemCount {
+    color: var(--cyn-accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.events {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.event {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.eventDot {
+    position: relative;
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* The check is an inline SVG centred on the dot. It used to be a rotated
+   border box positioned by hand, which sat visibly off-centre. */
+.eventOn .eventDot {
+    border-color: var(--cyn-accent);
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3 5 8.6l4.4-5' fill='none' stroke='%2306130d' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+            center / 9px 9px no-repeat,
+        var(--cyn-accent);
+    box-shadow: 0 0 0 4px rgba(25, 245, 156, 0.12);
+    animation: eventPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+@keyframes eventPop {
+    0% { transform: scale(0.6); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.eventText {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.eventLabel {
+    color: var(--cyn-muted-2);
+    font-size: 13px;
+    line-height: 1.35;
+    transition: color 0.35s ease;
+}
+
+.eventDetail {
+    color: var(--cyn-muted-2);
+    font-size: 11.5px;
+    line-height: 1.4;
+    opacity: 0.55;
+    transition: opacity 0.35s ease, color 0.35s ease;
+}
+
+.eventOn .eventLabel {
+    color: var(--cyn-white);
+}
+
+.eventOn .eventDetail {
+    color: var(--cyn-muted);
+    opacity: 1;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: auto 0 0;
+    padding: 12px 6px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    opacity: 0.25;
+    transition: opacity 0.5s ease;
+}
+
+.metricsOn {
+    opacity: 1;
+}
+
+.metric {
+    min-width: 0;
+}
+
+.metric dt {
+    color: var(--cyn-muted-2);
+    font-size: 10.5px;
+    line-height: 1.3;
+}
+
+.metric dd {
+    margin: 2px 0 0;
+    color: var(--cyn-white);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.4s ease;
+}
+
+.metricsOn .metric dd {
+    color: var(--cyn-accent);
+}
+
+.footnote {
+    max-width: 62ch;
+    margin: 32px 0 0;
+    color: var(--cyn-muted-2);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+/* Phones: the stacked chat and full log measured 790px, most of a screen for
+   one illustration. The log collapses to its latest entry, which slides in as
+   each step lands. */
+@media (max-width: 559px) {
+    .stage {
+        padding: 12px;
+    }
+
+    .messages {
+        height: 220px;
+    }
+
+    .system {
+        padding: 10px 8px 10px;
+    }
+
+    .event {
+        display: none;
+    }
+
+    .eventLatest {
+        display: flex;
+        animation: messageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Always laid out, dimmed until the final step, so the stage never changes
+       height mid-play and push the text below it while someone is reading. */
+    .metrics {
+        margin-top: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .step,
+    .step::before,
+    .stepBody,
+    .stepIndex,
+    .stepTitle,
+    .progressBar,
+    .eventDot,
+    .eventLabel,
+    .eventDetail,
+    .metrics,
+    .metric dd {
+        transition: none;
+    }
+
+    .liveDot,
+    .message,
+    .caption,
+    .eventLatest,
+    .segmentPlaying .segmentFill,
+    .eventOn .eventDot {
+        animation: none;
+    }
+}

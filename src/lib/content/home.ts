@@ -62,39 +62,6 @@ export const serviceFamilies: Array<{
     },
 ];
 
-export const benefits = {
-    eyebrow: "Por qué Cynocta",
-    title: "Tecnología que se nota en la operación, no en la factura.",
-    intro:
-        "No vendemos herramientas ni horas. Entregamos sistemas que hacen un trabajo concreto y se pueden medir desde la primera semana.",
-    items: [
-        {
-            num: "01",
-            title: "Respuesta en segundos",
-            description:
-                "El primero que contesta se lleva la venta. Tus canales responden al instante a cualquier hora, también cuando tu equipo no está.",
-        },
-        {
-            num: "02",
-            title: "Menos trabajo repetitivo",
-            description:
-                "Copiar datos, enviar recordatorios, armar reportes. Todo eso deja de depender de que alguien se acuerde de hacerlo.",
-        },
-        {
-            num: "03",
-            title: "Todo medido",
-            description:
-                "De dónde vienen los clientes, en qué punto se caen y cuánto tarda cerrar. Sin datos, cualquier mejora es una opinión.",
-        },
-        {
-            num: "04",
-            title: "Sin quedar atados",
-            description:
-                "Construimos sobre herramientas estándar y código abierto. Si mañana quieres llevártelo o cambiar de proveedor, puedes.",
-        },
-    ],
-};
-
 export const technologies = {
     eyebrow: "Tecnologías",
     title: "El stack con el que trabajamos.",
@@ -228,7 +195,69 @@ const homeEs: HomeContent = {
         allLabel: "Ver los {n} servicios en detalle",
         families: serviceFamilies,
     },
-    benefits: { ...benefits, linkLabel: "Cómo trabajamos" },
+    demo: {
+        eyebrow: "Así funciona",
+        title: "Un mensaje a las 21:47. Mira lo que pasa sin que nadie del equipo lo toque.",
+        intro: "Un ejemplo de flujo para una clínica dental. El mismo sistema se adapta a una inmobiliaria, una tienda online o una academia: cambian las preguntas, no la lógica.",
+        scenario: "Ejemplo · Clínica dental",
+        progressLabel: "Paso {n} de {total}",
+        chatTitle: "Clínica · WhatsApp",
+        chatStatus: "en línea",
+        systemTitle: "Tu sistema",
+        steps: [
+            {
+                time: "21:47",
+                title: "Llega la consulta",
+                body: "Un paciente escribe por WhatsApp fuera de horario. Sin automatización, esa consulta espera hasta mañana, y para entonces muchas veces ya eligió a otro.",
+            },
+            {
+                time: "21:47",
+                title: "Respuesta en segundos",
+                body: "El asistente contesta en 4 segundos con la información de tu negocio y en tu tono. El primero que responde se lleva la venta, también cuando tu equipo no está.",
+            },
+            {
+                time: "21:48",
+                title: "Califica la consulta",
+                body: "Pregunta lo que preguntaría tu recepción —primera visita, urgencia, horario— y clasifica al paciente según su intención real antes de que alguien invierta tiempo.",
+            },
+            {
+                time: "21:49",
+                title: "Agenda y registra solo",
+                body: "Ofrece horarios reales del calendario, confirma la cita y crea la ficha en tu CRM. Copiar datos o enviar recordatorios deja de depender de que alguien se acuerde.",
+            },
+            {
+                time: "08:00",
+                title: "Tu equipo llega con todo listo",
+                body: "Resumen del día, recordatorio automático al paciente y cada paso medido: de dónde vino, cuánto tardó la respuesta y si terminó en cita. Sin datos, cualquier mejora es una opinión.",
+            },
+        ],
+        messages: [
+            { id: "m1", from: "client", text: "Hola, ¿tienen cita esta semana para una limpieza?", time: "21:47", step: 0 },
+            { id: "m2", from: "bot", text: "¡Hola! Sí, tenemos disponibilidad. ¿Es tu primera visita con nosotros?", time: "21:47", step: 1 },
+            { id: "m3", from: "client", text: "Sí, primera vez. Y me molesta un poco una muela.", time: "21:48", step: 2 },
+            { id: "m4", from: "bot", text: "Entendido, lo marco como prioritario. ¿Te sirve mañana a las 16:00 o el jueves a las 10:00?", time: "21:48", step: 2 },
+            { id: "m5", from: "client", text: "El jueves a las 10.", time: "21:49", step: 3 },
+            { id: "m6", from: "bot", text: "Listo: jueves 10:00. Te envío un recordatorio el miércoles. ✓", time: "21:49", step: 3 },
+        ],
+        events: [
+            { id: "e1", label: "Consulta recibida", detail: "WhatsApp · fuera de horario", step: 0 },
+            { id: "e2", label: "Respuesta enviada", detail: "4 segundos", step: 1 },
+            { id: "e3", label: "Paciente calificado", detail: "Primera visita · prioridad alta", step: 2 },
+            { id: "e4", label: "Cita agendada", detail: "Jueves 10:00 · calendario", step: 3 },
+            { id: "e5", label: "Ficha creada en el CRM", detail: "Datos y conversación completa", step: 3 },
+            { id: "e6", label: "Equipo notificado", detail: "Resumen diario a las 08:00", step: 4 },
+        ],
+        metrics: [
+            { label: "Primera respuesta", value: "4 s" },
+            { label: "Datos copiados a mano", value: "0" },
+            { label: "Pasos medidos", value: "6/6" },
+        ],
+        footnote: "Construido sobre herramientas estándar como n8n, la API oficial de WhatsApp y el CRM que ya usas. Si mañana quieres llevártelo o cambiar de proveedor, puedes.",
+        linkLabel: "Cómo trabajamos",
+        prevLabel: "Paso anterior",
+        nextLabel: "Paso siguiente",
+        goToLabel: "Ir al paso {n}: {title}",
+    },
     technologies: { ...technologies, linkLabel: "Ver cómo lo aplicamos" },
     useCases: {
         ...useCases,
