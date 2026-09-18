@@ -5,21 +5,39 @@
     margin-bottom: 3rem;
 }
 
-.center {
+.lead {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.center,
+.center .lead {
     align-items: center;
     text-align: center;
 }
 
+/* Muted text with a small accent mark: the green is kept for things the
+   visitor can act on, not for every label on the page. */
 .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--cyn-accent);
+    color: var(--cyn-muted);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     margin: 0;
+}
+
+.eyebrow::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--cyn-accent);
 }
 
 .eyebrow::after {
@@ -52,10 +70,35 @@
 
 .intro {
     color: var(--cyn-muted);
-    font-size: 16.5px;
+    font-size: var(--fs-md);
     line-height: 1.8;
     max-width: 62ch;
     margin: 0;
+}
+
+/* Split: the title holds the left column, the intro sits beside it aligned to
+   the title's last line. Used on bands whose content is a wide grid or list,
+   so the header doesn't push it a screen further down. */
+@media (min-width: 1000px) {
+    .split {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        align-items: end;
+        column-gap: clamp(2.5rem, 6vw, 6rem);
+    }
+
+    .split .title {
+        max-width: 24ch;
+    }
+
+    .split .intro {
+        max-width: 48ch;
+        padding-bottom: 0.35em;
+    }
+
+    .split .eyebrow::after {
+        display: none;
+    }
 }
 
 @media (max-width: 900px) {

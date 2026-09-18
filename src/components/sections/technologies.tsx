@@ -19,7 +19,7 @@ export default function TechnologiesSection({ locale = "es" }: { locale?: Locale
 
     return (
         <Section id="tecnologias" tone="surface" rhythm="tight">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
+            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} layout="split" />
             <Reveal>
                 <dl className={s.stack}>
                     {copy.groups.map((group) => (

@@ -27,7 +27,7 @@ export default function UseCasesSection({
 
     return (
         <Section id="casos-de-uso" tone={tone}>
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
+            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} align="center" />
 
             <Reveal>
                 <div className={s.caseTableWrap}>
@@ -65,6 +65,7 @@ export default function UseCasesSection({
                 href="/soluciones"
                 label={copy.linkLabel}
                 hrefLang={locale === "es" ? undefined : "es"}
+                align="center"
             />
         </Section>
     );

@@ -23,7 +23,7 @@ export default function HomeFaqSection({ locale = "es" }: { locale?: Locale }) {
 
     return (
         <Section id="preguntas" tone="black">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
+            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} layout="split" />
 
             <div className={s.list}>
                 {copy.items.map((item) => (

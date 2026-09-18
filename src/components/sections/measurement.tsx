@@ -23,7 +23,7 @@ export default function MeasurementSection({ locale = "es" }: { locale?: Locale 
 
     return (
         <Section id="que-medimos" tone="surface">
-            <SectionHeader eyebrow={copy.tag} title={copy.title} intro={copy.intro} />
+            <SectionHeader eyebrow={copy.tag} title={copy.title} intro={copy.intro} layout="split" />
 
             <ol className={s.measures}>
                 {copy.items.map((item, index) => {

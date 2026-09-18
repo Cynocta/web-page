@@ -43,7 +43,7 @@ export default function FoundersSection({
 
     return (
         <Section id="fundadores" tone="accent">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
+            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} align="center" />
 
             <div className={s.list}>
                 {founders.map((founder, i) => {
@@ -120,6 +120,7 @@ export default function FoundersSection({
                     href="/nosotros"
                     label={copy.linkLabel}
                     hrefLang={locale === "es" ? undefined : "es"}
+                    align="center"
                 />
             )}
         </Section>

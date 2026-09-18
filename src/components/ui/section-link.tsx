@@ -12,14 +12,21 @@ export default function SectionLink({
     href,
     label,
     hrefLang,
+    align = "left",
 }: {
     href: string;
     label: string;
     /** Set when the destination is in a different language from the page. */
     hrefLang?: string;
+    /** Matches a centred SectionHeader above it. */
+    align?: "left" | "center";
 }) {
     return (
-        <Link href={href} className={s.link} hrefLang={hrefLang}>
+        <Link
+            href={href}
+            className={align === "center" ? `${s.link} ${s.center}` : s.link}
+            hrefLang={hrefLang}
+        >
             {label}
             <span className={s.arrow} aria-hidden="true">
                 →
