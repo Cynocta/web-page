@@ -18,8 +18,14 @@ export const brandFont = Space_Grotesk({
     weight: ["500", "600", "700"],
 });
 
+/**
+ * Only small labels use the mono face, so it isn't preloaded: its three files
+ * competed with the body and heading fonts for the first paint, and a label
+ * swapping in a moment later is invisible in practice.
+ */
 export const monoFont = DM_Mono({
     variable: "--font-mono",
     subsets: ["latin"],
     weight: ["300", "400", "500"],
+    preload: false,
 });
