@@ -5,8 +5,8 @@ import FoundersSection from "@/components/sections/founders";
 import HomeFaqSection from "@/components/sections/home-faq";
 import HomeHero from "@/components/sections/home-hero";
 import LiveDemoSection from "@/components/sections/live-demo";
+import MeasurementSection from "@/components/sections/measurement";
 import PricingSection from "@/components/sections/pricing";
-import ResultsSection from "@/components/sections/results";
 import ServicesOverviewSection from "@/components/sections/services-overview";
 import TechnologiesSection from "@/components/sections/technologies";
 import UseCasesSection from "@/components/sections/use-cases";
@@ -25,7 +25,7 @@ import { siteUrl } from "@/lib/site-data";
  * qualification form on /contacto, and the problem framing on /servicios.
  *
  * Order, and why:
- *   services → demo → results      what we do, watching it work, the numbers
+ *   services → demo → measurement  what we do, watching it work, how it's measured
  *   use cases → technologies        how it applies, what it is built with
  *   pricing → founders → FAQ        what it costs, who does it, the objections
  *   contact                         the action
@@ -52,11 +52,11 @@ export default function LandingPage({ locale }: { locale: Locale }) {
             <main>
                 <HomeHero
                     primaryHref={isEs ? "/contacto" : "/en#contacto"}
-                    secondaryHref={isEs ? "/servicios" : "/en#resultados"}
+                    secondaryHref={isEs ? "/servicios" : "/en#como-funciona"}
                 />
                 <ServicesOverviewSection locale={locale} />
                 <LiveDemoSection locale={locale} />
-                <ResultsSection />
+                <MeasurementSection locale={locale} />
                 <UseCasesSection locale={locale} />
                 <TechnologiesSection locale={locale} />
                 <PricingSection ctaHref={isEs ? "/contacto" : "/en#contacto"} />

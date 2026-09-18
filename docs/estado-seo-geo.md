@@ -79,7 +79,7 @@
 
 Ordenado por impacto. Cada punto requiere una decisión o un dato del cliente.
 
-1. **Cifras sin respaldo.** `+52 negocios`, `+34 % conversiones`, `+43 % citas`, `2x visitas` y `<2 min` están escritas a mano y `/portafolio` no tiene ningún caso publicado. Es el mayor riesgo de confianza (E-E-A-T) y de exposición publicitaria. **Acción:** publicar al menos un caso real que las respalde, o sustituirlas por afirmaciones verificables.
+1. ~~**Cifras sin respaldo.**~~ **Resuelto (17-09-2026).** El hero muestra compromisos del servicio en lugar de `+52 negocios` y `+34 %`; «Resultados reales» pasó a «Qué medimos desde el primer día»; «Más solicitado» pasó a «Recomendado». **Pendiente:** publicar en `/portafolio` el caso real de software a medida cuando el cliente dé los datos y su permiso.
 2. **Fotos y perfiles de los fundadores.** Los `Person` no tienen `sameAs`. Un LinkedIn por fundador es la señal de autoría más barata que queda. Basta con rellenar `linkedin` y `photo` en `src/lib/content/founders.ts`.
 3. **Variable `NEXT_PUBLIC_SITE_URL` en Vercel.** Debe ser `https://www.cynocta.com`. El ejemplo anterior no llevaba `www` y habría apuntado todos los canonical a una redirección. Comprobar en Search Console → Inspección de URL → "Canónica seleccionada por Google".
 4. **GA4:** marcar `generate_lead` como *evento clave* en Administrar → Eventos, o no contará como conversión.

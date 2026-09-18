@@ -1,0 +1,166 @@
+/* ══════════════════════════════════════════════════
+   "Qué medimos" — four measures in columns divided by hairlines.
+   ══════════════════════════════════════════════════ */
+
+.measures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--cyn-border-2);
+}
+
+.measure {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px 20px 26px 0;
+    border-bottom: 1px solid var(--cyn-border-2);
+}
+
+.measure:nth-child(odd) {
+    padding-right: 20px;
+    border-right: 1px solid var(--cyn-border-2);
+}
+
+.measure:nth-child(even) {
+    padding-left: 20px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-accent-dim);
+    color: var(--cyn-accent);
+}
+
+.icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.index {
+    color: var(--cyn-muted-2);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+}
+
+.title {
+    margin: 0;
+    color: var(--cyn-white);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+}
+
+.description {
+    margin: 0;
+    color: var(--cyn-muted);
+    font-size: 14.5px;
+    line-height: 1.65;
+}
+
+/* How the baseline is taken — the commitment that makes the list checkable. */
+.note {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 72ch;
+    margin: 28px 0 0;
+    padding: 16px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--cyn-border);
+    background: var(--cyn-accent-dim);
+    color: var(--cyn-white);
+    font-size: 14.5px;
+    line-height: 1.6;
+}
+
+.noteIcon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    color: var(--cyn-accent);
+}
+
+/* Desktop: the four measures in one row. */
+@media (min-width: 1000px) {
+    .measures {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .measure,
+    .measure:nth-child(odd),
+    .measure:nth-child(even) {
+        padding: 28px 24px 30px;
+        border-right: 1px solid var(--cyn-border-2);
+    }
+
+    .measure:first-child {
+        padding-left: 0;
+    }
+
+    .measure:last-child {
+        padding-right: 0;
+        border-right: 0;
+    }
+}
+
+/* Narrow phones: one compact row per measure, icon beside the text. Stacked
+   as cards it took 1,370px for four short items. */
+@media (max-width: 520px) {
+    .measures {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .measure,
+    .measure:nth-child(odd),
+    .measure:nth-child(even) {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr);
+        column-gap: 14px;
+        row-gap: 4px;
+        padding: 16px 0;
+        border-right: 0;
+    }
+
+    .top {
+        grid-row: 1 / span 2;
+        align-self: start;
+        margin: 0;
+    }
+
+    .index {
+        display: none;
+    }
+
+    .title {
+        font-size: 16.5px;
+    }
+
+    .description {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .note {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+}

@@ -21,10 +21,12 @@ export const es: Content = {
            until a real client agrees to be named, so the label matches the
            destination instead. Put both back when the first case ships. */
         secondaryCta: "Ver qué automatizamos",
+        /* Commitments of the service, not results. "+52 businesses automated"
+           and "+34% conversion lift" stood here with nothing behind them. */
         stats: [
-            { prefix: "+", value: "52", label: "Negocios automatizados" },
-            { prefix: "<", value: "5s", label: "Primera respuesta" },
-            { prefix: "+", value: "34%", label: "Aumento en conversiones" },
+            { prefix: "<", value: "5 s", label: "Primera respuesta del asistente" },
+            { prefix: "", value: "24/7", label: "Atención sin horario" },
+            { prefix: "", value: "2 sem.", label: "Primera entrega" },
         ],
         visual: {
             kicker: "Sistema activo",
@@ -42,7 +44,7 @@ export const es: Content = {
             flow: ["Ads", "IA", "Agenda", "Venta"],
         },
         aria: {
-            stats: "Beneficios clave",
+            stats: "Compromisos del servicio",
             visual: "Demostración de automatización",
             flow: "Flujo de automatización",
         },
@@ -220,7 +222,7 @@ export const es: Content = {
                 priceNote: "Precio de referencia según el nivel de automatización que necesites.",
                 disclaimer:
                     "Si tu negocio necesita enviar mensajes masivos o usar WhatsApp verificado, se suma el costo de la API oficial (~$50–$75 USD/mes). Si solo necesitas responder chats, no aplica.",
-                badge: "MÁS SOLICITADO",
+                badge: "RECOMENDADO",
                 featured: true,
                 features: [
                     { label: "Todo el plan 1 incluido", active: true },
@@ -317,32 +319,29 @@ export const es: Content = {
         stepOf: "Pregunta {current} de {total}",
         messageIntro: "Hola, quiero resolver lo que se me está escapando.",
     },
-    results: {
-        tag: "Resultados reales",
-        title: "Lo que dicen los números.",
+    measurement: {
+        tag: "Medición",
+        title: "Qué medimos desde el primer día.",
+        intro: "No publicamos cifras que no podamos respaldar. Lo que sí hacemos en cada proyecto es registrar tu punto de partida antes de empezar y medir estas cuatro cosas cada semana.",
         items: [
             {
-                context: "Clínica dental local",
-                metric: "+43%",
-                metricLabel: "más citas cerradas en 30 días",
-                summary:
-                    "Pasaron de agendar manualmente a un flujo automático en WhatsApp con confirmaciones y recordatorios.",
+                title: "Tiempo hasta la primera respuesta",
+                description: "Cuánto espera un cliente desde que escribe hasta que recibe respuesta, de día y fuera de horario.",
             },
             {
-                context: "Agencia inmobiliaria",
-                metric: "2x",
-                metricLabel: "más visitas agendadas en 21 días",
-                summary:
-                    "Automatizaron el primer contacto y el prefiltrado de prospectos para agendar visitas sin fricción.",
+                title: "Consultas atendidas fuera de horario",
+                description: "Las que antes esperaban hasta el día siguiente y ahora se responden en el momento.",
             },
             {
-                context: "Escuela de idiomas online",
-                metric: "<2min",
-                metricLabel: "tiempo de primera respuesta",
-                summary:
-                    "Su conversión de consulta a inscripción subió al automatizar la primera respuesta.",
+                title: "Consultas que terminan en cita o venta",
+                description: "La conversión real del canal, contada en tu CRM, no estimada.",
+            },
+            {
+                title: "Trabajo manual que deja de hacerse",
+                description: "Datos que ya nadie copia a mano y recordatorios que nadie tiene que acordarse de enviar.",
             },
         ],
+        note: "Tu línea base se registra antes de implementar, para comparar contra un punto de partida real y no contra una impresión.",
     },
     contact: {
         tag: "Siguiente paso",

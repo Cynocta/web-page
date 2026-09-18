@@ -16,13 +16,13 @@ export const en: Content = {
         subtitle:
             "We implement automation, AI, and web systems that capture clients, respond 24/7, and scale your operation effortlessly.",
         primaryCta: "Schedule a free diagnosis",
-        /* The English tree is a single page, so this one lands on #resultados
-           rather than a catalogue — the label names what is actually there. */
-        secondaryCta: "See the results",
+        /* The English tree is a single page, so this one lands on the
+           walkthrough further down rather than a catalogue. */
+        secondaryCta: "See how it works",
         stats: [
-            { prefix: "+", value: "52", label: "Businesses automated" },
-            { prefix: "<", value: "5s", label: "First response" },
-            { prefix: "+", value: "34%", label: "Conversion lift" },
+            { prefix: "<", value: "5 s", label: "First reply from the assistant" },
+            { prefix: "", value: "24/7", label: "Always-on service" },
+            { prefix: "", value: "2 wks", label: "First delivery" },
         ],
         visual: {
             kicker: "System online",
@@ -40,7 +40,7 @@ export const en: Content = {
             flow: ["Ads", "AI", "Schedule", "Sale"],
         },
         aria: {
-            stats: "Key benefits",
+            stats: "Service commitments",
             visual: "Automation demo",
             flow: "Automation flow",
         },
@@ -218,7 +218,7 @@ export const en: Content = {
                 priceNote: "Reference price based on the level of automation you need.",
                 disclaimer:
                     "If your business needs bulk messaging or a verified WhatsApp number, the official API cost (~$50–$75 USD/mo) applies. If you only need to reply to chats, it doesn't.",
-                badge: "MOST REQUESTED",
+                badge: "RECOMMENDED",
                 featured: true,
                 features: [
                     { label: "Everything in plan 1", active: true },
@@ -315,32 +315,29 @@ export const en: Content = {
         stepOf: "Question {current} of {total}",
         messageIntro: "Hi, I want to fix what's slipping away.",
     },
-    results: {
-        tag: "Real results",
-        title: "What the numbers say.",
+    measurement: {
+        tag: "Measurement",
+        title: "What we measure from day one.",
+        intro: "We don't publish figures we can't back up. What we do on every project is record your starting point before we begin and measure these four things every week.",
         items: [
             {
-                context: "Local dental clinic",
-                metric: "+43%",
-                metricLabel: "more appointments closed in 30 days",
-                summary:
-                    "They moved from manual scheduling to an automated WhatsApp flow with confirmations and reminders.",
+                title: "Time to first reply",
+                description: "How long a customer waits between writing and getting an answer, in and out of business hours.",
             },
             {
-                context: "Real estate agency",
-                metric: "2x",
-                metricLabel: "more visits scheduled in 21 days",
-                summary:
-                    "They automated first contact and prospect pre-qualification to schedule visits without friction.",
+                title: "Enquiries answered after hours",
+                description: "The ones that used to wait until the next day and now get a reply on the spot.",
             },
             {
-                context: "Online language school",
-                metric: "<2min",
-                metricLabel: "time to first response",
-                summary:
-                    "Their inquiry-to-enrollment conversion rose after automating the first response.",
+                title: "Enquiries that become a booking or a sale",
+                description: "The channel's real conversion, counted in your CRM, not estimated.",
+            },
+            {
+                title: "Manual work that stops",
+                description: "Data nobody copies by hand anymore and reminders nobody has to remember to send.",
             },
         ],
+        note: "Your baseline is recorded before implementation, so everything is compared against a real starting point, not an impression.",
     },
     contact: {
         tag: "Next step",

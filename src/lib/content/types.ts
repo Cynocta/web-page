@@ -54,11 +54,13 @@ export type FormQuestion = {
     options?: FormOption[];
 };
 
-export type Result = {
-    context: string;
-    metric: string;
-    metricLabel: string;
-    summary: string;
+/**
+ * Something every project measures. A commitment about method, not a client
+ * figure: the site publishes no results it cannot back with a named case.
+ */
+export type Measure = {
+    title: string;
+    description: string;
 };
 
 export type HeroStat = {
@@ -179,10 +181,13 @@ export type Content = {
         /** Prefix of the WhatsApp message built from the answers. */
         messageIntro: string;
     };
-    results: {
+    measurement: {
         tag: string;
         title: string;
-        items: Result[];
+        intro: string;
+        items: Measure[];
+        /** How the baseline is taken — shown under the list. */
+        note: string;
     };
     contact: {
         tag: string;
