@@ -15,7 +15,10 @@ const CSP = [
     // Next.js hydration uses inline bootstrap scripts. gtag.js is served from
     // googletagmanager.com even when the property is GA4 and there is no GTM
     // container.
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+    // Metricool injects its tracker from tracker.metricool.com. Its visit beacon
+    // is an image today (covered by img-src), and tracker.metricool.com is in
+    // connect-src too so the policy holds if they switch it to fetch.
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://tracker.metricool.com",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data:",
     // Spline decodes textures from data: URIs. Caught by the report-only pass —
@@ -26,7 +29,7 @@ const CSP = [
     // GA4 beacons go to google-analytics.com, and the regional endpoints resolve
     // under analytics.google.com — both are needed or the hits are dropped
     // silently once the policy is enforcing.
-    "connect-src 'self' https://prod.spline.design https://*.spline.design https://unpkg.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
+    "connect-src 'self' https://prod.spline.design https://*.spline.design https://unpkg.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://tracker.metricool.com",
     "worker-src 'self' blob:",
     "frame-ancestors 'self'",
     "base-uri 'self'",

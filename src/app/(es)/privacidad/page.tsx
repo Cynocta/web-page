@@ -29,7 +29,7 @@ export default function PrivacidadPage() {
             <header className={s.hero}>
                 <p className={s.kicker}>Cynocta</p>
                 <h1 className={s.title}>Política de privacidad</h1>
-                <p className={s.subtitle}>Última actualización: septiembre de 2026</p>
+                <p className={s.subtitle}>Última actualización: octubre de 2026</p>
             </header>
 
             <div className={s.shell}>
@@ -124,6 +124,7 @@ export default function PrivacidadPage() {
                     <ul>
                         <li>WhatsApp y WhatsApp Business Platform (Meta Platforms), para la mensajería.</li>
                         <li>Google Analytics 4 (Google LLC), para la medición de visitas del sitio web.</li>
+                        <li>Metricool (Metricool S.L., España), para medir las visitas del sitio junto con la actividad de nuestras redes sociales.</li>
                         <li>Vercel, para el alojamiento del sitio web.</li>
                         <li>Proveedores de servidores en la nube y de modelos de IA, en los proyectos que lo requieren.</li>
                     </ul>
@@ -183,6 +184,12 @@ export default function PrivacidadPage() {
                         páginas se leen y qué canal de contacto se elige. Caducan a los 2 años. Google Analytics
                         no nos entrega tu nombre, correo ni número de teléfono.
                     </p>
+                    <p>
+                        El sitio también usa el medidor de Metricool, que envía a sus servidores un aviso de
+                        visita con la página vista y el origen desde el que llegas, por ejemplo Instagram, y puede
+                        guardar una cookie propia de Metricool en tu navegador. Tampoco nos entrega tu nombre,
+                        correo ni número de teléfono.
+                    </p>
                     <h3>Preferencias</h3>
                     <p>
                         La divisa que eliges para ver los precios (USD, COP o EUR) se guarda en el almacenamiento
@@ -192,7 +199,8 @@ export default function PrivacidadPage() {
                     <p>
                         Puedes bloquear o borrar las cookies desde la configuración de tu navegador, o instalar
                         el complemento de inhabilitación de Google Analytics (tools.google.com/dlpage/gaoptout).
-                        El sitio sigue funcionando con normalidad sin ellas.
+                        Las dos herramientas de medición se cargan solo después de que la página termina de
+                        cargar, y el sitio sigue funcionando con normalidad sin ellas.
                     </p>
                 </section>
 

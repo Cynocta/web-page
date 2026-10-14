@@ -27,5 +27,12 @@ export const siteUrl = (() => {
 export const googleAnalyticsId =
     process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "G-V2JPLWQPJD";
 
+/** Metricool tracking hash, for the visit data that shows up next to the
+ *  social accounts in their dashboard. Public like the GA id: it ships in the
+ *  page source either way. Set the env var to an empty string to turn the
+ *  tracker off, for example on a preview deploy. */
+export const metricoolHash =
+    process.env.NEXT_PUBLIC_METRICOOL_HASH?.trim() ?? "46e1ca2dece7f8fbc63295b05cb875b7";
+
 export const buildWhatsappLink = (text: string) =>
     `https://wa.me/573052580874?text=${encodeURIComponent(text)}`;
