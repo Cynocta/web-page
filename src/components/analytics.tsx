@@ -1,6 +1,6 @@
 import Script from "next/script";
 import AnalyticsEvents from "@/components/analytics-events";
-import { googleAnalyticsId } from "@/lib/site-data";
+import { googleAnalyticsId, metricoolHash } from "@/lib/site-data";
 
 /**
  * Google tag (gtag.js) for GA4.
@@ -16,7 +16,7 @@ import { googleAnalyticsId } from "@/lib/site-data";
  * own (it listens to History API events), so there is no route-change effect
  * here to keep in sync.
  */
-export default function Analytics() {
+function GoogleAnalytics() {
     if (!googleAnalyticsId) {
         return null;
     }
@@ -33,6 +33,38 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${googleAnalyticsId}');`}
             </Script>
+        </>
+    );
+}
+
+/**
+ * Metricool's tracker, which is what connects the site's visits to the social
+ * accounts Metricool already reports on.
+ *
+ * Their snippet injects the script itself and calls `beTracker.t()` once it
+ * loads; that is kept rather than pointing `<Script src>` at it directly,
+ * because the hash has to be registered in the same callback. `lazyOnload` for
+ * the same reason as gtag: a second analytics request has no business
+ * competing with the page's own CSS and fonts.
+ */
+function Metricool() {
+    if (!metricoolHash) {
+        return null;
+    }
+
+    return (
+        <Script id="metricool-tracker" strategy="lazyOnload">
+            {`(function(){var s=document.createElement("script");s.async=true;s.src="https://tracker.metricool.com/resources/be.js";s.onload=function(){if(window.beTracker){window.beTracker.t({hash:"${metricoolHash}"});}};document.head.appendChild(s);})();`}
+        </Script>
+    );
+}
+
+/** Every measurement tag on the site, in one place. */
+export default function Analytics() {
+    return (
+        <>
+            <GoogleAnalytics />
+            <Metricool />
             <AnalyticsEvents />
         </>
     );
