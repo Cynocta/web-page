@@ -81,22 +81,23 @@ Ordenado por impacto. Cada punto requiere una decisión o un dato del cliente.
 
 1. ~~**Cifras sin respaldo.**~~ **Resuelto (17-09-2026).** El hero muestra compromisos del servicio en lugar de `+52 negocios` y `+34 %`; «Resultados reales» pasó a «Qué medimos desde el primer día»; «Más solicitado» pasó a «Recomendado». **Pendiente:** publicar en `/portafolio` el caso real de software a medida cuando el cliente dé los datos y su permiso.
 2. **Fotos y perfiles de los fundadores.** Los `Person` no tienen `sameAs`. Un LinkedIn por fundador es la señal de autoría más barata que queda. Basta con rellenar `linkedin` y `photo` en `src/lib/content/founders.ts`.
-3. **Variable `NEXT_PUBLIC_SITE_URL` en Vercel.** Debe ser `https://www.cynocta.com`. El ejemplo anterior no llevaba `www` y habría apuntado todos los canonical a una redirección. Comprobar en Search Console → Inspección de URL → "Canónica seleccionada por Google".
-4. **GA4:** marcar `generate_lead` como *evento clave* en Administrar → Eventos, o no contará como conversión.
-5. **Consentimiento de cookies.** GA4 instala cookies sin banner. Es aceptable bajo la normativa colombiana si la política lo informa (ya lo hace); si se captan visitantes de la UE, hace falta un banner con Consent Mode.
-6. **Revisión legal** de la política de privacidad actualizada. Además, los términos siguen fechados en "Mayo 2025".
-7. **Correo de marca.** `cynoctaadmin@gmail.com` resta credibilidad en schema, `llms.txt` y pie. Cambiarlo es una línea en `src/lib/site-data.ts` cuando exista `hola@cynocta.com`.
-8. ~~**Cobertura en inglés.**~~ **Resuelto en parte (18-09-2026).** Ya existen en inglés `/en/services`, las 10 páginas de servicio (`/en/services/<slug-en>`), `/en/pricing` y `/en/contact`, con hreflang recíproco, OG propia, schema en `en`, sitemap (44 URL) y `llms.txt`. **Pendiente:** soluciones, blog, portafolio y nosotros siguen solo en español.
-9. **CSP en modo report-only.** Pasarla a obligatoria tras verificar en un deploy de preview que no hay violaciones (ya incluye los dominios de GA4).
-10. **Tipografía de las imágenes OG.** Satori usa su fuente por defecto: sin negrita y con espacios dobles ocasionales. Se arregla incluyendo Space Grotesk (licencia OFL) en el repo.
+3. ~~**Redirección 307.**~~ **Resuelto (28-10-2026).** `https://cynocta.com` redirige con 308 permanente a `https://www.cynocta.com`, conservando la ruta. Las variantes `http://` ya lo hacían. Quedan los tres avisos de «Página con redirección» en Search Console, que se cierran con «Validar corrección».
+4. **Variable `NEXT_PUBLIC_SITE_URL` en Vercel.** Debe ser `https://www.cynocta.com`. El ejemplo anterior no llevaba `www` y habría apuntado todos los canonical a una redirección. Comprobar en Search Console → Inspección de URL → "Canónica seleccionada por Google".
+5. **GA4:** marcar `generate_lead` como *evento clave* en Administrar → Eventos, o no contará como conversión.
+6. **Consentimiento de cookies.** GA4 y Metricool instalan cookies sin banner. Es aceptable bajo la normativa colombiana si la política lo informa (ya lo hace); si se captan visitantes de la UE, hace falta un banner con Consent Mode.
+7. **Revisión legal** de la política de privacidad actualizada. Además, los términos siguen fechados en "Mayo 2025".
+8. **Correo de marca.** `cynoctaadmin@gmail.com` resta credibilidad en schema, `llms.txt` y pie. Cambiarlo es una línea en `src/lib/site-data.ts` cuando exista `hola@cynocta.com`.
+9. ~~**Cobertura en inglés.**~~ **Resuelto en parte (18-09-2026).** Ya existen en inglés `/en/services`, las 10 páginas de servicio (`/en/services/<slug-en>`), `/en/pricing` y `/en/contact`, con hreflang recíproco, OG propia, schema en `en`, sitemap (44 URL) y `llms.txt`. **Pendiente:** soluciones, blog, portafolio y nosotros siguen solo en español.
+10. **CSP en modo report-only.** Pasarla a obligatoria tras verificar en un deploy de preview que no hay violaciones (ya incluye los dominios de GA4).
+11. ~~**Tipografía de las imágenes OG.**~~ **Resuelto.** Space Grotesk 400/600 va embebida en `src/assets/fonts` (licencia OFL incluida), porque Satori no lee fuentes variables.
 
 ## 5. Verificación tras desplegar
 
-- [ ] Search Console → Sitemaps → reenviar `sitemap.xml`.
+- [x] Search Console → Sitemaps → reenviar `sitemap.xml`. **Enviado el 28-10-2026** (`https://www.cynocta.com/sitemap.xml`, 44 URL). Pendiente comprobar en unos días que la columna de páginas descubiertas llegue a 44.
 - [ ] Inspección de URL + solicitar indexación de `/`, `/en`, `/servicios` y `/contacto`.
 - [ ] Rich Results Test sobre `/` (FAQPage, Service/Offer) y un artículo (BlogPosting, FAQPage).
 - [ ] Opengraph.xyz o el depurador de LinkedIn sobre un servicio: debe mostrar su tarjeta propia.
-- [ ] `https://www.cynocta.com/llms.txt` y `/favicon.ico` responden 200.
+- [x] `https://www.cynocta.com/llms.txt` y `/favicon.ico` responden 200.
 - [ ] GA4 → Tiempo real: pulsar WhatsApp en la home y ver `generate_lead`.
 - [ ] PageSpeed Insights móvil y escritorio. LCP y FCP no pudieron medirse aquí (panel en segundo plano); sí se midió CLS 0 y 19 peticiones / ~291 KB en móvil, sin descargar Spline.
 - [ ] A los 28 días: CTR y consultas nuevas de `/` en Search Console, frente a la línea base.

@@ -14,11 +14,15 @@ import s from "./home-hero.module.css";
  * stays a desktop-only treat and the lazy chunk is never fetched on a phone.
  * Starting at `false` also keeps the server render on the light visual.
  *
- * Even on desktop it waits: evaluating the runtime blocks the main thread for
- * about two seconds, which on page load delayed everything else the visitor
- * could do. It now mounts on the first pointer movement (the robot follows the
- * pointer, so that's when it matters) or once the page has loaded and the
- * browser is idle, whichever comes first.
+ * Even on desktop it waits for the first pointer movement. The scene is 563KB
+ * of runtime that holds the main thread for about four seconds, plus a 1.2MB
+ * scene and a WASM module — a third of which is wasted on someone who reads the
+ * hero and scrolls on. Since the robot's whole trick is following the pointer,
+ * a visitor who never moves one loses nothing by keeping the light visual.
+ *
+ * There is deliberately no timer or idle fallback: that is what made the scene
+ * load for visitors who never asked for it, and it put the desktop homepage at
+ * 2.6MB with 1.9s of blocking time.
  */
 export default function HomeHero({
     primaryHref,
@@ -45,31 +49,14 @@ export default function HomeHero({
         };
     }, []);
 
-    // Wait for a reason to spend two seconds of main thread on the scene.
+    // A pointer in the window is the only reason to spend four seconds of main
+    // thread on a scene that tracks it.
     useEffect(() => {
         if (!useSpline || ready) return;
 
-        let idleId: number | undefined;
-        let timeoutId: number | undefined;
         const start = () => setReady(true);
-        const whenIdle = () => {
-            if (typeof window.requestIdleCallback === "function") {
-                idleId = window.requestIdleCallback(start, { timeout: 4000 });
-            } else {
-                timeoutId = window.setTimeout(start, 1500);
-            }
-        };
-
         window.addEventListener("pointermove", start, { once: true, passive: true });
-        if (document.readyState === "complete") whenIdle();
-        else window.addEventListener("load", whenIdle, { once: true });
-
-        return () => {
-            window.removeEventListener("pointermove", start);
-            window.removeEventListener("load", whenIdle);
-            if (idleId !== undefined) window.cancelIdleCallback(idleId);
-            if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-        };
+        return () => window.removeEventListener("pointermove", start);
     }, [useSpline, ready]);
 
     return (
