@@ -36,11 +36,11 @@ export default function TerminosPage() {
                 <div className={s.meta}>
                     <div className={s.metaCard}>
                         <span className={s.metaLabel}>Última actualización</span>
-                        <strong className={s.metaValue}>Mayo 2025</strong>
+                        <strong className={s.metaValue}>Octubre 2026</strong>
                     </div>
                     <div className={s.metaCard}>
                         <span className={s.metaLabel}>Versión</span>
-                        <strong className={s.metaValue}>1.0</strong>
+                        <strong className={s.metaValue}>1.1</strong>
                     </div>
                     <div className={s.metaCard}>
                         <span className={s.metaLabel}>Jurisdicción</span>
@@ -351,41 +351,63 @@ export default function TerminosPage() {
 
                 <section className={s.legalSection}>
                     <h2>6. Propiedad intelectual</h2>
-                    <h3>6.1. Titularidad de Cynocta</h3>
+                    <h3>6.1. Titularidad del Cliente sobre el desarrollo a medida</h3>
                     <p>
-                        Salvo acuerdo expreso y por escrito en contrario, todo el código fuente, algoritmos,
-                        automatizaciones, flujos conversacionales, diseños, metodologías, documentación técnica y
-                        desarrollos creados por Cynocta en el marco de la prestación de los Servicios son y
-                        permanecerán de propiedad exclusiva de Cynocta o sus licenciantes.
+                        Una vez pagado en su totalidad el precio del proyecto o de la etapa correspondiente, el
+                        Cliente adquiere la titularidad plena de los derechos patrimoniales de autor sobre los
+                        desarrollos construidos específicamente para él: el código fuente, los flujos
+                        conversacionales, las automatizaciones, los diseños a medida y la documentación técnica
+                        del proyecto.
                     </p>
                     <p>
-                        Lo anterior incluye, sin limitarse a: componentes reutilizables, librerías propias,
-                        integraciones genéricas, plantillas de flujos y cualquier elemento de software de carácter
-                        modular que Cynocta utilice en múltiples proyectos.
+                        La cesión opera de forma automática con el pago, sin costo adicional y sin necesidad de
+                        suscribir un contrato aparte, en los términos del artículo 183 de la Ley 23 de 1982,
+                        modificado por la Ley 1915 de 2018. Comprende la reproducción, transformación,
+                        distribución y comunicación pública de dichos desarrollos, sin límite de tiempo ni de
+                        territorio. El Cliente podrá continuar el proyecto con su propio equipo o con el
+                        proveedor que elija.
                     </p>
-                    <h3>6.2. Licencia de Uso al Cliente</h3>
+                    <h3>6.2. Entrega</h3>
                     <p>
-                        En virtud del pago de los Servicios contratados y mientras se mantenga vigente la
-                        relación comercial, Cynocta otorga al Cliente una licencia de uso limitada, no exclusiva,
-                        intransferible y revocable sobre los desarrollos realizados específicamente para el
-                        proyecto del Cliente. Esta licencia no implica transferencia de la propiedad intelectual.
+                        Contra el pago final, Cynocta entregará al Cliente el repositorio de código, la
+                        documentación técnica y los accesos administrativos de la infraestructura del proyecto.
+                        Esta obligación subsiste a la terminación del contrato, cualquiera que sea su causa,
+                        respecto de lo que a esa fecha esté pagado.
                     </p>
-                    <h3>6.3. Transferencia de Derechos</h3>
+                    <h3>6.3. Componentes reutilizables de Cynocta</h3>
                     <p>
-                        En caso de que el Cliente desee adquirir la titularidad plena del código fuente y los
-                        desarrollos realizados, deberá acordarlo expresamente con Cynocta mediante un contrato de
-                        cesión de derechos patrimoniales de autor, el cual podrá implicar costos adicionales a los
-                        servicios regulares.
+                        Cynocta conserva la titularidad de sus componentes preexistentes y reutilizables:
+                        librerías propias, plantillas de flujos, integraciones genéricas, metodologías y
+                        cualquier elemento modular que utilice en múltiples proyectos.
                     </p>
-                    <h3>6.4. Propiedad del Cliente</h3>
+                    <p>
+                        Sobre los componentes que queden incorporados al desarrollo del Cliente, Cynocta le
+                        concede una licencia de uso perpetua, irrevocable, mundial, libre de regalías y
+                        transferible junto con el proyecto, que incluye el derecho a usarlos, modificarlos y
+                        hacerlos modificar por terceros. El Cliente no podrá comercializarlos de forma
+                        independiente, separados del proyecto.
+                    </p>
+                    <h3>6.4. Software de terceros</h3>
+                    <p>
+                        El software de terceros y de código abierto que forme parte del proyecto se rige por sus
+                        propias licencias, que se informarán al Cliente. Nada de lo previsto en esta cláusula
+                        altera dichas licencias.
+                    </p>
+                    <h3>6.5. Propiedad del Cliente</h3>
                     <p>El Cliente conservará en todo momento la titularidad sobre:</p>
                     <ul>
                         <li>Su marca, logotipo y demás elementos de identidad corporativa.</li>
                         <li>Los contenidos, textos, imágenes y materiales audiovisuales de su propiedad que proporcione a Cynocta para el desarrollo de los proyectos.</li>
                         <li>Sus bases de datos de clientes, contactos, transacciones y demás datos de negocio.</li>
-                        <li>Las cuentas de plataformas digitales (WhatsApp Business, redes sociales, dominios) de titularidad del Cliente.</li>
+                        <li>Las cuentas de plataformas digitales (WhatsApp Business, redes sociales, dominios) de titularidad del Cliente, junto con sus credenciales y accesos.</li>
                     </ul>
-                    <h3>6.5. Confidencialidad</h3>
+                    <h3>6.6. Uso como referencia comercial</h3>
+                    <p>
+                        Cynocta solo podrá mencionar al Cliente o mostrar el trabajo realizado en su portafolio,
+                        sitio web o materiales comerciales con autorización previa y escrita del Cliente, que
+                        este podrá revocar en cualquier momento.
+                    </p>
+                    <h3>6.7. Confidencialidad</h3>
                     <p>
                         Ambas partes se comprometen a mantener la confidencialidad de toda información sensible,
                         técnica, comercial o estrategica que sea compartida en el marco de la relación de
@@ -559,6 +581,7 @@ export default function TerminosPage() {
                     <ul>
                         <li>El Cliente perderá el acceso a los Servicios y a la Plataforma de Cynocta.</li>
                         <li>Cynocta entregara al Cliente, dentro de los quince (15) días siguientes a la terminación, los datos y contenidos de titularidad del Cliente que se encuentren en los sistemas de Cynocta, en los formatos disponibles.</li>
+                        <li>Dentro del mismo plazo, Cynocta entregará el código fuente, la documentación y los accesos correspondientes a las etapas del proyecto que estén pagadas, conforme a la cláusula 6.2. La terminación no afecta la titularidad ya adquirida por el Cliente sobre esos desarrollos.</li>
                         <li>Las obligaciones de confidencialidad y las disposiciones relativas a propiedad intelectual subsistiran con posterioridad a la terminación del contrato.</li>
                     </ul>
                 </section>
