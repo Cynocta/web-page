@@ -456,9 +456,10 @@ export default function TerminosPage() {
                     <h3>8.1. Objetivo de Disponibilidad</h3>
                     <p>
                         Cynocta realizará sus mejores esfuerzos técnicos y operativos para garantizar una
-                        disponibilidad de los Servicios del noventa y cinco por ciento (95%) mensual, medida en
+                        disponibilidad de los Servicios del noventa y nueve por ciento (99%) mensual, medida en
                         tiempo activo sobre el total del mes calendario, excluyendo los mantenimientos programados
-                        y las causas de fuerza mayor.
+                        y las causas de fuerza mayor. Dicho objetivo equivale a un máximo aproximado de siete (7)
+                        horas de indisponibilidad al mes.
                     </p>
                     <h3>8.2. Mantenimientos Programados</h3>
                     <p>
