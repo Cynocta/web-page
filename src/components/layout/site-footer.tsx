@@ -74,8 +74,8 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
                                 src="/logo.svg"
                                 alt=""
                                 className="cyn-logo-mark"
-                                width={1254}
-                                height={1254}
+                                width={256}
+                                height={256}
                             />
                             <span className="cyn-logo-text">C Y N O C T A</span>
                         </Link>

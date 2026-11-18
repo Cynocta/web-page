@@ -40,7 +40,9 @@ const shared = {
         icon: [
             { url: "/favicon.ico", sizes: "48x48" },
             { url: "/icon", type: "image/png", sizes: "512x512" },
-            { url: "/logo.svg", type: "image/svg+xml" },
+            /* The compact weight, not public/logo.svg: a favicon renders at 16-32px,
+               where the refined weight's thin ribbon closes into a blur. */
+            { url: "/logo-compact.svg", type: "image/svg+xml" },
         ],
         shortcut: ["/favicon.ico"],
         apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],

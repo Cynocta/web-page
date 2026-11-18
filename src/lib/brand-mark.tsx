@@ -2,9 +2,16 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-/** The logo as a data URI, read once at build time from the same file the header uses. */
+/**
+ * The compact weight as a data URI, read once at build time.
+ *
+ * The mark ships in two weights of one curve. Everything here renders at icon
+ * sizes — 180px down to the 16px favicon — where the refined weight's thin
+ * ribbon closes into a blur, so this reads from the compact file, not from the
+ * public/logo.svg the header uses.
+ */
 const logoDataUri = `data:image/svg+xml;base64,${readFileSync(
-    join(process.cwd(), "public/logo.svg"),
+    join(process.cwd(), "public/logo-compact.svg"),
 ).toString("base64")}`;
 
 /**
