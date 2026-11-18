@@ -313,16 +313,13 @@ h4 {
     letter-spacing: 0.38em;
     text-transform: uppercase;
     white-space: nowrap;
-    background: linear-gradient(90deg, var(--cyn-cyan) 0%, var(--cyn-mint) 50%, var(--cyn-accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 12px rgba(121, 226, 255, 0.2));
-    transition: filter 0.3s ease, letter-spacing 0.3s ease;
+    /* Flat, never a gradient: at this size with 0.38em tracking a gradient reads
+       as one muddy teal, and with the mark coloured too, nothing leads. */
+    color: var(--cyn-white);
+    transition: letter-spacing 0.3s ease;
 }
 
 .cyn-logo:hover .cyn-logo-text {
-    filter: drop-shadow(0 0 18px rgba(121, 226, 255, 0.35));
     letter-spacing: 0.42em;
 }
 

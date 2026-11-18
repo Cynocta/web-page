@@ -115,8 +115,8 @@ export default function Header() {
                         src="/logo.svg"
                         alt={copy.logoAlt}
                         className="cyn-logo-mark"
-                        width={1254}
-                        height={1254}
+                        width={256}
+                        height={256}
                         priority
                     />
                     <span className="cyn-logo-text">C Y N O C T A</span>
