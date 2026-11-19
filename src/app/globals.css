@@ -1,21 +1,129 @@
 @import "tailwindcss";
 
-/* ── Design tokens ── */
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Three layers.
+
+   The brand constants never move. The semantic tokens under them are what the
+   theme swaps, and they are what new code should read. The --cyn-* names below
+   those are kept as aliases rather than values: every stylesheet in the project
+   already reads them, so pointing them at the semantic layer moved the whole
+   site onto the theme without renaming anything.
+
+   Light is the default. */
 :root {
-    --cyn-black: #070809;
-    --cyn-surface: #0e0f11;
-    --cyn-surface-2: #16181b;
-    --cyn-border: rgba(25, 245, 156, 0.16);
-    --cyn-border-2: rgba(255, 255, 255, 0.06);
-    --cyn-accent: #19f59c;
-    --cyn-accent-glow: #38ffb0;
-    --cyn-accent-dim: rgba(25, 245, 156, 0.08);
-    --cyn-accent-mid: rgba(25, 245, 156, 0.22);
-    --cyn-cyan: #79E2FF;
-    --cyn-mint: #48EDB8;
-    --cyn-white: #f8f8f8;
-    --cyn-muted: #a4a7ae;
-    --cyn-muted-2: #666a72;
+    color-scheme: light;
+
+    /* ── Brand constants ── */
+    --brand-neon: #19f59c;
+    --brand-glow: #38ffb0;
+    --brand-deep: #069059;
+    --brand-cyan: #79e2ff;
+    --brand-mint: #48edb8;
+
+    /* ── Ground ──
+       Dark's material is glass tinted by the accent: every surface, edge and
+       wash carries the green, and that is what makes it the brand rather than
+       a dark page. Light keeps the same material. White is only the page
+       itself; everything laid on it is tinted, and the steps are wider than
+       dark's because near the top of the scale the eye separates them less. */
+    --bg-page: #ffffff;
+    --bg-surface: #f2f6f3;
+    --bg-raised: #e7eee9;
+
+    /* ── Ink (ratios are against --bg-page) ── */
+    --text-primary: #0b0d0f;    /* 19.0:1 */
+    --text-secondary: #4a5058;  /*  7.9:1 */
+    --text-tertiary: #6b7179;   /*  4.8:1 — the floor for body text */
+
+    /* ── Accent ──
+       Two greens on purpose. The brand neon sits at 1.4:1 on a light ground, so
+       it cannot carry text, a rule or an icon there — it is only ever a solid
+       fill. The green that carries ink darkens until it clears 4.5:1; the one
+       that draws rules and glyphs only has to clear 3:1, so it stays brighter
+       and closer to the brand. In dark both collapse back to the neon. */
+    --accent-text: #058150;     /* 4.8:1 */
+    --accent: #069059;          /* 4.0:1 — rules, glyphs, large type */
+    --accent-hover: #047a4a;
+    --accent-fill: var(--brand-neon);
+    --on-accent-fill: #04150d;  /* 13.0:1 on the neon */
+
+    /* ── Lines and washes ──
+       Even the neutral rule is green here. In dark it is white at 6%, which
+       reads as "the edge of a pane"; translating that to grey ink was what
+       drained the brand out of thirty stylesheets at once, because almost every
+       card on the site is defined by its edge. */
+    --hairline-soft: rgba(6, 144, 89, 0.09);
+    --hairline: rgba(6, 144, 89, 0.17);
+    --hairline-strong: rgba(6, 144, 89, 0.26);
+    --hairline-bold: rgba(6, 144, 89, 0.4);
+    --accent-line: rgba(6, 144, 89, 0.34);
+    --accent-line-strong: rgba(6, 144, 89, 0.55);
+    /* Green at 3% on white is nothing at all; the washes carry roughly the
+       weight dark's do against black. */
+    --wash-1: rgba(6, 144, 89, 0.05);
+    --wash-2: rgba(6, 144, 89, 0.08);
+    --wash-3: rgba(6, 144, 89, 0.12);
+    --wash-4: rgba(6, 144, 89, 0.18);
+    --wash-cyan: rgba(10, 132, 170, 0.1);
+
+    /* Translucent page colour, for anything that sits over content: the sticky
+       header, dropdown panels, the mobile menu. */
+    --veil-soft: rgba(246, 250, 247, 0.74);
+    --veil: rgba(246, 250, 247, 0.9);
+    --veil-strong: rgba(250, 253, 251, 0.97);
+
+    /* The accent used as a glow. On a light ground a bloom reads as a smudge,
+       so it stays a tight, low tint rather than the halo dark can carry. */
+    --accent-halo: rgba(6, 144, 89, 0.18);
+
+    /* The glass the product panels are cut from — the service diagram, the
+       explorer, the browser frames. Dark builds them from near-black; light
+       builds them from the same tinted white the rest of the surfaces use, so
+       they read as panels rather than as holes in the page. */
+    --panel: #f3f8f5;
+    --panel-top: #f8fbf9;
+    --panel-bottom: #ecf3ef;
+
+    /* The colour a cast shadow is drawn in. The offsets and blurs stay where
+       they were tuned; only the ink changes, because black at half opacity is
+       a bruise on a white page. */
+    --shadow-cast: rgba(11, 13, 15, 0.1);
+
+    /* ── Depth: offset and blur, never a flat coloured halo ── */
+    --shadow-sm: 0 1px 2px rgba(11, 13, 15, 0.06), 0 1px 1px rgba(11, 13, 15, 0.04);
+    --shadow-md: 0 4px 14px rgba(11, 13, 15, 0.07), 0 1px 3px rgba(11, 13, 15, 0.05);
+    --shadow-lg: 0 16px 40px rgba(11, 13, 15, 0.1), 0 3px 10px rgba(11, 13, 15, 0.05);
+
+    /* ── Atmosphere ──
+       Dark lights the page with two green radials. At full strength on white
+       they read as a stain, so light keeps the same two gestures far quieter,
+       and the mark drops the halo it only ever needed against black. */
+    --ambient:
+        radial-gradient(1200px 560px at 82% -12%, rgba(6, 144, 89, 0.13) 0%, transparent 58%),
+        radial-gradient(680px 420px at -8% 86%, rgba(25, 245, 156, 0.1) 0%, transparent 74%);
+    --glow-mark: none;
+
+    /* ── Browser surfaces: selection, caret and scrollbar are part of the design ── */
+    --selection-bg: rgba(6, 144, 89, 0.2);
+    --selection-fg: var(--text-primary);
+    --scroll-thumb: rgba(11, 13, 15, 0.22);
+    --scroll-thumb-hover: rgba(11, 13, 15, 0.34);
+
+    /* ── Legacy names, aliased onto the semantic layer ── */
+    --cyn-black: var(--bg-page);
+    --cyn-surface: var(--bg-surface);
+    --cyn-surface-2: var(--bg-raised);
+    --cyn-white: var(--text-primary);
+    --cyn-muted: var(--text-secondary);
+    --cyn-muted-2: var(--text-tertiary);
+    --cyn-accent: var(--accent-text);
+    --cyn-accent-glow: var(--accent-hover);
+    --cyn-accent-dim: var(--wash-3);
+    --cyn-accent-mid: var(--accent-line);
+    --cyn-border: var(--accent-line);
+    --cyn-border-2: var(--hairline);
+    --cyn-cyan: var(--brand-cyan);
+    --cyn-mint: var(--brand-mint);
     --cyn-shell-x: clamp(1.25rem, 4vw, 4rem);
     /* Height-aware: a wide but short laptop (1366x768) would otherwise get the
        same 100px gutters as a 27" display and no section would fit on screen. */
@@ -46,6 +154,111 @@
     --r-pill: 999px;
 }
 
+/* ── Dark ──
+   The alternate, and the look the site shipped with. Only the semantic values
+   are restated; the --cyn-* aliases above point at these names, so they follow
+   without being repeated. */
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg-page: #070809;
+    --bg-surface: #0e0f11;
+    --bg-raised: #16181b;
+
+    --text-primary: #f8f8f8;
+    --text-secondary: #a4a7ae;
+    /* Was #666a72, which measured 3.7:1 on this ground and carried 10px mono
+       labels. Lifted to clear 4.5:1 without leaving the hue. */
+    --text-tertiary: #737881;
+
+    --accent-text: var(--brand-neon);
+    --accent: var(--brand-neon);
+    --accent-hover: var(--brand-glow);
+    --accent-fill: var(--brand-neon);
+    --on-accent-fill: #04150d;
+
+    --hairline-soft: rgba(255, 255, 255, 0.03);
+    --hairline: rgba(255, 255, 255, 0.06);
+    --hairline-strong: rgba(255, 255, 255, 0.08);
+    --accent-line: rgba(25, 245, 156, 0.16);
+    --accent-line-strong: rgba(25, 245, 156, 0.45);
+    --wash-1: rgba(25, 245, 156, 0.04);
+    --wash-2: rgba(25, 245, 156, 0.06);
+    --wash-3: rgba(25, 245, 156, 0.08);
+    --wash-4: rgba(25, 245, 156, 0.12);
+    --wash-cyan: rgba(121, 226, 255, 0.06);
+    --hairline-bold: rgba(255, 255, 255, 0.2);
+
+    --veil-soft: rgba(7, 8, 9, 0.7);
+    --veil: rgba(7, 8, 9, 0.88);
+    --veil-strong: rgba(7, 8, 9, 0.97);
+
+    --accent-halo: rgba(25, 245, 156, 0.45);
+    --panel: #0c0f11;
+    --panel-top: #0e1012;
+    --panel-bottom: #090a0b;
+    --shadow-cast: rgba(0, 0, 0, 0.5);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+
+    --ambient:
+        radial-gradient(1200px 560px at 82% -12%, rgba(25, 245, 156, 0.1) 0%, transparent 58%),
+        radial-gradient(680px 420px at -8% 86%, rgba(56, 255, 176, 0.08) 0%, transparent 74%);
+    --glow-mark: drop-shadow(0 0 10px rgba(25, 245, 156, 0.42));
+
+    --selection-bg: rgba(25, 245, 156, 0.26);
+    --selection-fg: #04150d;
+    --scroll-thumb: rgba(255, 255, 255, 0.18);
+    --scroll-thumb-hover: rgba(255, 255, 255, 0.3);
+}
+
+/* The theme moves on a transition rather than snapping, but only on the few
+   properties that carry it — and never for a visitor who asked for less. */
+html.theme-ready body,
+html.theme-ready body * {
+    transition:
+        background-color 0.28s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.28s cubic-bezier(0.23, 1, 0.32, 1),
+        color 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.theme-ready body,
+    html.theme-ready body * {
+        transition: none;
+    }
+}
+
+/* ── Browser surfaces ── */
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+}
+
+* {
+    scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: var(--r-pill);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 @theme inline {
     --color-background: var(--cyn-black);
     --color-foreground: var(--cyn-white);
@@ -70,11 +283,8 @@ html {
 
 body {
     font-family: var(--font-body), "Segoe UI", sans-serif;
-    background:
-        radial-gradient(1200px 560px at 82% -12%, rgba(25, 245, 156, 0.1) 0%, transparent 58%),
-        radial-gradient(680px 420px at -8% 86%, rgba(56, 255, 176, 0.08) 0%, transparent 74%),
-        var(--cyn-black);
-    color: var(--cyn-white);
+    background: var(--ambient), var(--bg-page);
+    color: var(--text-primary);
     font-size: 16px;
     line-height: 1.65;
     overflow-x: hidden;
@@ -85,11 +295,6 @@ h2,
 h3,
 h4 {
     font-family: var(--font-heading), Georgia, serif;
-}
-
-::selection {
-    background: rgba(25, 245, 156, 0.24);
-    color: #03130c;
 }
 
 /* ── Spotlight animation (UI component) ── */
@@ -112,8 +317,8 @@ h4 {
 .loader {
     width: 32px;
     height: 32px;
-    border: 3px solid rgba(255, 255, 255, 0.15);
-    border-top-color: #19f59c;
+    border: 3px solid var(--hairline-bold);
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -129,8 +334,8 @@ h4 {
     position: relative;
     min-height: 100vh;
     background:
-        radial-gradient(1200px 680px at 80% -8%, rgba(25, 245, 156, 0.08) 0%, transparent 62%),
-        var(--cyn-black);
+        radial-gradient(1200px 680px at 80% -8%, var(--wash-3) 0%, transparent 62%),
+        var(--bg-page);
 }
 
 /* ── Shared section header (used by multiple sections) ── */
@@ -209,9 +414,9 @@ h4 {
     gap: 6px;
     padding: 4px;
     border-radius: var(--r-pill);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(7, 8, 9, 0.7);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--hairline-strong);
+    background: var(--veil-soft);
+    box-shadow: inset 0 1px 0 var(--hairline);
 }
 
 .cyn-toggle-btn {
@@ -233,9 +438,28 @@ h4 {
 }
 
 .cyn-toggle-btn.is-active {
-    color: var(--cyn-black);
-    background: var(--cyn-accent);
-    border-color: var(--cyn-accent);
+    color: var(--on-accent-fill);
+    background: var(--accent-fill);
+    border-color: var(--accent-fill);
+}
+
+/* The theme switch carries glyphs rather than words, so its segments are square
+   and the icons inherit the same stroke weight as the rest of the set. */
+.cyn-theme-toggle .cyn-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}
+
+.cyn-theme-toggle svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .cyn-toggle--compact .cyn-toggle-btn {
@@ -303,7 +527,9 @@ h4 {
     height: auto;
     flex: 0 0 auto;
     display: block;
-    filter: drop-shadow(0 0 10px rgba(25, 245, 156, 0.42));
+    /* A halo the mark only ever needed against black; on a light ground the
+       token resolves to none. */
+    filter: var(--glow-mark);
 }
 
 .cyn-logo-text {

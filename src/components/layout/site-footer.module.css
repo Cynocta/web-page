@@ -7,8 +7,8 @@
 .footer {
     position: relative;
     background:
-        radial-gradient(38% 132px at 50% 0%, rgba(255, 255, 255, 0.07) 0%, transparent 100%),
-        radial-gradient(900px 420px at 12% 0%, rgba(25, 245, 156, 0.05) 0%, transparent 62%),
+        radial-gradient(38% 132px at 50% 0%, var(--hairline) 0%, transparent 100%),
+        radial-gradient(900px 420px at 12% 0%, var(--wash-1) 0%, transparent 62%),
         var(--cyn-surface);
     border-top: 1px solid var(--cyn-border-2);
     border-top-left-radius: clamp(28px, 4vw, 52px);
@@ -25,7 +25,7 @@
     height: 1px;
     transform: translate(-50%, -50%);
     border-radius: var(--r-pill);
-    background: linear-gradient(90deg, transparent, rgba(25, 245, 156, 0.55), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent-halo), transparent);
     filter: blur(1.5px);
     pointer-events: none;
 }

@@ -37,7 +37,7 @@
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
 }
 
 .eyebrow::after {

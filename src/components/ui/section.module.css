@@ -23,8 +23,8 @@
    blur over flat black just reads as grey haze. */
 .accent {
     background:
-        radial-gradient(820px 440px at 78% 2%, rgba(25, 245, 156, 0.09) 0%, transparent 64%),
-        radial-gradient(520px 340px at 6% 96%, rgba(121, 226, 255, 0.06) 0%, transparent 62%),
+        radial-gradient(820px 440px at 78% 2%, var(--wash-3) 0%, transparent 64%),
+        radial-gradient(520px 340px at 6% 96%, var(--wash-cyan) 0%, transparent 62%),
         var(--cyn-surface);
 }
 

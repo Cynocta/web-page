@@ -11,7 +11,7 @@
     padding: 24px 22px;
     border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 62%);
+    background: linear-gradient(160deg, var(--wash-1) 0%, var(--cyn-black) 62%);
     text-decoration: none;
     transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -20,7 +20,7 @@
     .channel:hover {
         border-color: var(--cyn-accent);
         transform: translateY(-3px);
-        box-shadow: 0 14px 34px rgba(25, 245, 156, 0.08);
+        box-shadow: 0 14px 34px var(--wash-3);
     }
 }
 

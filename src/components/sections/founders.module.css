@@ -23,19 +23,19 @@
     width: 100%;
     padding: clamp(22px, 2.6vw, 32px);
     border-radius: var(--r-lg);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--hairline-strong);
     background: linear-gradient(
         158deg,
-        rgba(255, 255, 255, 0.06) 0%,
-        rgba(255, 255, 255, 0.02) 45%,
-        rgba(7, 8, 9, 0.5) 100%
+        var(--hairline) 0%,
+        var(--hairline-soft) 45%,
+        var(--veil-soft) 100%
     );
     transition: border-color 0.3s ease;
 }
 
 @media (hover: hover) {
     .card:hover {
-        border-color: rgba(25, 245, 156, 0.24);
+        border-color: var(--accent-line);
     }
 }
 
@@ -53,7 +53,7 @@
     border-radius: 50%;
     border: 1px solid var(--cyn-border);
     background:
-        radial-gradient(90% 90% at 30% 20%, rgba(25, 245, 156, 0.2) 0%, transparent 70%),
+        radial-gradient(90% 90% at 30% 20%, var(--wash-4) 0%, transparent 70%),
         var(--cyn-surface-2);
     display: flex;
     align-items: center;
@@ -120,16 +120,16 @@
     height: 44px;
     border-radius: 50%;
     border: 1px solid var(--cyn-border-2);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--hairline);
     color: var(--cyn-white);
     transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 @media (hover: hover) {
     .social:hover {
-        background: var(--cyn-accent);
+        background: var(--accent-fill);
         border-color: var(--cyn-accent);
-        color: var(--cyn-black);
+        color: var(--on-accent-fill);
     }
 }
 

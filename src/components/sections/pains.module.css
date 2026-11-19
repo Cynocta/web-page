@@ -60,7 +60,7 @@
     scroll-snap-align: center;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.05) 0%, var(--cyn-surface) 60%);
+    background: linear-gradient(160deg, var(--wash-1) 0%, var(--cyn-surface) 60%);
     border: 1px solid var(--cyn-border-2);
     border-radius: var(--r-md);
     padding: 26px 26px;
@@ -72,7 +72,7 @@
 .card[data-active="true"] {
     opacity: 1;
     border-color: var(--cyn-border);
-    box-shadow: 0 12px 32px rgba(25, 245, 156, 0.08);
+    box-shadow: 0 12px 32px var(--wash-3);
 }
 
 .cardTop {
@@ -126,7 +126,7 @@
     justify-content: center;
     border-radius: var(--r-pill);
     border: 1px solid var(--cyn-border-2);
-    background: rgba(14, 15, 17, 0.9);
+    background: var(--veil);
     backdrop-filter: blur(8px);
     color: var(--cyn-white);
     cursor: pointer;
@@ -188,7 +188,7 @@
     width: 7px;
     height: 7px;
     border-radius: var(--r-pill);
-    background: rgba(255, 255, 255, 0.18);
+    background: var(--hairline-bold);
     transition: width 0.3s ease, background 0.3s ease;
 }
 
@@ -200,7 +200,7 @@
 
 .dotActive::after {
     width: 22px;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
 }
 
 .closing {

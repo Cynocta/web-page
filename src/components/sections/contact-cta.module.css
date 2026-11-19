@@ -17,8 +17,8 @@
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(25, 245, 156, 0.08) 0%,
-        rgba(121, 226, 255, 0.04) 40%,
+        var(--wash-3) 0%,
+        var(--wash-cyan) 40%,
         transparent 70%
     );
     filter: blur(80px);
@@ -60,7 +60,7 @@
     content: "";
     width: 32px;
     height: 1px;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     opacity: 0.5;
 }
 
@@ -78,7 +78,7 @@
 .heading em {
     font-style: italic;
     -webkit-text-fill-color: var(--cyn-accent);
-    filter: drop-shadow(0 0 18px rgba(25, 245, 156, 0.2));
+    filter: drop-shadow(0 0 18px var(--wash-4));
 }
 
 .sub {
@@ -113,13 +113,13 @@
 }
 
 .primary {
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: var(--accent-fill);
+    color: var(--on-accent-fill);
 }
 
 .secondary {
     border: 1px solid var(--cyn-border);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--hairline-soft);
     color: var(--cyn-white);
 }
 

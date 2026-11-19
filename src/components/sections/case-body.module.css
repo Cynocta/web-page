@@ -111,7 +111,7 @@
 }
 
 .card {
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-surface) 65%);
+    background: linear-gradient(160deg, var(--wash-1) 0%, var(--cyn-surface) 65%);
     border: 1px solid var(--cyn-border-2);
     border-radius: var(--r-md);
     padding: 22px 20px;
@@ -121,7 +121,7 @@
 @media (hover: hover) {
     .card:hover {
         border-color: var(--cyn-border);
-        box-shadow: 0 10px 28px rgba(25, 245, 156, 0.06);
+        box-shadow: 0 10px 28px var(--wash-2);
     }
 }
 
@@ -142,7 +142,7 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     transform: translateY(-3px);
 }
 
@@ -168,7 +168,7 @@
     border-radius: var(--r-md);
     border: 1px solid var(--cyn-border);
     background:
-        radial-gradient(500px 180px at 20% 0%, rgba(25, 245, 156, 0.09) 0%, transparent 70%),
+        radial-gradient(500px 180px at 20% 0%, var(--wash-3) 0%, transparent 70%),
         var(--cyn-black);
 }
 
@@ -268,8 +268,8 @@
     align-items: center;
     padding: 8px 13px;
     border-radius: var(--r-sm);
-    background: rgba(25, 245, 156, 0.06);
-    border: 1px solid rgba(25, 245, 156, 0.12);
+    background: var(--wash-2);
+    border: 1px solid var(--wash-3);
     color: var(--cyn-white);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-xs);
@@ -305,8 +305,8 @@
     align-items: center;
     padding: 8px 13px;
     border-radius: var(--r-sm);
-    background: rgba(25, 245, 156, 0.06);
-    border: 1px solid rgba(25, 245, 156, 0.12);
+    background: var(--wash-2);
+    border: 1px solid var(--wash-3);
     color: var(--cyn-white);
     text-decoration: none;
     font-size: var(--fs-sm);
@@ -390,7 +390,7 @@
     border-radius: var(--r-lg);
     border: 1px solid var(--cyn-border);
     background:
-        radial-gradient(600px 220px at 20% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 70%),
+        radial-gradient(600px 220px at 20% 0%, var(--wash-3) 0%, transparent 70%),
         var(--cyn-surface);
     margin-top: 2.4rem;
 }
@@ -421,9 +421,9 @@
     min-height: 46px;
     padding: 13px 24px;
     border-radius: var(--r-sm);
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     border: 1px solid var(--cyn-accent);
-    color: var(--cyn-black);
+    color: var(--on-accent-fill);
     text-decoration: none;
     font-size: var(--fs-xs);
     font-weight: 600;
@@ -435,7 +435,7 @@
 @media (hover: hover) {
     .ctaButton:hover {
         background: var(--cyn-accent-glow);
-        box-shadow: 0 12px 32px rgba(25, 245, 156, 0.28);
+        box-shadow: 0 12px 32px var(--accent-line);
     }
 }
 

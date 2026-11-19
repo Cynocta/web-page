@@ -54,28 +54,28 @@
     .card:hover {
         transform: translateY(-4px);
         border-color: var(--cyn-border);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
+        box-shadow: 0 20px 48px var(--shadow-cast);
     }
 }
 
 /* The recommended plan carries the weight: lit border, its own ground, and a
    permanent lift so it reads as chosen before anything is compared. */
 .featured {
-    border-color: rgba(25, 245, 156, 0.34);
+    border-color: var(--accent-line-strong);
     background:
-        radial-gradient(520px 220px at 50% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 72%),
+        radial-gradient(520px 220px at 50% 0%, var(--wash-3) 0%, transparent 72%),
         var(--cyn-surface);
     box-shadow:
-        0 20px 56px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(25, 245, 156, 0.08);
+        0 20px 56px var(--shadow-cast),
+        0 0 0 1px var(--wash-3);
 }
 
 @media (hover: hover) {
     .featured:hover {
-        border-color: rgba(25, 245, 156, 0.5);
+        border-color: var(--accent-halo);
         box-shadow:
-            0 28px 68px rgba(25, 245, 156, 0.14),
-            0 0 0 1px rgba(25, 245, 156, 0.14);
+            0 28px 68px var(--wash-4),
+            0 0 0 1px var(--wash-4);
     }
 }
 
@@ -87,15 +87,15 @@
     transform: translate(-50%, -50%);
     padding: 5px 13px;
     border-radius: var(--r-pill);
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: var(--accent-fill);
+    color: var(--on-accent-fill);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
-    box-shadow: 0 6px 18px rgba(25, 245, 156, 0.32);
+    box-shadow: 0 6px 18px var(--accent-line-strong);
 }
 
 .plan {
@@ -245,24 +245,24 @@
 }
 
 .featured .cta {
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     border-color: var(--cyn-accent);
-    color: var(--cyn-black);
+    color: var(--on-accent-fill);
     font-weight: 600;
-    box-shadow: 0 10px 26px rgba(25, 245, 156, 0.26);
+    box-shadow: 0 10px 26px var(--accent-line);
 }
 
 @media (hover: hover) {
     .cta:hover {
-        background: rgba(25, 245, 156, 0.08);
+        background: var(--wash-3);
         border-color: var(--cyn-accent);
         color: var(--cyn-accent);
     }
 
     .featured .cta:hover {
         background: var(--cyn-accent-glow);
-        color: var(--cyn-black);
-        box-shadow: 0 14px 34px rgba(25, 245, 156, 0.36);
+        color: var(--on-accent-fill);
+        box-shadow: 0 14px 34px var(--accent-line-strong);
     }
 }
 

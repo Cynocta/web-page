@@ -9,11 +9,11 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(25, 245, 156, 0.2);
+    background: var(--wash-4);
     transition: background 0.2s, transform 0.2s;
 }
 
 .active {
-    background: rgba(25, 245, 156, 0.7);
+    background: var(--accent-halo);
     transform: scale(1.35);
 }

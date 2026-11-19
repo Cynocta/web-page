@@ -76,7 +76,7 @@ a.summary {
     left: 50%;
     width: 11px;
     height: 1.5px;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     transform: translate(-50%, -50%);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }

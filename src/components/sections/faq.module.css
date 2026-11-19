@@ -1,7 +1,7 @@
 /* Continues the page rhythm: this band sits on black between two surface bands. */
 .section {
     background:
-        radial-gradient(820px 420px at 78% 4%, rgba(25, 245, 156, 0.06) 0%, transparent 62%),
+        radial-gradient(820px 420px at 78% 4%, var(--wash-2) 0%, transparent 62%),
         var(--cyn-black);
     border-top: 1px solid var(--cyn-border-2);
     border-bottom: 1px solid var(--cyn-border-2);
@@ -90,8 +90,8 @@
     padding: 13px 22px;
     border-radius: var(--r-sm);
     border: 1px solid var(--cyn-accent);
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: var(--accent-fill);
+    color: var(--on-accent-fill);
     text-decoration: none;
     font-size: var(--fs-xs);
     font-weight: 600;
@@ -103,7 +103,7 @@
 @media (hover: hover) {
     .ctaLink:hover {
         background: var(--cyn-accent-glow);
-        box-shadow: 0 12px 32px rgba(25, 245, 156, 0.28);
+        box-shadow: 0 12px 32px var(--accent-line);
     }
 }
 

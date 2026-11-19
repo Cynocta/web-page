@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import LanguageToggle from "@/components/language-toggle";
+import ThemeToggle from "@/components/theme-toggle";
 import { useI18n } from "@/components/i18n-provider";
 import {
     foreignLinkLabel,
@@ -208,6 +209,7 @@ export default function Header() {
                 </nav>
 
                 <div className={s.actions}>
+                    <ThemeToggle />
                     <LanguageToggle className="cyn-toggle--bare" />
                     <span className={s.divider} aria-hidden="true" />
                     <Link href={cta.href} className={s.cta} hrefLang={cta.lang}>
@@ -317,6 +319,7 @@ export default function Header() {
                                 {contactEmail}
                             </a>
                             <LanguageToggle className="cyn-toggle--bare" />
+                            <ThemeToggle />
                         </div>
                     </div>
                 </div>
