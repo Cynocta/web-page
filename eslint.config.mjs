@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Third-party source kept as-is so it can be diffed against upstream;
+    // its local changes are listed in src/vendor/ascii-animals/README.md.
+    "src/vendor/**",
   ]),
 ]);
 

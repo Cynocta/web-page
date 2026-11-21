@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import FooterDragonflies from "@/components/layout/footer-dragonflies";
 import Reveal from "@/components/ui/reveal";
 import { foreignLinkLabel, footerColumns, footerCopy } from "@/lib/content/navigation";
 import type { Locale } from "@/lib/content";
@@ -60,6 +61,9 @@ export default function SiteFooter({ locale = "es" }: { locale?: Locale }) {
 
     return (
         <footer className={s.footer}>
+            {/* The plate's own surface, with dragonflies crossing it. Behind
+                everything below, including the wash and the seam. */}
+            <FooterDragonflies />
             <span className={s.seam} aria-hidden="true" />
 
             <div className={s.inner}>

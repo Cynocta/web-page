@@ -1,0 +1,43 @@
+/* The whole plate, edge to edge: the flight crosses the footer end to end and
+   passes behind the lists rather than keeping to the air under them.
+
+   The canvas is the surface, not a layer over it: the renderer paints it
+   opaque, reading this background through getComputedStyle, so the footer
+   keeps its colour and only the dragonflies are drawn on top. That also means
+   `opacity` here acts on the insects alone — the ground behind them is the
+   same colour either way. Glyphs come from the canvas's font-family. */
+.canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    background: var(--cyn-surface);
+    font-family: var(--font-mono), "Consolas", monospace;
+    opacity: 1;
+    /* Clicks startle the flock, which is worth having; text selection and the
+       drag-to-save cursor are not. */
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* They cross behind the links, so on a light ground — dark text on near-white,
+   where the emerald reads much stronger than it does on black — they are held
+   back far enough to stay behind the words rather than compete with them. */
+:root:not([data-theme="dark"]) .canvas {
+    opacity: 0.9;
+}
+
+/* The site cross-fades background-color over 280ms when the theme changes
+   (globals.css), and every element inherits that. The renderer reads this
+   colour the instant the theme flips and keeps it, so mid-fade it would be
+   handed the surface the page is leaving and paint the footer in it until
+   the next theme change — which is exactly what happened: a light plate
+   under a dark page. The canvas cannot cross-fade anyway, since it repaints
+   whole frames, so it opts out and the read is true. Needs to out-specify
+   `html.theme-ready body *`. */
+:global(html.theme-ready) :global(body) .canvas {
+    transition: none;
+}
