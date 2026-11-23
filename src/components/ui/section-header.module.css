@@ -1,14 +1,13 @@
 .header {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
-    margin-bottom: 3rem;
+    gap: 1rem;
+    margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
 }
 
 .lead {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
 }
 
 .center,
@@ -17,63 +16,127 @@
     text-align: center;
 }
 
-/* Muted text with a small accent mark: the green is kept for things the
-   visitor can act on, not for every label on the page. */
-.eyebrow {
+/* ── The rule ──
+   A hairline across the content column with a neon tick at its head and the
+   hero scale's minor graduations fading off it. Built as a flex row rather
+   than a pseudo-element over a background, because a band can be the open
+   page or a plate and there is no one colour to break the line with. */
+.rule {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: clamp(0.6rem, 1.4vw, 1.1rem);
+}
+
+.aside {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    color: var(--cyn-muted);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.eyebrow::before {
-    content: "";
     flex: 0 0 auto;
-    width: 6px;
-    height: 6px;
-    border-radius: 1px;
-    background: var(--accent-fill);
 }
 
-.eyebrow::after {
+/* A control on the rule has to give way before the rule becomes a stub: below
+   this width it takes a line of its own under the rule instead. */
+@media (max-width: 760px) {
+    .aside {
+        order: 3;
+        flex-basis: 100%;
+        margin-top: 2px;
+    }
+}
+
+.tick {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
+}
+
+.line {
+    flex: 1 1 auto;
+    height: 7px;
+    min-width: 0;
+    background:
+        /* the graduations, running out after the first stretch */
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) left center / min(240px, 40%) 7px
+            no-repeat,
+        /* the rule itself */
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
+}
+
+/* Centred, the rule is symmetrical: a short line with the tick at its middle,
+   drawn in one background rather than as a flex row, since there is no left
+   end for the tick to cap. */
+.center .rule {
+    position: relative;
+    width: min(300px, 70%);
+    margin-inline: auto;
+    justify-content: center;
+}
+
+.center .rule::before {
     content: "";
-    width: 52px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
     height: 1px;
-    background: var(--cyn-border);
+    translate: 0 -50%;
+    background: linear-gradient(90deg, transparent 0%, var(--hairline) 22%, var(--hairline) 78%, transparent 100%);
 }
 
-.center .eyebrow::after {
+.center .tick {
+    position: relative;
+    z-index: 1;
+}
+
+.center .line {
     display: none;
 }
 
-/* Larger and lighter than the old landing scale — corporate sites carry
-   authority with restraint, not weight. */
+/* The annotation sits at the far end, where a plate carries its figure
+   number. Interior pages only; the homepage leaves it out. */
+.annotation {
+    flex: 0 0 auto;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* ── Title ──
+   The hero's voice, one step down: the same weight, the same tightness, the
+   same line-height. It was 300 at 2.9rem, which is a different brand from the
+   headline at the top of the page. */
 .title {
-    font-size: clamp(1.85rem, 3.4vw, 2.9rem);
-    line-height: 1.12;
-    letter-spacing: -0.025em;
-    font-weight: 300;
-    color: var(--cyn-white);
+    font-size: clamp(2rem, 3.6vw, 3.25rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+    color: var(--text-primary);
     margin: 0;
-    max-width: 22ch;
+    max-width: 20ch;
     text-wrap: balance;
 }
 
 .center .title {
-    max-width: 26ch;
+    max-width: 24ch;
 }
 
 .intro {
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-md);
-    line-height: 1.8;
-    max-width: 62ch;
+    line-height: 1.75;
+    max-width: 58ch;
     margin: 0;
+}
+
+.center .intro {
+    margin-inline: auto;
 }
 
 /* Split: the title holds the left column, the intro sits beside it aligned to
@@ -87,27 +150,33 @@
         column-gap: clamp(2.5rem, 6vw, 6rem);
     }
 
+    .split .rule {
+        grid-column: 1 / -1;
+    }
+
     .split .title {
-        max-width: 24ch;
+        max-width: 26ch;
     }
 
     .split .intro {
-        max-width: 48ch;
+        max-width: 46ch;
         padding-bottom: 0.35em;
-    }
-
-    .split .eyebrow::after {
-        display: none;
     }
 }
 
 @media (max-width: 900px) {
     .header {
-        margin-bottom: 2.25rem;
+        margin-bottom: 2rem;
     }
 
     .title {
         max-width: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .annotation {
+        display: none;
     }
 }
 
@@ -117,6 +186,6 @@
     }
 
     .title {
-        font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+        font-size: clamp(1.8rem, 2.8vw, 2.5rem);
     }
 }

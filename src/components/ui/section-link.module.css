@@ -1,19 +1,33 @@
 /* The link that turns a homepage section into a doorway rather than the whole
-   story. One per section, always in the same place: after the content. */
+   story. One per section, always in the same place: after the content.
+
+   It used to be set in mono, uppercase, at 11.5px — the same treatment as the
+   measurement labels. Mono is for naming a reading on this site; this is an
+   action, and the one route from the homepage into the page that has to rank,
+   so it is set to be read. The tick is what keeps it in the family. */
 .link {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-top: 2.25rem;
-    padding: 12px 0;
-    color: var(--cyn-accent);
+    margin-top: clamp(2rem, 3vw, 2.75rem);
+    padding: 10px 0;
+    color: var(--accent-text);
     text-decoration: none;
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
     border-bottom: 1px solid transparent;
-    transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.link::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 .center {
@@ -23,13 +37,13 @@
 }
 
 .arrow {
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.25s var(--ease-soft);
 }
 
 @media (hover: hover) {
     .link:hover {
-        color: var(--cyn-accent-glow);
-        border-bottom-color: var(--cyn-accent);
+        color: var(--accent-hover);
+        border-bottom-color: var(--accent-line);
     }
 
     .link:hover .arrow {
@@ -38,12 +52,11 @@
 }
 
 .link:focus-visible {
-    outline: 2px solid var(--cyn-accent);
+    outline: 2px solid var(--accent-text);
     outline-offset: 4px;
     border-radius: var(--r-xs);
 }
 
-/* 30px tall on a phone. The padding does the work so the label keeps its size. */
 @media (pointer: coarse) {
     .link {
         min-height: 44px;

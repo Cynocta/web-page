@@ -3,11 +3,11 @@
    ══════════════════════════════════════════════════ */
 
 .list {
-    max-width: 860px;
+    max-width: 900px;
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline);
 }
 
 /* Also used as a plain link list on /contacto. */
@@ -17,7 +17,7 @@ a.summary {
 }
 
 .item {
-    border-bottom: 1px solid var(--cyn-border-2);
+    border-bottom: 1px solid var(--hairline-soft);
     scroll-margin-top: 96px;
 }
 
@@ -25,9 +25,9 @@ a.summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 24px;
     min-height: 44px;
-    padding: 18px 0;
+    padding: clamp(18px, 1.8vw, 24px) 0;
     cursor: pointer;
     list-style: none;
 }
@@ -42,13 +42,18 @@ a.summary {
     border-radius: var(--r-sm);
 }
 
+/* A question is the only thing on its row, so it is set as a line of the
+   page rather than as a label: the heading face, the heading's weight, one
+   step above body size. */
 .question {
     margin: 0;
-    font-family: var(--font-body), "Segoe UI", sans-serif;
-    font-size: var(--fs-md);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
     font-weight: 500;
-    line-height: 1.45;
-    color: var(--cyn-white);
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    color: var(--text-primary);
+    text-wrap: balance;
     transition: color 0.2s ease;
 }
 
@@ -62,10 +67,17 @@ a.summary {
 .icon {
     position: relative;
     flex: 0 0 auto;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 1px solid var(--cyn-border);
+    border: 1px solid var(--hairline-strong);
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+/* Open, the control becomes the tick that caps every other rule on the page. */
+.item[open] .icon {
+    border-color: var(--accent-line-strong);
+    background: var(--wash-2);
 }
 
 .icon::before,
@@ -76,9 +88,9 @@ a.summary {
     left: 50%;
     width: 11px;
     height: 1.5px;
-    background: var(--accent-fill);
+    background: var(--accent);
     transform: translate(-50%, -50%);
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.25s var(--ease-soft);
 }
 
 .icon::after {
@@ -91,30 +103,72 @@ a.summary {
 
 .answer {
     margin: 0;
-    padding: 0 48px 22px 0;
+    padding: 0 54px 26px 0;
     max-width: 68ch;
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-base);
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
+/* Where the browser can animate a disclosure, it opens on the hero's ease
+   instead of snapping. Everything about the band works without it. */
+@supports (interpolate-size: allow-keywords) and selector(:open::details-content) {
+    .item {
+        interpolate-size: allow-keywords;
+    }
+
+    .item::details-content {
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+            height 0.42s var(--ease-soft),
+            content-visibility 0.42s allow-discrete,
+            opacity 0.3s ease;
+    }
+
+    .item[open]::details-content {
+        height: auto;
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .item::details-content {
+        transition: none;
+    }
+}
+
+/* Same treatment as SectionLink, which is what it is. */
 .more {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     min-height: 44px;
-    margin-top: 1.75rem;
-    color: var(--cyn-accent);
+    margin-top: 2rem;
+    color: var(--accent-text);
     text-decoration: none;
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid transparent;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.more::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 @media (hover: hover) {
     .more:hover {
-        color: var(--cyn-accent-glow);
+        color: var(--accent-hover);
+        border-bottom-color: var(--accent-line);
     }
 }
 

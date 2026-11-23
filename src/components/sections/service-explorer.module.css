@@ -7,11 +7,11 @@
    ══════════════════════════════════════════════════ */
 
 .explorer {
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline);
 }
 
 .family {
-    border-bottom: 1px solid var(--cyn-border-2);
+    border-bottom: 1px solid var(--hairline-soft);
 }
 
 .heading {
@@ -40,14 +40,17 @@
     border-radius: var(--r-sm);
 }
 
-.index {
+/* The station tick. Hollow while the family is closed, neon when it is the
+   one being read — the same cap the hero's scale and the measurement band
+   put on a rule. */
+.tick {
     flex: 0 0 auto;
-    width: 2.2em;
-    color: var(--cyn-muted-2);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.08em;
-    transition: color 0.3s ease;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--hairline-bold);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .triggerText {
@@ -90,8 +93,9 @@
     }
 }
 
-.open .index {
-    color: var(--cyn-accent);
+.open .tick {
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 .open .title {
@@ -240,38 +244,26 @@
     .heading {
         grid-column: 1;
         grid-row: var(--row);
-        border-top: 1px solid var(--cyn-border-2);
+        border-top: 1px solid var(--hairline-soft);
+    }
+
+    .family:first-child .heading {
+        border-top: 1px solid var(--hairline);
     }
 
     .family:last-child .heading {
-        border-bottom: 1px solid var(--cyn-border-2);
+        border-bottom: 1px solid var(--hairline-soft);
     }
 
     .trigger {
-        padding: 24px 16px 24px 20px;
+        padding: 24px 16px 24px 4px;
     }
 
-    /* Accent rail on the open family, drawn in from the top. */
-    .trigger::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 16px;
-        bottom: 16px;
-        width: 2px;
-        border-radius: var(--r-xs);
-        background: var(--accent-fill);
-        transform: scaleY(0);
-        transform-origin: top;
-        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .open .trigger::before {
-        transform: scaleY(1);
-    }
-
+    /* The open family is marked by its tick and by the light under its row.
+       A coloured rail down the left edge was a second marker for the same
+       state, and a heavier one than anything else on the page. */
     .open .trigger {
-        background: linear-gradient(90deg, var(--wash-1), transparent 70%);
+        background: linear-gradient(90deg, var(--wash-2), transparent 72%);
     }
 
     .chevron,
@@ -303,12 +295,50 @@
         animation: none;
     }
 
-    .index,
+    .tick,
     .title,
     .chevron,
-    .trigger::before,
     .item,
     .itemArrow {
         transition: none;
+    }
+}
+
+/* ── Light theme ──
+   The open panel was a mint pane holding a mint well, with a mint wash under
+   the active row beside it: green inside green inside green, which is what
+   made the band read as fog. In light the panel is white with a real cast,
+   the well is a neutral near-white, and the open family is marked by its tick
+   and its ink alone. Dark keeps the glass it was designed in. */
+:root:not([data-theme="dark"]) .visual {
+    border-color: rgba(11, 13, 15, 0.08);
+    background: #f6f8f7;
+}
+
+@media (min-width: 1000px) {
+    :root:not([data-theme="dark"]) .open .panel {
+        border-color: rgba(11, 13, 15, 0.1);
+        background: #ffffff;
+        box-shadow:
+            0 24px 60px rgba(11, 13, 15, 0.08),
+            0 3px 10px rgba(11, 13, 15, 0.04);
+    }
+
+    :root:not([data-theme="dark"]) .open .trigger {
+        background: none;
+    }
+}
+
+:root:not([data-theme="dark"]) .open .title {
+    color: var(--text-primary);
+}
+
+:root:not([data-theme="dark"]) .title {
+    color: var(--text-secondary);
+}
+
+@media (hover: hover) {
+    :root:not([data-theme="dark"]) .item:hover {
+        background: #f4f6f5;
     }
 }

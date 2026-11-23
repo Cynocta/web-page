@@ -33,7 +33,10 @@
     /* ── Ink (ratios are against --bg-page) ── */
     --text-primary: #0b0d0f;    /* 19.0:1 */
     --text-secondary: #4a5058;  /*  7.9:1 */
-    --text-tertiary: #6b7179;   /*  4.8:1 — the floor for body text */
+    /* 5.4:1 on the page, 4.9:1 on a plate, 4.6:1 on --bg-raised. It was
+       #6b7179, which cleared 4.5:1 on white but only just on a plate, and the
+       10px labels on the rules sit on plates now. */
+    --text-tertiary: #656b73;
 
     /* ── Accent ──
        Two greens on purpose. The brand neon sits at 1.4:1 on a light ground, so
@@ -152,6 +155,41 @@
     --r-md: 12px;      /* cards and panels */
     --r-lg: 18px;      /* large frames: demo stage, illustrations */
     --r-pill: 999px;
+
+    /* ── The section system: plate, rule and marker ──
+       The hero and the footer settled what a surface is on this site, and the
+       bands between them now read from the same three names.
+
+       A *plate* is a surface with its own light and its own edge — the footer's
+       device, generalised: it lifts off the page, keeps a large radius at the
+       edge it meets the page on, and carries a lit seam there. The page itself
+       is the alternative: no fill, no border, only the ambient. Those two are
+       the whole rhythm, and they replaced a 1px rule between every band.
+
+       The *rule* is the hero's graduated scale as a general instrument: a
+       hairline that opens a section, capped at the left by a neon tick. It is
+       what a band announces itself with now — a drawn edge, not a label.
+
+       The *marker* is the hero's highlight. It is spent exactly twice on the
+       homepage: the opening headline and the closing one, which are the two
+       places the visitor is asked to act. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);  /* the hero's arrival ease */
+    --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --plate: #f7fbf8;
+    --plate-edge-r: clamp(22px, 2.6vw, 42px);
+    /* Light caught on the plate's top edge, and the page's shadow under it. */
+    --plate-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 38%);
+    --plate-cast: 0 -18px 50px rgba(6, 144, 89, 0.07);
+
+    --tick: var(--brand-neon);
+    --mark-bg: var(--brand-neon);
+    --mark-ink: #06120d;
+
+    /* The filing traces the mid-page bands carry: the hero's field at rest,
+       drawn once and never animated. */
+    --trace: rgba(6, 144, 89, 0.3);
+    --trace-strong: rgba(6, 144, 89, 0.52);
 }
 
 /* ── Dark ──
@@ -167,9 +205,9 @@
 
     --text-primary: #f8f8f8;
     --text-secondary: #a4a7ae;
-    /* Was #666a72, which measured 3.7:1 on this ground and carried 10px mono
-       labels. Lifted to clear 4.5:1 without leaving the hue. */
-    --text-tertiary: #737881;
+    /* Was #666a72 (3.7:1), then #737881, which cleared 4.5:1 on the page but
+       measured 4.3:1 on a plate. 5.2:1 on --bg-surface, 4.8:1 on --bg-raised. */
+    --text-tertiary: #80858e;
 
     --accent-text: var(--brand-neon);
     --accent: var(--brand-neon);
@@ -212,6 +250,13 @@
     --selection-fg: #04150d;
     --scroll-thumb: rgba(255, 255, 255, 0.18);
     --scroll-thumb-hover: rgba(255, 255, 255, 0.3);
+
+    --plate: #0c0f11;
+    --plate-sheen: linear-gradient(180deg, rgba(25, 245, 156, 0.07) 0%, rgba(25, 245, 156, 0) 40%);
+    --plate-cast: 0 -18px 50px rgba(0, 0, 0, 0.45);
+
+    --trace: rgba(25, 245, 156, 0.26);
+    --trace-strong: rgba(25, 245, 156, 0.5);
 }
 
 /* The theme moves on a transition rather than snapping, but only on the few
@@ -228,6 +273,34 @@ html.theme-ready body * {
     html.theme-ready body,
     html.theme-ready body * {
         transition: none;
+    }
+}
+
+/* ── Theme change ──
+   The new theme opens as an ellipse out of the toggle that was pressed, on the
+   homepage hero's own ease-out (cubic). The old page stays still underneath;
+   only the new one moves. See ThemeToggle. */
+html.theme-switching body,
+html.theme-switching body * {
+    transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+    animation: cyn-theme-reveal 0.9s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+@keyframes cyn-theme-reveal {
+    from {
+        clip-path: ellipse(2% 0% at var(--theme-x, 100%) var(--theme-y, 0%));
+    }
+    to {
+        clip-path: ellipse(150% 150% at var(--theme-x, 100%) var(--theme-y, 0%));
     }
 }
 
@@ -345,39 +418,53 @@ h4 {
     padding: var(--cyn-section-space) var(--cyn-shell-x);
 }
 
-/* Same label as SectionHeader's eyebrow: muted text, small accent mark. */
+/* The same rule SectionHeader draws, for the interior sections that build
+   their header by hand. It was a mono kicker with a 60px dash after it; it is
+   a measuring edge now — neon tick, the label, then the rule with the hero
+   scale's graduations running the rest of the column. The label is quieter
+   than it was, because the heading beneath it is doing the work. */
 .cyn-section-tag {
-    color: var(--cyn-muted);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    margin-bottom: clamp(0.8rem, 1.6vw, 1.2rem);
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
 }
 
 .cyn-section-tag::before {
     content: "";
     flex: 0 0 auto;
-    width: 6px;
-    height: 6px;
-    border-radius: 1px;
-    background: var(--cyn-accent);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 .cyn-section-tag::after {
     content: "";
-    width: 60px;
-    height: 1px;
-    background: var(--cyn-border);
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 7px;
+    background:
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) left center /
+            min(220px, 36%) 7px no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
 }
 
+/* Same voice as SectionHeader's title: the hero's weight and tightness, one
+   step down. It used to be 300, which read as a different brand from the
+   headline at the top of the page. */
 .cyn-section-title {
-    font-size: clamp(2.2rem, 4vw, 3.8rem);
-    line-height: 1.1;
-    font-weight: 300;
+    font-size: clamp(2rem, 3.6vw, 3.25rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    font-weight: 500;
     margin-bottom: 1.2rem;
 }
 
@@ -407,13 +494,172 @@ h4 {
     }
 }
 
+/* ── The marker ──
+   The hero's highlight, as a utility. Solid neon with dark ink on top, so it
+   reads in both themes; `box-decoration-break` keeps it one continuous block
+   when the phrase wraps instead of a tile per line. Never a gradient: at this
+   size a gradient behind type turns to one muddy teal. */
+.cyn-mark {
+    background: var(--mark-bg);
+    color: var(--mark-ink);
+    padding: 0.02em 0.1em 0.06em 0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* ── Buttons ──
+   One definition, matching what the hero settled: square at --r-sm, 52px of
+   height, neon with ink on it for the one action that matters and a tinted
+   pane for everything beside it. Before this the hero, the pricing cards and
+   the closing band each carried their own, at three different radii. */
+.cyn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.16s var(--ease-out);
+}
+
+.cyn-btn--primary {
+    background: var(--brand-neon);
+    border-color: var(--mark-ink);
+    color: var(--mark-ink);
+}
+
+.cyn-btn--ghost {
+    background: var(--veil-soft);
+    border-color: var(--hairline-strong);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .cyn-btn--ghost {
+    background: transparent;
+}
+
+.cyn-btn--sm {
+    min-height: 46px;
+    padding: 0 18px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cyn-btn--primary:hover {
+        background: var(--brand-glow);
+    }
+
+    .cyn-btn--ghost:hover {
+        border-color: var(--text-primary);
+    }
+}
+
+.cyn-btn:active {
+    transform: scale(0.97);
+}
+
+.cyn-btn:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cyn-btn {
+        transition: none;
+    }
+
+    .cyn-btn:active {
+        transform: none;
+    }
+}
+
+/* ── Filters ──
+   The category and sector filters on the blog and the portfolio. They are
+   buttons, so they are square like every other button; they used to be pills,
+   which the brand keeps for labels. The count is a reading, so it is mono. */
+.cyn-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.cyn-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--hairline-strong);
+    background: var(--veil-soft);
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.cyn-filter-count {
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) {
+    .cyn-filter:hover {
+        border-color: var(--text-primary);
+        color: var(--text-primary);
+    }
+}
+
+.cyn-filter[aria-pressed="true"] {
+    background: var(--brand-neon);
+    border-color: var(--mark-ink);
+    color: var(--mark-ink);
+}
+
+.cyn-filter[aria-pressed="true"] .cyn-filter-count {
+    color: var(--mark-ink);
+}
+
+.cyn-filter:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+@media (pointer: coarse) {
+    .cyn-filter {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cyn-filter {
+        transition: none;
+    }
+}
+
 /* ── Toggle (shared by LanguageToggle / CurrencyToggle) ── */
 .cyn-toggle {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 4px;
-    border-radius: var(--r-pill);
+    /* Square like every other button on the site, not a pill. */
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline-strong);
     background: var(--veil-soft);
     box-shadow: inset 0 1px 0 var(--hairline);
@@ -428,7 +674,8 @@ h4 {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 6px 10px;
-    border-radius: var(--r-pill);
+    /* Outer radius minus the 4px track padding, so the corners stay concentric. */
+    border-radius: calc(var(--r-sm) - 4px);
     cursor: pointer;
     transition: all 0.2s ease;
 }

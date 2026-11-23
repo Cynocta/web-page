@@ -1,36 +1,53 @@
+/* ══════════════════════════════════════════════════
+   The closing band — the hero's answer.
+
+   Same construction as the hero's plate: a floor of light, a neon aura where
+   the action sits, filings gathering on it, and the marker on the headline.
+   The hero opens the page with these; this closes it with them.
+   ══════════════════════════════════════════════════ */
+
 .section {
     position: relative;
     overflow: hidden;
-    border-top: 1px solid var(--cyn-border-2);
-    padding: clamp(80px, 12vw, 140px) var(--cyn-shell-x);
-    padding-bottom: clamp(60px, 8vw, 100px);
-    background: linear-gradient(to bottom, transparent 0%, var(--cyn-black) 90%);
+    isolation: isolate;
+    padding: clamp(84px, 11vw, 148px) var(--cyn-shell-x) clamp(72px, 9vw, 120px);
 }
 
-.aurora {
+/* Top to bottom of the stack: a fade into the footer's plate so the band ends
+   without a seam; the reading light behind the headline; the aura over the
+   action; and the floor itself, brighter at the top and deeper at the foot —
+   the hero's ground, read from the bottom up instead of the right. */
+.ground {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 60vw;
-    height: 40vh;
-    translate: -50% -50%;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        var(--wash-3) 0%,
-        var(--wash-cyan) 40%,
-        transparent 70%
-    );
-    filter: blur(80px);
-    pointer-events: none;
+    inset: 0;
     z-index: 0;
-    animation: breathe 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(242, 246, 243, 0) 88%, var(--bg-surface) 100%),
+        radial-gradient(52% 44% at 50% 22%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 74%),
+        radial-gradient(44% 40% at 50% 92%, rgba(25, 245, 156, 0.26) 0%, rgba(72, 237, 184, 0) 72%),
+        radial-gradient(36% 34% at 4% 8%, rgba(121, 226, 255, 0.22) 0%, rgba(121, 226, 255, 0) 72%),
+        linear-gradient(180deg, #f8fdfa 0%, #eef9f3 54%, #e2f4ea 100%);
+}
+
+[data-theme="dark"] .ground {
+    background:
+        linear-gradient(180deg, rgba(14, 15, 17, 0) 88%, var(--bg-surface) 100%),
+        radial-gradient(44% 40% at 50% 92%, rgba(25, 245, 156, 0.12) 0%, rgba(72, 237, 184, 0) 72%),
+        radial-gradient(36% 34% at 4% 8%, rgba(121, 226, 255, 0.07) 0%, rgba(121, 226, 255, 0) 72%),
+        linear-gradient(180deg, #061a13 0%, #04120d 52%, #020c08 100%);
+}
+
+/* The filings gather on the call to action, which sits low and centred. */
+.trace {
+    --trace-mask: radial-gradient(78% 62% at 50% 100%, #000 4%, transparent 76%);
+    color: var(--trace-strong);
 }
 
 .inner {
     position: relative;
     z-index: 1;
-    max-width: 640px;
+    max-width: 720px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -44,49 +61,25 @@
     width: 100%;
 }
 
-.tag {
-    color: var(--cyn-accent);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-2xs);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-}
-.tag::before,
-.tag::after {
-    content: "";
-    width: 32px;
-    height: 1px;
-    background: var(--accent-fill);
-    opacity: 0.5;
-}
-
+/* The hero's headline, one step down: same face, same weight, same tightness,
+   and the marker on the phrase that carries the promise. */
 .heading {
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    line-height: 1.08;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    background: linear-gradient(180deg, var(--cyn-white) 30%, var(--cyn-muted) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-.heading em {
-    font-style: italic;
-    -webkit-text-fill-color: var(--cyn-accent);
-    filter: drop-shadow(0 0 18px var(--wash-4));
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(2.2rem, 4.6vw, 3.9rem);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    margin: 0 0 1.2rem;
+    text-wrap: balance;
 }
 
 .sub {
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-md);
-    line-height: 1.65;
+    line-height: 1.7;
     max-width: 46ch;
-    margin: 0 auto 2rem;
+    margin: 0 auto 2.25rem;
 }
 
 /* ── Actions ── */
@@ -97,75 +90,14 @@
     gap: 12px;
 }
 
-.primary,
-.secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 50px;
-    padding: 0 24px;
-    border-radius: var(--r-md);
-    font-size: var(--fs-base);
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+.action {
+    flex: 0 0 auto;
 }
-
-.primary {
-    background: var(--accent-fill);
-    color: var(--on-accent-fill);
-}
-
-.secondary {
-    border: 1px solid var(--cyn-border);
-    background: var(--hairline-soft);
-    color: var(--cyn-white);
-}
-
-@media (hover: hover) {
-    .primary:hover {
-        background: var(--cyn-accent-glow);
-    }
-
-    .secondary:hover {
-        border-color: var(--cyn-accent-mid);
-        color: var(--cyn-accent);
-    }
-}
-
-.primary:focus-visible,
-.secondary:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
-}
-
-@keyframes breathe {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.15); opacity: 1; }
-}
-
 
 @media (max-width: 640px) {
-    .section {
-        padding-top: 60px;
-        padding-bottom: 48px;
-    }
-
-    .aurora {
-        filter: blur(40px);
-    }
-
     .actions {
         flex-direction: column;
         align-items: stretch;
         width: 100%;
-    }
-}
-
-/* Loops forever; it ignored the preference before. */
-@media (prefers-reduced-motion: reduce) {
-    .aurora {
-        animation: none;
     }
 }

@@ -16,7 +16,9 @@
     border-top-right-radius: inherit;
     background: var(--cyn-surface);
     font-family: var(--font-mono), "Consolas", monospace;
-    opacity: 1;
+    /* A step back in both themes (Diego, 2026-11-23): they read as part of the
+       plate rather than as the loudest thing at the bottom of the page. */
+    opacity: 0.78;
     /* Clicks startle the flock, which is worth having; text selection and the
        drag-to-save cursor are not. */
     -webkit-user-select: none;
@@ -27,7 +29,7 @@
    where the emerald reads much stronger than it does on black — they are held
    back far enough to stay behind the words rather than compete with them. */
 :root:not([data-theme="dark"]) .canvas {
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 /* The site cross-fades background-color over 280ms when the theme changes

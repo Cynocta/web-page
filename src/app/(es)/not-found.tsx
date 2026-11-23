@@ -31,7 +31,7 @@ export default function NotFound() {
                         encuentras todo lo demás.
                     </p>
                     <p style={{ marginTop: "2rem" }}>
-                        <Link href="/" className="cyn-toggle-btn is-active" style={{ padding: "12px 20px" }}>
+                        <Link href="/" className="cyn-btn cyn-btn--primary">
                             Volver al inicio
                         </Link>
                     </p>

@@ -56,7 +56,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
         return () => cancelAnimationFrame(id);
     }, []);
 
-    const apply = (next: Theme) => {
+    const commit = (next: Theme) => {
         document.documentElement.dataset.theme = next;
         setTheme(next);
         try {
@@ -65,6 +65,36 @@ export default function ThemeToggle({ className }: { className?: string }) {
             /* Private mode or blocked storage: the choice still applies, it just
                will not outlive the page. */
         }
+    };
+
+    /**
+     * The new theme opens out of the button that asked for it, as an ellipse,
+     * with the same ease-out the homepage hero arrives on. The View Transitions
+     * API snapshots the old page and reveals the new one through a clip-path;
+     * where it is missing, or for a visitor who asked for less motion, the
+     * theme changes as it always has.
+     */
+    const apply = (next: Theme, from: HTMLElement) => {
+        const root = document.documentElement;
+        if (root.dataset.theme === next) return;
+        const doc = document as Document & {
+            startViewTransition?: (update: () => void) => { finished: Promise<void>; ready: Promise<void> };
+        };
+        if (!doc.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            commit(next);
+            return;
+        }
+        const r = from.getBoundingClientRect();
+        root.style.setProperty("--theme-x", `${r.left + r.width / 2}px`);
+        root.style.setProperty("--theme-y", `${r.top + r.height / 2}px`);
+        // The colour transitions would tween inside the reveal and blur the
+        // edge into a crossfade; the new theme arrives already resolved.
+        root.classList.add("theme-switching");
+        const transition = doc.startViewTransition(() => commit(next));
+        // A transition the browser skips (a hidden tab, a second click) still
+        // runs the update; only the reveal is lost, so its rejection is noise.
+        transition.ready.catch(() => {});
+        transition.finished.finally(() => root.classList.remove("theme-switching"));
     };
 
     /* Three words, kept here rather than threaded through the content files:
@@ -82,7 +112,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
                 aria-pressed={theme === "light"}
                 aria-label={lightLabel}
                 title={lightLabel}
-                onClick={() => apply("light")}
+                onClick={(e) => apply("light", e.currentTarget)}
             >
                 <Sun />
             </button>
@@ -92,7 +122,7 @@ export default function ThemeToggle({ className }: { className?: string }) {
                 aria-pressed={theme === "dark"}
                 aria-label={darkLabel}
                 title={darkLabel}
-                onClick={() => apply("dark")}
+                onClick={(e) => apply("dark", e.currentTarget)}
             >
                 <Moon />
             </button>

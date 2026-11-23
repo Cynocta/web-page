@@ -1,234 +1,304 @@
-/* The header and breadcrumbs sit above this now, so no clearance for a
-   floating header is needed. */
+/* ══════════════════════════════════════════════════
+   Legal pages — terms and privacy, as an open document.
+
+   These are read, line by line, by the few people who need them, so the page
+   gets out of the way. What this replaced: the whole text inside a frosted
+   shell with a coloured halo round it, a centred mono kicker over a title at
+   weight 300, and boxes nested in that shell for every definition, table row
+   and contact line. Now it is the page's own rule, the title in the site's
+   heading voice, the key facts on a graduated scale, and rules — not boxes —
+   between everything else.
+   ══════════════════════════════════════════════════ */
+
 .legalPage {
-    padding: 40px var(--cyn-shell-x) 80px;
-    position: relative;
-    overflow: hidden;
+    padding: clamp(28px, 4vh, 48px) var(--cyn-shell-x) var(--cyn-space-block);
 }
 
-.legalPage::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(700px 360px at 12% 10%, var(--wash-3), transparent 60%),
-        radial-gradient(620px 420px at 90% 18%, var(--wash-cyan), transparent 64%),
-        radial-gradient(820px 520px at 40% 80%, var(--wash-3), transparent 70%);
-    opacity: 0.75;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.shell {
-    max-width: 980px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(180deg, var(--veil-strong), var(--veil-strong));
-    border: 1px solid var(--hairline-strong);
-    border-radius: var(--r-lg);
-    padding: clamp(2rem, 4vw, 3.4rem);
-    box-shadow:
-        0 35px 80px var(--shadow-cast),
-        0 0 0 1px var(--wash-2) inset,
-        0 0 45px var(--wash-3);
+/* The heading block is a sibling of the text, not inside it, so both take the
+   same column. */
+.shell,
+.hero {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero {
-    text-align: center;
-    margin-bottom: 2.6rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
 }
 
+/* The rule, with the document's kind as its label. */
 .kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 clamp(0.9rem, 1.8vw, 1.3rem);
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    letter-spacing: 0.24em;
-    color: var(--cyn-muted-2);
-    font-size: var(--fs-xs);
-    margin-bottom: 0.6rem;
+    line-height: 1;
+}
+
+.kicker::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
+}
+
+.kicker::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 7px;
+    background:
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) left center / min(220px, 40%)
+            7px no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
 }
 
 .title {
-    font-size: clamp(2.4rem, 4vw, 3.8rem);
-    font-weight: 300;
-    margin-bottom: 0.9rem;
+    margin: 0 0 0.9rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    text-wrap: balance;
 }
 
 .subtitle {
-    color: var(--cyn-muted);
+    margin: 0;
+    max-width: 58ch;
+    color: var(--text-secondary);
     font-size: var(--fs-md);
-    max-width: 680px;
-    margin: 0 auto;
+    line-height: 1.75;
 }
 
+/* ── Key facts, on a scale ── */
 .meta {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    margin: 2.5rem 0;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 44px;
+    margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+    padding-top: 22px;
+}
+
+.meta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background:
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) left center / min(240px, 40%)
+            7px no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
 }
 
 .metaCard {
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-md);
-    padding: 1rem 1.2rem;
-    text-align: center;
-    background: var(--veil-soft);
+    position: relative;
+}
+
+.metaCard::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -25px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 .metaLabel {
-    color: var(--cyn-muted-2);
-    font-size: var(--fs-xs);
+    display: block;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
 }
 
 .metaValue {
-    color: var(--cyn-white);
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
     font-size: var(--fs-md);
-    margin-top: 0.35rem;
     font-weight: 500;
+    letter-spacing: -0.015em;
 }
 
+/* One tinted block for the summary, because it is the part most people read
+   instead of the rest. Everything else stays on the page. */
 .callout {
+    margin: 0 0 clamp(2rem, 4vw, 2.5rem);
+    padding: 1.25rem 1.4rem;
     border-radius: var(--r-md);
-    padding: 1.4rem 1.6rem;
-    background: var(--wash-3);
-    border: 1px solid var(--wash-4);
-    color: var(--cyn-white);
-    margin: 2rem 0;
-}
-
-.legalSection {
-    margin-top: 2.4rem;
-}
-
-.legalSection h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
-    color: var(--cyn-accent);
-}
-
-.legalSection h3 {
-    font-size: 1.1rem;
-    margin-top: 1.4rem;
-    margin-bottom: 0.6rem;
-    color: var(--cyn-white);
-}
-
-.legalSection p {
-    color: var(--cyn-muted);
-    margin-bottom: 0.8rem;
+    background: var(--wash-2);
+    border: 1px solid var(--accent-line);
+    color: var(--text-primary);
     line-height: 1.7;
 }
 
+/* ── The text ── */
+.legalSection {
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid var(--hairline);
+    scroll-margin-top: calc(var(--cyn-header-h) + 18px);
+}
+
+.legalSection h2 {
+    margin: 0 0 0.85rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+}
+
+.legalSection h3 {
+    margin: 1.4rem 0 0.5rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-md);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+}
+
+.legalSection p {
+    margin: 0 0 0.85rem;
+    max-width: 68ch;
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
+    line-height: 1.8;
+}
+
 .legalSection ul {
-    padding-left: 1.4rem;
-    color: var(--cyn-muted);
-    margin-bottom: 0.8rem;
+    margin: 0 0 0.85rem;
+    padding-left: 1.3rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.legalSection li::marker {
+    color: var(--accent);
+}
+
+.legalSection a {
+    color: var(--accent-text);
+    text-underline-offset: 3px;
 }
 
 .note {
     margin-top: 1rem;
-    padding: 1rem 1.2rem;
-    border-radius: var(--r-md);
-    background: var(--wash-2);
-    border: 1px solid var(--wash-4);
-    color: var(--cyn-muted);
+    padding-left: 18px;
+    border-left: 1px solid var(--accent-line-strong);
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
-.definitionGrid {
+/* ── Definitions, data table, contact: rows on rules, not boxes ── */
+.definitionGrid,
+.table,
+.contact {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
     margin-top: 1rem;
+    border-top: 1px solid var(--hairline-soft);
 }
 
 .definition {
-    padding: 1rem 1.2rem;
-    border-radius: var(--r-md);
-    border: 1px solid var(--hairline);
-    background: var(--veil-soft);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--hairline-soft);
 }
 
 .definition dt {
-    font-weight: 600;
-    color: var(--cyn-white);
     margin-bottom: 0.3rem;
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
-.table {
-    display: grid;
-    gap: 0.8rem;
-    margin-top: 1rem;
+.definition dd {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
 .tableRow {
     display: grid;
     grid-template-columns: 160px 1.2fr 1fr;
     gap: 1rem;
-    padding: 0.9rem 1rem;
-    border-radius: var(--r-md);
-    background: var(--veil-soft);
-    border: 1px solid var(--hairline);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .tableRow strong {
-    color: var(--cyn-white);
-}
-
-.contact {
-    display: grid;
-    gap: 0.6rem;
-    margin-top: 1rem;
+    color: var(--text-primary);
 }
 
 .contact div {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.85rem 1rem;
-    border-radius: var(--r-md);
-    background: var(--veil-soft);
-    border: 1px solid var(--hairline);
-    color: var(--cyn-muted);
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    color: var(--text-secondary);
 }
 
 .contact span {
-    color: var(--cyn-white);
+    color: var(--text-primary);
     font-weight: 500;
 }
 
-.contact p {
-    margin: 0;
-    color: var(--cyn-muted);
-    text-align: right;
+@media (max-width: 720px) {
+    .tableRow {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    .contact div {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
 }
 
+/* ── Closing: the acceptance note and the sign-off ── */
 .accept {
-    border-radius: var(--r-lg);
-    padding: 1.6rem;
-    background: linear-gradient(135deg, var(--wash-4), var(--wash-cyan));
+    margin-top: clamp(2rem, 4vw, 2.75rem);
+    padding: 1.4rem 1.5rem;
+    border-radius: var(--r-md);
+    background: var(--wash-2);
     border: 1px solid var(--accent-line);
-    color: var(--cyn-white);
-    margin-top: 2.6rem;
-    text-align: center;
+    color: var(--text-primary);
+    line-height: 1.7;
 }
 
 .signoff {
-    margin-top: 2rem;
-    text-align: center;
-    color: var(--cyn-muted-2);
-    font-style: italic;
+    margin: clamp(2rem, 4vw, 2.5rem) 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+    color: var(--text-tertiary);
+    font-size: var(--fs-sm);
 }
 
 .signoff a {
-    color: var(--cyn-accent);
+    color: var(--accent-text);
     text-decoration: none;
 }
 
 .site {
-    text-align: center;
-    color: var(--cyn-accent);
-    margin-top: 0.3rem;
+    margin: 0.3rem 0 0;
+    color: var(--accent-text);
+    font-size: var(--fs-sm);
 }

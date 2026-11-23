@@ -12,12 +12,12 @@ const LABELS = {
         process: "Proceso",
         readingTag: "Lecturas",
         readingTitle: "Lo que hemos escrito sobre esto",
-        readArticle: "LEER ARTÍCULO →",
+        readArticle: "Leer artículo",
         faqTag: "Preguntas frecuentes",
         faqTitle: "Antes de contratar",
         relatedTag: "Relacionado",
         relatedTitle: "Suele combinarse con",
-        seeService: "VER SERVICIO →",
+        seeService: "Ver servicio",
         ctaTitle: "¿Encaja con lo que necesitas?",
         ctaText:
             "Cuéntanos tu caso en cuatro preguntas. Te decimos con honestidad si este servicio lo resuelve, si conviene otro, o si no somos para ti.",
@@ -28,12 +28,12 @@ const LABELS = {
         process: "Process",
         readingTag: "Reading",
         readingTitle: "What we've written about this",
-        readArticle: "READ ARTICLE →",
+        readArticle: "Read article",
         faqTag: "FAQ",
         faqTitle: "Before you hire us",
         relatedTag: "Related",
         relatedTitle: "Often combined with",
-        seeService: "SEE SERVICE →",
+        seeService: "See service",
         ctaTitle: "Is this what you need?",
         ctaText:
             "Tell us about your case in four questions. We'll tell you honestly whether this service solves it, whether another one fits better, or whether we're not right for you.",
@@ -146,7 +146,7 @@ export default function ServiceBody({
                                         <span>{post.readingMinutes} min</span>
                                     </p>
                                     <span className={s.postArrow} aria-hidden="true">
-                                        {t.readArticle}
+                                        {t.readArticle} →
                                     </span>
                                 </Link>
                             ))}
@@ -186,7 +186,7 @@ export default function ServiceBody({
                                         <h3 className={s.relatedTitle}>{item.cardTitle}</h3>
                                         <p className={s.relatedText}>{item.cardSummary}</p>
                                         <span className={s.relatedArrow} aria-hidden="true">
-                                            {t.seeService}
+                                            {t.seeService} →
                                         </span>
                                     </Link>
                                 ))}
@@ -199,8 +199,12 @@ export default function ServiceBody({
                             <p className={s.ctaTitle}>{t.ctaTitle}</p>
                             <p className={s.ctaText}>{t.ctaText}</p>
                         </div>
-                        <Link href={localePath("contact", locale)} className={s.ctaButton}>
+                        <Link
+                            href={localePath("contact", locale)}
+                            className="cyn-btn cyn-btn--primary"
+                        >
                             {t.ctaLabel}
+                            <span aria-hidden="true">→</span>
                         </Link>
                     </div>
                 </div>

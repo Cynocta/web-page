@@ -1,6 +1,12 @@
+/* ══════════════════════════════════════════════════
+   "¿Reconoces alguna de estas?" — five statements, all readable at once.
+
+   The band asks the reader to find themselves in the list, so the list has to
+   be a list. It was a snap carousel showing one and a half cards at a time.
+   ══════════════════════════════════════════════════ */
+
 .section {
-    background: var(--cyn-black);
-    border-bottom: 1px solid var(--cyn-border-2);
+    background: transparent;
 }
 
 .inner {
@@ -12,241 +18,103 @@
 }
 
 .intro {
-    max-width: 640px;
-    color: var(--cyn-muted);
+    max-width: 58ch;
+    color: var(--text-secondary);
     font-size: var(--fs-md);
     line-height: 1.75;
-    margin-bottom: 2.25rem;
+    margin: 0 0 clamp(1.75rem, 3.5vw, 2.75rem);
 }
 
-/* ── Carousel rail ── */
-.carousel {
-    --pain-card-w: min(420px, 78vw);
-    position: relative;
-    margin-left: calc(-1 * var(--cyn-shell-x));
-    margin-right: calc(-1 * var(--cyn-shell-x));
-}
-
-.track {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    /* Side padding wide enough for the first and last card to reach the centre
-       of the rail — otherwise they can never become the active slide. */
-    padding-left: max(var(--cyn-shell-x), calc(50% - var(--pain-card-w) / 2));
-    padding-right: max(var(--cyn-shell-x), calc(50% - var(--pain-card-w) / 2));
-}
-
-.track::-webkit-scrollbar {
-    display: none;
-}
-
-.track:focus-visible {
-    outline: 1px solid var(--cyn-accent);
-    outline-offset: 4px;
-    border-radius: var(--r-md);
-}
-
-.card {
-    flex: 0 0 auto;
-    width: var(--pain-card-w);
-    scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(160deg, var(--wash-1) 0%, var(--cyn-surface) 60%);
-    border: 1px solid var(--cyn-border-2);
-    border-radius: var(--r-md);
-    padding: 26px 26px;
-    min-height: 232px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-    opacity: 0.55;
-}
-
-.card[data-active="true"] {
-    opacity: 1;
-    border-color: var(--cyn-border);
-    box-shadow: 0 12px 32px var(--wash-3);
-}
-
-.cardTop {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.1rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 1px solid var(--cyn-border-2);
-}
-
-.num {
-    color: var(--cyn-accent);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-2xl);
-    font-weight: 300;
-    line-height: 1;
-}
-
-.counter {
-    color: var(--cyn-muted-2);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
-}
-
-.cardTitle {
-    font-size: var(--fs-lg);
-    line-height: 1.35;
-    font-weight: 400;
-    color: var(--cyn-white);
-    margin-bottom: 0.9rem;
-}
-
-.cardText {
-    color: var(--cyn-muted);
-    font-size: var(--fs-base);
-    line-height: 1.7;
-}
-
-/* ── Arrows (pointer devices only) ── */
-.arrow {
-    display: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--r-pill);
-    border: 1px solid var(--cyn-border-2);
-    background: var(--veil);
-    backdrop-filter: blur(8px);
-    color: var(--cyn-white);
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.arrow:hover:not(:disabled) {
-    border-color: var(--cyn-accent);
-    color: var(--cyn-accent);
-}
-
-.arrow:disabled {
-    opacity: 0.25;
-    cursor: default;
-}
-
-.arrowPrev {
-    left: calc(var(--cyn-shell-x) - 20px);
-}
-
-.arrowNext {
-    right: calc(var(--cyn-shell-x) - 20px);
-}
-
-@media (hover: hover) and (min-width: 901px) {
-    .arrow {
-        display: flex;
-    }
-}
-
-/* ── Dots ── */
-.dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    /* The dots carry their own 44px hit area, so the rail needs less margin. */
-    margin-top: 0.4rem;
-}
-
-/* The visual dot is 7px, but the button itself is a 44px-tall hit area — a 7px
-   tap target is unusable on touch. The pill lives in ::after. */
-.dot {
-    position: relative;
-    width: 22px;
-    height: 44px;
+/* ── The statements ── */
+.list {
+    margin: 0;
     padding: 0;
-    border: none;
-    background: none;
-    cursor: pointer;
+    list-style: none;
 }
 
-.dot::after {
+.item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+    padding: clamp(18px, 2vw, 26px) 0 clamp(18px, 2vw, 26px) 26px;
+    border-top: 1px solid var(--hairline-soft);
+}
+
+.item:first-child {
+    border-top: 1px solid var(--hairline);
+}
+
+.item::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    top: calc(clamp(18px, 2vw, 26px) + 9px);
     width: 7px;
     height: 7px;
-    border-radius: var(--r-pill);
-    background: var(--hairline-bold);
-    transition: width 0.3s ease, background 0.3s ease;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
-.dot:focus-visible {
-    outline: 1px solid var(--cyn-accent);
-    outline-offset: -8px;
-    border-radius: var(--r-sm);
+/* The statement is the part that has to land, so it is set as a line of the
+   page and the explanation sits beside it. */
+.itemTitle {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    text-wrap: balance;
 }
 
-.dotActive::after {
-    width: 22px;
-    background: var(--accent-fill);
-}
-
-.closing {
-    max-width: 620px;
-    margin: 2rem auto 0;
-    text-align: center;
-    color: var(--cyn-white);
-    font-size: var(--fs-md);
+.itemText {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
     line-height: 1.7;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--cyn-border-2);
+    max-width: 58ch;
 }
 
-@media (max-width: 640px) {
-    .intro {
-        font-size: var(--fs-base);
-        margin-bottom: 2rem;
+@media (min-width: 900px) {
+    .item {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        column-gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: baseline;
     }
 
-    .carousel {
-        --pain-card-w: calc(100vw - 2 * var(--cyn-shell-x) - 24px);
+    .itemText {
+        max-width: none;
     }
+}
 
-    .card {
-        padding: 26px 22px;
-        min-height: 240px;
-    }
+/* The line that turns the list into an argument rather than a complaint. */
+.closing {
+    max-width: 62ch;
+    margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+    padding-left: 26px;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+    text-wrap: balance;
+}
 
-    .cardTitle {
+@media (max-width: 560px) {
+    .itemTitle {
         font-size: var(--fs-lg);
     }
 
+    .itemText {
+        font-size: var(--fs-sm);
+    }
+
     .closing {
-        font-size: var(--fs-base);
-        margin-top: 2.4rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .track {
-        scroll-behavior: auto;
-    }
-
-    .card,
-    .dot::after,
-    .arrow {
-        transition: none;
+        font-size: var(--fs-md);
+        padding-left: 0;
     }
 }

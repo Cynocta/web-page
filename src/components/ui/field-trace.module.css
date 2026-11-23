@@ -1,0 +1,35 @@
+/* The static field. Always behind content, never interactive, and masked so it
+   dissolves into the band rather than stopping at its edge. */
+.trace {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    color: var(--trace);
+    /* Where the field is readable. Overridden per band, so the traces always
+       gather around that band's magnet and fade out before its type. */
+    -webkit-mask-image: var(--trace-mask, radial-gradient(120% 100% at 100% 50%, #000 10%, transparent 72%));
+    mask-image: var(--trace-mask, radial-gradient(120% 100% at 100% 50%, #000 10%, transparent 72%));
+}
+
+/* On a phone the band is as narrow as the column of text, so the field would
+   be drawing underneath the copy rather than beside it. It steps back to a
+   whisper there and the type keeps clean ground, which is the rule the hero's
+   own filings follow. */
+@media (max-width: 900px) {
+    /* Doubled so it wins over whatever opacity the band set for desktop,
+       whichever order the two stylesheets end up bundled in. */
+    .trace.trace {
+        opacity: 0.3;
+    }
+}
+
+.trace path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+}

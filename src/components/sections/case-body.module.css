@@ -29,7 +29,7 @@
 
 .title {
     font-size: clamp(1.9rem, 1.1rem + 2.6vw, 3rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.12;
     letter-spacing: -0.02em;
     color: var(--cyn-white);
@@ -175,7 +175,7 @@
 .metricValue {
     color: var(--cyn-white);
     font-size: clamp(2.1rem, 1.5rem + 1.8vw, 2.9rem);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1;
     margin: 0 0 0.5rem;
@@ -230,7 +230,7 @@
 .quote {
     color: var(--cyn-white);
     font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.6;
     letter-spacing: -0.01em;
     margin: 0 0 1.2rem;
@@ -401,7 +401,7 @@
 
 .ctaTitle {
     font-size: var(--fs-lg);
-    font-weight: 400;
+    font-weight: 500;
     color: var(--cyn-white);
     margin: 0 0 0.5rem;
 }
@@ -413,44 +413,9 @@
     margin: 0;
 }
 
-.ctaButton {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 13px 24px;
-    border-radius: var(--r-sm);
-    background: var(--accent-fill);
-    border: 1px solid var(--cyn-accent);
-    color: var(--on-accent-fill);
-    text-decoration: none;
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: background 0.25s ease, box-shadow 0.25s ease;
-}
-
-@media (hover: hover) {
-    .ctaButton:hover {
-        background: var(--cyn-accent-glow);
-        box-shadow: 0 12px 32px var(--accent-line);
-    }
-}
-
-.ctaButton:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
-}
-
 @media (max-width: 640px) {
     .cta {
         padding: 1.5rem;
-    }
-
-    .ctaButton {
-        width: 100%;
     }
 
     .deltas {
@@ -462,8 +427,7 @@
 @media (prefers-reduced-motion: reduce) {
     .card,
     .relatedCard,
-    .serviceLink,
-    .ctaButton {
+    .serviceLink {
         transition: none;
     }
 

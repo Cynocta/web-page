@@ -19,14 +19,14 @@ const LABELS = {
         crumb: "Servicios",
         secondary: "Ver precios",
         gridTitle: "Empieza por lo que más te está costando.",
-        seeService: "VER SERVICIO →",
+        seeService: "Ver servicio",
     },
     en: {
         home: "Home",
         crumb: "Services",
         secondary: "See pricing",
         gridTitle: "Start with what's costing you the most.",
-        seeService: "SEE SERVICE →",
+        seeService: "See service",
     },
 } satisfies Record<Locale, Record<string, string>>;
 
@@ -81,22 +81,35 @@ export default function ServicesHubPage({ locale }: { locale: Locale }) {
                     <p className="cyn-section-tag">{hub.listTitle}</p>
                     <h2 className="cyn-section-title">{t.gridTitle}</h2>
 
-                    <div className={s.grid}>
+                    {/* An index, not ten cards. Ten boxes of icon-plus-heading-
+                        plus-text is the grid every template ships with, and at
+                        ten it is also slower to read than a list: the names are
+                        what a visitor is scanning for, so the names carry the
+                        row and the rule holds them together. */}
+                    <ul className={s.index}>
                         {list.map((service, i) => (
-                            <Reveal key={service.slug} delay={i * 60}>
-                                <Link href={servicePath(service.slug, locale)} className={s.card}>
-                                    <div className={s.icon}>
-                                        <ServiceIcon kind={service.icon} />
-                                    </div>
-                                    <h3 className={s.title}>{service.cardTitle}</h3>
-                                    <p className={s.summary}>{service.cardSummary}</p>
-                                    <span className={s.arrow} aria-hidden="true">
-                                        {t.seeService}
-                                    </span>
-                                </Link>
-                            </Reveal>
+                            <li key={service.slug} className={s.row}>
+                                <Reveal delay={i * 40} className={s.slot}>
+                                    <Link
+                                        href={servicePath(service.slug, locale)}
+                                        className={s.entry}
+                                        aria-label={`${service.cardTitle} — ${t.seeService}`}
+                                    >
+                                        <span className={s.head}>
+                                            <span className={s.icon} aria-hidden="true">
+                                                <ServiceIcon kind={service.icon} />
+                                            </span>
+                                            <h3 className={s.title}>{service.cardTitle}</h3>
+                                            <span className={s.arrow} aria-hidden="true">
+                                                →
+                                            </span>
+                                        </span>
+                                        <span className={s.summary}>{service.cardSummary}</span>
+                                    </Link>
+                                </Reveal>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 </div>
             </section>
 

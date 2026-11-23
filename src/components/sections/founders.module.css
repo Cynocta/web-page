@@ -1,160 +1,153 @@
 /* ══════════════════════════════════════════════════
-   Founder profiles.
-   Two compact cards side by side. The previous layout — a 440px portrait
-   plate with the copy card overlapping it — spent 1,550px on two short bios
-   while the photographs did not exist yet.
+   Founder profiles — two editorial columns on the open page.
+
+   What this replaced: two bordered cards, each with a grey circle standing in
+   for a photograph that does not exist yet. Without a portrait the monogram is
+   the portrait, so it is set large and on its own line, and the column is held
+   by the same rule every band on the site opens with.
    ══════════════════════════════════════════════════ */
 
 .list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: clamp(2rem, 5vw, 4.5rem);
 }
 
-/* Reveal wrappers must stretch so both cards match height. */
-.list > * {
+/* Reveal wraps each profile; the wrapper has to carry the column. */
+.slot {
     display: flex;
     min-width: 0;
 }
 
-.card {
+.profile {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: clamp(22px, 2.6vw, 32px);
-    border-radius: var(--r-lg);
-    border: 1px solid var(--hairline-strong);
-    background: linear-gradient(
-        158deg,
-        var(--hairline) 0%,
-        var(--hairline-soft) 45%,
-        var(--veil-soft) 100%
-    );
-    transition: border-color 0.3s ease;
 }
 
-@media (hover: hover) {
-    .card:hover {
-        border-color: var(--accent-line);
-    }
-}
-
-.head {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 1.1rem;
-}
-
-.avatar {
-    flex: 0 0 auto;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid var(--cyn-border);
+/* The band's rule, one per column, with its tick. */
+.rule {
+    display: block;
+    height: 7px;
+    margin-bottom: clamp(20px, 2.4vw, 30px);
     background:
-        radial-gradient(90% 90% at 30% 20%, var(--wash-4) 0%, transparent 70%),
-        var(--cyn-surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) 14px center / min(150px, 46%)
+            7px no-repeat,
+        radial-gradient(circle 3.5px at 3.5px 3.5px, var(--tick) 0 3.5px, transparent 3.5px) left center / 7px 7px
+            no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
+}
+
+/* ── The portrait slot ── */
+.monogram {
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(2.6rem, 4.4vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--accent-text);
+    margin-bottom: clamp(14px, 1.6vw, 20px);
 }
 
 .photo {
-    width: 100%;
-    height: 100%;
+    width: 88px;
+    height: 88px;
+    border-radius: var(--r-sm);
     object-fit: cover;
+    border: 1px solid var(--hairline);
+    margin-bottom: clamp(14px, 1.6vw, 20px);
 }
 
-.initials {
-    font-family: var(--font-heading), Georgia, serif;
-    font-size: var(--fs-xl);
-    font-weight: 300;
-    letter-spacing: 0.06em;
-    color: var(--cyn-accent);
-}
-
-.identity {
-    min-width: 0;
-}
-
+/* ── Identity ── */
 .name {
-    font-size: var(--fs-lg);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-2xl);
     font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    color: var(--cyn-white);
-    margin: 0 0 0.3rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text-primary);
+    margin: 0 0 0.45rem;
 }
 
 .role {
-    color: var(--cyn-muted);
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.12em;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin: 0;
+    margin: 0 0 1.1rem;
 }
 
 .bio {
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-base);
-    line-height: 1.7;
-    margin: 0 0 1.2rem;
+    line-height: 1.75;
+    max-width: 44ch;
+    margin: 0 0 1.4rem;
 }
 
-/* ── Social ── */
+/* ── Profile links ──
+   Set as the footer sets its channels: glyph, then name, as a line of text. */
 .socials {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
+    gap: 6px 22px;
     margin-top: auto;
 }
 
 .social {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--cyn-border-2);
-    background: var(--hairline);
-    color: var(--cyn-white);
-    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    gap: 9px;
+    min-height: 36px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    transition: color 0.2s ease;
+}
+
+.social svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+    opacity: 0.75;
 }
 
 @media (hover: hover) {
     .social:hover {
-        background: var(--accent-fill);
-        border-color: var(--cyn-accent);
-        color: var(--on-accent-fill);
+        color: var(--accent-text);
+    }
+
+    .social:hover svg {
+        opacity: 1;
     }
 }
 
 .social:focus-visible {
-    outline: 2px solid var(--cyn-accent);
+    outline: 2px solid var(--accent-text);
     outline-offset: 3px;
+    border-radius: var(--r-xs);
 }
 
-.social svg {
-    width: 18px;
-    height: 18px;
-}
-
-/* Shown until the profile URLs exist, instead of buttons that go nowhere. */
+/* Shown until the profile URLs exist, instead of links that go nowhere. */
 .socialsPending {
-    color: var(--cyn-muted-2);
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .card,
+@media (pointer: coarse) {
     .social {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .social,
+    .social svg {
         transition: none;
     }
 }

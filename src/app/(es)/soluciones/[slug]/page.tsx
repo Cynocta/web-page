@@ -172,7 +172,7 @@ export default async function SolutionPage({
                         <p className={body.ctaTitle}>{solution.ctaTitle}</p>
                         <p className={body.ctaText}>{solution.ctaBody}</p>
                     </div>
-                    <Link href="/contacto" className={body.ctaButton}>
+                    <Link href="/contacto" className="cyn-btn cyn-btn--primary">
                         Quiero resolverlo
                     </Link>
                 </div>

@@ -1,42 +1,131 @@
 /* ══════════════════════════════════════════════════
    Section primitive.
-   One place that owns band tone, vertical rhythm and container width, so
+   One place that owns band surface, vertical rhythm and container width, so
    every page breathes the same and no section hand-rolls its own padding.
+
+   The surface vocabulary comes from the hero and the footer, which are the two
+   bands this site had already settled. Both are *plates*: a surface with its
+   own light and its own edge, lifted off the page rather than butted against
+   the band above it. So there are now two states and the alternation runs
+   between them:
+
+   - `page`  the open page. No fill, no border: the body's ambient shows
+             through and the band is held together by its rule and its type.
+   - `plate` a slab laid on the page. Large radius top and bottom, a lit seam
+             along the top edge, a soft cast above and below it.
+
+   What this replaced was a 1px line between every band and a flat fill either
+   side of it. That line is what made the middle of the page read as a stack of
+   rectangles while the two ends read as designed objects.
    ══════════════════════════════════════════════════ */
 
 .section {
     position: relative;
-    border-top: 1px solid var(--cyn-border-2);
 }
 
-/* ── Tone ── */
+/* ── Surface ──
+   `black` and `surface` are the names the interior pages already alternate
+   between; they resolve to the two states above so those pages inherit the
+   rhythm without being rewritten. */
+.page,
 .black {
-    background: var(--cyn-black);
+    background: transparent;
 }
 
+.plate,
 .surface {
-    background: var(--cyn-surface);
+    background: var(--bg-surface);
+    border-radius: var(--plate-edge-r);
+    box-shadow: var(--plate-cast);
+    isolation: isolate;
 }
 
-/* Accent bands carry a soft wash over the lighter base: it counts as a surface
-   band for the alternation, and gives the glass cards something to pick up —
-   blur over flat black just reads as grey haze. */
+/* The light the plate catches on its top edge, and the glowing seam centred
+   on it — the same two gestures that lift the footer off the page. */
+.plate::before,
+.surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background:
+        radial-gradient(38% 160px at 50% 0%, var(--hairline) 0%, transparent 100%),
+        var(--plate-sheen);
+    pointer-events: none;
+}
+
+.plate::after,
+.surface::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 50%;
+    width: min(34%, 380px);
+    height: 1px;
+    translate: -50% -50%;
+    border-radius: var(--r-pill);
+    background: linear-gradient(90deg, transparent, var(--accent-halo), transparent);
+    filter: blur(1.5px);
+    pointer-events: none;
+}
+
+/* Two plates in a row are one slab, not two: the join loses its corners and
+   its seam so the page never shows a rounded edge meeting a rounded edge. */
+.plate + .plate,
+.plate + .surface,
+.surface + .plate,
+.surface + .surface {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: none;
+}
+
+.plate + .plate::after,
+.plate + .surface::after,
+.surface + .plate::after,
+.surface + .surface::after {
+    display: none;
+}
+
+.plate:has(+ .plate),
+.plate:has(+ .surface),
+.surface:has(+ .plate),
+.surface:has(+ .surface) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* A tinted page rather than a slab: the band keeps the open edge but picks up
+   the accent, for the one or two places that want warmth without weight. */
 .accent {
     background:
-        radial-gradient(820px 440px at 78% 2%, var(--wash-3) 0%, transparent 64%),
-        radial-gradient(520px 340px at 6% 96%, var(--wash-cyan) 0%, transparent 62%),
-        var(--cyn-surface);
+        radial-gradient(820px 440px at 78% 2%, var(--wash-2) 0%, transparent 64%),
+        radial-gradient(520px 340px at 6% 96%, var(--wash-cyan) 0%, transparent 62%);
 }
 
 .plain {
     background: transparent;
-    border-top: none;
+}
+
+/* Full-bleed layer behind the content column, clipped to the band so a field
+   trace or a wash never spills into the one above. */
+.backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 /* ── Rhythm ──
    Corporate pacing: more air than a landing, still height-aware so a short
    laptop doesn't get 160px gutters. */
 .inner {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--cyn-space-block) var(--cyn-shell-x);

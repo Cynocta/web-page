@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import LanguageToggle from "@/components/language-toggle";
 import ThemeToggle from "@/components/theme-toggle";
 import { useI18n } from "@/components/i18n-provider";
@@ -20,6 +21,19 @@ import s from "./header.module.css";
 function isActive(pathname: string, href: string) {
     return href === "/" || href === "/en" ? pathname === href : pathname.startsWith(href);
 }
+
+/**
+ * One spring for the whole menu, so the pill, the caret and the panel settle
+ * together. Low bounce on purpose: this is a B2B header, and overshoot on a
+ * control someone uses on every visit reads as wobble, not as life.
+ */
+const SPRING = { type: "spring", visualDuration: 0.28, bounce: 0.14 } as const;
+
+const LIST = { hidden: {}, show: { transition: { staggerChildren: 0.035 } } };
+const ITEM = {
+    hidden: { opacity: 0, y: 6 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.22, ease: [0.23, 1, 0.32, 1] } },
+} as const;
 
 function entryIsActive(pathname: string, entry: NavEntry) {
     return entry.kind === "link"
@@ -42,6 +56,12 @@ export default function Header() {
     const [section, setSection] = useState<string | null>(null);
     const navRef = useRef<HTMLDivElement>(null);
     const closeTimer = useRef<number | undefined>(undefined);
+
+    /** The open menu's own data, so the panel can render once outside the list. */
+    const openEntry = nav.find(
+        (entry): entry is Extract<NavEntry, { kind: "menu" }> =>
+            entry.kind === "menu" && entry.label === menu,
+    );
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 12);
@@ -101,6 +121,9 @@ export default function Header() {
     const cancelClose = () => window.clearTimeout(closeTimer.current);
 
     return (
+        /* Anyone who asked their system for less motion keeps the opacity and
+           colour changes and loses the travel, rather than losing the menu. */
+        <MotionConfig reducedMotion="user">
         <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
             <div className={s.bar}>
                 {/* The logo returns to the home of the tree you're in, not always
@@ -123,7 +146,16 @@ export default function Header() {
                     <span className="cyn-logo-text">C Y N O C T A</span>
                 </Link>
 
-                <nav ref={navRef} className={s.nav} aria-label="Principal">
+                {/* The panel lives at nav level rather than inside each item, so
+                    moving between menus resizes one surface instead of tearing
+                    one down and building another. That also means the pointer
+                    leaving is a question for the nav, not for a single item. */}
+                <nav
+                    ref={navRef}
+                    className={s.nav}
+                    aria-label="Principal"
+                    onMouseLeave={scheduleClose}
+                >
                     <ul className={s.navList}>
                         {nav.map((entry) => {
                             const active = entryIsActive(pathname, entry);
@@ -156,7 +188,6 @@ export default function Header() {
                                         cancelClose();
                                         setMenu(entry.label);
                                     }}
-                                    onMouseLeave={scheduleClose}
                                 >
                                     <button
                                         type="button"
@@ -165,47 +196,92 @@ export default function Header() {
                                         aria-haspopup="true"
                                         onClick={() => setMenu(shown ? null : entry.label)}
                                     >
-                                        {entry.label}
-                                        <span
-                                            className={`${s.caret} ${shown ? s.caretOpen : ""}`}
+                                        {/* One pill shared by every trigger: it slides
+                                            across rather than fading in place, which is
+                                            what tells you the menus are one surface. */}
+                                        {shown && (
+                                            <motion.span
+                                                layoutId="cyn-nav-pill"
+                                                className={s.navPill}
+                                                transition={SPRING}
+                                            />
+                                        )}
+                                        <span className={s.menuLabel}>{entry.label}</span>
+                                        <motion.span
+                                            className={s.caret}
+                                            animate={{ rotate: shown ? 225 : 45 }}
+                                            transition={SPRING}
                                             aria-hidden="true"
                                         />
                                     </button>
-
-                                    {shown && (
-                                        <div className={s.dropdown} onMouseEnter={cancelClose}>
-                                            <ul className={s.dropdownList}>
-                                                {entry.items.map((item) => (
-                                                    <li key={item.href}>
-                                                        <Link
-                                                            href={item.href}
-                                                            className={`${s.dropdownLink} ${isActive(pathname, item.href) ? s.dropdownActive : ""}`}
-                                                            hrefLang={item.lang}
-                                                        >
-                                                            {item.label}
-                                                            {item.lang && (
-                                                                <span className={s.foreign}>
-                                                                    {foreign}
-                                                                </span>
-                                                            )}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                            <Link
-                                                href={entry.href}
-                                                className={s.dropdownAll}
-                                                hrefLang={entry.lang}
-                                            >
-                                                {entry.seeAll}
-                                                <span aria-hidden="true">→</span>
-                                            </Link>
-                                        </div>
-                                    )}
                                 </li>
                             );
                         })}
                     </ul>
+
+                    {/* Two elements, two jobs. The outer one enters and leaves;
+                        the inner one carries `layout` and is the panel you see,
+                        so switching menus resizes it. Putting `layout` on the
+                        element that exits keeps it mounted forever — it never
+                        finishes leaving. */}
+                    <AnimatePresence>
+                        {openEntry && (
+                            <motion.div
+                                key="mega"
+                                className={s.megaAnchor}
+                                onMouseEnter={cancelClose}
+                                initial={{ opacity: 0, y: -10, filter: "blur(5px)" }}
+                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, y: -10, filter: "blur(5px)" }}
+                                transition={SPRING}
+                            >
+                                <motion.div layout className={s.mega} transition={SPRING}>
+                                    {/* Keyed by menu, so switching re-runs the
+                                        stagger while the panel only resizes. */}
+                                    <motion.ul
+                                        key={openEntry.label}
+                                        className={s.megaGrid}
+                                        variants={LIST}
+                                        initial="hidden"
+                                        animate="show"
+                                    >
+                                        {openEntry.items.map((item) => (
+                                            <motion.li key={item.href} variants={ITEM}>
+                                                <Link
+                                                    href={item.href}
+                                                    className={`${s.megaLink} ${isActive(pathname, item.href) ? s.megaActive : ""}`}
+                                                    hrefLang={item.lang}
+                                                >
+                                                    <span className={s.megaLabel}>
+                                                        {item.label}
+                                                        {item.lang && (
+                                                            <span className={s.foreign}>
+                                                                {foreign}
+                                                            </span>
+                                                        )}
+                                                    </span>
+                                                    {item.hint && (
+                                                        <span className={s.megaHint}>
+                                                            {item.hint}
+                                                        </span>
+                                                    )}
+                                                </Link>
+                                            </motion.li>
+                                        ))}
+                                    </motion.ul>
+
+                                    <Link
+                                        href={openEntry.href}
+                                        className={s.megaAll}
+                                        hrefLang={openEntry.lang}
+                                    >
+                                        {openEntry.seeAll}
+                                        <span aria-hidden="true">→</span>
+                                    </Link>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </nav>
 
                 <div className={s.actions}>
@@ -325,5 +401,6 @@ export default function Header() {
                 </div>
             )}
         </header>
+        </MotionConfig>
     );
 }

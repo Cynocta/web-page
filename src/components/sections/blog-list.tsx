@@ -44,15 +44,15 @@ export default function BlogList({
     return (
         <>
             {categories.length > 1 && (
-                <div className={s.filters} role="group" aria-label="Filtrar por categoría">
+                <div className="cyn-filters" role="group" aria-label="Filtrar por categoría">
                     <button
                         type="button"
-                        className={`${s.chip} ${active === null ? s.chipOn : ""}`}
+                        className="cyn-filter"
                         aria-pressed={active === null}
                         onClick={() => setActive(null)}
                     >
                         {allLabel}
-                        <span className={s.count}>{posts.length}</span>
+                        <span className="cyn-filter-count">{posts.length}</span>
                     </button>
 
                     {categories.map((category) => {
@@ -62,14 +62,14 @@ export default function BlogList({
                             <button
                                 key={category.value}
                                 type="button"
-                                className={`${s.chip} ${active === category.value ? s.chipOn : ""}`}
+                                className="cyn-filter"
                                 aria-pressed={active === category.value}
                                 onClick={() =>
                                     setActive(active === category.value ? null : category.value)
                                 }
                             >
                                 {category.label}
-                                <span className={s.count}>{total}</span>
+                                <span className="cyn-filter-count">{total}</span>
                             </button>
                         );
                     })}
@@ -102,7 +102,7 @@ export default function BlogList({
                             </p>
 
                             <span className={s.arrow} aria-hidden="true">
-                                LEER ARTÍCULO →
+                                Leer artículo →
                             </span>
                         </Link>
                     </article>

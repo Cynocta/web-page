@@ -29,8 +29,14 @@ import { siteUrl } from "@/lib/site-data";
  *   use cases → technologies        how it applies, what it is built with
  *   pricing → founders → FAQ        what it costs, who does it, the objections
  *   contact                         the action
- * Bands alternate black and surface down the page in that order, so no two
- * neighbours share a tone and read as one block.
+ *
+ * The rhythm under that order is the page alternating between its two
+ * surfaces: the open page, and a lit plate laid on it (see Section). The page
+ * opens on the hero's plate and closes on the footer's, and between them the
+ * two bands that show a working thing — the demo and the sector table — are
+ * the ones raised onto plates of their own. Everything else sits on the open
+ * page and is held together by its rule. Before this, every band was a flat
+ * fill with a 1px line above it.
  */
 export default function LandingPage({ locale }: { locale: Locale }) {
     const isEs = locale === "es";

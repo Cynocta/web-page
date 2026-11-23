@@ -18,7 +18,7 @@ import s from "./home-blocks.module.css";
  */
 export default function UseCasesSection({
     locale = "es",
-    tone = "black",
+    tone = "plate",
 }: {
     locale?: Locale;
     tone?: SectionTone;
@@ -27,7 +27,7 @@ export default function UseCasesSection({
 
     return (
         <Section id="casos-de-uso" tone={tone}>
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} align="center" />
+            <SectionHeader title={copy.title} intro={copy.intro} align="center" />
 
             <Reveal>
                 <div className={s.caseTableWrap}>

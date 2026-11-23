@@ -1,0 +1,36 @@
+/* Filing colours by energy, faint to charged. On paper the field is ink and
+   only the charged filings turn neon, riding on a dark core (--f-under) so the
+   brand colour holds its shape; at night every band glows. */
+.field {
+    --f1: rgba(8, 58, 42, 0.3);
+    --f2: rgba(8, 58, 42, 0.5);
+    --f3: #0c7a57;
+    --f4: #07533c;
+    --f5: #19f59c;
+    --f-under: #06352a;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+:global([data-theme="dark"]) .field {
+    --f1: #146650;
+    --f2: #1f9e77;
+    --f3: #48edb8;
+    --f4: #79e2ff;
+    --f5: #19f59c;
+    --f-under: transparent;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}

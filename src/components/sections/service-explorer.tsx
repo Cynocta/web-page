@@ -85,7 +85,9 @@ export default function ServiceExplorer({
                                 onClick={() => setActive(index)}
                                 onKeyDown={(event) => onKeyDown(event, index)}
                             >
-                                <span className={s.index}>{String(index + 1).padStart(2, "0")}</span>
+                                {/* A tick, not a number: the four families have no order,
+                                    and a tick is how the rest of the page marks a station. */}
+                                <span className={s.tick} aria-hidden="true" />
                                 <span className={s.triggerText}>
                                     <span className={s.title}>{family.title}</span>
                                     <span className={s.summary}>{family.summary}</span>

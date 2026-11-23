@@ -8,6 +8,10 @@ type Action = { label: string; href: string };
  *
  * Says so plainly and offers somewhere useful to go. Inventing filler entries —
  * fake projects, placeholder posts — would be worse than an honest gap.
+ *
+ * Drawn as an instrument waiting for its first reading: the rule with a
+ * hollow tick, the state named on it, and the shared buttons. It used to be a
+ * bordered card with a pill badge and a fourth button style.
  */
 export default function EmptyState({
     badge,
@@ -33,12 +37,12 @@ export default function EmptyState({
             {(primary || secondary) && (
                 <div className={s.actions}>
                     {primary && (
-                        <Link href={primary.href} className={s.primary}>
+                        <Link href={primary.href} className="cyn-btn cyn-btn--primary">
                             {primary.label}
                         </Link>
                     )}
                     {secondary && (
-                        <Link href={secondary.href} className={s.secondary}>
+                        <Link href={secondary.href} className="cyn-btn cyn-btn--ghost">
                             {secondary.label}
                         </Link>
                     )}

@@ -153,12 +153,12 @@ export default function LeadFormSection() {
                     <div className={s.actions}>
                         <div className={s.actionRow}>
                             {step > 0 && (
-                                <button type="button" className={s.back} onClick={goBack}>
+                                <button type="button" className={`cyn-btn cyn-btn--ghost ${s.back}`} onClick={goBack}>
                                     <span aria-hidden="true">←</span>
                                     {copy.form.back}
                                 </button>
                             )}
-                            <button type="submit" className={s.submit}>
+                            <button type="submit" className={`cyn-btn cyn-btn--primary ${s.submit}`}>
                                 {isLast ? copy.form.submit : copy.form.next}
                                 <span aria-hidden="true">→</span>
                             </button>

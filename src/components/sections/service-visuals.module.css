@@ -496,3 +496,55 @@
         display: none;
     }
 }
+
+/* ── Light theme ──
+   On the light ground these were mint pills on a mint well on a mint panel:
+   three tints of one green, so nothing in the illustration read as more
+   important than anything else. The chips go white with a hairline, and the
+   green is kept for what it means — the agent at the centre and the outcome
+   that is lighting up. Dark is untouched. */
+:root:not([data-theme="dark"]) .pill {
+    background: #ffffff;
+    border-color: rgba(11, 13, 15, 0.12);
+    color: var(--text-secondary);
+}
+
+:root:not([data-theme="dark"]) .outcome {
+    animation-name: outcomeLitLight;
+}
+
+@keyframes outcomeLitLight {
+    0%, 60%, 100% {
+        color: var(--text-tertiary);
+        border-color: rgba(11, 13, 15, 0.12);
+        background: #ffffff;
+    }
+    15%, 40% {
+        color: var(--mark-ink);
+        border-color: var(--mark-ink);
+        background: var(--brand-neon);
+    }
+}
+
+:root:not([data-theme="dark"]) .agent {
+    border-color: var(--accent-line-strong);
+    background:
+        radial-gradient(circle at 50% 35%, rgba(25, 245, 156, 0.3) 0%, rgba(25, 245, 156, 0) 72%),
+        #ffffff;
+    box-shadow: 0 6px 18px rgba(6, 144, 89, 0.12);
+}
+
+:root:not([data-theme="dark"]) .node,
+:root:not([data-theme="dark"]) .browser {
+    background: #ffffff;
+    border-color: rgba(11, 13, 15, 0.12);
+}
+
+:root:not([data-theme="dark"]) .url {
+    background: #f2f4f3;
+}
+
+:root:not([data-theme="dark"]) .toast {
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(11, 13, 15, 0.08);
+}

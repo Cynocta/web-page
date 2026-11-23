@@ -21,14 +21,9 @@ export default function FaqSection({
                 <p className={s.intro}>{faq.intro}</p>
 
                 <div className={s.list}>
-                    {faq.items.map((item, i) => (
+                    {faq.items.map((item) => (
                         <article key={item.id} id={item.id} className={s.item}>
-                            <h2 className={s.question}>
-                                <span className={s.marker} aria-hidden="true">
-                                    {String(i + 1).padStart(2, "0")}
-                                </span>
-                                {item.question}
-                            </h2>
+                            <h2 className={s.question}>{item.question}</h2>
                             <p className={s.answer}>{item.answer}</p>
                         </article>
                     ))}
@@ -36,8 +31,9 @@ export default function FaqSection({
 
                 <div className={s.cta}>
                     <p className={s.ctaText}>{faq.ctaText}</p>
-                    <Link href={ctaHref} className={s.ctaLink}>
+                    <Link href={ctaHref} className="cyn-btn cyn-btn--primary">
                         {faq.ctaLabel}
+                        <span aria-hidden="true">→</span>
                     </Link>
                 </div>
             </div>

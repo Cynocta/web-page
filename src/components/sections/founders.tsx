@@ -24,12 +24,15 @@ const GitHubIcon = () => (
 /**
  * Founder profiles.
  *
- * Compact cards with a monogram avatar. This band used to render two 440px
- * portrait plates labelled "photograph pending" with the copy card overlapping
- * them — 1,550px on desktop and nearly two screens on a phone for 111 words,
- * the worst ratio on the home. A monogram in a small avatar reads as a normal
- * choice without a photo; `founder.photo` swaps in the real portrait when it
- * exists, at the same size.
+ * Two editorial columns, each opened by the same rule the bands use, rather
+ * than two bordered cards sitting on a bordered band. Without photographs the
+ * monogram is the portrait, so it is set as one — large, in the heading face,
+ * on its own line — instead of being parked in a grey circle pretending to be
+ * an avatar. `founder.photo` takes that slot when the real portrait exists.
+ *
+ * The profile links are set the way the footer sets its channels: the glyph
+ * with its name beside it, as a line of text. Round icon buttons were a third
+ * button shape on a site that had just settled on one.
  */
 export default function FoundersSection({
     locale = "es",
@@ -43,7 +46,7 @@ export default function FoundersSection({
 
     return (
         <Section id="fundadores" tone="accent">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} align="center" />
+            <SectionHeader title={copy.title} intro={copy.intro} align="center" />
 
             <div className={s.list}>
                 {founders.map((founder, i) => {
@@ -52,31 +55,27 @@ export default function FoundersSection({
                     const hasSocials = Boolean(founder.linkedin || founder.github);
 
                     return (
-                        <Reveal key={founder.name} delay={i * 100}>
-                            <article className={s.card}>
-                                <div className={s.head}>
-                                    <div className={s.avatar}>
-                                        {founder.photo ? (
-                                            // eslint-disable-next-line @next/next/no-img-element
-                                            <img
-                                                src={founder.photo}
-                                                alt={founder.photoAlt ?? founder.name}
-                                                className={s.photo}
-                                                width={72}
-                                                height={72}
-                                            />
-                                        ) : (
-                                            <span className={s.initials} aria-hidden="true">
-                                                {founder.initials}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className={s.identity}>
-                                        <h3 className={s.name}>{founder.name}</h3>
-                                        <p className={s.role}>{role}</p>
-                                    </div>
-                                </div>
+                        <Reveal key={founder.name} delay={i * 90} className={s.slot}>
+                            <article className={s.profile}>
+                                <span className={s.rule} aria-hidden="true" />
 
+                                {founder.photo ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={founder.photo}
+                                        alt={founder.photoAlt ?? founder.name}
+                                        className={s.photo}
+                                        width={88}
+                                        height={88}
+                                    />
+                                ) : (
+                                    <span className={s.monogram} aria-hidden="true">
+                                        {founder.initials}
+                                    </span>
+                                )}
+
+                                <h3 className={s.name}>{founder.name}</h3>
+                                <p className={s.role}>{role}</p>
                                 <p className={s.bio}>{bio}</p>
 
                                 <div className={s.socials}>
@@ -91,6 +90,7 @@ export default function FoundersSection({
                                                     aria-label={copy.linkedinLabel.replace("{name}", founder.name)}
                                                 >
                                                     <LinkedInIcon />
+                                                    LinkedIn
                                                 </a>
                                             )}
                                             {founder.github && (
@@ -102,6 +102,7 @@ export default function FoundersSection({
                                                     aria-label={copy.githubLabel.replace("{name}", founder.name)}
                                                 >
                                                     <GitHubIcon />
+                                                    GitHub
                                                 </a>
                                             )}
                                         </>

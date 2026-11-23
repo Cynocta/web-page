@@ -1,110 +1,181 @@
 /* ══════════════════════════════════════════════════
-   Homepage hero.
-   Calmer than the old landing opener: the type carries it, the 3D scene sits
-   back, and the header floats over the top of it.
+   Homepage hero: a magnetic field, with the knot as its magnet.
+   The section is one plate. The ground opens from the bottom right, the
+   headline springs in word by word, and the filings settle into the knot.
    ══════════════════════════════════════════════════ */
 
 .hero {
+    /* Paper and its night. `--hero-before` is what shows before the ground
+       arrives: the dark the reveal opens out of. */
+    --hero-ground: #eaf8f1;
+    --hero-before: #06120d;
+    --hero-rule: rgba(6, 18, 13, 0.22);
+    --hero-ink: var(--text-primary);
+    --hero-ease: cubic-bezier(0.23, 1, 0.32, 1);
+    /* Where the knot sits. MagneticField overwrites these with the knot's real
+       centre and radius; these only hold before it runs. */
+    --knot-x: 50%;
+    --knot-y: 80%;
+    --knot-r: 170px;
     position: relative;
     /* Pulls up under the sticky header, which is transparent at rest. */
     margin-top: calc(-1 * var(--cyn-header-h));
     padding-top: var(--cyn-header-h);
-    background:
-        radial-gradient(1100px 620px at 78% 4%, var(--wash-3) 0%, transparent 62%),
-        radial-gradient(700px 460px at 4% 88%, var(--wash-cyan) 0%, transparent 66%),
-        var(--cyn-black);
+    background: var(--hero-before);
     overflow: hidden;
+    isolation: isolate;
 }
 
-/* Faint grid, the quiet technical texture behind the type. */
-.grid {
+[data-theme="dark"] .hero {
+    --hero-ground: #04120d;
+    --hero-before: #000;
+    --hero-rule: rgba(185, 255, 225, 0.2);
+}
+
+/* The ground and the field live on one layer, so the reveal uncovers both.
+
+   Composed as a lit plate rather than a flat sheet, all static (no per-frame
+   paint). Top to bottom of the stack:
+   - a fade into the next section's surface, so the hero ends without a seam;
+   - a cool reading light behind the headline, to keep the copy at contrast;
+   - the magnet's aura: a neon bloom on the knot and a faint ring around it,
+     where a real field is strongest;
+   - a cyan counterweight low on the opposite side (nothing else near the
+     knot, so its aura reads as concentric);
+   - the light itself: brighter at the top, deeper towards the floor.
+   A paper grain sits under the filings (::before) so the plate has material.
+
+   The aura is sized and placed from --knot-x/--knot-y/--knot-r, which the
+   field publishes from where it actually drew the knot. */
+.ground {
     position: absolute;
     inset: 0;
-    background-image:
-        linear-gradient(var(--hairline-soft) 1px, transparent 1px),
-        linear-gradient(90deg, var(--hairline-soft) 1px, transparent 1px);
-    background-size: 68px 68px;
-    mask-image: radial-gradient(ellipse 80% 62% at 50% 34%, #000 30%, transparent 78%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 62% at 50% 34%, #000 30%, transparent 78%);
+    z-index: 0;
+    background:
+        linear-gradient(180deg, rgba(242, 246, 243, 0) 86%, var(--bg-surface) 100%),
+        radial-gradient(42% 46% at 18% 30%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 72%),
+        radial-gradient(circle calc(var(--knot-r) * 1.45) at var(--knot-x) var(--knot-y), rgba(25, 245, 156, 0.34) 0%, rgba(72, 237, 184, 0.14) 46%, rgba(72, 237, 184, 0) 72%),
+        radial-gradient(circle calc(var(--knot-r) * 1.6) at var(--knot-x) var(--knot-y), rgba(25, 245, 156, 0) 70%, rgba(25, 245, 156, 0.13) 82%, rgba(25, 245, 156, 0) 96%),
+        radial-gradient(40% 46% at 0% 96%, rgba(121, 226, 255, 0.3) 0%, rgba(121, 226, 255, 0) 70%),
+        linear-gradient(180deg, #f6fdf9 0%, #ebf9f2 38%, #dcf4e8 78%, #d2efe1 100%);
+}
+
+/* The filings fade out over the same stretch as the ground, so the plate
+   dissolves into the next section instead of being cut at its edge. */
+.field {
+    -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent 99%);
+    mask-image: linear-gradient(180deg, #000 80%, transparent 99%);
+}
+
+/* Paper grain: fractal noise at a whisper, multiplied into the light. */
+.ground::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .02 0 0 0 0 .2 0 0 0 0 .13 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.22;
+    mix-blend-mode: multiply;
     pointer-events: none;
+}
+
+@media (min-width: 1000px) {
+    .hero {
+        --knot-x: 74%;
+        --knot-y: 50%;
+        --knot-r: 240px;
+    }
+}
+
+[data-theme="dark"] .ground {
+    background:
+        linear-gradient(180deg, rgba(14, 15, 17, 0) 86%, var(--bg-surface) 100%),
+        radial-gradient(circle calc(var(--knot-r) * 1.45) at var(--knot-x) var(--knot-y), rgba(25, 245, 156, 0.13) 0%, rgba(72, 237, 184, 0.05) 46%, rgba(72, 237, 184, 0) 72%),
+        radial-gradient(circle calc(var(--knot-r) * 1.6) at var(--knot-x) var(--knot-y), rgba(25, 245, 156, 0) 70%, rgba(25, 245, 156, 0.06) 82%, rgba(25, 245, 156, 0) 96%),
+        radial-gradient(40% 46% at 0% 96%, rgba(121, 226, 255, 0.08) 0%, rgba(121, 226, 255, 0) 70%),
+        linear-gradient(180deg, #071c15 0%, #04130d 46%, #020c08 100%);
+}
+
+[data-theme="dark"] .ground::before {
+    mix-blend-mode: screen;
+    opacity: 0.08;
 }
 
 .inner {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     max-width: 1240px;
     margin: 0 auto;
-    padding: clamp(56px, 8vh, 104px) var(--cyn-shell-x) clamp(48px, 6vh, 80px);
+    padding: clamp(48px, 9vh, 112px) var(--cyn-shell-x) clamp(32px, 5vh, 56px);
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
 .copy {
-    max-width: 60ch;
-    /* Above the mobile backdrop SVG, which is absolutely placed behind it. */
-    position: relative;
-    z-index: 1;
+    display: grid;
+    gap: 1.75rem;
+    justify-items: start;
 }
 
-/* ── Eyebrow pill ── */
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 6px 13px 6px 9px;
-    border-radius: var(--r-pill);
-    border: 1px solid var(--cyn-border);
-    background: var(--wash-1);
-    color: var(--cyn-muted);
-    font-size: var(--fs-xs);
-    letter-spacing: 0.01em;
-    margin: 0 0 1.75rem;
-}
-
-.pulse {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-fill);
-    box-shadow: 0 0 0 3px var(--wash-4);
-}
-
-/* ── Title ──
-   Bigger and lighter than the landing had. Weight 200 at this size reads as
-   confidence; bold reads as shouting. */
+/* ── Headline ── */
 .title {
-    font-size: clamp(2.5rem, 5.6vw, 4.35rem);
-    line-height: 1.03;
+    margin: 0;
+    color: var(--hero-ink);
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5.4vw, 4.75rem);
+    line-height: 1;
     letter-spacing: -0.035em;
-    font-weight: 200;
-    color: var(--cyn-white);
-    margin: 0 0 1.5rem;
-    text-wrap: balance;
 }
 
-/* The emphasised words carry the brand gradient, but only where it can be read:
-   cyan and mint sit near 1.4:1 on a light ground, which turns the loudest words
-   on the page into the faintest. On light the emphasis goes solid. */
-.title em {
-    font-style: normal;
-    color: var(--accent-text);
+.lines {
+    display: grid;
+    gap: 0.06em;
 }
 
-[data-theme="dark"] .title em {
-    background: linear-gradient(96deg, var(--brand-cyan) 0%, var(--brand-mint) 46%, var(--brand-neon) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.line {
+    display: block;
+}
+
+/* Each word rises out of its own mask. The padding is the room the elastic
+   overshoot needs: a little sideways, more below where the squash lands. */
+.mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding: 0 0.02em 0.08em;
+    margin-bottom: -0.08em;
+}
+
+.word {
+    display: inline-block;
+    transform-origin: top left;
+    will-change: transform, opacity;
+}
+
+/* The highlight is the brand neon at full strength with ink on top, so it
+   reads in both themes; the marker springs in with its word. */
+.marked {
+    background: var(--brand-neon);
+    color: #06120d;
+    padding: 0.02em calc(0.06em + 2px) 0.04em 0.06em;
+}
+
+/* Adjacent words meet at fractional pixels and antialiasing leaves a hairline
+   seam; each marked mask overlaps the next by 2px, so the following word's own
+   neon covers the join. */
+.markMask {
+    padding-inline: 0;
+    margin-right: -2px;
 }
 
 .subtitle {
-    color: var(--cyn-muted);
-    font-size: clamp(16px, 1.35vw, 18.5px);
-    line-height: 1.75;
-    max-width: 54ch;
-    margin: 0 0 2.25rem;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: clamp(16px, 1.3vw, 18.5px);
+    line-height: 1.7;
+    max-width: 46ch;
 }
 
 /* ── Actions ── */
@@ -119,166 +190,162 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    min-height: 50px;
-    padding: 14px 24px;
-    border-radius: var(--r-md);
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: var(--r-sm);
     text-decoration: none;
     font-size: var(--fs-sm);
     font-weight: 600;
-    letter-spacing: 0.01em;
-    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease,
-        color 0.25s ease, transform 0.25s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.16s ease-out;
 }
 
 .primary {
-    background: var(--accent-fill);
-    border: 1px solid var(--cyn-accent);
-    color: var(--on-accent-fill);
+    background: var(--brand-neon);
+    border: 1px solid #06120d;
+    color: #06120d;
 }
 
 .secondary {
-    background: var(--hairline-soft);
-    border: 1px solid var(--cyn-border-2);
-    color: var(--cyn-white);
+    background: color-mix(in srgb, var(--hero-ground) 70%, #fff);
+    border: 1px solid var(--hero-rule);
+    color: var(--hero-ink);
 }
 
-@media (hover: hover) {
+[data-theme="dark"] .secondary {
+    background: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
     .primary:hover {
-        background: var(--cyn-accent-glow);
-        box-shadow: 0 14px 36px var(--accent-line);
-        transform: translateY(-1px);
+        background: var(--brand-glow);
     }
 
     .secondary:hover {
-        border-color: var(--cyn-border);
-        background: var(--hairline);
+        border-color: var(--hero-ink);
     }
+}
+
+.primary:active,
+.secondary:active {
+    transform: scale(0.97);
 }
 
 .primary:focus-visible,
 .secondary:focus-visible {
-    outline: 2px solid var(--cyn-accent);
+    outline: 2px solid var(--hero-ink);
     outline-offset: 3px;
 }
 
-/* ── Trust strip ── */
-.stats {
+/* ── Where the field draws the knot ── */
+.knotSlot {
+    height: min(92vw, 400px);
+}
+
+/* ── The scale ── */
+.scale {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     max-width: 1240px;
     margin: 0 auto;
-    padding: 0 var(--cyn-shell-x);
+    padding: 0 var(--cyn-shell-x) clamp(24px, 4vh, 40px);
 }
 
-/* Hairline dividers drawn as borders on transparent cells. They used to be the
-   1px grid gap showing through, which needs every cell painted solid black —
-   and solid black boxes sat on top of the hero's green glow and grid texture
-   as visibly pasted-on rectangles. */
-.statsInner {
+.scaleInner {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--cyn-border-2);
+    margin: 0;
+    padding-top: 22px;
 }
 
-.stat {
-    padding: 24px 24px 30px;
+/* The rule and its minor ticks, drawn as one stroke so the arrival can trace
+   them left to right. */
+.scaleInner::before,
+.scaleInner::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    transform-origin: left center;
 }
 
-.stat:first-child {
-    padding-left: 0;
+.scaleInner::after {
+    height: 1px;
+    background: var(--hero-rule);
 }
 
-.stat + .stat {
-    border-left: 1px solid var(--cyn-border-2);
+.scaleInner::before {
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--hero-rule) 0 1px, transparent 1px 12px);
 }
 
-.statValue {
+.tick {
+    position: relative;
+    padding-right: 12px;
+}
+
+/* A major tick for each figure, capped with the neon. */
+.tick::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -22px;
+    width: 1px;
+    height: 14px;
+    background: var(--hero-ink);
+}
+
+.tick::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: -25px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand-neon);
+    border: 1px solid #06120d;
+}
+
+.tickValue {
     display: flex;
     align-items: baseline;
-    gap: 2px;
-    font-size: clamp(1.7rem, 3vw, 2.3rem);
-    font-weight: 300;
+    gap: 3px;
+    margin: 0 0 6px;
+    color: var(--hero-ink);
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    font-weight: 500;
     line-height: 1;
     letter-spacing: -0.03em;
-    color: var(--cyn-white);
-    margin: 0 0 0.5rem;
+    font-variant-numeric: tabular-nums;
 }
 
-.statPrefix {
-    color: var(--cyn-accent);
-    font-size: 0.55em;
-    font-weight: 400;
+.tickPrefix {
+    font-size: 0.6em;
 }
 
-.statLabel {
-    color: var(--cyn-muted-2);
+.tickLabel {
+    margin: 0;
+    color: var(--text-tertiary, var(--text-secondary));
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin: 0;
-}
-
-/* ── Visual ──
-   Shown on every width. Below 1000px this is the lightweight SVG core (the
-   Spline scene only mounts on desktop); it used to be hidden outright, which
-   left the phone hero a wall of stacked text with no image at all.
-
-   On mobile it sits *behind* the copy as an ambient backdrop rather than as a
-   stacked block — the orbits give the hero depth without adding a screenful of
-   height, and the text reads over a dimmed core. */
-.visual {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(150%, 560px);
-    height: min(150%, 560px);
-    z-index: 0;
-    opacity: 0.4;
-    margin: 0;
-    pointer-events: none;
-}
-
-.visual canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
+    line-height: 1.4;
 }
 
 @media (min-width: 1000px) {
     .inner {
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
         gap: 3rem;
-        min-height: min(72vh, 640px);
+        min-height: min(74vh, 680px);
     }
 
-    /* Back into the grid as the right-hand column at full strength — no longer a
-       backdrop, so the transform/opacity/absolute treatment is all undone. */
-    .visual {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
+    .knotSlot {
         align-self: stretch;
-        width: 100%;
         height: auto;
-        min-height: 400px;
-        opacity: 1;
-        z-index: auto;
-        /* The mobile backdrop ignores the pointer so it can't swallow taps on
-           the copy above it. The desktop Spline scene needs the pointer back:
-           without this the robot stopped following the cursor. */
-        pointer-events: auto;
-        /* The Spline canvas paints its own background, darker than the green
-           glow behind the hero, so it read as a hard-edged box with the robot's
-           legs chopped off at the bottom. A soft elliptical mask dissolves every
-           edge into the page instead — the scene sits in the hero, not in a
-           rectangle placed on top of it. */
-        -webkit-mask-image: radial-gradient(ellipse 68% 72% at 55% 44%, #000 58%, transparent 100%);
-        mask-image: radial-gradient(ellipse 68% 72% at 55% 44%, #000 58%, transparent 100%);
+        min-height: 440px;
     }
 }
 
@@ -286,20 +353,142 @@
     .actions {
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
 
-    .stat {
-        padding: 18px 10px 20px;
-    }
-
-    .statValue {
-        font-size: 1.55rem;
-    }
-
-    .statLabel {
-        font-size: var(--fs-2xs);
+    .tickLabel {
         letter-spacing: 0.08em;
-        line-height: 1.4;
+    }
+}
+
+/* ── Arrival ──
+   One moment, set by the headline (see the timeline in home-hero.tsx): the
+   copy follows the words, the buttons follow the copy, and each figure on the
+   scale appears as the rule's stroke reaches its tick. Entrances use the
+   individual translate/scale properties so they never fight the buttons'
+   pressed `transform`.
+
+   Hidden only where script will run and motion is welcome; the failsafe brings
+   everything in if the script never does. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .ground {
+        clip-path: ellipse(20% 0% at 100% 100%);
+        animation: groundFailsafe 0s 2.5s forwards;
+    }
+
+    .word {
+        opacity: 0;
+        animation: wordFailsafe 0s 2.5s forwards;
+    }
+
+    .hero:not([data-arrived]) .subtitle {
+        opacity: 0;
+        translate: 0 12px;
+        filter: blur(6px);
+    }
+
+    .hero:not([data-arrived]) .primary,
+    .hero:not([data-arrived]) .secondary {
+        opacity: 0;
+        translate: 0 10px;
+        scale: 0.96;
+    }
+
+    .hero:not([data-arrived]) .scaleInner::before,
+    .hero:not([data-arrived]) .scaleInner::after {
+        scale: 0 1;
+    }
+
+    .hero:not([data-arrived]) .tick::before,
+    .hero:not([data-arrived]) .tick::after {
+        opacity: 0;
+    }
+
+    .hero:not([data-arrived]) .tickValue,
+    .hero:not([data-arrived]) .tickLabel {
+        opacity: 0;
+        translate: 0 6px;
+    }
+
+    .subtitle,
+    .primary,
+    .secondary,
+    .scaleInner::before,
+    .scaleInner::after,
+    .tick::before,
+    .tick::after,
+    .tickValue,
+    .tickLabel {
+        animation: supportFailsafe 0s 2.5s forwards;
+    }
+
+    .hero[data-arrived] .subtitle {
+        --arrive: 520ms;
+        transition: opacity 600ms var(--hero-ease) var(--arrive), translate 600ms var(--hero-ease) var(--arrive),
+            filter 600ms var(--hero-ease) var(--arrive);
+    }
+
+    /* The secondary trails by 60ms, not by a fixed rhythm: it matters less. */
+    .hero[data-arrived] .primary,
+    .hero[data-arrived] .secondary {
+        --arrive: 640ms;
+        transition: opacity 500ms var(--hero-ease) var(--arrive), translate 500ms var(--hero-ease) var(--arrive),
+            scale 500ms var(--hero-ease) var(--arrive), background-color 0.2s ease, border-color 0.2s ease,
+            color 0.2s ease, transform 0.16s ease-out;
+    }
+
+    .hero[data-arrived] .secondary {
+        --arrive: 700ms;
+    }
+
+    .hero[data-arrived] .scaleInner::before,
+    .hero[data-arrived] .scaleInner::after {
+        transition: scale 700ms var(--hero-ease) 760ms;
+    }
+
+    /* Each figure lands as the stroke passes its tick; the stroke is an
+       ease-out, so the gaps widen across the rule. */
+    .hero[data-arrived] .tick {
+        --arrive: 790ms;
+    }
+
+    .hero[data-arrived] .tick:nth-child(2) {
+        --arrive: 900ms;
+    }
+
+    .hero[data-arrived] .tick:nth-child(3) {
+        --arrive: 1040ms;
+    }
+
+    .hero[data-arrived] .tick::before,
+    .hero[data-arrived] .tick::after {
+        transition: opacity 300ms ease-out var(--arrive);
+    }
+
+    .hero[data-arrived] .tickValue,
+    .hero[data-arrived] .tickLabel {
+        transition: opacity 450ms var(--hero-ease) var(--arrive), translate 450ms var(--hero-ease) var(--arrive);
+    }
+}
+
+@keyframes groundFailsafe {
+    to {
+        clip-path: ellipse(150% 150% at 100% 100%);
+    }
+}
+
+@keyframes wordFailsafe {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes supportFailsafe {
+    to {
+        opacity: 1;
+        translate: none;
+        scale: none;
+        filter: none;
     }
 }
 
@@ -309,7 +498,8 @@
         transition: none;
     }
 
-    .primary:hover {
+    .primary:active,
+    .secondary:active {
         transform: none;
     }
 }
