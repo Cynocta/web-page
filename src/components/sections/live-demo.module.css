@@ -172,7 +172,8 @@
         width: 44px;
         height: 44px;
         padding: 0;
-        border-radius: 50%;
+        /* Square, like every other control on the site. */
+        border-radius: var(--r-sm);
         border: 1px solid var(--cyn-border-2);
         background: var(--hairline-soft);
         color: var(--cyn-white);
@@ -199,14 +200,17 @@
     .segments {
         display: flex;
         flex: 1 1 auto;
-        gap: 6px;
+        gap: 4px;
     }
 
     /* The visible bar is 4px; the button around it is the full 44px tap target. */
+    /* min-width: at 320px five segments between two arrows came out 22px
+       wide and touching, under the 24px WCAG 2.5.8 asks of a target. */
     .segment {
         display: flex;
         align-items: center;
         flex: 1 1 0;
+        min-width: 24px;
         height: 44px;
         padding: 0;
         border: 0;

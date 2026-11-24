@@ -11,6 +11,10 @@
     --hero-before: #06120d;
     --hero-rule: rgba(6, 18, 13, 0.22);
     --hero-ink: var(--text-primary);
+    /* The scale's 10px captions sit at the foot of the plate, where the floor
+       is deepest (#d2efe1): the site's tertiary ink measured 4.4:1 there.
+       This is 5.0:1 and reads the same. */
+    --hero-label: #5c626a;
     --hero-ease: cubic-bezier(0.23, 1, 0.32, 1);
     /* Where the knot sits. MagneticField overwrites these with the knot's real
        centre and radius; these only hold before it runs. */
@@ -27,6 +31,7 @@
 }
 
 [data-theme="dark"] .hero {
+    --hero-label: var(--text-tertiary);
     --hero-ground: #04120d;
     --hero-before: #000;
     --hero-rule: rgba(185, 255, 225, 0.2);
@@ -327,7 +332,7 @@
 
 .tickLabel {
     margin: 0;
-    color: var(--text-tertiary, var(--text-secondary));
+    color: var(--hero-label);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
     letter-spacing: 0.14em;

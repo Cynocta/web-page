@@ -21,7 +21,9 @@
     border-radius: var(--r-pill);
     border: 1px solid var(--cyn-border);
     background: var(--cyn-accent-dim);
-    color: var(--cyn-accent);
+    /* The hover green, not the text green: on its own tinted chip the text
+       green measured 4.2:1; this is 4.7:1. */
+    color: var(--accent-hover);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-xs);
     letter-spacing: 0.09em;
@@ -166,7 +168,11 @@
     padding-top: 3px;
 }
 
+/* Stacked links, so each needs its own 24px of height (WCAG 2.5.8); at
+   line-height 1.55 they measured 23px and touched. */
 .tocLink {
+    display: inline-block;
+    padding-block: 2px;
     color: var(--cyn-muted);
     font-size: var(--fs-base);
     line-height: 1.55;
@@ -380,7 +386,8 @@
 }
 
 .table thead th {
-    color: var(--cyn-accent);
+    /* 4.6:1 on the raised header row; the text green gave 4.2:1. */
+    color: var(--accent-hover);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-xs);
     font-weight: 600;

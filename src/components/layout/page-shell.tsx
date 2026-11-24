@@ -27,7 +27,7 @@ export default function PageShell({
             {crumbs.length > 1 && <JsonLd data={breadcrumbsJsonLd(crumbs)} />}
             <Header />
 
-            <main>
+            <main id="contenido" tabIndex={-1}>
                 <Breadcrumbs crumbs={crumbs} locale={locale} />
                 {children}
             </main>

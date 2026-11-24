@@ -31,6 +31,10 @@ export default function SiteShell({
             suppressHydrationWarning
             className={`${bodyFont.variable} ${headingFont.variable} ${brandFont.variable} ${monoFont.variable} h-full antialiased`}
         >
+            {/* This component renders the App Router's root <html>, where an
+                explicit <head> is the documented way in; the rule below is
+                written for the pages router's next/head. */}
+            {/* eslint-disable-next-line @next/next/no-head-element */}
             <head>
                 {/* Sets the theme on <html> before the first paint. Anything
                     later than this is a visible flash of the wrong ground. */}

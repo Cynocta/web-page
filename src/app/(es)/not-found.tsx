@@ -22,7 +22,7 @@ export default function NotFound() {
         <div className="cyn-page">
             <Header />
 
-            <main>
+            <main id="contenido" tabIndex={-1}>
                 <section className="cyn-section" style={{ minHeight: "52vh" }}>
                     <p className="cyn-section-tag">Error 404</p>
                     <h1 className="cyn-section-title">Esta página no existe.</h1>

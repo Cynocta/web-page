@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useI18n } from "@/components/i18n-provider";
 
 export type Theme = "light" | "dark";
@@ -41,13 +41,24 @@ function Moon() {
  * it in the same bar and reads the same way, so the pair stays one control
  * language instead of two.
  */
+/* The theme lives on <html>, written by the boot script before paint and by
+   this control afterwards, so that attribute is the store and the buttons read
+   it. Copying it into component state with a setState inside an effect was a
+   second source of truth, and the lint error the project carried for weeks. */
+const subscribeTheme = (onChange: () => void) => {
+    const observer = new MutationObserver(onChange);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => observer.disconnect();
+};
+const readTheme = (): Theme => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+/* The server always renders light; the boot script corrects it before paint. */
+const readServerTheme = (): Theme => "light";
+
 export default function ThemeToggle({ className }: { className?: string }) {
     const { locale } = useI18n();
-    const [theme, setTheme] = useState<Theme>("light");
+    const theme = useSyncExternalStore(subscribeTheme, readTheme, readServerTheme);
 
     useEffect(() => {
-        const current = (document.documentElement.dataset.theme as Theme) ?? "light";
-        setTheme(current);
         /* Transitions are off until the document has painted once, so the first
            frame lands in its theme instead of animating into it. */
         const id = requestAnimationFrame(() => {
@@ -58,7 +69,6 @@ export default function ThemeToggle({ className }: { className?: string }) {
 
     const commit = (next: Theme) => {
         document.documentElement.dataset.theme = next;
-        setTheme(next);
         try {
             localStorage.setItem(THEME_KEY, next);
         } catch {
@@ -105,7 +115,11 @@ export default function ThemeToggle({ className }: { className?: string }) {
     const darkLabel = en ? "Dark" : "Oscuro";
 
     return (
-        <div className={`cyn-toggle cyn-theme-toggle ${className ?? ""}`.trim()} aria-label={label}>
+        <div
+            className={`cyn-toggle cyn-theme-toggle ${className ?? ""}`.trim()}
+            role="group"
+            aria-label={label}
+        >
             <button
                 type="button"
                 className={`cyn-toggle-btn ${theme === "light" ? "is-active" : ""}`}

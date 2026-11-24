@@ -55,7 +55,7 @@ export default function LandingPage({ locale }: { locale: Locale }) {
             <JsonLd data={faqItemsJsonLd(faq.items, pageUrl, faq.title, locale)} />
             <Header />
 
-            <main>
+            <main id="contenido" tabIndex={-1}>
                 <HomeHero
                     primaryHref={localePath("contact", locale)}
                     secondaryHref={isEs ? "/servicios" : "/en#como-funciona"}

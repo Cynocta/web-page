@@ -6,7 +6,11 @@ export default function CurrencyToggle({ className }: { className?: string }) {
     const { currency, setCurrency, currencyOptions, copy } = useI18n();
 
     return (
-        <div className={`cyn-toggle ${className ?? ""}`.trim()} aria-label={copy.plans.currencyLabel}>
+        <div
+            className={`cyn-toggle ${className ?? ""}`.trim()}
+            role="group"
+            aria-label={copy.plans.currencyLabel}
+        >
             {currencyOptions.map((option) => (
                 <button
                     key={option}

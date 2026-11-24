@@ -17,7 +17,11 @@ export default function LanguageToggle({ className }: { className?: string }) {
     const paths = ROUTE_MAP[routeKeyFromPath(usePathname())];
 
     return (
-        <div className={`cyn-toggle ${className ?? ""}`.trim()} aria-label={copy.languageToggleLabel}>
+        <div
+            className={`cyn-toggle ${className ?? ""}`.trim()}
+            role="group"
+            aria-label={copy.languageToggleLabel}
+        >
             <Link
                 href={paths.es}
                 hrefLang="es"

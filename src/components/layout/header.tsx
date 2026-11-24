@@ -55,6 +55,7 @@ export default function Header() {
     /** Label of the mobile section expanded, or null. */
     const [section, setSection] = useState<string | null>(null);
     const navRef = useRef<HTMLDivElement>(null);
+    const menuBtnRef = useRef<HTMLButtonElement>(null);
     const closeTimer = useRef<number | undefined>(undefined);
 
     /** The open menu's own data, so the panel can render once outside the list. */
@@ -85,14 +86,30 @@ export default function Header() {
         if (!open) return;
         const previous = document.body.style.overflow;
         document.body.style.overflow = "hidden";
+        /* The panel covers the whole screen, so what is under it leaves the
+           tab order too. Without this, Tab walked out of the menu into page
+           content that was invisible behind it. */
+        const behind = Array.from(document.querySelectorAll<HTMLElement>("main, footer"));
+        behind.forEach((el) => el.setAttribute("inert", ""));
         return () => {
             document.body.style.overflow = previous;
+            behind.forEach((el) => el.removeAttribute("inert"));
         };
     }, [open]);
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
             if (e.key !== "Escape") return;
+            /* Focus goes back to the control that opened what is closing,
+               rather than falling to the top of the document with the panel
+               it was in. */
+            const nav = navRef.current;
+            if (nav?.contains(document.activeElement)) {
+                nav.querySelector<HTMLButtonElement>('button[aria-expanded="true"]')?.focus();
+            }
+            if (menuBtnRef.current?.getAttribute("aria-expanded") === "true") {
+                menuBtnRef.current.focus();
+            }
             setOpen(false);
             setMenu(null);
         };
@@ -113,6 +130,34 @@ export default function Header() {
 
     useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
+    /**
+     * Keyboard order through an open dropdown. The panel is rendered after
+     * every trigger (one surface for all menus), so in DOM order Tab from an
+     * open trigger went to the next trigger, and its links were only reachable
+     * after the rest of the nav. Tab now enters the panel, Shift+Tab from its
+     * first link returns to the trigger, and Tab from its last link moves on to
+     * the next item and closes the panel.
+     */
+    const onNavKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+        if (e.key !== "Tab" || !menu) return;
+        const nav = navRef.current;
+        const trigger = nav?.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+        const links = Array.from(nav?.querySelectorAll<HTMLAnchorElement>("[data-mega] a") ?? []);
+        if (!trigger || links.length === 0) return;
+        const current = document.activeElement;
+        let target: HTMLElement | null | undefined;
+        if (!e.shiftKey && current === trigger) target = links[0];
+        else if (e.shiftKey && current === links[0]) target = trigger;
+        else if (!e.shiftKey && current === links[links.length - 1]) {
+            target = trigger.closest("li")?.nextElementSibling?.querySelector<HTMLElement>("a, button");
+            setMenu(null);
+        }
+        if (target) {
+            e.preventDefault();
+            target.focus();
+        }
+    };
+
     /** Small grace period so the pointer can cross the gap to the panel. */
     const scheduleClose = () => {
         window.clearTimeout(closeTimer.current);
@@ -125,6 +170,11 @@ export default function Header() {
            colour changes and loses the travel, rather than losing the menu. */
         <MotionConfig reducedMotion="user">
         <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
+            {/* First stop for the keyboard: past the nine controls of the bar
+                to the page itself. Hidden until it has focus. */}
+            <a href="#contenido" className="cyn-skip">
+                {locale === "es" ? "Saltar al contenido" : "Skip to content"}
+            </a>
             <div className={s.bar}>
                 {/* The logo returns to the home of the tree you're in, not always
                     to the Spanish one. */}
@@ -153,8 +203,13 @@ export default function Header() {
                 <nav
                     ref={navRef}
                     className={s.nav}
-                    aria-label="Principal"
+                    aria-label={locale === "es" ? "Principal" : "Main"}
                     onMouseLeave={scheduleClose}
+                    onKeyDown={onNavKeyDown}
+                    onBlur={(e) => {
+                        // Focus leaving the nav closes the panel it left open.
+                        if (!navRef.current?.contains(e.relatedTarget as Node)) setMenu(null);
+                    }}
                 >
                     <ul className={s.navList}>
                         {nav.map((entry) => {
@@ -193,7 +248,6 @@ export default function Header() {
                                         type="button"
                                         className={`${s.link} ${s.menuBtnDesktop} ${active ? s.active : ""}`}
                                         aria-expanded={shown}
-                                        aria-haspopup="true"
                                         onClick={() => setMenu(shown ? null : entry.label)}
                                     >
                                         {/* One pill shared by every trigger: it slides
@@ -228,6 +282,7 @@ export default function Header() {
                         {openEntry && (
                             <motion.div
                                 key="mega"
+                                data-mega
                                 className={s.megaAnchor}
                                 onMouseEnter={cancelClose}
                                 initial={{ opacity: 0, y: -10, filter: "blur(5px)" }}
@@ -292,6 +347,7 @@ export default function Header() {
                         {cta.label}
                     </Link>
                     <button
+                        ref={menuBtnRef}
                         type="button"
                         className={`${s.menuBtn} ${open ? s.open : ""}`}
                         aria-label={open ? copy.navCloseLabel : copy.navMenuAriaLabel}
