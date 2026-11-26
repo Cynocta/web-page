@@ -58,6 +58,30 @@
     box-shadow: inset 0 -1px 0 var(--cyn-border-2);
 }
 
+/* On touch screens the glass is the near-opaque veil without the blur. A
+   backdrop blur under a sticky bar is recomputed over the moving page on
+   every frame of a scroll, which a phone's GPU pays for in dropped frames;
+   and behind a veil that is already 90% opaque it was barely visible. */
+@media (pointer: coarse) {
+    .header::before {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        /* Opaque: without the blur, a translucent veil lets the page's text
+           ghost through the bar as it scrolls under it. */
+        background: var(--bg-page);
+    }
+}
+
+/* During the desktop theme reveal nothing blurs: the reveal repaints the page
+   every frame, and a blur under the bar and the open panels would be redone
+   with it. */
+:global(html.theme-switching) .header::before,
+:global(html.theme-switching) .mega,
+:global(html.theme-switching) .dropdown {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
 .bar {
     /* Above the mobile menu panel (z-index 55), which is full-screen and would
        otherwise cover the logo and the close button — leaving no visible way
@@ -382,8 +406,11 @@
     position: fixed;
     inset: 0;
     z-index: 55;
-    background: var(--veil-strong);
-    backdrop-filter: blur(24px);
+    /* Solid page colour, no backdrop blur. The blur over a 97% veil was the
+       most expensive paint on a phone, and without it the remaining 3% let the
+       hero's headline read through behind the menu items. Opaque costs nothing
+       and shows nothing. */
+    background: var(--bg-page);
     display: flex;
     flex-direction: column;
     padding: calc(78px + 1.5rem) var(--cyn-shell-x) 2rem;

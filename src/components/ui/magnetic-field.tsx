@@ -318,11 +318,21 @@ export function MagneticField({ className }: { className?: string }) {
             ctx.globalAlpha = 1;
         };
 
+        /* On touch screens the field draws at 30fps. Its motion is a slow
+           breath and a current creeping round the knot, which read the same
+           at half the rate, and a phone gets half the physics and half the
+           strokes per second. While the desktop theme reveal runs, nothing is
+           drawn at all: the reveal repaints the page every frame, and a canvas
+           changing under it would be repainted with it. */
+        const minFrameMs = window.matchMedia("(pointer: coarse)").matches ? 1000 / 30 - 2 : 0;
+        const rootEl = document.documentElement;
         const frame = (now: number) => {
+            raf = requestAnimationFrame(frame);
+            if (rootEl.classList.contains("theme-switching")) return;
+            if (now - last < minFrameMs) return;
             const dt = Math.min(0.05, (now - last) / 1000);
             last = now;
             draw(now, dt);
-            raf = requestAnimationFrame(frame);
         };
 
         let onScreen = true;
@@ -355,7 +365,9 @@ export function MagneticField({ className }: { className?: string }) {
         document.fonts?.ready.then(scheduleLayout);
         const io = new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; sync(); });
         io.observe(root);
-        const mo = new MutationObserver(() => { readTheme(); still(); });
+        // Repaint in the new colours straight away, so the new theme is never
+        // shown with the old theme's filings, whatever the loop is doing.
+        const mo = new MutationObserver(() => { readTheme(); draw(performance.now(), 0); });
         mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
         const onReduce = () => { reduced = reduceMq.matches; layout(); still(); sync(); };
         reduceMq.addEventListener("change", onReduce);

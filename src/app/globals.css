@@ -259,22 +259,11 @@
     --trace-strong: rgba(25, 245, 156, 0.5);
 }
 
-/* The theme moves on a transition rather than snapping, but only on the few
-   properties that carry it — and never for a visitor who asked for less. */
-html.theme-ready body,
-html.theme-ready body * {
-    transition:
-        background-color 0.28s cubic-bezier(0.23, 1, 0.32, 1),
-        border-color 0.28s cubic-bezier(0.23, 1, 0.32, 1),
-        color 0.28s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html.theme-ready body,
-    html.theme-ready body * {
-        transition: none;
-    }
-}
+/* There is no colour transition on every element any more. `body *` with a
+   transition meant that a theme change started ~1,000 colour animations at
+   once (85ms just to start them on a desktop, several times that on a
+   phone), on every browser without View Transitions. The theme now changes
+   by the reveal below on desktop, and instantly everywhere else. */
 
 /* ── Theme change ──
    The new theme opens as an ellipse out of the toggle that was pressed, on the

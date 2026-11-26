@@ -109,6 +109,14 @@ export default function HomeHero({
             return;
         }
 
+        /* On a slow first load the CSS failsafe may already have shown the
+           hero by the time this runs. Playing the arrival then would hide the
+           headline again and spring it back in, so it is left where it is. */
+        if (words[0] && getComputedStyle(words[0]).opacity === "1") {
+            settle();
+            return;
+        }
+
         // Once, when the hero first enters view.
         const io = new IntersectionObserver(
             ([entry]) => {

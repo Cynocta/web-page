@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { useI18n } from "@/components/i18n-provider";
 
 export type Theme = "light" | "dark";
@@ -58,15 +58,6 @@ export default function ThemeToggle({ className }: { className?: string }) {
     const { locale } = useI18n();
     const theme = useSyncExternalStore(subscribeTheme, readTheme, readServerTheme);
 
-    useEffect(() => {
-        /* Transitions are off until the document has painted once, so the first
-           frame lands in its theme instead of animating into it. */
-        const id = requestAnimationFrame(() => {
-            document.documentElement.classList.add("theme-ready");
-        });
-        return () => cancelAnimationFrame(id);
-    }, []);
-
     const commit = (next: Theme) => {
         document.documentElement.dataset.theme = next;
         try {
@@ -90,8 +81,19 @@ export default function ThemeToggle({ className }: { className?: string }) {
         const doc = document as Document & {
             startViewTransition?: (update: () => void) => { finished: Promise<void>; ready: Promise<void> };
         };
-        if (!doc.startViewTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        /* Phones and tablets swap instantly. The reveal snapshots the whole page
+           and repaints a live image of the new theme every frame for 0.9s; with
+           the full-screen menu (where the switch lives on a phone) and the
+           field drawing underneath, that stalled the main thread for about a
+           second even on a desktop. An instant swap is one style recalculation.
+           The same applies wherever the API is missing or less motion was
+           asked for. `theme-switching` keeps component transitions from tweening
+           every colour on the page for that one frame. */
+        const touch = window.matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+        if (!doc.startViewTransition || touch || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            root.classList.add("theme-switching");
             commit(next);
+            requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("theme-switching")));
             return;
         }
         const r = from.getBoundingClientRect();
