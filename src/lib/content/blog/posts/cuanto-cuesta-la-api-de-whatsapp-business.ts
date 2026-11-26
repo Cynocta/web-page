@@ -1,30 +1,37 @@
 import type { BlogPost } from "../types";
 
 /**
- * Meta moved this product from conversation-based to per-message billing on
- * 1 July 2025, and the published rate cards disagree between resellers. The
- * article commits to the billing model — which is stable and verifiable — and
- * sends the reader to Meta's rate card for the number.
+ * Rates are Meta's own USD list rates from the rate card effective
+ * 1 October 2026 (developers.facebook.com → WhatsApp → Pricing → "USD rates
+ * and volume tiers"). Meta only changes prices on the first day of a quarter
+ * with a month's notice, so this article is checked against the card at the
+ * start of every quarter and `updatedAt` moves when a number changes.
+ *
+ * Search Console (Nov 2026): this is the page with the most impressions on the
+ * site, almost all from "precio / precios / costo api whatsapp business"
+ * variants. The title and h1 lead with "precio" because that is the word
+ * people type.
  */
 export const costoApiWhatsapp: BlogPost = {
     slug: "cuanto-cuesta-la-api-de-whatsapp-business",
     category: "whatsapp",
 
-    navLabel: "Cuánto cuesta la API de WhatsApp",
-    title: "Cuánto cuesta de verdad la API de WhatsApp Business",
+    navLabel: "Precio de la API de WhatsApp",
+    title: "Precio de la API de WhatsApp Business en 2026: cuánto cuesta por país",
     excerpt:
-        "Meta cambió el cobro por conversación a cobro por mensaje en julio de 2025. Qué se paga, qué sigue siendo gratis y las tres partidas que no aparecen en ninguna cotización.",
+        "Las tarifas oficiales de Meta por mensaje en Colombia, México, España y el resto de Latinoamérica, qué cambió en octubre de 2026 con los mensajes de servicio y las dos facturas que no aparecen en la tarifa.",
 
-    metaTitle: "Cuánto cuesta la API de WhatsApp Business en 2026",
+    metaTitle: "Precio API de WhatsApp Business 2026: tarifas por país",
     metaDescription:
-        "El costo real de la API de WhatsApp Business: cobro por mensaje, categorías de plantilla, ventana gratuita de 24 h y los costos de proveedor que nadie cotiza.",
+        "Tarifas oficiales de Meta por mensaje (octubre de 2026) para Colombia, México, España y LATAM, los 1.000 mensajes de servicio gratis y lo que cobra el proveedor.",
 
     author: "diego",
     publishedAt: "2026-08-10",
-    readingMinutes: 8,
+    updatedAt: "2026-11-25",
+    readingMinutes: 9,
 
     keyTakeaway:
-        "Desde el 1 de julio de 2025 Meta cobra por cada mensaje de plantilla entregado, no por conversación de 24 horas. El precio depende de la categoría de la plantilla —marketing, utilidad o autenticación— y del país del número que recibe. Las respuestas dentro de la ventana de servicio de 24 horas que abre el cliente no se cobran. A la tarifa de Meta hay que sumarle el margen del proveedor (BSP) y el alojamiento de la herramienta que ejecuta el bot: son tres facturas distintas, no una.",
+        "Meta cobra la API de WhatsApp Business por cada mensaje entregado, según su categoría y el país de quien lo recibe. En Colombia, con la tarifa vigente desde el 1 de octubre de 2026, un mensaje de marketing cuesta 0,0125 USD y uno de utilidad, autenticación o servicio cuesta 0,0008 USD. Cada número tiene 1.000 mensajes de servicio gratis al mes; desde octubre de 2026 los que pasan de ese tope se cobran. A la tarifa de Meta hay que sumarle el proveedor de la API (BSP) y la herramienta que ejecuta el bot: son tres facturas distintas, no una.",
 
     blocks: [
         {
@@ -35,7 +42,7 @@ export const costoApiWhatsapp: BlogPost = {
             kind: "list",
             ordered: true,
             items: [
-                "Lo que cobra Meta por entregar mensajes de plantilla.",
+                "Lo que cobra Meta por entregar cada mensaje. Es el único precio público y es igual para todos.",
                 "Lo que cobra tu proveedor de API (BSP) por darte acceso y soporte.",
                 "Lo que cuesta la herramienta que ejecuta la lógica del bot y su alojamiento.",
             ],
@@ -43,16 +50,56 @@ export const costoApiWhatsapp: BlogPost = {
 
         {
             kind: "h2",
+            id: "tarifas-por-pais",
+            text: "Precio por mensaje en cada país",
+        },
+        {
+            kind: "p",
+            text: "La tarifa la decide el prefijo del número que recibe el mensaje, no el tuyo. Si tu negocio está en Bogotá pero le escribes a un cliente en Ciudad de México, pagas la tarifa de México. Estas son las tarifas de lista de Meta en dólares:",
+        },
+        {
+            kind: "table",
+            caption:
+                "Tarifa de lista de Meta por mensaje entregado, en USD, vigente desde el 1 de octubre de 2026. Fuente: tarifario oficial de la plataforma de WhatsApp Business.",
+            head: ["Mercado", "Marketing", "Utilidad y autenticación", "Servicio (pasados los 1.000 gratis)"],
+            rows: [
+                ["Colombia", "0,0125", "0,0008", "0,0008"],
+                ["México", "0,0397", "0,0085", "0,0085"],
+                ["Argentina", "0,0618", "0,0260", "0,0260"],
+                ["Chile", "0,0889", "0,0200", "0,0200"],
+                ["Perú", "0,0703", "0,0300", "0,0300"],
+                ["Brasil", "0,0625", "0,0068", "0,0068"],
+                ["Resto de Latinoamérica", "0,0740", "0,0113", "0,0113"],
+                ["España", "0,0707", "0,0200", "0,0200"],
+                ["Estados Unidos y Canadá", "0,0250", "0,0034", "0,0034"],
+            ],
+        },
+        {
+            kind: "p",
+            text: "Colombia es, con diferencia, el mercado más barato de la región: un mensaje de marketing cuesta un tercio que en México y una séptima parte que en Chile, y uno de utilidad cuesta menos de una décima de centavo. «Resto de Latinoamérica» agrupa, entre otros, a Ecuador, Bolivia, Venezuela y Uruguay.",
+        },
+        {
+            kind: "callout",
+            title: "Cada cuánto cambian estas cifras",
+            text: "Meta solo cambia precios el primer día de un trimestre (enero, abril, julio y octubre) y avisa con un mes de anticipación. Revisamos esta tabla al inicio de cada trimestre; la fecha de actualización está arriba. Los mensajes de utilidad y autenticación tienen además descuentos por volumen que solo se notan a partir de decenas de miles de mensajes al mes.",
+        },
+
+        {
+            kind: "h2",
             id: "que-cambio",
-            text: "Qué cambió en julio de 2025",
+            text: "Qué cambió en 2025 y en octubre de 2026",
         },
         {
             kind: "p",
-            text: "Hasta esa fecha, Meta cobraba por conversación: abrías una ventana de 24 horas y dentro de ella los mensajes no sumaban costo. Desde el 1 de julio de 2025 el cobro es por mensaje de plantilla entregado. Si encuentras un artículo o una cotización que todavía habla de «conversaciones de 24 horas» como unidad de cobro, está desactualizado y sus números no sirven.",
+            text: "Hasta junio de 2025, Meta cobraba por conversación: abrías una ventana de 24 horas y dentro de ella los mensajes no sumaban costo. Desde el 1 de julio de 2025 el cobro es por mensaje entregado. Si una cotización todavía habla de «conversaciones de 24 horas» como unidad de cobro, está desactualizada y sus números no sirven.",
         },
         {
             kind: "p",
-            text: "El cambio penaliza el envío masivo y abarata la atención. Para un negocio que responde consultas, la factura suele bajar; para uno que hace campañas de difusión, sube.",
+            text: "El segundo cambio llegó el 1 de octubre de 2026 y es el que más cotizaciones se han saltado: los mensajes de servicio, las respuestas que envías cuando el cliente te escribe primero, dejaron de ser gratis sin límite. Ahora cada número tiene 1.000 mensajes de servicio gratis al mes, que no se acumulan, y a partir de ahí se cobran a la tarifa de utilidad del país. Las plantillas de utilidad enviadas dentro de esa misma ventana, que antes eran gratis, también se cobran.",
+        },
+        {
+            kind: "p",
+            text: "En Colombia el efecto es pequeño porque la tarifa de servicio es muy baja: 10.000 respuestas al mes cuestan unos 7,20 USD. En Chile o Perú las mismas respuestas cuestan 180 y 270 USD, y ahí el diseño de la conversación ya pesa en la factura.",
         },
 
         {
@@ -62,17 +109,17 @@ export const costoApiWhatsapp: BlogPost = {
         },
         {
             kind: "p",
-            text: "Meta clasifica cada plantilla y le aplica una tarifa distinta. La diferencia entre categorías no es de céntimos: una plantilla de marketing puede costar diez o veinte veces lo que la misma frase enviada como utilidad.",
+            text: "Meta clasifica cada plantilla y le aplica una tarifa distinta. La diferencia entre categorías no es de céntimos: en Colombia una plantilla de marketing cuesta quince veces lo que la misma frase enviada como utilidad.",
         },
         {
             kind: "table",
             caption: "Categorías de mensaje en la plataforma de WhatsApp Business.",
-            head: ["Categoría", "Para qué es", "Costo relativo"],
+            head: ["Categoría", "Para qué es", "Cómo se cobra"],
             rows: [
-                ["Servicio", "Tu respuesta dentro de la ventana de 24 h que abre el cliente", "Sin costo"],
-                ["Utilidad", "Confirmaciones, estados de pedido, recordatorios de cita", "El más bajo de los de pago"],
-                ["Autenticación", "Códigos de verificación de un solo uso", "Similar a utilidad"],
-                ["Marketing", "Promociones, novedades, reactivación de clientes", "El más alto, sin descuento por volumen"],
+                ["Servicio", "Tu respuesta cuando el cliente te escribió en las últimas 24 h", "1.000 gratis al mes por número; después, tarifa de utilidad"],
+                ["Utilidad", "Confirmaciones, estados de pedido, recordatorios de cita", "La tarifa más baja, con descuento por volumen"],
+                ["Autenticación", "Códigos de verificación de un solo uso", "Igual que utilidad en Latinoamérica"],
+                ["Marketing", "Promociones, novedades, reactivación de clientes", "La más alta, sin descuento por volumen"],
             ],
         },
         {
@@ -82,26 +129,36 @@ export const costoApiWhatsapp: BlogPost = {
         },
         {
             kind: "p",
-            text: "La consecuencia práctica es que el diseño de la conversación tiene efecto directo en el costo. Un flujo que consigue que sea el cliente quien escriba primero convierte casi todo el intercambio en mensajes de servicio, que no se cobran. Un flujo que persigue al cliente con plantillas de marketing paga cada intento.",
+            text: "La consecuencia práctica es que el diseño de la conversación tiene efecto directo en el costo. Un flujo que consigue que sea el cliente quien escriba primero convierte casi todo el intercambio en mensajes de servicio, los más baratos. Un flujo que persigue al cliente con plantillas de marketing paga cada intento a la tarifa más alta.",
+        },
+        {
+            kind: "p",
+            text: "Hay una excepción útil: cuando el cliente llega desde un anuncio de clic a WhatsApp o desde el botón de una página de Facebook, se abre una ventana gratuita en la que no se cobra ningún mensaje, ni siquiera el de marketing. Solo aplica si el cliente escribe desde la app del teléfono.",
         },
 
         {
             kind: "h2",
-            id: "cuanto-por-mensaje",
-            text: "Cuánto cuesta el mensaje en Colombia",
+            id: "cuanto-por-mes",
+            text: "Cuánto pagas al mes: un ejemplo en Colombia",
         },
         {
             kind: "p",
-            text: "La tarifa depende del prefijo del país que recibe, no del tuyo. Colombia es uno de los mercados más baratos de la región: el mensaje de marketing está en el orden de uno o dos centavos de dólar, y los de utilidad y autenticación cuestan una fracción de eso. Meta empezó además a facturar en pesos colombianos en 2026.",
+            text: "Un negocio de servicios en Colombia con un bot de atención y campañas mensuales: recibe consultas que generan 1.500 respuestas, envía 600 recordatorios de cita y manda una campaña de 3.000 mensajes de marketing.",
         },
         {
-            kind: "callout",
-            title: "Por qué no damos una cifra exacta",
-            text: "Meta actualiza su tarifario varias veces al año y las cifras que publican los revendedores no coinciden entre sí. Para presupuestar, toma el número de la tarifa oficial de Meta para Colombia el día que cotizas: es la única fuente que no tiene incentivo para redondear a su favor.",
+            kind: "table",
+            caption: "Factura mensual de Meta con la tarifa de Colombia de octubre de 2026, en USD.",
+            head: ["Partida", "Cálculo", "Costo"],
+            rows: [
+                ["Respuestas de servicio", "1.500 − 1.000 gratis = 500 × 0,0008", "0,40"],
+                ["Recordatorios (utilidad)", "600 × 0,0008", "0,48"],
+                ["Campaña (marketing)", "3.000 × 0,0125", "37,50"],
+                ["Total a Meta", "", "38,38"],
+            ],
         },
         {
             kind: "p",
-            text: "Para dimensionar: un negocio que responde unas mil consultas al mes, con el cliente iniciando la conversación, paga a Meta una cantidad casi despreciable, porque casi todo cae en la ventana de servicio. El mismo negocio enviando mil mensajes de marketing al mes paga una cifra pequeña pero real, y que crece de forma lineal con cada campaña.",
+            text: "El 98 % de la factura es la campaña. La atención y los recordatorios cuestan menos de un dólar. El mismo negocio con clientes en México pagaría unos 128 USD al mes, casi todo por el marketing. La lección se repite en todos los países: el bot de atención casi no le cuesta a Meta; lo que mueve la factura es cuánto marketing envías.",
         },
 
         {
@@ -116,7 +173,7 @@ export const costoApiWhatsapp: BlogPost = {
         {
             kind: "list",
             items: [
-                "Margen por mensaje: algunos proveedores suman unos milésimos de dólar sobre cada mensaje. Con volumen bajo es irrelevante; con volumen alto puede superar lo que cobra Meta.",
+                "Margen por mensaje: algunos proveedores suman unos milésimos de dólar sobre cada mensaje. En Colombia eso puede duplicar o triplicar lo que cobra Meta por un mensaje de utilidad.",
                 "Cuota mensual fija: otros cobran una suscripción por número conectado, la uses o no.",
                 "Cobro por usuario o por agente: habitual en las plataformas que incluyen bandeja de entrada compartida.",
                 "Límite de contactos: algunos planes cobran por contacto único al mes, un modelo que castiga justo al negocio que crece.",
@@ -148,15 +205,15 @@ export const costoApiWhatsapp: BlogPost = {
         },
         {
             kind: "p",
-            text: "Estima estas cinco cifras antes de pedir cotizaciones. Con ellas cualquier proveedor serio puede darte un número, y podrás comparar propuestas que hoy no son comparables:",
+            text: "Estima estas cinco cifras antes de pedir cotizaciones. Con ellas y la tabla de arriba puedes calcular tú mismo la parte de Meta, y podrás comparar propuestas que hoy no son comparables:",
         },
         {
             kind: "list",
             ordered: true,
             items: [
-                "Conversaciones iniciadas por el cliente al mes.",
+                "Respuestas a clientes que te escriben primero, al mes.",
                 "Mensajes de utilidad que vas a enviar (confirmaciones, recordatorios).",
-                "Mensajes de marketing al mes, si vas a hacer campañas.",
+                "Mensajes de marketing al mes y a qué países van.",
                 "Contactos únicos que vas a tocar al mes.",
                 "Si el bot va a usar IA generativa o responder con reglas.",
             ],
@@ -169,28 +226,34 @@ export const costoApiWhatsapp: BlogPost = {
 
     faq: [
         {
+            id: "precio-colombia",
+            question: "¿Cuánto cobra la API de WhatsApp por mensaje en Colombia?",
+            answer:
+                "Con la tarifa de Meta vigente desde el 1 de octubre de 2026: 0,0125 USD por mensaje de marketing y 0,0008 USD por mensaje de utilidad, autenticación o servicio. Los primeros 1.000 mensajes de servicio de cada mes son gratis. A eso se suma lo que cobre tu proveedor de la API.",
+        },
+        {
             id: "whatsapp-api-gratis",
             question: "¿Hay alguna parte gratuita en la API de WhatsApp Business?",
             answer:
-                "Sí. Los mensajes de servicio, que son las respuestas que envías dentro de la ventana de 24 horas abierta por el cliente, no tienen costo para Meta. Un bot de atención bien diseñado hace que la mayor parte del tráfico caiga en esa ventana y pague muy poco.",
+                "Sí, dos. Cada número tiene 1.000 mensajes de servicio gratis al mes, que son las respuestas que envías cuando el cliente te escribió en las últimas 24 horas. Y cuando el cliente llega desde un anuncio de clic a WhatsApp se abre una ventana en la que ningún mensaje se cobra. Desde octubre de 2026 las respuestas que pasan de 1.000 al mes sí se pagan.",
         },
         {
             id: "diferencia-app-gratuita",
             question: "¿En qué se diferencia de la app gratuita de WhatsApp Business?",
             answer:
-                "La aplicación gratuita funciona en un teléfono, con un solo usuario a la vez y sin integración con otros sistemas. La API no tiene interfaz propia: se conecta a tu CRM o a tu automatización, admite varios agentes en paralelo y permite enviar plantillas, pero cobra por mensaje y exige verificar la empresa.",
+                "La aplicación gratuita funciona en un teléfono y no se integra con otros sistemas. La API no tiene interfaz propia: se conecta a tu CRM o a tu automatización, admite varios agentes en paralelo y permite enviar plantillas, pero cobra por mensaje y exige verificar la empresa.",
         },
         {
             id: "numero-existente",
             question: "¿Puedo usar mi número actual de WhatsApp?",
             answer:
-                "Sí, pero la migración borra el historial de chats de ese número y ya no podrás usarlo en la app normal: un número vive en la app o en la API, nunca en las dos. Si el número es el principal del negocio, conviene planear la migración fuera de horario de atención.",
+                "Sí. Meta permite conectar a la API un número que ya usas en la app de WhatsApp Business y seguir usando la app en el teléfono, con los chats sincronizados entre las dos y hasta seis meses de historial. A cambio, en la app se desactivan las listas de difusión y los mensajes temporales, y el número queda limitado a 20 mensajes por segundo.",
         },
         {
             id: "verificacion-empresa",
             question: "¿Qué se necesita para que aprueben la cuenta?",
             answer:
-                "Meta exige verificar la empresa con documentos de constitución, un dominio propio y datos que coincidan con el registro mercantil, además de un número que no esté activo en la app de WhatsApp. El proceso suele tardar entre unos días y un par de semanas según la calidad de la documentación.",
+                "Meta exige verificar la empresa con documentos de constitución, un dominio propio y datos que coincidan con el registro mercantil. El proceso suele tardar entre unos días y un par de semanas según la calidad de la documentación.",
         },
     ],
 

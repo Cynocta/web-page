@@ -10,6 +10,7 @@ export const POST_SLUGS = [
     "n8n-vs-make-vs-zapier",
     "cuanto-cuesta-la-api-de-whatsapp-business",
     "chatbot-vs-agente-de-ia",
+    "cuanto-cuesta-n8n",
 ] as const;
 
 export type PostSlug = (typeof POST_SLUGS)[number];
