@@ -45,27 +45,27 @@ export default function PortfolioList({
     return (
         <>
             {sectors.length > 1 && (
-                <div className={s.filters} role="group" aria-label="Filtrar por sector">
+                <div className="cyn-filters" role="group" aria-label="Filtrar por sector">
                     <button
                         type="button"
-                        className={`${s.chip} ${active === null ? s.chipOn : ""}`}
+                        className="cyn-filter"
                         aria-pressed={active === null}
                         onClick={() => setActive(null)}
                     >
                         {allLabel}
-                        <span className={s.count}>{cases.length}</span>
+                        <span className="cyn-filter-count">{cases.length}</span>
                     </button>
 
                     {sectors.map((sector) => (
                         <button
                             key={sector.value}
                             type="button"
-                            className={`${s.chip} ${active === sector.value ? s.chipOn : ""}`}
+                            className="cyn-filter"
                             aria-pressed={active === sector.value}
                             onClick={() => setActive(active === sector.value ? null : sector.value)}
                         >
                             {sector.label}
-                            <span className={s.count}>
+                            <span className="cyn-filter-count">
                                 {cases.filter((c) => c.sector === sector.value).length}
                             </span>
                         </button>
@@ -106,7 +106,7 @@ export default function PortfolioList({
                             </p>
 
                             <span className={s.arrow} aria-hidden="true">
-                                VER CASO →
+                                Ver caso →
                             </span>
                         </Link>
                     </article>

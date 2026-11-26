@@ -159,7 +159,7 @@ export default function CaseBody({ study }: { study: CaseStudy }) {
                                         <h3 className={s.relatedTitle}>{item.cardTitle}</h3>
                                         <p className={s.relatedText}>{item.cardSummary}</p>
                                         <span className={s.relatedArrow} aria-hidden="true">
-                                            VER CASO →
+                                            Ver caso →
                                         </span>
                                     </Link>
                                 ))}
@@ -175,7 +175,7 @@ export default function CaseBody({ study }: { study: CaseStudy }) {
                                 lo que hicimos aquí aplica a tu negocio o si conviene otro camino.
                             </p>
                         </div>
-                        <Link href="/contacto" className={s.ctaButton}>
+                        <Link href="/contacto" className="cyn-btn cyn-btn--primary">
                             Hablemos de tu caso
                         </Link>
                     </div>

@@ -4,19 +4,15 @@
    the three cards so the eye can scan sideways.
    ══════════════════════════════════════════════════ */
 
-.head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
-
+/* The currency switch sits right over the cards it changes, flush with
+   their right edge. It was on the heading's rule, a paragraph away from the
+   prices it converts. */
 .currency {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 10px;
-    padding-bottom: 3rem;
+    margin: 0 0 14px;
 }
 
 .currencyLabel {
@@ -35,17 +31,21 @@
     align-items: stretch;
 }
 
+/* Each plan is a small plate, built from the same parts as the bands: a
+   surface with light caught on its top edge, a hairline, and a cast with a
+   real offset. Not a rounded rectangle with a flat fill. */
 .card {
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     padding: 30px 26px 26px;
-    border-radius: var(--r-lg);
-    border: 1px solid var(--cyn-border-2);
-    background: var(--cyn-surface);
+    border-radius: var(--r-md);
+    border: 1px solid var(--hairline);
+    background: var(--plate-sheen), var(--plate);
+    box-shadow: var(--shadow-sm);
     transition:
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.35s var(--ease-soft),
         border-color 0.35s ease,
         box-shadow 0.35s ease;
 }
@@ -53,29 +53,40 @@
 @media (hover: hover) {
     .card:hover {
         transform: translateY(-4px);
-        border-color: var(--cyn-border);
-        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
+        border-color: var(--hairline-strong);
+        box-shadow: var(--shadow-lg);
     }
 }
 
-/* The recommended plan carries the weight: lit border, its own ground, and a
-   permanent lift so it reads as chosen before anything is compared. */
+/* The recommended plan carries the weight: a lit edge, its own ground, the
+   seam the plates use along the top, and a permanent lift so it reads as
+   chosen before anything is compared. */
 .featured {
-    border-color: rgba(25, 245, 156, 0.34);
+    border-color: var(--accent-line);
     background:
-        radial-gradient(520px 220px at 50% 0%, rgba(25, 245, 156, 0.10) 0%, transparent 72%),
-        var(--cyn-surface);
-    box-shadow:
-        0 20px 56px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(25, 245, 156, 0.08);
+        radial-gradient(520px 220px at 50% 0%, var(--wash-3) 0%, transparent 72%),
+        var(--plate-sheen),
+        var(--plate);
+    box-shadow: var(--shadow-lg);
+}
+
+.featured::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(60%, 220px);
+    height: 1px;
+    translate: -50% -50%;
+    border-radius: var(--r-pill);
+    background: linear-gradient(90deg, transparent, var(--accent-halo), transparent);
+    filter: blur(1.5px);
+    pointer-events: none;
 }
 
 @media (hover: hover) {
     .featured:hover {
-        border-color: rgba(25, 245, 156, 0.5);
-        box-shadow:
-            0 28px 68px rgba(25, 245, 156, 0.14),
-            0 0 0 1px rgba(25, 245, 156, 0.14);
+        border-color: var(--accent-line-strong);
     }
 }
 
@@ -87,15 +98,18 @@
     transform: translate(-50%, -50%);
     padding: 5px 13px;
     border-radius: var(--r-pill);
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: var(--accent-fill);
+    color: var(--on-accent-fill);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
-    box-shadow: 0 6px 18px rgba(25, 245, 156, 0.32);
+    /* An ink edge, like the hero's ticks and the primary button. It had a
+       green glow under it, which on white read as a smudge. */
+    border: 1px solid var(--mark-ink);
+    color: var(--mark-ink);
 }
 
 .plan {
@@ -108,8 +122,9 @@
 }
 
 .name {
-    font-size: var(--fs-lg);
-    font-weight: 400;
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-xl);
+    font-weight: 500;
     letter-spacing: -0.015em;
     line-height: 1.25;
     color: var(--cyn-white);
@@ -133,7 +148,7 @@
     min-height: 182px;
     padding: 1.5rem 0 1.35rem;
     margin-top: 1.35rem;
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline);
 }
 
 .from {
@@ -147,10 +162,13 @@
     opacity: 0.85;
 }
 
+/* Set as the hero sets its figures: the heading face, the same weight, the
+   same tightness, tabular so the three line up. */
 .amount {
     display: block;
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
     font-size: clamp(2.1rem, 3.4vw, 2.65rem);
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 1;
     color: var(--cyn-white);
@@ -161,9 +179,8 @@
 /* Plan 3 is quoted case by case — same slot, set in the heading face so it
    doesn't pretend to be a figure. */
 .custom {
-    font-family: var(--font-heading), Georgia, serif;
     font-size: clamp(1.5rem, 2.4vw, 1.85rem);
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: -0.015em;
 }
 
@@ -183,7 +200,7 @@
     gap: 6px;
     margin-top: 0.7rem;
     padding-top: 0.7rem;
-    border-top: 1px dashed var(--cyn-border-2);
+    border-top: 1px dashed var(--hairline);
     color: var(--cyn-muted);
     font-size: var(--fs-sm);
 }
@@ -226,49 +243,11 @@
     color: var(--cyn-accent);
 }
 
-/* ── CTA ── */
+/* ── CTA ──
+   The look lives in the shared `.cyn-btn` set, which is the hero's button;
+   all this adds is that it fills the card's width. */
 .cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    border-radius: var(--r-sm);
-    border: 1px solid var(--cyn-border);
-    background: transparent;
-    color: var(--cyn-white);
-    text-decoration: none;
-    font-size: var(--fs-sm);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.featured .cta {
-    background: var(--cyn-accent);
-    border-color: var(--cyn-accent);
-    color: var(--cyn-black);
-    font-weight: 600;
-    box-shadow: 0 10px 26px rgba(25, 245, 156, 0.26);
-}
-
-@media (hover: hover) {
-    .cta:hover {
-        background: rgba(25, 245, 156, 0.08);
-        border-color: var(--cyn-accent);
-        color: var(--cyn-accent);
-    }
-
-    .featured .cta:hover {
-        background: var(--cyn-accent-glow);
-        color: var(--cyn-black);
-        box-shadow: 0 14px 34px rgba(25, 245, 156, 0.36);
-    }
-}
-
-.cta:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
+    width: 100%;
 }
 
 /* ── Footnote ── */
@@ -280,7 +259,7 @@
     gap: 12px 20px;
     margin-top: 2rem;
     padding-top: 1.35rem;
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline);
     color: var(--cyn-muted-2);
     font-size: var(--fs-sm);
     line-height: 1.6;
@@ -339,14 +318,6 @@
         transform: none !important;
     }
 
-    .head {
-        align-items: flex-start;
-    }
-
-    .currency {
-        padding-bottom: 0;
-    }
-
     /* The grid turns into a snap scroller here and gave no sign of it: two of the
        three plans sat off-screen with nothing to suggest they existed. Same
        indicator the results carousel already uses. */
@@ -386,4 +357,58 @@
     .card:hover {
         transform: none;
     }
+}
+
+/* ── Light theme ──
+   On the light ground the cards were mint plates with a mint sheen, and the
+   recommended one added a mint wash and a green halo: four tints of the same
+   green, so the eye had nothing to land on. In light the cards are white with
+   a neutral edge and a real cast, and the recommended plan is marked by an
+   accent edge, its label and its neon button — the green means "this one".
+   Dark keeps its plates. */
+:root:not([data-theme="dark"]) .card {
+    border-color: rgba(11, 13, 15, 0.1);
+    background: #ffffff;
+    box-shadow:
+        0 1px 2px rgba(11, 13, 15, 0.04),
+        0 8px 24px rgba(11, 13, 15, 0.05);
+}
+
+:root:not([data-theme="dark"]) .featured {
+    border-color: var(--accent);
+    background: #ffffff;
+    box-shadow:
+        0 0 0 1px var(--accent),
+        0 18px 44px rgba(11, 13, 15, 0.09);
+}
+
+:root:not([data-theme="dark"]) .featured::before {
+    display: none;
+}
+
+@media (hover: hover) {
+    :root:not([data-theme="dark"]) .card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(11, 13, 15, 0.18);
+        box-shadow:
+            0 1px 2px rgba(11, 13, 15, 0.04),
+            0 14px 34px rgba(11, 13, 15, 0.08);
+    }
+
+    :root:not([data-theme="dark"]) .featured:hover {
+        border-color: var(--accent);
+        box-shadow:
+            0 0 0 1px var(--accent),
+            0 22px 50px rgba(11, 13, 15, 0.11);
+    }
+}
+
+/* Inside a white card the rules can be neutral; green hairlines on white are
+   what tinted the whole grid. */
+:root:not([data-theme="dark"]) .price {
+    border-top-color: rgba(11, 13, 15, 0.08);
+}
+
+:root:not([data-theme="dark"]) .addon {
+    border-top-color: rgba(11, 13, 15, 0.1);
 }

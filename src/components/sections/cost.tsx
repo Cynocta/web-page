@@ -9,7 +9,8 @@ export default function CostSection() {
     return (
         <section id="costo" className={s.section}>
             <div className={`cyn-section ${s.inner}`}>
-                <p className="cyn-section-tag">{copy.cost.tag}</p>
+                {/* The heading says what the band is; the rule only opens it. */}
+                <span className={s.rule} aria-hidden="true" />
                 <h2 className={s.title}>{copy.cost.title}</h2>
                 <p className={s.body}>{copy.cost.body}</p>
             </div>

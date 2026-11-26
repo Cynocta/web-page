@@ -38,7 +38,7 @@ const MAX_FEATURES = 5;
  */
 export default function PricingSection({
     ctaHref,
-    tone = "black",
+    tone = "page",
 }: {
     ctaHref: string;
     /** Set by the caller so the band keeps alternating with whatever precedes it. */
@@ -51,16 +51,14 @@ export default function PricingSection({
 
     return (
         <Section id="precios" tone={tone}>
-            <div className={s.head}>
-                <SectionHeader
-                    eyebrow={plans.tag}
-                    title={plans.title.replace("\n", " ")}
-                    intro={plans.subtitle}
-                />
-                <div className={s.currency}>
-                    <span className={s.currencyLabel}>{plans.currencyLabel}</span>
-                    <CurrencyToggle className="cyn-toggle--compact" />
-                </div>
+            <SectionHeader title={plans.title.replace("\n", " ")} intro={plans.subtitle} />
+
+            {/* The switch sits directly over the cards it changes, at their
+                right edge, rather than up on the heading's rule where it was
+                a paragraph of reading away from the prices. */}
+            <div className={s.currency}>
+                <span className={s.currencyLabel}>{plans.currencyLabel}</span>
+                <CurrencyToggle className="cyn-toggle--compact" />
             </div>
 
             <div ref={gridRef} className={s.grid}>
@@ -123,7 +121,12 @@ export default function PricingSection({
                                 ))}
                             </ul>
 
-                            <Link href={ctaHref} className={s.cta}>
+                            <Link
+                                href={ctaHref}
+                                className={`cyn-btn cyn-btn--sm ${
+                                    plan.featured ? "cyn-btn--primary" : "cyn-btn--ghost"
+                                } ${s.cta}`}
+                            >
                                 {plans.cta}
                             </Link>
                         </article>

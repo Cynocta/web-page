@@ -3,55 +3,65 @@
    Shared sheet because the card language is the same across all three.
    ══════════════════════════════════════════════════ */
 
-/* ── Benefits ── */
+/* ── Benefits ──
+   Used by Nosotros (values) and the solution pages. It was a grid of tiles
+   joined by 1px gaps, each opening with a mono number; the numbers named no
+   order, and the tiles were boxes for two lines of text. They are ruled
+   entries now, capped with the tick, like every list on the site. */
 .benefits {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-    gap: 1px;
-    background: var(--cyn-border-2);
-    border: 1px solid var(--cyn-border-2);
-    border-radius: var(--r-lg);
-    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
 }
 
 .benefit {
-    background: var(--cyn-black);
-    padding: 28px 24px;
-    transition: background 0.3s ease;
+    position: relative;
+    padding: 22px 0 clamp(18px, 2vw, 24px);
 }
 
-@media (hover: hover) {
-    .benefit:hover {
-        background: var(--cyn-surface);
-    }
+/* The rule along the top of the entry, with its tick and the graduations. */
+.benefit::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background:
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) 14px center / 50% 7px
+            no-repeat,
+        radial-gradient(circle 3.5px at 3.5px 3.5px, var(--tick) 0 3.5px, transparent 3.5px) left center / 7px 7px
+            no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
 }
 
+/* Kept in the markup for the order the content gives them; set as a quiet
+   annotation rather than as the first thing in the entry. */
 .benefitNum {
     display: block;
-    color: var(--cyn-accent);
+    margin-bottom: 8px;
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.16em;
-    margin-bottom: 1.1rem;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
 }
 
 .benefitTitle {
-    font-size: var(--fs-md);
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
     font-weight: 500;
-    line-height: 1.35;
-    color: var(--cyn-white);
-    margin: 0 0 0.6rem;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
 }
 
 .benefitText {
-    color: var(--cyn-muted);
-    font-size: var(--fs-base);
-    line-height: 1.72;
     margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
+    line-height: 1.7;
 }
 
-/* ── Technologies ── */
+/* ── Technologies, grouped (pricing page) ── */
 .techGroups {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -59,23 +69,38 @@
 }
 
 .techGroup {
-    border-top: 1px solid var(--cyn-border);
+    border-top: 1px solid var(--hairline);
     padding-top: 1rem;
 }
 
 .techLabel {
-    color: var(--cyn-white);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin: 0 0 0.9rem;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
 }
 
+.techLabel::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* The names are the content here — they are the entities that tie the brand to
+   the category — so they are set as names and not parked in grey lozenges. */
 .techList {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    align-items: baseline;
+    gap: 2px 0;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -83,54 +108,64 @@
 
 .tech {
     display: inline-flex;
-    align-items: center;
-    padding: 6px 11px;
-    border-radius: var(--r-sm);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--cyn-border-2);
-    color: var(--cyn-muted);
-    font-size: var(--fs-sm);
-    transition: color 0.2s ease, border-color 0.2s ease;
+    align-items: baseline;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.5;
 }
 
-@media (hover: hover) {
-    .tech:hover {
-        color: var(--cyn-white);
-        border-color: var(--cyn-border);
-    }
+/* The divider trails the name rather than leading it, so a name that wraps to
+   the next line starts flush instead of behind a stray rule. */
+.tech:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 0.85em;
+    margin: 0 15px;
+    translate: 0 1px;
+    background: var(--hairline-strong);
 }
 
-/* ── Use cases ── */
+/* ── Cases (Nosotros, solution pages) ──
+   Ruled entries with a hollow tick, lit under the cursor. They were cards with
+   a gradient fill and a lift on hover. */
 .cases {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-    gap: 16px;
+    column-gap: clamp(2rem, 4vw, 3.5rem);
 }
 
 .case {
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 24px 22px;
-    border-radius: var(--r-md);
-    border: 1px solid var(--cyn-border-2);
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.035) 0%, var(--cyn-black) 62%);
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    padding: clamp(18px, 2vw, 24px) 0 clamp(18px, 2vw, 24px) 26px;
+    border-top: 1px solid var(--hairline-soft);
 }
 
-@media (hover: hover) {
-    .case:hover {
-        border-color: var(--cyn-border);
-        transform: translateY(-3px);
-    }
+.case::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(clamp(18px, 2vw, 24px) + 8px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
 .caseSector {
-    font-size: var(--fs-md);
-    font-weight: 600;
-    color: var(--cyn-white);
-    margin: 0 0 1rem;
-    padding-bottom: 0.85rem;
-    border-bottom: 1px solid var(--cyn-border-2);
+    margin: 0 0 0.6rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
 }
 
 .caseRow {
@@ -145,43 +180,25 @@
 }
 
 .caseLabel {
-    color: var(--cyn-muted-2);
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
-    letter-spacing: 0.13em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
 .caseText {
-    color: var(--cyn-muted);
-    font-size: var(--fs-base);
-    line-height: 1.68;
     margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
+    line-height: 1.7;
 }
 
 .caseSolution {
-    color: var(--cyn-white);
+    color: var(--text-primary);
 }
 
-@media (max-width: 640px) {
-    .benefit {
-        padding: 24px 20px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .benefit,
-    .tech,
-    .case {
-        transition: none;
-    }
-
-    .case:hover {
-        transform: none;
-    }
-}
-
-/* Reveal wrappers must stretch so cards in a row match height. */
+/* Reveal wrappers must stretch so entries in a row line up. */
 .cases > *,
 .techGroups > * {
     display: flex;
@@ -204,39 +221,62 @@
    ══════════════════════════════════════════════════ */
 .stack {
     margin: 0;
-    border-top: 1px solid var(--cyn-border-2);
 }
 
 .stackRow {
     display: grid;
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-    gap: 8px 24px;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--cyn-border-2);
+    grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
+    gap: 10px 32px;
+    align-items: baseline;
+    padding: clamp(16px, 1.8vw, 22px) 0;
+    border-top: 1px solid var(--hairline-soft);
 }
 
+.stackRow:first-child {
+    border-top: 1px solid var(--hairline);
+}
+
+/* The label is the only mono on the band, and it is what mono is for here:
+   naming a column of a specification. A tick caps it, as on every other rule
+   on the page. */
 .stackLabel {
-    color: var(--cyn-white);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.14em;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
+    line-height: 1.6;
+}
+
+.stackLabel::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
 }
 
 .stackTools {
     margin: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
     .stackRow {
         grid-template-columns: minmax(0, 1fr);
-        padding: 12px 0;
+        gap: 8px;
+        padding: 16px 0;
     }
 
     .stackRow .tech {
-        padding: 5px 9px;
-        font-size: var(--fs-xs);
+        font-size: var(--fs-md);
+    }
+
+    .stackRow .tech:not(:last-child)::after {
+        margin: 0 12px;
     }
 }
 
@@ -246,10 +286,11 @@
    every cell repeats its column label from `data-label`, since the header row
    has scrolled out of view by then.
    ══════════════════════════════════════════════════ */
+/* No frame. The table is held by its rules, the way the hero's scale is, and
+   the column heads are the only mono on it. A box around a table is a second
+   container for something that already has structure. */
 .caseTableWrap {
-    border: 1px solid var(--cyn-border-2);
-    border-radius: var(--r-md);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .caseTable {
@@ -259,43 +300,81 @@
 }
 
 .caseTable thead th {
-    padding: 14px 20px;
-    background: var(--cyn-surface);
-    color: var(--cyn-muted-2);
+    padding: 0 20px 12px;
+    color: var(--text-tertiary);
     font-family: var(--font-mono), "Consolas", monospace;
     font-size: var(--fs-2xs);
     font-weight: 400;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--cyn-border-2);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.caseTable thead th:first-child {
+    padding-left: 0;
 }
 
 .caseTable tbody tr + tr {
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline-soft);
 }
 
 .ctSector,
 .ctText {
-    padding: 18px 20px;
+    padding: clamp(16px, 1.8vw, 22px) 20px;
     vertical-align: top;
 }
 
+/* The sector is what a reader scans for, so it is set as a name rather than as
+   the first cell of a row. */
 .ctSector {
     width: 22%;
-    color: var(--cyn-white);
-    font-size: var(--fs-base);
+    padding-left: 0;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
     font-weight: 500;
-    line-height: 1.45;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
 }
 
 .ctText {
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-base);
-    line-height: 1.65;
+    line-height: 1.7;
 }
 
+/* What gets built is the answer to the column beside it, so it carries the
+   ink and a tick, and the problem stays secondary. */
 .ctSolution {
-    color: var(--cyn-white);
+    position: relative;
+    color: var(--text-primary);
+    padding-left: 34px;
+}
+
+/* Only where the table is a table. Below that breakpoint `::before` is spoken
+   for: it carries the column label, since the header row has scrolled away. */
+@media (min-width: 761px) {
+    .ctSolution::before {
+        content: "";
+        position: absolute;
+        left: 14px;
+        top: calc(clamp(16px, 1.8vw, 22px) + 0.6em);
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--tick);
+        box-shadow: 0 0 0 1px var(--mark-ink);
+    }
+}
+
+@media (hover: hover) {
+    .caseTable tbody tr {
+        transition: background-color 0.25s ease;
+    }
+
+    .caseTable tbody tr:hover {
+        background: var(--wash-1);
+    }
 }
 
 @media (max-width: 760px) {
@@ -319,16 +398,20 @@
     }
 
     .caseTable tbody tr {
-        padding: 16px 18px;
+        padding: 20px 0;
     }
 
     .ctSector {
-        padding: 0 0 10px;
-        font-size: var(--fs-md);
+        padding: 0 0 12px;
+        font-size: var(--fs-lg);
     }
 
     .ctText {
-        padding: 6px 0 0;
+        padding: 8px 0 0;
+    }
+
+    .ctSolution {
+        padding-left: 0;
     }
 
     .ctText::before {

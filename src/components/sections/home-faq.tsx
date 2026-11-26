@@ -22,8 +22,8 @@ export default function HomeFaqSection({ locale = "es" }: { locale?: Locale }) {
     const total = faqContent[locale].items.length;
 
     return (
-        <Section id="preguntas" tone="black">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} layout="split" />
+        <Section id="preguntas" tone="page">
+            <SectionHeader title={copy.title} intro={copy.intro} layout="split" />
 
             <div className={s.list}>
                 {copy.items.map((item) => (

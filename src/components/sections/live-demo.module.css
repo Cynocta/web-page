@@ -24,25 +24,47 @@
 .step {
     position: relative;
     padding: 2px 0 2px 18px;
-    border-left: 1px solid var(--cyn-border-2);
+    border-left: 1px solid var(--hairline);
 }
 
-/* The accent rail grows down the active step. */
+/* The rule grows down the active step in the accent, and the step is capped
+   with the tick every other rule on the site uses. It was a 2px neon bar,
+   which on the light ground was the loudest thing in the band. */
 .step::before {
     content: "";
     position: absolute;
     left: -1px;
     top: 0;
-    width: 2px;
+    width: 1px;
     height: 100%;
-    background: var(--cyn-accent);
+    background: var(--accent);
     transform: scaleY(0);
     transform-origin: top;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s var(--ease-soft);
+}
+
+.step::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 19px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.3s ease, transform 0.4s var(--ease-soft);
 }
 
 .active::before {
     transform: scaleY(1);
+}
+
+.active::after {
+    opacity: 1;
+    transform: none;
 }
 
 .stepHeading {
@@ -150,9 +172,10 @@
         width: 44px;
         height: 44px;
         padding: 0;
-        border-radius: 50%;
+        /* Square, like every other control on the site. */
+        border-radius: var(--r-sm);
         border: 1px solid var(--cyn-border-2);
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--hairline-soft);
         color: var(--cyn-white);
         cursor: pointer;
         transition: border-color 0.25s ease, background 0.25s ease;
@@ -177,14 +200,17 @@
     .segments {
         display: flex;
         flex: 1 1 auto;
-        gap: 6px;
+        gap: 4px;
     }
 
     /* The visible bar is 4px; the button around it is the full 44px tap target. */
+    /* min-width: at 320px five segments between two arrows came out 22px
+       wide and touching, under the 24px WCAG 2.5.8 asks of a target. */
     .segment {
         display: flex;
         align-items: center;
         flex: 1 1 0;
+        min-width: 24px;
         height: 44px;
         padding: 0;
         border: 0;
@@ -199,7 +225,7 @@
         width: 100%;
         height: 4px;
         border-radius: var(--r-xs);
-        background: rgba(255, 255, 255, 0.12);
+        background: var(--hairline-strong);
         overflow: hidden;
     }
 
@@ -319,18 +345,52 @@
     }
 }
 
-/* ── Stage ── */
+/* ── Stage ──
+   The device follows the theme. It used to be built in near-black in both,
+   while its text read the theme's tokens — so on the light site the chat
+   header and the system log were dark ink on a dark panel, and the one black
+   block on the page sat in the middle of it. The light device is white glass
+   with a real cast; the dark one is unchanged. */
 .stage {
+    --dev-ground: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+    --dev-edge: rgba(11, 13, 15, 0.12);
+    --chat-ground: #f2f5f3;
+    --bubble-in: #ffffff;
+    --bubble-in-edge: rgba(11, 13, 15, 0.08);
+    --bubble-out: #d6f7e6;
+    --bubble-out-edge: rgba(6, 144, 89, 0.18);
+    --bubble-ink: #111b21;
+    --bubble-time: rgba(17, 27, 33, 0.5);
+    --log-ground: #f7f9f8;
+
     position: relative;
     padding: 16px;
     border-radius: var(--r-lg);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background:
-        radial-gradient(120% 80% at 85% 0%, rgba(25, 245, 156, 0.1) 0%, transparent 60%),
-        linear-gradient(180deg, #0f1113 0%, #08090a 100%);
+    border: 1px solid var(--dev-edge);
+    background: var(--dev-ground);
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 24px 60px rgba(11, 13, 15, 0.1),
+        0 4px 14px rgba(11, 13, 15, 0.05),
+        inset 0 1px 0 #ffffff;
+}
+
+[data-theme="dark"] .stage {
+    --dev-ground:
+        radial-gradient(120% 80% at 85% 0%, var(--wash-3) 0%, transparent 60%),
+        linear-gradient(180deg, #0f1113 0%, #08090a 100%);
+    --dev-edge: var(--hairline-strong);
+    --chat-ground: #0b1014;
+    --bubble-in: #1d262c;
+    --bubble-in-edge: transparent;
+    --bubble-out: #134d3b;
+    --bubble-out-edge: transparent;
+    --bubble-ink: #e9edef;
+    --bubble-time: rgba(233, 237, 239, 0.5);
+    --log-ground: var(--hairline-soft);
+
+    box-shadow:
+        0 30px 80px var(--shadow-cast),
+        inset 0 1px 0 var(--hairline);
 }
 
 .stageTop {
@@ -358,14 +418,14 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     animation: livePulse 2s ease-out infinite;
 }
 
 @keyframes livePulse {
-    0% { box-shadow: 0 0 0 0 rgba(25, 245, 156, 0.55); }
-    70% { box-shadow: 0 0 0 7px rgba(25, 245, 156, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(25, 245, 156, 0); }
+    0% { box-shadow: 0 0 0 0 var(--accent-halo); }
+    70% { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
 }
 
 .progressLabel {
@@ -379,13 +439,13 @@
     height: 2px;
     margin-bottom: 14px;
     border-radius: var(--r-xs);
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--hairline);
     overflow: hidden;
 }
 
 .progressBar {
     height: 100%;
-    background: linear-gradient(90deg, var(--cyn-cyan), var(--cyn-accent));
+    background: var(--accent);
     transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -407,8 +467,8 @@
     flex-direction: column;
     min-width: 0;
     border-radius: var(--r-md);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: #0b1014;
+    border: 1px solid var(--hairline);
+    background: var(--chat-ground);
     overflow: hidden;
 }
 
@@ -417,8 +477,8 @@
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--hairline);
+    background: var(--hairline-soft);
 }
 
 .chatAvatar {
@@ -457,7 +517,7 @@
     height: 272px;
     padding: 12px;
     overflow: hidden;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-image: radial-gradient(var(--hairline-soft) 1px, transparent 1px);
     background-size: 14px 14px;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
@@ -470,7 +530,7 @@
     max-width: 86%;
     padding: 8px 10px 5px;
     border-radius: var(--r-md);
-    color: #e9edef;
+    color: var(--bubble-ink);
     font-size: var(--fs-sm);
     line-height: 1.45;
     animation: messageIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -478,21 +538,23 @@
 
 .fromClient {
     align-self: flex-end;
-    background: #134d3b;
+    background: var(--bubble-out);
+    box-shadow: inset 0 0 0 1px var(--bubble-out-edge);
     border-top-right-radius: 4px;
 }
 
 /* The assistant's reply lands a beat after the message it answers. */
 .fromBot {
     align-self: flex-start;
-    background: #1d262c;
+    background: var(--bubble-in);
+    box-shadow: inset 0 0 0 1px var(--bubble-in-edge);
     border-top-left-radius: 4px;
     animation-delay: 0.4s;
 }
 
 .messageTime {
     align-self: flex-end;
-    color: rgba(233, 237, 239, 0.5);
+    color: var(--bubble-time);
     font-size: var(--fs-2xs);
     font-variant-numeric: tabular-nums;
 }
@@ -515,8 +577,8 @@
     min-width: 0;
     padding: 12px 10px 14px;
     border-radius: var(--r-md);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--hairline);
+    background: var(--log-ground);
 }
 
 .systemTitle {
@@ -559,20 +621,22 @@
     height: 14px;
     margin-top: 2px;
     border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border: 1.5px solid var(--hairline-bold);
     transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* The check is an inline SVG centred on the dot. It used to be a rotated
    border box positioned by hand, which sat visibly off-centre. */
+/* Done: neon with the ink check on it and an ink edge, the same tick the
+   rules use. It was the accent green under a dark check, which in the light
+   theme is a dark mark on a dark dot. */
 .eventOn .eventDot {
-    border-color: var(--cyn-accent);
+    border-color: var(--mark-ink);
     background:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3 5 8.6l4.4-5' fill='none' stroke='%2306130d' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
             center / 9px 9px no-repeat,
-        var(--cyn-accent);
-    box-shadow: 0 0 0 4px rgba(25, 245, 156, 0.12);
-    animation: eventPop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        var(--tick);
+    animation: eventPop 0.5s var(--ease-soft);
 }
 
 
@@ -599,7 +663,7 @@
     color: var(--cyn-muted-2);
     font-size: var(--fs-xs);
     line-height: 1.4;
-    opacity: 0.55;
+    opacity: 0.7;
     transition: opacity 0.35s ease, color 0.35s ease;
 }
 
@@ -618,7 +682,7 @@
     gap: 8px;
     margin: auto 0 0;
     padding: 12px 6px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--hairline);
     opacity: 0.25;
     transition: opacity 0.5s ease;
 }
@@ -693,6 +757,7 @@
 @media (prefers-reduced-motion: reduce) {
     .step,
     .step::before,
+    .step::after,
     .stepBody,
     .stepIndex,
     .stepTitle,

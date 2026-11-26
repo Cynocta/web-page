@@ -255,7 +255,7 @@ export default function PricingPage({ locale }: { locale: Locale }) {
                         <p className={body.ctaTitle}>{pricingPage.ctaTitle}</p>
                         <p className={body.ctaText}>{pricingPage.ctaBody}</p>
                     </div>
-                    <Link href={contactHref} className={body.ctaButton}>
+                    <Link href={contactHref} className="cyn-btn cyn-btn--primary">
                         {pricingPage.ctaLabel}
                     </Link>
                 </div>

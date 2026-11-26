@@ -1,48 +1,47 @@
-import { CalendarCheck, Crosshair, ListChecks, Moon, Timer } from "lucide-react";
+import { Crosshair } from "lucide-react";
+import FieldTrace from "@/components/ui/field-trace";
 import Section from "@/components/ui/section";
 import SectionHeader from "@/components/ui/section-header";
 import { content, type Locale } from "@/lib/content";
 import s from "./measurement.module.css";
 
-/** One icon per measure, in the order the copy lists them. */
-const ICONS = [Timer, Moon, CalendarCheck, ListChecks];
-
 /**
  * "Qué medimos desde el primer día".
  *
  * This band used to be "Resultados reales": three client cases with headline
- * figures (+43 %, 2x, <2 min) that no client stood behind. It now states what
+ * figures (+43 %, 2x, <2 min) that no client stood behind. It states what
  * every project measures and how the baseline is taken — a commitment that can
  * be checked — until a real case is published in the portfolio.
  *
- * Deliberately not a card grid: four columns divided by hairlines, so the band
- * reads differently from the cards around it.
+ * It is drawn as an instrument, because that is what it is claiming to be. The
+ * hero reads its three commitments off a horizontal graduated scale; this is
+ * the same scale stood on end, with a station per measure and the baseline
+ * note hanging off the foot of it. Four icon tiles in four equal columns is
+ * what it was, and a tile does not say "measured" — a tick on a rule does.
  */
 export default function MeasurementSection({ locale = "es" }: { locale?: Locale }) {
     const copy = content[locale].measurement;
 
     return (
-        <Section id="que-medimos" tone="surface">
-            <SectionHeader eyebrow={copy.tag} title={copy.title} intro={copy.intro} layout="split" />
+        <Section
+            id="que-medimos"
+            tone="page"
+            backdrop={<FieldTrace origin={[1.08, 0.46]} step={34} className={s.trace} />}
+        >
+            <SectionHeader title={copy.title} intro={copy.intro} layout="split" />
 
-            <ol className={s.measures}>
-                {copy.items.map((item, index) => {
-                    const Icon = ICONS[index % ICONS.length];
-                    return (
-                        <li key={item.title} className={s.measure}>
-                            <div className={s.top}>
-                                <span className={s.icon}>
-                                    <Icon aria-hidden="true" />
-                                </span>
-                                <span className={s.index}>{String(index + 1).padStart(2, "0")}</span>
-                            </div>
-                            <h3 className={s.title}>{item.title}</h3>
-                            <p className={s.description}>{item.description}</p>
-                        </li>
-                    );
-                })}
+            <ol className={s.scale}>
+                {copy.items.map((item) => (
+                    <li key={item.title} className={s.station}>
+                        <h3 className={s.title}>{item.title}</h3>
+                        <p className={s.description}>{item.description}</p>
+                    </li>
+                ))}
             </ol>
 
+            {/* How the baseline is taken — the commitment that makes the list
+                checkable. It hangs off the foot of the scale rather than
+                sitting in a tinted box of its own. */}
             <p className={s.note}>
                 <Crosshair className={s.noteIcon} aria-hidden="true" />
                 {copy.note}

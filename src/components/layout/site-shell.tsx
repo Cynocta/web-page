@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/structured-data";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { I18nProvider } from "@/components/i18n-provider";
 import type { Locale } from "@/lib/content";
+import { themeBootScript } from "@/components/theme-toggle";
 
 /**
  * The document shell, shared by both locale root layouts.
@@ -22,8 +23,23 @@ export default function SiteShell({
     return (
         <html
             lang={locale}
+            /* The server renders the default; the boot script below rewrites it
+               before paint for anyone who stored dark. That difference is the
+               whole point of the script, so React is told to expect it rather
+               than reporting it as a mismatch. */
+            data-theme="light"
+            suppressHydrationWarning
             className={`${bodyFont.variable} ${headingFont.variable} ${brandFont.variable} ${monoFont.variable} h-full antialiased`}
         >
+            {/* This component renders the App Router's root <html>, where an
+                explicit <head> is the documented way in; the rule below is
+                written for the pages router's next/head. */}
+            {/* eslint-disable-next-line @next/next/no-head-element */}
+            <head>
+                {/* Sets the theme on <html> before the first paint. Anything
+                    later than this is a visible flash of the wrong ground. */}
+                <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+            </head>
             <body className="min-h-full bg-background text-foreground">
                 <I18nProvider locale={locale}>
                     <JsonLd data={organizationJsonLd()} />

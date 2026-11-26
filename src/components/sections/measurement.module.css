@@ -1,166 +1,139 @@
 /* ══════════════════════════════════════════════════
-   "Qué medimos" — four measures in columns divided by hairlines.
+   "Qué medimos" — the hero's graduated scale, stood on end.
+
+   A hairline spine runs down the band with minor graduations along it and a
+   neon tick at each measure. The measure's name sits on its own track and the
+   description on a second, wider one, so the four read as stations on an
+   instrument rather than as four boxes in a row.
    ══════════════════════════════════════════════════ */
 
-.measures {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+.trace {
+    opacity: 0.55;
+}
+
+.scale {
+    position: relative;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 clamp(22px, 2.6vw, 34px);
     list-style: none;
-    border-top: 1px solid var(--cyn-border-2);
 }
 
-.measure {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 24px 20px 26px 0;
-    border-bottom: 1px solid var(--cyn-border-2);
+/* The spine: the rule, with the graduations ticking down it. */
+.scale::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 6px;
+    bottom: 0;
+    width: 7px;
+    background:
+        /* graduations, running right off the spine */
+        repeating-linear-gradient(180deg, var(--hairline) 0 1px, transparent 1px 12px) right center / 6px 100% no-repeat,
+        /* the spine itself, on the ticks' centre line */
+        linear-gradient(var(--hairline-strong), var(--hairline-strong)) left center / 1px 100% no-repeat;
 }
 
-.measure:nth-child(odd) {
-    padding-right: 20px;
-    border-right: 1px solid var(--cyn-border-2);
-}
-
-.measure:nth-child(even) {
-    padding-left: 20px;
-}
-
-.top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-}
-
-.icon {
+/* It stops where the last description does, so the scale ends on a reading
+   rather than running past it into the note. */
+.station {
+    position: relative;
     display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: var(--r-md);
-    border: 1px solid var(--cyn-border);
-    background: var(--cyn-accent-dim);
-    color: var(--cyn-accent);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: clamp(18px, 2vw, 26px) 0;
+    border-top: 1px solid var(--hairline-soft);
 }
 
-.icon svg {
-    width: 18px;
-    height: 18px;
+.station:first-child {
+    border-top: 0;
+    padding-top: 0;
 }
 
-.index {
-    color: var(--cyn-muted-2);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
+/* The major tick: a neon cap on the spine, level with the measure's name. */
+.station::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * clamp(22px, 2.6vw, 34px));
+    top: clamp(22px, 2.2vw, 30px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
+}
+
+.station:first-child::before {
+    top: 6px;
 }
 
 .title {
     margin: 0;
-    color: var(--cyn-white);
+    color: var(--text-primary);
     font-family: var(--font-heading), "Segoe UI", sans-serif;
-    font-size: var(--fs-lg);
+    font-size: var(--fs-xl);
     font-weight: 500;
-    line-height: 1.35;
-    letter-spacing: -0.01em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
 }
 
 .description {
     margin: 0;
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-base);
-    line-height: 1.65;
+    line-height: 1.7;
+    max-width: 58ch;
 }
 
-/* How the baseline is taken — the commitment that makes the list checkable. */
+/* ── Desktop: two tracks ──
+   The name holds the first track and the description the second, so the eye
+   can run down the names alone and stop at the one that is its problem. */
+@media (min-width: 900px) {
+    .station {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+        column-gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: baseline;
+    }
+
+    .station::before {
+        top: clamp(24px, 2.2vw, 32px);
+    }
+
+    .description {
+        max-width: none;
+    }
+}
+
+/* ── The baseline note ──
+   Hangs off the foot of the scale on the same left track as the stations. It
+   used to be a tinted, bordered callout, which is a second surface for one
+   sentence. */
 .note {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    max-width: 72ch;
-    margin: 28px 0 0;
-    padding: 16px 18px;
-    border-radius: var(--r-md);
-    border: 1px solid var(--cyn-border);
-    background: var(--cyn-accent-dim);
-    color: var(--cyn-white);
-    font-size: var(--fs-base);
-    line-height: 1.6;
+    max-width: 68ch;
+    margin: clamp(22px, 2.4vw, 32px) 0 0;
+    padding-left: clamp(22px, 2.6vw, 34px);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    line-height: 1.65;
 }
 
 .noteIcon {
     flex: 0 0 auto;
-    width: 18px;
-    height: 18px;
-    margin-top: 2px;
-    color: var(--cyn-accent);
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    color: var(--accent);
 }
 
-/* Desktop: the four measures in one row. */
-@media (min-width: 1000px) {
-    .measures {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .measure,
-    .measure:nth-child(odd),
-    .measure:nth-child(even) {
-        padding: 28px 24px 30px;
-        border-right: 1px solid var(--cyn-border-2);
-    }
-
-    .measure:first-child {
-        padding-left: 0;
-    }
-
-    .measure:last-child {
-        padding-right: 0;
-        border-right: 0;
-    }
-}
-
-/* Narrow phones: one compact row per measure, icon beside the text. Stacked
-   as cards it took 1,370px for four short items. */
-@media (max-width: 520px) {
-    .measures {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .measure,
-    .measure:nth-child(odd),
-    .measure:nth-child(even) {
-        display: grid;
-        grid-template-columns: 40px minmax(0, 1fr);
-        column-gap: 14px;
-        row-gap: 4px;
-        padding: 16px 0;
-        border-right: 0;
-    }
-
-    .top {
-        grid-row: 1 / span 2;
-        align-self: start;
-        margin: 0;
-    }
-
-    .index {
-        display: none;
-    }
-
+@media (max-width: 560px) {
     .title {
-        font-size: var(--fs-md);
+        font-size: var(--fs-lg);
     }
 
     .description {
-        font-size: var(--fs-base);
-        line-height: 1.55;
-    }
-
-    .note {
-        margin-top: 20px;
-        font-size: var(--fs-base);
+        font-size: var(--fs-sm);
     }
 }

@@ -1,34 +1,73 @@
+/* ══════════════════════════════════════════════════
+   "Lo que cuesta no hacerlo" — the statement that closes the services hub.
+
+   A plate, centred, with the magnet's aura low behind it: the same closing
+   gesture as the homepage's last band, without the marker, which the site
+   spends only on the two headlines that ask for the action.
+   ══════════════════════════════════════════════════ */
+
 .section {
+    position: relative;
+    isolation: isolate;
+    border-radius: var(--plate-edge-r);
+    box-shadow: var(--plate-cast);
     background:
-        radial-gradient(900px 400px at 50% 0%, rgba(25, 245, 156, 0.07) 0%, transparent 70%),
-        var(--cyn-surface);
-    border-bottom: 1px solid var(--cyn-border-2);
+        radial-gradient(46% 70% at 50% 108%, var(--wash-4) 0%, transparent 72%),
+        var(--plate-sheen),
+        var(--bg-surface);
+}
+
+/* The seam on the plate's top edge. */
+.section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(34%, 380px);
+    height: 1px;
+    translate: -50% -50%;
+    border-radius: var(--r-pill);
+    background: linear-gradient(90deg, transparent, var(--accent-halo), transparent);
+    filter: blur(1.5px);
+    pointer-events: none;
 }
 
 .inner {
     max-width: 900px;
-    padding-top: var(--cyn-section-space-tight);
-    padding-bottom: var(--cyn-section-space-tight);
+    padding-top: var(--cyn-space-block);
+    padding-bottom: var(--cyn-space-block);
     text-align: center;
 }
 
-.inner :global(.cyn-section-tag)::after {
-    display: none;
+/* Centred, the rule is symmetrical: the tick in the middle of a short line. */
+.rule {
+    display: block;
+    width: min(300px, 70%);
+    height: 7px;
+    margin: 0 auto clamp(1rem, 2vw, 1.4rem);
+    background:
+        radial-gradient(circle 3.5px at 50% 50%, var(--tick) 0 3.5px, transparent 3.5px),
+        radial-gradient(circle 4.5px at 50% 50%, var(--mark-ink) 0 4.5px, transparent 4.5px),
+        linear-gradient(90deg, transparent 0%, var(--hairline) 22%, var(--hairline) 78%, transparent 100%) center /
+            100% 1px no-repeat;
 }
 
 .title {
-    font-family: var(--font-heading), Georgia, serif;
-    font-size: clamp(1.9rem, 3.6vw, 3rem);
-    line-height: 1.2;
-    font-weight: 300;
-    max-width: 22ch;
-    margin: 0 auto 1.8rem;
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.06;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    max-width: 20ch;
+    margin: 0 auto 1.4rem;
+    text-wrap: balance;
 }
 
 .body {
-    max-width: 680px;
+    max-width: 60ch;
     margin: 0 auto;
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-md);
     line-height: 1.8;
 }
@@ -36,6 +75,16 @@
 @media (max-width: 640px) {
     .inner {
         text-align: left;
+    }
+
+    /* Left-aligned with the text: the tick moves to the head of the line. */
+    .rule {
+        margin-left: 0;
+        background:
+            radial-gradient(circle 3.5px at 4.5px 50%, var(--tick) 0 3.5px, transparent 3.5px),
+            radial-gradient(circle 4.5px at 4.5px 50%, var(--mark-ink) 0 4.5px, transparent 4.5px),
+            linear-gradient(90deg, var(--hairline) 0%, var(--hairline) 70%, transparent 100%) center / 100% 1px
+                no-repeat;
     }
 
     .title {

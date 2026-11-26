@@ -3,7 +3,11 @@ export const siteDescription =
     "Cynocta ayuda a negocios y empresas a crecer con automatización comercial, páginas web de alto rendimiento y sistemas digitales orientados a conversión.";
 export const contactPhone = "+57 305 2580874";
 export const contactEmail = "cynoctaadmin@gmail.com";
-export const instagramUrl = "https://www.instagram.com/cynocta_ai/?utm_source=ig_web_button_share_sheet";
+/* The bare profile URL. It carried `?utm_source=ig_web_button_share_sheet`,
+   left over from copying it out of Instagram's share sheet: every visit from
+   the site was reported to Instagram as a share, and the same URL is the
+   organisation's `sameAs` in the structured data. */
+export const instagramUrl = "https://www.instagram.com/cynocta_ai/";
 /** Must match the host the site is actually served from: cynocta.com redirects
  *  to www, so a non-www fallback points every canonical at a redirect. */
 const fallbackSiteUrl = "https://www.cynocta.com";

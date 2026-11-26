@@ -4,12 +4,27 @@
    more opaque — so it stays legible over any section without ever shouting.
    ══════════════════════════════════════════════════ */
 
+/* The header's own box is always 78px tall. It is sticky, so it sits in the
+   page's flow, and it used to shrink to 62px once the page scrolled past
+   12px: everything under it moved up 16px, the browser's scroll anchoring
+   moved the scroll position to compensate, and right at the threshold that
+   could put it back under 12px — so the bar grew, the page moved down, and
+   the two fought. Now only the visible bar condenses, inside a box that never
+   changes size, and the layout under it never moves.
+
+   The empty strip left under a condensed bar must not swallow clicks meant
+   for the page, so the box ignores the pointer and its children take it
+   back. */
 .header {
     position: sticky;
     top: 0;
     z-index: 60;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.35s ease;
+    height: var(--cyn-header-h);
+    pointer-events: none;
+}
+
+.header > * {
+    pointer-events: auto;
 }
 
 /* The frosted glass lives on a pseudo-element, never on the header itself.
@@ -18,25 +33,29 @@
    child of this header: once the page scrolled and the blur switched on, the
    "full-screen" panel was sized against the 62px header instead of the
    viewport and came out clipped to a sliver. */
+/* The glass is as tall as the visible bar, and draws the bar's bottom edge. */
 .header::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: 0 0 auto;
+    height: var(--cyn-header-h);
     z-index: -1;
-    background: rgba(7, 8, 9, 0.82);
+    background: var(--veil);
     -webkit-backdrop-filter: blur(18px) saturate(150%);
     backdrop-filter: blur(18px) saturate(150%);
+    box-shadow: inset 0 -1px 0 transparent;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scrolled {
-    border-bottom-color: var(--cyn-border-2);
+    transition:
+        opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease;
 }
 
 .scrolled::before {
     opacity: 1;
+    height: 62px;
+    box-shadow: inset 0 -1px 0 var(--cyn-border-2);
 }
 
 .bar {
@@ -74,6 +93,106 @@
 /* ── Desktop navigation ── */
 .nav {
     display: none;
+    position: relative;
+}
+
+/* ── Mega panel ──
+   One surface for every menu, anchored to the nav rather than to the trigger,
+   so moving between menus resizes it in place. The gap above it is crossed by
+   the pointer during the close grace period. */
+/* Position only: this is the element that enters and leaves. */
+.megaAnchor {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    translate: -50% 0;
+    z-index: 40;
+}
+
+/* The panel you actually see, and the one that resizes between menus. */
+.mega {
+    width: max-content;
+    min-width: 440px;
+    max-width: min(760px, calc(100vw - 2 * var(--cyn-shell-x)));
+    padding: 10px;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--hairline-strong);
+    background: var(--veil-strong);
+    backdrop-filter: blur(20px) saturate(150%);
+    box-shadow: 0 22px 54px var(--shadow-cast), inset 0 1px 0 var(--hairline);
+    z-index: 40;
+}
+
+.megaGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.megaLink {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: var(--r-sm);
+    text-decoration: none;
+    transition: background 0.18s ease;
+}
+
+.megaLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.megaHint {
+    color: var(--text-secondary);
+    font-size: var(--fs-xs);
+    line-height: 1.45;
+}
+
+@media (hover: hover) {
+    .megaLink:hover {
+        background: var(--wash-2);
+    }
+}
+
+.megaLink:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.megaActive {
+    background: var(--wash-3);
+}
+
+.megaAll {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 11px 12px;
+    border-top: 1px solid var(--hairline);
+    color: var(--accent-text);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .megaAll:hover {
+        color: var(--text-primary);
+    }
 }
 
 .navList {
@@ -104,7 +223,7 @@
 @media (hover: hover) {
     .link:hover {
         color: var(--cyn-white);
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--hairline);
     }
 }
 
@@ -127,7 +246,7 @@
     width: 16px;
     height: 2px;
     border-radius: var(--r-xs);
-    background: var(--cyn-accent);
+    background: var(--accent-fill);
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
     animation: underline 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -216,7 +335,7 @@
     padding: 0;
     border: 1px solid var(--cyn-border-2);
     border-radius: var(--r-md);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--hairline-soft);
     color: var(--cyn-white);
     cursor: pointer;
     transition: border-color 0.22s ease, background 0.22s ease;
@@ -225,7 +344,7 @@
 @media (hover: hover) {
     .menuBtn:hover {
         border-color: var(--cyn-border);
-        background: rgba(255, 255, 255, 0.06);
+        background: var(--hairline);
     }
 }
 
@@ -263,7 +382,7 @@
     position: fixed;
     inset: 0;
     z-index: 55;
-    background: rgba(7, 8, 9, 0.97);
+    background: var(--veil-strong);
     backdrop-filter: blur(24px);
     display: flex;
     flex-direction: column;
@@ -347,13 +466,13 @@
     justify-content: center;
     min-height: 54px;
     border-radius: var(--r-md);
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
+    background: var(--accent-fill);
+    color: var(--on-accent-fill);
     text-decoration: none;
     font-size: var(--fs-base);
     font-weight: 600;
     letter-spacing: 0.01em;
-    box-shadow: 0 10px 28px rgba(25, 245, 156, 0.24);
+    box-shadow: 0 10px 28px var(--accent-line);
 }
 
 .panelMeta {
@@ -374,8 +493,14 @@
 /* Seven entries plus logo, language switch and CTA need real room. Below this
    the bar overflowed by ~100px, so the mobile panel keeps working further up. */
 @media (min-width: 1200px) {
+    /* Stretched to the bar's full height so the panel's anchor (100%) is the
+       header's bottom edge. Anchored to a 36px nav centred in the bar, the
+       panel started inside the header and its border ran a few pixels under
+       the header's own: two hairlines, one on top of the other. */
     .nav {
-        display: block;
+        display: flex;
+        align-items: center;
+        align-self: stretch;
     }
 
     .cta {
@@ -431,19 +556,40 @@
     font-family: inherit;
 }
 
+/* The 45° that makes the square read as a chevron is the animated value itself,
+   not a base transform underneath one: a CSS transform here would be overwritten
+   the moment the spring takes the property. */
 .caret {
     width: 7px;
     height: 7px;
+    margin-bottom: 2px;
     border-right: 1.5px solid currentColor;
     border-bottom: 1.5px solid currentColor;
-    transform: rotate(45deg) translate(-1px, -1px);
     opacity: 0.55;
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
 
-.caretOpen {
-    transform: rotate(225deg) translate(-2px, -2px);
-    opacity: 1;
+/* The one pill shared by every trigger. It sits under the label and carries the
+   layout animation, so switching menus slides it instead of blinking. */
+.navPill {
+    position: absolute;
+    inset: 0;
+    /* Same radius as every other control in the bar; a round pill over the
+       square hover fill read as two shadows on one button. */
+    border-radius: var(--r-sm);
+    background: var(--wash-3);
+    border: 1px solid var(--accent-line);
+    z-index: 0;
+}
+
+/* While its menu is open the pill is the button's only surface. */
+.menuBtnDesktop[aria-expanded="true"],
+.menuBtnDesktop[aria-expanded="true"]:hover {
+    background: none;
+}
+
+.menuLabel {
+    position: relative;
+    z-index: 1;
 }
 
 /* Sits below the bar with a small gap; the grace period on close is what makes
@@ -457,9 +603,9 @@
     padding: 8px;
     border-radius: var(--r-md);
     border: 1px solid var(--cyn-border-2);
-    background: rgba(14, 15, 17, 0.94);
+    background: var(--veil-strong);
     backdrop-filter: blur(20px) saturate(150%);
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 22px 54px var(--shadow-cast), inset 0 1px 0 var(--hairline);
     animation: dropIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -491,7 +637,7 @@
 @media (hover: hover) {
     .dropdownLink:hover {
         color: var(--cyn-white);
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--hairline);
     }
 }
 

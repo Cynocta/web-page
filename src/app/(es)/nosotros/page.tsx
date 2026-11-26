@@ -169,7 +169,7 @@ export default function NosotrosPage() {
                         <p className={body.ctaTitle}>{about.ctaTitle}</p>
                         <p className={body.ctaText}>{about.ctaBody}</p>
                     </div>
-                    <Link href="/contacto" className={body.ctaButton}>
+                    <Link href="/contacto" className="cyn-btn cyn-btn--primary">
                         {about.ctaLabel}
                     </Link>
                 </div>

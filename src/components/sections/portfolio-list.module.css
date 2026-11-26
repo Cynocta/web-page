@@ -1,66 +1,21 @@
-/* Filter row and card grid mirror the blog index — same interaction, same
-   affordances, so the two "browse a list" pages don't feel unrelated. */
+/* ══════════════════════════════════════════════════
+   The portfolio index — each case as a row with its reading.
 
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 1.8rem 0 2.2rem;
-}
-
-.chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: var(--r-pill);
-    border: 1px solid var(--cyn-border-2);
-    background: transparent;
-    color: var(--cyn-muted);
-    font-family: inherit;
-    font-size: var(--fs-sm);
-    line-height: 1;
-    cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-}
-
-@media (hover: hover) {
-    .chip:hover {
-        border-color: var(--cyn-border);
-        color: var(--cyn-white);
-    }
-}
-
-.chip:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
-}
-
-.chipOn {
-    border-color: var(--cyn-accent-mid);
-    background: var(--cyn-accent-dim);
-    color: var(--cyn-white);
-}
-
-.count {
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    color: var(--cyn-muted-2);
-}
-
-.chipOn .count {
-    color: var(--cyn-accent);
-}
+   A case is read for its number, so the number leads the row, set the way the
+   hero sets its figures: the heading face on a ticked rule, with what it
+   measures in mono beneath it. Title and summary hold the second track. Every
+   case is in the HTML; filtering only hides rows (filters: `.cyn-filters`).
+   ══════════════════════════════════════════════════ */
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--hairline);
 }
 
 .card {
-    display: flex;
     min-width: 0;
+    border-bottom: 1px solid var(--hairline-soft);
 }
 
 .hidden {
@@ -68,113 +23,161 @@
 }
 
 .cardLink {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 26px 24px;
-    border-radius: var(--r-md);
-    border: 1px solid var(--cyn-border-2);
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: clamp(22px, 2.6vw, 32px) 0;
     text-decoration: none;
-    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-@media (hover: hover) {
-    .cardLink:hover {
-        border-color: var(--cyn-border);
-        transform: translateY(-3px);
-        box-shadow: 0 14px 36px rgba(25, 245, 156, 0.08);
-    }
-
-    .cardLink:hover .arrow {
-        color: var(--cyn-accent-glow);
-    }
-}
-
-.cardLink:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
+    transition: background-color 0.25s ease;
 }
 
 .sector {
-    display: inline-block;
-    align-self: flex-start;
-    margin-bottom: 1.1rem;
-    padding: 4px 10px;
-    border-radius: var(--r-pill);
-    border: 1px solid var(--cyn-border);
-    background: var(--cyn-accent-dim);
-    color: var(--cyn-accent);
+    color: var(--accent-text);
     font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.09em;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
-/* The number is the reason anyone reads a case, so it leads the card. */
+/* ── The reading ── */
 .metric {
-    margin: 0 0 1rem;
+    position: relative;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.metric::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    max-width: 220px;
+    background:
+        repeating-linear-gradient(90deg, var(--hairline-strong) 0 1px, transparent 1px 12px) 14px center / 70% 7px
+            no-repeat,
+        radial-gradient(circle 3.5px at 3.5px 3.5px, var(--tick) 0 3.5px, transparent 3.5px) left center / 7px 7px
+            no-repeat,
+        linear-gradient(var(--hairline), var(--hairline)) left center / 100% 1px no-repeat;
 }
 
 .metricValue {
     display: block;
-    color: var(--cyn-white);
-    font-size: clamp(1.9rem, 1.4rem + 1.4vw, 2.5rem);
-    font-weight: 400;
-    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
     line-height: 1;
+    font-variant-numeric: tabular-nums;
     margin-bottom: 6px;
 }
 
 .metricLabel {
     display: block;
-    color: var(--cyn-muted-2);
-    font-size: var(--fs-sm);
+    color: var(--text-tertiary);
+    font-family: var(--font-mono), "Consolas", monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     line-height: 1.5;
 }
 
+/* ── The case ── */
 .title {
-    font-size: var(--fs-lg);
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
     font-weight: 500;
-    line-height: 1.35;
-    color: var(--cyn-white);
-    margin: 0 0 0.55rem;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    text-wrap: balance;
+    transition: color 0.25s ease;
 }
 
 .summary {
-    color: var(--cyn-muted);
+    margin: 0;
+    max-width: 62ch;
+    color: var(--text-secondary);
     font-size: var(--fs-base);
     line-height: 1.7;
-    margin: 0 0 1.2rem;
-    flex: 1;
 }
 
 .meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 7px;
-    margin: 0 0 1rem;
-    color: var(--cyn-muted-2);
+    gap: 4px 9px;
+    margin: 0;
+    color: var(--text-tertiary);
     font-size: var(--fs-sm);
 }
 
 .arrow {
-    color: var(--cyn-accent);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
-    transition: color 0.25s ease;
+    color: var(--accent-text);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+}
+
+@media (min-width: 960px) {
+    .cardLink {
+        grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+        grid-template-areas:
+            "sector  sector"
+            "metric  title"
+            "metric  summary"
+            "metric  meta"
+            "metric  arrow";
+        column-gap: clamp(2rem, 5vw, 4.5rem);
+        row-gap: 8px;
+        align-items: start;
+    }
+
+    .sector {
+        grid-area: sector;
+        margin-bottom: 6px;
+    }
+
+    .metric {
+        grid-area: metric;
+    }
+
+    .title {
+        grid-area: title;
+    }
+
+    .summary {
+        grid-area: summary;
+    }
+
+    .meta {
+        grid-area: meta;
+    }
+
+    .arrow {
+        grid-area: arrow;
+    }
+}
+
+@media (hover: hover) {
+    .cardLink:hover {
+        background: var(--wash-1);
+    }
+
+    .cardLink:hover .title {
+        color: var(--accent-text);
+    }
+}
+
+.cardLink:focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+    border-radius: var(--r-xs);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .chip,
     .cardLink,
-    .arrow {
+    .title {
         transition: none;
-    }
-
-    .cardLink:hover {
-        transform: none;
     }
 }

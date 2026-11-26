@@ -131,9 +131,9 @@ export default function LiveDemoSection({ locale = "es" }: { locale?: Locale }) 
     const stepDuration = active === last ? FINAL_MS : STEP_MS;
 
     return (
-        <Section id="como-funciona" tone="black">
+        <Section id="como-funciona" tone="plate">
             <div ref={rootRef}>
-                <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} />
+                <SectionHeader title={copy.title} intro={copy.intro} />
 
                 <div className={s.layout}>
                     <ol className={s.steps}>

@@ -1,10 +1,14 @@
-/* Continues the page rhythm: this band sits on black between two surface bands. */
+/* ══════════════════════════════════════════════════
+   The FAQ page.
+
+   Plain sections, not accordions: the answer must be in the served HTML for
+   answer engines to read it, and hiding it behind a toggle risks that. Each
+   question stands on its own rule with a tick, set in the heading face; the
+   01–12 that used to sit in front of them carried no order the reader needs.
+   ══════════════════════════════════════════════════ */
+
 .section {
-    background:
-        radial-gradient(820px 420px at 78% 4%, rgba(25, 245, 156, 0.06) 0%, transparent 62%),
-        var(--cyn-black);
-    border-top: 1px solid var(--cyn-border-2);
-    border-bottom: 1px solid var(--cyn-border-2);
+    background: transparent;
 }
 
 .inner {
@@ -12,124 +16,100 @@
 }
 
 .intro {
-    max-width: 62ch;
-    color: var(--cyn-muted);
+    max-width: 60ch;
+    color: var(--text-secondary);
     font-size: var(--fs-md);
     line-height: 1.75;
-    margin-bottom: 2.25rem;
+    margin: 0 0 clamp(1.75rem, 3.5vw, 2.5rem);
 }
 
-/* ── List ──
-   Plain sections, not accordions: the answer must be in the served HTML for
-   answer engines to read it, and hiding it behind a toggle risks that. */
+/* ── List ── */
 .list {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    border-top: 1px solid var(--cyn-border-2);
+    border-top: 1px solid var(--hairline);
 }
 
 .item {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--cyn-border-2);
+    position: relative;
+    padding: clamp(1.25rem, 2.2vw, 1.75rem) 0 clamp(1.25rem, 2.2vw, 1.75rem) 26px;
+    border-bottom: 1px solid var(--hairline-soft);
     scroll-margin-top: 96px;
 }
 
-.question {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    font-size: var(--fs-lg);
-    font-weight: 500;
-    line-height: 1.4;
-    color: var(--cyn-white);
-    margin-bottom: 0.6rem;
+.item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(clamp(1.25rem, 2.2vw, 1.75rem) + 10px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick);
+    box-shadow: 0 0 0 1px var(--mark-ink);
 }
 
-.marker {
-    flex: 0 0 auto;
-    color: var(--cyn-accent);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.12em;
-    opacity: 0.8;
+/* Landing on a question from a search result or a schema link: the row lights
+   so the eye finds it under the sticky header. */
+.item:target {
+    background: linear-gradient(90deg, var(--wash-2), transparent 80%);
+}
+
+.question {
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin: 0 0 0.65rem;
+    text-wrap: balance;
 }
 
 .answer {
-    color: var(--cyn-muted);
+    color: var(--text-secondary);
     font-size: var(--fs-base);
-    line-height: 1.75;
-    max-width: 68ch;
-    padding-left: 30px;
+    line-height: 1.8;
+    max-width: 66ch;
     margin: 0;
 }
 
 /* ── Closing CTA ── */
 .cta {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--cyn-border-2);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.4rem, 3vw, 2rem);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--hairline);
+    background:
+        radial-gradient(420px 220px at 88% 110%, var(--wash-4) 0%, transparent 72%),
+        var(--plate-sheen),
+        var(--plate);
+    box-shadow: var(--shadow-md);
 }
 
 .ctaText {
-    max-width: 46ch;
-    color: var(--cyn-white);
-    font-size: var(--fs-md);
-    line-height: 1.65;
+    max-width: 40ch;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
     margin: 0;
-}
-
-.ctaLink {
-    flex: 0 0 auto;
-    display: inline-block;
-    padding: 13px 22px;
-    border-radius: var(--r-sm);
-    border: 1px solid var(--cyn-accent);
-    background: var(--cyn-accent);
-    color: var(--cyn-black);
-    text-decoration: none;
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: background 0.25s ease, box-shadow 0.25s ease;
-}
-
-@media (hover: hover) {
-    .ctaLink:hover {
-        background: var(--cyn-accent-glow);
-        box-shadow: 0 12px 32px rgba(25, 245, 156, 0.28);
-    }
-}
-
-.ctaLink:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
 }
 
 @media (max-width: 640px) {
     .question {
-        font-size: var(--fs-md);
+        font-size: var(--fs-lg);
     }
 
-    .answer {
-        padding-left: 0;
-        font-size: var(--fs-base);
-    }
-
-    .ctaLink {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .ctaLink {
-        transition: none;
+    .cta {
+        flex-direction: column;
+        align-items: stretch;
     }
 }

@@ -37,8 +37,8 @@ export default function ServicesOverviewSection({ locale = "es" }: { locale?: Lo
     }));
 
     return (
-        <Section id="servicios" tone="surface">
-            <SectionHeader eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} layout="split" />
+        <Section id="servicios" tone="page">
+            <SectionHeader title={copy.title} intro={copy.intro} layout="split" />
 
             <ServiceExplorer
                 families={families}

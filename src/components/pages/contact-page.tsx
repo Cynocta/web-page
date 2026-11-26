@@ -183,7 +183,9 @@ export default function ContactPage({ locale }: { locale: Locale }) {
 
             <PageHero eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} facts={copy.facts} />
 
-            <Section tone="surface">
+            {/* The form is the page's one plate — the tool among readings — so
+                the bands either side of it sit on the open page. */}
+            <Section tone="page">
                 <SectionHeader eyebrow={copy.channelsTag} title={copy.channelsTitle} />
                 <div className={s.channels}>
                     {channels.map((channel) => (
@@ -205,7 +207,7 @@ export default function ContactPage({ locale }: { locale: Locale }) {
 
             <LeadFormSection />
 
-            <Section tone="surface">
+            <Section tone="page">
                 <SectionHeader eyebrow={copy.nextTag} title={copy.nextTitle} intro={copy.nextIntro} />
                 <ol className={steps.steps}>
                     {copy.nextSteps.map((step) => (

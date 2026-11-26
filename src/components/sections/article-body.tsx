@@ -175,7 +175,7 @@ export default function ArticleBody({ post }: { post: BlogPost }) {
                                         <h3 className={s.relatedTitle}>{item.title}</h3>
                                         <p className={s.relatedText}>{item.excerpt}</p>
                                         <span className={s.relatedArrow} aria-hidden="true">
-                                            LEER ARTÍCULO →
+                                            Leer artículo →
                                         </span>
                                     </Link>
                                 ))}
@@ -206,7 +206,7 @@ export default function ArticleBody({ post }: { post: BlogPost }) {
                                 esto lo resuelve, qué costaría y si conviene esperar.
                             </p>
                         </div>
-                        <Link href="/contacto" className={s.ctaButton}>
+                        <Link href="/contacto" className="cyn-btn cyn-btn--primary">
                             Hablemos de tu caso
                         </Link>
                     </div>

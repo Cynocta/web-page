@@ -1,112 +1,184 @@
+/* ══════════════════════════════════════════════════
+   The ten services, as an index.
+
+   What this replaced: ten identical cards, each an icon in a tinted tile, a
+   heading, a line of text and the words "ver servicio" — the grid every
+   template ships with, and at ten items slower to read than a list. The names
+   are what a visitor scans for, so the names carry the rows and the rule holds
+   them together, as on every other band of the site.
+   ══════════════════════════════════════════════════ */
+
 .section {
-    background: var(--cyn-surface);
-    border-top: 1px solid var(--cyn-border-2);
+    background: var(--bg-surface);
+    border-radius: var(--plate-edge-r);
+    box-shadow: var(--plate-cast);
+    position: relative;
+    isolation: isolate;
+}
+
+/* The plate's own light and the seam on its top edge. */
+.section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    background:
+        radial-gradient(38% 160px at 50% 0%, var(--hairline) 0%, transparent 100%),
+        var(--plate-sheen);
+    pointer-events: none;
+}
+
+.section::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 50%;
+    width: min(34%, 380px);
+    height: 1px;
+    translate: -50% -50%;
+    border-radius: var(--r-pill);
+    background: linear-gradient(90deg, transparent, var(--accent-halo), transparent);
+    filter: blur(1.5px);
+    pointer-events: none;
 }
 
 .inner {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
 }
 
-/* One card per service, full width on mobile, two up from tablet. */
-.grid {
+/* ── The index ──
+   Two columns of ruled rows on desktop. One column of ten would leave the
+   summaries swimming in half a screen of empty space. */
+.index {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    gap: 16px;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    column-gap: clamp(2rem, 5vw, 4rem);
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    padding: 0;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    padding: 26px 24px;
-    border-radius: var(--r-md);
-    border: 1px solid var(--cyn-border-2);
-    background: linear-gradient(160deg, rgba(25, 245, 156, 0.04) 0%, var(--cyn-black) 60%);
+.row {
+    border-top: 1px solid var(--hairline-soft);
+}
+
+.slot {
+    display: block;
+}
+
+.entry {
+    display: block;
+    position: relative;
+    padding: clamp(16px, 1.8vw, 22px) 0 clamp(16px, 1.8vw, 22px) 26px;
     text-decoration: none;
-    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition: background-color 0.25s ease;
 }
 
-@media (hover: hover) {
-    .card:hover {
-        border-color: var(--cyn-border);
-        transform: translateY(-3px);
-        box-shadow: 0 14px 36px rgba(25, 245, 156, 0.08);
-    }
-
-    .card:hover .arrow {
-        color: var(--cyn-accent-glow);
-    }
+/* The row's own tick, lit when it is the one under the cursor. */
+.entry::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(clamp(16px, 1.8vw, 22px) + 8px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--hairline-bold);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card:focus-visible {
-    outline: 2px solid var(--cyn-accent);
-    outline-offset: 3px;
-}
-
-.icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 1.1rem;
-    border: 1px solid var(--cyn-border);
-    border-radius: var(--r-sm);
-    background: var(--cyn-accent-dim);
+.head {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 12px;
+}
+
+/* The glyph itself, with no tile under it: a 40px tinted square per row would
+   put ten boxes back on the page by another route. */
+.icon {
+    flex: 0 0 auto;
+    display: inline-flex;
+    color: var(--accent);
 }
 
 .icon svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--cyn-accent);
+    width: 17px;
+    height: 17px;
+    stroke: currentColor;
     fill: none;
     stroke-width: 1.5;
 }
 
 .title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-heading), "Segoe UI", sans-serif;
     font-size: var(--fs-lg);
     font-weight: 500;
-    line-height: 1.3;
-    color: var(--cyn-white);
-    margin: 0 0 0.55rem;
-}
-
-.summary {
-    color: var(--cyn-muted);
-    font-size: var(--fs-base);
-    line-height: 1.7;
-    margin: 0 0 1.2rem;
-    flex: 1;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
 }
 
 .arrow {
-    color: var(--cyn-accent);
-    font-family: var(--font-mono), "Consolas", monospace;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.1em;
-    transition: color 0.25s ease;
+    flex: 0 0 auto;
+    color: var(--text-tertiary);
+    font-size: var(--fs-sm);
+    transition: color 0.25s ease, transform 0.25s var(--ease-soft);
+}
+
+.summary {
+    display: block;
+    margin-top: 5px;
+    padding-left: 29px;
+    color: var(--text-secondary);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+}
+
+@media (hover: hover) {
+    .entry:hover {
+        background: var(--wash-1);
+    }
+
+    .entry:hover::before {
+        background: var(--tick);
+        box-shadow: 0 0 0 1px var(--mark-ink);
+    }
+
+    .entry:hover .arrow {
+        color: var(--accent-text);
+        transform: translateX(3px);
+    }
+}
+
+.entry:focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 2px;
+    border-radius: var(--r-xs);
+}
+
+@media (max-width: 560px) {
+    .summary {
+        padding-left: 0;
+        font-size: var(--fs-sm);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .card,
+    .entry,
+    .entry::before,
     .arrow {
         transition: none;
     }
 
-    .card:hover {
+    .entry:hover .arrow {
         transform: none;
     }
-}
-
-/* Reveal wraps each card in a div, which becomes the grid item — without this
-   the cards stop stretching to equal height. */
-.grid > * {
-    display: flex;
-    min-width: 0;
-}
-
-.grid > * > .card,
-.card {
-    width: 100%;
-    height: 100%;
 }
