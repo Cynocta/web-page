@@ -25,9 +25,9 @@ export const servicesEs: Record<string, ServiceDetail> = {
         cardSummary:
             "Atiende, califica y agenda 24/7 en el canal donde tus clientes ya te escriben.",
         icon: "chat",
-        metaTitle: "Chatbot de WhatsApp con IA para empresas",
+        metaTitle: "Chatbot de WhatsApp con IA para empresas en Colombia",
         metaDescription:
-            "Implementamos bots de WhatsApp que responden en segundos, califican prospectos y agendan citas. Con API oficial de Meta o número propio, integrado a tu CRM.",
+            "Chatbot de WhatsApp con IA para empresas en Colombia y LATAM: responde en segundos, califica prospectos y agenda citas, con la API oficial de Meta y tu CRM.",
         eyebrow: "Servicio",
         heading: "Un bot de WhatsApp que responde como tu mejor vendedor.",
         intro:
@@ -141,9 +141,9 @@ export const servicesEs: Record<string, ServiceDetail> = {
         cardSummary:
             "Conectamos tus herramientas para que el trabajo repetitivo deje de pasar por una persona.",
         icon: "ops",
-        metaTitle: "Automatización de procesos para PYMES",
+        metaTitle: "Automatización de procesos con IA para empresas",
         metaDescription:
-            "Conectamos tus herramientas con n8n y Make para eliminar el trabajo manual repetitivo: seguimiento de leads, facturación y traspaso de datos entre sistemas.",
+            "Automatización de procesos con IA para pymes y empresas en Colombia y LATAM: seguimiento de leads, facturación y traspaso de datos entre sistemas con n8n.",
         eyebrow: "Servicio",
         heading: "El trabajo repetitivo no necesita a una persona.",
         intro:
@@ -246,9 +246,9 @@ export const servicesEs: Record<string, ServiceDetail> = {
         cardSummary:
             "No siguen un guion: razonan sobre el objetivo y ejecutan acciones en tus sistemas.",
         icon: "kpi",
-        metaTitle: "Desarrollo de agentes de IA para empresas",
+        metaTitle: "Agentes de IA para empresas y WhatsApp en Colombia",
         metaDescription:
-            "Agentes que consultan tus datos, deciden qué herramienta usar y ejecutan acciones reales en tu CRM, calendario o inventario. Más allá del chatbot con guion.",
+            "Agentes de IA que atienden por WhatsApp, consultan tus datos y ejecutan acciones reales en tu CRM, calendario o inventario. Más allá del chatbot con guion.",
         eyebrow: "Servicio",
         heading: "Un agente decide; un chatbot solo responde.",
         intro:
@@ -357,9 +357,9 @@ export const servicesEs: Record<string, ServiceDetail> = {
         cardSummary:
             "Que cada conversación termine registrada donde tu equipo la puede ver y seguir.",
         icon: "ops",
-        metaTitle: "Integración de WhatsApp y web con tu CRM",
+        metaTitle: "Integrar WhatsApp con tu CRM: HubSpot, Zoho, Pipedrive",
         metaDescription:
-            "Conectamos WhatsApp, formularios y campañas con HubSpot, Pipedrive, Zoho o Salesforce. Cada lead entra con su contexto y nada se pierde entre herramientas.",
+            "Integramos WhatsApp, formularios y campañas con HubSpot, Pipedrive, Zoho CRM o Salesforce para empresas en Colombia y LATAM. Cada lead entra con su contexto.",
         eyebrow: "Servicio",
         heading: "Un lead que no queda registrado es un lead perdido.",
         intro:

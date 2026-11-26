@@ -10,8 +10,9 @@ export { POST_SLUGS, POST_CATEGORIES };
  */
 export const postsEsNav: Record<PostSlug, string> = {
     "n8n-vs-make-vs-zapier": "n8n vs Make vs Zapier",
-    "cuanto-cuesta-la-api-de-whatsapp-business": "Cuánto cuesta la API de WhatsApp",
+    "cuanto-cuesta-la-api-de-whatsapp-business": "Precio de la API de WhatsApp",
     "chatbot-vs-agente-de-ia": "Chatbot vs agente de IA",
+    "cuanto-cuesta-n8n": "Cuánto cuesta n8n",
 };
 
 export const categoriesEsNav: Record<PostCategory, string> = {

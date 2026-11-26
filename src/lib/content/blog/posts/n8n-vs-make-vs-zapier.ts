@@ -195,6 +195,6 @@ export const n8nVsMakeVsZapier: BlogPost = {
         },
     ],
 
-    related: ["chatbot-vs-agente-de-ia", "cuanto-cuesta-la-api-de-whatsapp-business"],
+    related: ["cuanto-cuesta-n8n", "chatbot-vs-agente-de-ia"],
     relatedServices: ["automatizaciones-n8n", "automatizacion-de-procesos", "integraciones-api"],
 };

@@ -12,9 +12,9 @@ export const servicesEsExtra: Record<string, ServiceDetail> = {
         cardSummary:
             "Cuando ninguna herramienta del mercado encaja con cómo trabaja tu negocio.",
         icon: "code",
-        metaTitle: "Desarrollo de software a medida para empresas",
+        metaTitle: "Desarrollo de software a medida en Colombia",
         metaDescription:
-            "Aplicaciones internas, portales de cliente y herramientas de operación construidas sobre tu proceso real, no sobre el de un producto genérico.",
+            "Desarrollo de software a medida para empresas en Colombia: aplicaciones internas, portales de cliente y herramientas de operación hechas sobre tu proceso real.",
         eyebrow: "Servicio",
         heading: "Software que se adapta a tu proceso, no al revés.",
         intro:
@@ -128,9 +128,9 @@ export const servicesEsExtra: Record<string, ServiceDetail> = {
         cardSummary:
             "Que tus herramientas se hablen entre sí, con manejo de errores de verdad.",
         icon: "api",
-        metaTitle: "Integración de sistemas y APIs para empresas",
+        metaTitle: "Servicios de integración de APIs y sistemas",
         metaDescription:
-            "Conectamos tus herramientas mediante sus APIs con reintentos, alertas y trazabilidad. Sin scripts frágiles que fallan en silencio.",
+            "Integración de sistemas y APIs para empresas en Colombia y LATAM, con reintentos, alertas y trazabilidad. Sin scripts frágiles que fallan en silencio.",
         eyebrow: "Servicio",
         heading: "Dos sistemas que no se hablan cuestan una persona.",
         intro:
@@ -238,9 +238,9 @@ export const servicesEsExtra: Record<string, ServiceDetail> = {
         cardSummary:
             "Flujos autohospedados: pagas el servidor, no cada ejecución.",
         icon: "flow",
-        metaTitle: "Implementación y consultoría de n8n",
+        metaTitle: "Automatización con n8n para empresas en Colombia",
         metaDescription:
-            "Instalación de n8n autohospedado, diseño de flujos, nodos personalizados y migración desde Zapier o Make. Sin costes por ejecución.",
+            "Implementamos n8n autoalojado para empresas en Colombia y LATAM: flujos, agentes de IA, WhatsApp y CRM, y migración desde Zapier o Make. Sin cobro por ejecución.",
         eyebrow: "Servicio",
         heading: "n8n bien montado: sin límite de ejecuciones.",
         intro:
