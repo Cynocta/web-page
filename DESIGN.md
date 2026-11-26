@@ -99,6 +99,26 @@ dragonflies, both canvas, both behind the type. The bands between them carry
 as one static SVG path. It steps back to a whisper under 900px, where the band
 is as narrow as the column of text.
 
+### Performance on phones
+
+Measured, not guessed (25 November 2026). A theme reveal by View Transition
+stalled the main thread for about a second even on a desktop: it repaints a
+live image of the whole page every frame, with the menu's full-screen blur
+and the field inside it. So:
+
+- Phones and tablets (`pointer: coarse` or under 768px) change theme
+  instantly: one style recalculation, about 15ms. The ellipse reveal is a
+  desktop flourish, and nothing blurs or draws while it runs.
+- No colour transition on `body *`: it started ~1,000 animations per theme
+  change on every browser without View Transitions.
+- No `backdrop-filter` on touch screens. The sticky bar and the menu panel
+  are opaque there: a blur under a sticky bar is redone on every scroll
+  frame, and a translucent veil without it lets text ghost through.
+- The field draws at 30fps on touch screens and pauses during the reveal.
+- The hero never starts black: its pre-arrival ground is the paper colour,
+  the failsafes fire at 1.2s and stop once the script takes over, and a hero
+  the failsafe already showed is not hidden again to animate it.
+
 ## Components
 
 | Component | What it owns |

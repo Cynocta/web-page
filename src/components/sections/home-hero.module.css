@@ -5,10 +5,14 @@
    ══════════════════════════════════════════════════ */
 
 .hero {
-    /* Paper and its night. `--hero-before` is what shows before the ground
-       arrives: the dark the reveal opens out of. */
+    /* `--hero-before` is what shows before the ground arrives. It was near-black
+       in the light theme too, and the ground only arrives once the script has
+       hydrated: on a phone still working through the page's JavaScript that
+       was a black hero for up to the failsafe's full wait. In light it is now
+       the paper's own top colour, so the reveal opens out of light. */
     --hero-ground: #eaf8f1;
-    --hero-before: #06120d;
+    --hero-before: #f6fdf9;
+
     --hero-rule: rgba(6, 18, 13, 0.22);
     --hero-ink: var(--text-primary);
     /* The scale's 10px captions sit at the foot of the plate, where the floor
@@ -378,12 +382,22 @@
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
     .ground {
         clip-path: ellipse(20% 0% at 100% 100%);
-        animation: groundFailsafe 0s 2.5s forwards;
     }
 
     .word {
         opacity: 0;
-        animation: wordFailsafe 0s 2.5s forwards;
+    }
+
+    /* The failsafes only run until the script takes over. Counted from first
+       paint, they would otherwise cut into an arrival that started late —
+       snapping the ground's reveal open halfway — now that they fire at 1.2s
+       rather than 2.5s. */
+    .hero:not([data-arrived]) .ground {
+        animation: groundFailsafe 0s 1.2s forwards;
+    }
+
+    .hero:not([data-arrived]) .word {
+        animation: wordFailsafe 0s 1.2s forwards;
     }
 
     .hero:not([data-arrived]) .subtitle {
@@ -415,16 +429,16 @@
         translate: 0 6px;
     }
 
-    .subtitle,
-    .primary,
-    .secondary,
-    .scaleInner::before,
-    .scaleInner::after,
-    .tick::before,
-    .tick::after,
-    .tickValue,
-    .tickLabel {
-        animation: supportFailsafe 0s 2.5s forwards;
+    .hero:not([data-arrived]) .subtitle,
+    .hero:not([data-arrived]) .primary,
+    .hero:not([data-arrived]) .secondary,
+    .hero:not([data-arrived]) .scaleInner::before,
+    .hero:not([data-arrived]) .scaleInner::after,
+    .hero:not([data-arrived]) .tick::before,
+    .hero:not([data-arrived]) .tick::after,
+    .hero:not([data-arrived]) .tickValue,
+    .hero:not([data-arrived]) .tickLabel {
+        animation: supportFailsafe 0s 1.2s forwards;
     }
 
     .hero[data-arrived] .subtitle {

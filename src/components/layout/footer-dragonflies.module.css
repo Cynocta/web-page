@@ -32,14 +32,3 @@
     opacity: 0.7;
 }
 
-/* The site cross-fades background-color over 280ms when the theme changes
-   (globals.css), and every element inherits that. The renderer reads this
-   colour the instant the theme flips and keeps it, so mid-fade it would be
-   handed the surface the page is leaving and paint the footer in it until
-   the next theme change — which is exactly what happened: a light plate
-   under a dark page. The canvas cannot cross-fade anyway, since it repaints
-   whole frames, so it opts out and the read is true. Needs to out-specify
-   `html.theme-ready body *`. */
-:global(html.theme-ready) :global(body) .canvas {
-    transition: none;
-}
